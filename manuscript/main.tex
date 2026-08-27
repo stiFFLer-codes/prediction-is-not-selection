@@ -49,6 +49,11 @@ empirically best mechanism in 100\% of comparisons in one consistency band
 and 0\% in another, because the winner is instead a constant function of the
 separately manipulated lexical condition, a variable the consistency signal
 is constructed not to observe.
+That the winner is retrieval, and that the exact-match rule's disadvantage
+\emph{widens} rather than shrinks as consistency rises, are empirical
+outcomes, not consequences of how the signal is defined: the construction
+forces only that the signal cannot see surface-form variation, not which
+mechanism that variation favors, nor by how much.
 This finding is scoped to one synthetic generator, one lexical-perturbation
 model, and one motivating (non-evidentiary) production case study; it is not
 a deployment or generalization claim. A design-time selector built on historical
@@ -163,6 +168,22 @@ lexical condition, unrelated to how consistent the underlying data is. These
 are two different claims with two different answers. Here the answers are
 opposite. This paper never merges them into a single statement about whether
 "historical consistency works."
+
+The second finding has a feature worth isolating early, because it is the
+part a reader might otherwise assume the experiment's construction
+guarantees. That realized consistency cannot \emph{see} the lexical
+condition is indeed true by construction (Section~4.3). But which
+mechanism the lexical condition favors, and how that advantage scales with
+consistency, are not fixed in advance by any definition. The empirical
+answer is counterintuitive: under perturbation, retrieval wins in every
+condition, and the exact-match rule's disadvantage \emph{widens} as
+realized consistency rises ($-0.137$ to $-0.185$ whole-set-accuracy points
+across ADS bands; Section~5.5), rather than shrinking as the
+precedent-based intuition would predict. High-consistency data is exactly
+where an exact-match rule appears safest and is in fact where it has the
+most to lose when surface strings are perturbed. That direction and
+magnitude are the empirical core of this paper; the
+accuracy-versus-ranking distinction organizes them.
 
 \subsection{Contribution Statement and Paper Roadmap}
 \label{sec:contribution-roadmap}
