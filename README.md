@@ -26,6 +26,7 @@ Controlled Synthetic Study"**
 Maitreya Sapariya, Independent Researcher ([ORCID 0009-0003-9346-3775](https://orcid.org/0009-0003-9346-3775))
 
 - **Status:** manuscript finalized (release candidate); not yet submitted to arXiv.
+- **Read the paper:** [`manuscript/ADS_Cascade.pdf`](manuscript/ADS_Cascade.pdf) (compiled)
 - **Manuscript source:** [`manuscript/main.tex`](manuscript/main.tex), [`manuscript/references.bib`](manuscript/references.bib)
 - **Figures:** [`manuscript/figures/`](manuscript/figures/)
 
