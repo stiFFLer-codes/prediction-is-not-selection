@@ -36,6 +36,8 @@ scratchpad/
 arxiv_build/
 arxiv_submission/
 arxiv_submission.tar*.gz
+arxiv_final/
+arxiv_final.tar*.gz
 
 # Compiled paper — rebuild from manuscript/ before submitting
 Final PDF/
