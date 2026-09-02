@@ -147,12 +147,13 @@ requirements.txt       Python dependencies (standard library first; pandas, requ
 
 ### Repository / software citation
 
-This repository is archived on Zenodo with a citable DOI, identifying this repository/software
-release:
+This repository is archived on Zenodo. The badge below is the *concept* DOI — it always
+resolves to the latest archived release:
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21644208.svg)](https://doi.org/10.5281/zenodo.21644208)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21644207.svg)](https://doi.org/10.5281/zenodo.21644207)
 
-See [`CITATION.cff`](CITATION.cff) for structured citation metadata (GitHub renders a "Cite this
+Per-release DOIs: `10.5281/zenodo.22258609` (v1.1.0), `10.5281/zenodo.21644208` (v1.0.0). See
+[`CITATION.cff`](CITATION.cff) for structured citation metadata (GitHub renders a "Cite this
 repository" button from it automatically).
 
 ### Research paper citation

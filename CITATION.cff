@@ -20,11 +20,14 @@ license: MIT
 repository-code: "https://github.com/stiFFLer-codes/ADS-Cascade"
 identifiers:
   - type: doi
+    value: "10.5281/zenodo.21644207"
+    description: "Zenodo concept DOI (resolves to the latest version)"
+  - type: doi
+    value: "10.5281/zenodo.22258609"
+    description: "Zenodo archive of v1.1.0"
+  - type: doi
     value: "10.5281/zenodo.21644208"
     description: "Zenodo archive of v1.0.0"
-  - type: url
-    value: "https://github.com/stiFFLer-codes/ADS-Cascade/releases/tag/v1.1.0"
-    description: "v1.1.0 release"
 keywords:
   - classification
   - document-ai

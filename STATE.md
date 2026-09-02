@@ -6,10 +6,11 @@ docs, it does not copy them.
 `Last updated: 2026-09-02`
 
 **Current phase:** Phase 1 (data engineering) and Phase 2 (receipt cascade demo) are
-complete. The repository is published and archived on Zenodo (v1.0.0, DOI
-[10.5281/zenodo.21644208](https://doi.org/10.5281/zenodo.21644208)). The Experiment 1
-manuscript (`manuscript/main.tex`) is finalized as a release candidate. The arXiv
-submission has not yet happened.
+complete. The repository is published and archived on Zenodo (latest release v1.1.0;
+concept DOI [10.5281/zenodo.21644207](https://doi.org/10.5281/zenodo.21644207), which
+always resolves to the newest version). The Experiment 1 manuscript
+(`manuscript/main.tex`) is finalized as a release candidate. The arXiv submission has not
+yet happened.
 
 ---
 
