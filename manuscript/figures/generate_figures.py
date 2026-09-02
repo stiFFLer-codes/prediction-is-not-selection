@@ -5,16 +5,12 @@ no new experiments, no re-computation of any statistic beyond what those
 artifacts already report. Uses the stdlib csv module (not pandas) and
 matplotlib, consistent with this repository's stdlib-first convention.
 
-NOTE (Phase E5.4): matplotlib is not installed in this repository's own
-environment (verified via `python -c "import matplotlib"`, ModuleNotFoundError)
--- requirements.txt intentionally leaves it commented out (see that file) since
-it is needed only for this figure-generation step, not for reproducing
-Experiment 1's results. This script was executed in an isolated,
-scratchpad-only virtualenv with matplotlib installed (mirroring the
-verification pattern used for rapidfuzz in E5.3,
-research/E5_3_CORRECTION_AUDIT.md Sec.3) to render the committed
-manuscript/figures/f1_design_flow.pdf .. f4_ranking_constancy.pdf, which
-main.tex now includes via \includegraphics.
+NOTE: matplotlib is not part of this repository's own environment --
+requirements.txt intentionally leaves it commented out, since it is needed only
+for this figure-generation step, not for reproducing Experiment 1's results.
+The committed figures (manuscript/figures/f1_design_flow.pdf ..
+f4_ranking_constancy.pdf, which main.tex includes) were rendered by running
+this script in an isolated virtualenv with matplotlib installed.
 
 Usage:
     pip install matplotlib
@@ -106,7 +102,7 @@ def make_f3(plt, rows):
     0% bar would be visually indistinguishable from the >=0.90 band's
     genuine, defined, exceptionless 0/18 disagreement, collapsing
     "structurally not evaluated" and "evaluated and failed" into the same
-    mark (research/PAPER_CONTRACT.md Sec.6/Sec.7 numerical-rule concern)."""
+    mark."""
     bands = ["<0.70", "0.70-0.90", ">=0.90"]
     varied = [r for r in rows if r["lexical_variation"]]
     counts = {b: {"agree": 0, "n": 0} for b in bands}

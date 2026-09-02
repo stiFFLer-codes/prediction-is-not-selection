@@ -3,7 +3,7 @@ scripts/00_generate_synthetic.py
 ---------------------------------
 Generates statistically-equivalent synthetic Phase 1 outputs for the public
 `research` branch. Targets the aggregate distributions documented in
-data_verification_audit.md (91.2% product determinism, 0.695 cross-company
+reports/data_verification_audit.md (91.2% product determinism, 0.695 cross-company
 consistency, 94.5% VAT stability, 73.9/26.1 purchase/sale split) without
 reading or containing any real company name, CUI, or product string --
 every value here is generated from scratch.
@@ -40,7 +40,7 @@ N_PRODUCTS = 1200               # kept low relative to line volume so each produ
                                  # (a handful of occurrences is too noisy to reflect the
                                  # underlying per-product probability)
 
-# Targets from data_verification_audit.md's "Authoritative Value" column
+# Targets from reports/data_verification_audit.md's "Authoritative Value" column
 DETERMINISTIC_SHARE = 0.95      # products with dominant-account share > 0.95 (set above the
                                  # 91.2% real target: small per-product sample sizes in this
                                  # scaled-down run add noise that pulls the realized rate down)

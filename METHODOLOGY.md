@@ -26,7 +26,7 @@ does not redesign anything, it re-runs it on synthetic input.
 
 1. **`scripts/00_generate_synthetic.py`** (new) — generates fictitious companies,
    products, GL accounts, and invoice lines directly from the *targets* documented
-   in `data_verification_audit.md` (91.2% product determinism, 0.695 cross-company
+   in `reports/data_verification_audit.md` (91.2% product determinism, 0.695 cross-company
    consistency, 94.5% VAT stability, 73.9/26.1 purchase/sale split), rather than
    reading any real data. It writes `data/outputs/invoice_lines_all_companies.csv`,
    `product_account_mapping.csv`, `invoice_statistics.csv`, and `gl_statistics.csv`

@@ -128,16 +128,14 @@ manuscript/            Experiment 1 Research Paper: main.tex, references.bib, fi
 TECHNICAL_REPORT.md    Phase 1/2 Engineering Report: problem, method, evaluation, limitations
 METHODOLOGY.md         what is public versus confidential, and the real-vs-synthetic comparison
 docs/                   demo/, INDEX.md, PHASE2_PLAN.md, Context.md, Phases.md
-STATE.md               living status, how to run, resume prompt
+STATE.md               living project status and how to run the pipeline
 architecture/          Phase 2 solution architecture: 17 docs, 16 ADRs, open questions
 scripts/               Phase 1 pipeline (01-04), Phase 2 (phase2/: p2_01...p2_06 plus p2lib/),
                        and Experiment 1 (experiments/exp1/ -- see "Reproduce Experiment 1" above)
-reports/               Phase 1 findings and architecture decision report
+reports/               Phase 1 findings, the architecture-decision report, and the
+                       data-verification audit behind the headline production numbers
 data/                  source-of-truth manifest plus outputs/ (synthetic results, incl. phase2/
                        and experiments/exp1/, the Experiment 1 frozen evidence)
-research/              Experiment 1 research/audit trail (evidence review, contribution lock,
-                       manuscript drafting checkpoints) -- internal working documents, not needed
-                       to reproduce the results, only to see how the manuscript's claims were derived
 config/  utils/        shared settings and helpers
 AGENTS.md              working conventions
 requirements.txt       Python dependencies (standard library first; pandas, requests, tqdm, rapidfuzz)

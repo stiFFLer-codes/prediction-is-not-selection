@@ -14,9 +14,15 @@ venv/
 # Local scratch
 scratch_*
 
-# Research positioning notebook — raw thinking, rejected hypotheses, alternative
-# framings. Not for the public repo; the manuscript is what gets published.
+# Internal working docs — kept local, not part of the public export. Full
+# history stays in git: `git log --all -- research/ BUILD_PLAN.md` to browse,
+# `git checkout <commit> -- <path>` to restore.
 RESEARCH_NOTEBOOK.md
+research/
+BUILD_PLAN.md
+ROADMAP.md
+synthetic_data_plan.md
+reports/phase1_report.js
 
 # Tool / local (not project work)
 .claude/
@@ -28,4 +34,8 @@ scratchpad/
 
 # arXiv build artifacts — regenerate with scripts/r10_9_final_pass.py
 arxiv_build/
-arxiv_submission.tar.gz
+arxiv_submission/
+arxiv_submission.tar*.gz
+
+# Compiled paper — rebuild from manuscript/ before submitting
+Final PDF/

@@ -32,7 +32,7 @@ drifts.
 - `../architecture/OPEN_QUESTIONS.md` — 20 unconfirmed items with defaults
 
 ## Rules
-- `../AGENTS.md` — working discipline (lazy-senior-dev / ponytail rules)
+- `../AGENTS.md` — repository conventions (how to make changes here)
 - `../architecture/00_SCOPE.md` §2 + `../architecture/DECISIONS.md` — locked domain
   ground truths (do not re-litigate: RULES_FIRST, hybrid, VAT-secondary, no mass
   reprocessing, OCR ≠ classification confidence)

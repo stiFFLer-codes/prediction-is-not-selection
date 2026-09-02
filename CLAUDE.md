@@ -6,8 +6,8 @@ validated on Romanian fiscal-document classification. See README.md for the pitc
 TECHNICAL_REPORT.md for the paper.
 
 Read STATE.md first, every session. It is the single source of truth for current status, what's
-done, what's next, and how to resume. Don't re-derive project state from exploring the codebase
-if STATE.md already answers it.
+done, what's next, and how to run the pipeline. Don't re-derive project state from exploring the
+codebase if STATE.md already answers it.
 
 Full navigation: docs/INDEX.md
 Coding-style conventions for this repo: AGENTS.md

@@ -3,6 +3,11 @@
 > Working plan for the Phase 2 demo. Status lives in `../STATE.md`; roadmap context in
 > `Phases.md`. This implements *demo projections* of `../architecture/07_DATA_SCHEMA.md`
 > and `../architecture/08_CONFIDENCE_CASCADE.md` — it does not redesign them.
+>
+> **Note on the public export:** paths below such as `../Receipts Examples/` and
+> `image (1).png` are the real receipt photos, which are confidential and not included
+> here (see `../METHODOLOGY.md`). The public repo runs Phase 2 on synthetic Textract
+> fixtures under `data/outputs/phase2/textract_raw/` instead.
 
 ## Why this shape
 

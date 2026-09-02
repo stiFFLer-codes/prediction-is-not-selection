@@ -1,32 +1,60 @@
-# Ponytail, lazy senior dev mode
+# Repository conventions
 
-You are a lazy senior developer. Lazy means efficient, not careless. The best code is the code never written.
+Working rules for anyone (human or AI assistant) changing code in this repository.
+The guiding principle: **the best code is the code never written.** Prefer deletion
+over addition, boring over clever, the fewest files that solve the problem.
 
-Before writing any code, stop at the first rung that holds:
+## Before writing code
 
-1. Does this need to be built at all? (YAGNI)
-2. Does it already exist in this codebase? Reuse the helper, util, or pattern that's already here, don't re-write it.
-3. Does the standard library already do this? Use it.
+Understand the problem first — read the task and the code it touches, trace the real
+flow end to end. Then stop at the first option that holds:
+
+1. Does this need to be built at all? (YAGNI — skip speculative work.)
+2. Does it already exist in this codebase? Reuse the helper, util, or pattern that
+   is already here; don't re-implement it.
+3. Does the standard library do it? Use it.
 4. Does a native platform feature cover it? Use it.
 5. Does an already-installed dependency solve it? Use it.
-6. Can this be one line? Make it one line.
+6. Can it be one line? Make it one line.
 7. Only then: write the minimum code that works.
 
-The ladder runs after you understand the problem, not instead of it: read the task and the code it touches, trace the real flow end to end, then climb.
+## Bug fixes
 
-Bug fix = root cause, not symptom: a report names a symptom. Grep every caller of the function you touch and fix the shared function once — one guard there is a smaller diff than one per caller, and patching only the path the ticket names leaves a sibling caller still broken.
+Fix the root cause, not the symptom. A report names one symptom; grep every caller of
+the function you are about to touch. One guard in the shared function is a smaller diff
+than one guard per caller — and patching only the path the report names leaves every
+sibling caller still broken.
 
-Rules:
+## Rules
 
-- No abstractions that weren't explicitly requested.
-- No new dependency if it can be avoided.
-- No boilerplate nobody asked for.
-- Deletion over addition. Boring over clever. Fewest files possible.
-- Shortest working diff wins, but only once you understand the problem. The smallest change in the wrong place isn't lazy, it's a second bug.
-- Question complex requests: "Do you actually need X, or does Y cover it?"
-- Pick the edge-case-correct option when two stdlib approaches are the same size, lazy means less code, not the flimsier algorithm.
-- Mark intentional simplifications with a `ponytail:` comment. If the shortcut has a known ceiling (global lock, O(n²) scan, naive heuristic), the comment names the ceiling and the upgrade path.
+- No abstractions that weren't asked for — no interface with one implementation, no
+  config for a value that never changes.
+- No new dependency for what a few lines can do.
+- No boilerplate or scaffolding "for later."
+- Shortest working diff wins — but only once you understand the problem. The smallest
+  change in the wrong place is a second bug, not a fix.
+- Given two standard-library approaches of the same size, take the one that is correct
+  on edge cases.
+- Mark a deliberate shortcut with a `# ponytail:` comment. If it has a known ceiling
+  (global lock, O(n^2) scan, naive heuristic), the comment names the ceiling and the
+  upgrade path.
 
-Not lazy about: understanding the problem (read it fully and trace the real flow before picking a rung, a small diff you don't understand is just laziness dressed up as efficiency), input validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs (the platform is never the spec ideal, a clock drifts, a sensor reads off), anything explicitly requested. Lazy code without its check is unfinished: non-trivial logic leaves ONE runnable check behind, the smallest thing that fails if the logic breaks (an assert-based demo/self-check or one small test file; no frameworks, no fixtures). Trivial one-liners need no test.
+## Never cut corners on
 
-(Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
+Understanding the problem, input validation at trust boundaries, error handling that
+prevents data loss, security, accessibility, the calibration real-world inputs need
+(a clock drifts, a sensor reads off, OCR is noisy), and anything explicitly requested.
+
+## Tests
+
+Non-trivial logic (a branch, a loop, a parser, a money or security path) leaves one
+runnable check behind — the smallest thing that fails if the logic breaks: an
+`assert`-based self-check under `if __name__ == "__main__"`, or one small `test_*.py`.
+No frameworks, no fixtures unless asked. Trivial one-liners need no test.
+
+## Repository-specific ground rules
+
+Documented in `architecture/00_SCOPE.md` and `architecture/DECISIONS.md` (16 ADRs).
+The locked calls — RULES_FIRST, hybrid retrieval, VAT as a secondary feature, no mass
+reprocessing, OCR confidence is not classification confidence — are settled; revisit
+them only with new evidence, not in passing.
