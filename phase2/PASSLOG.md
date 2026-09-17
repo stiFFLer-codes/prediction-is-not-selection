@@ -241,3 +241,117 @@ now a human call. If the blocking-key direction is approved, the next pass
 should be scoped to designing and freezing a principled blocking function and
 re-running this same characterisation against it, still with no mechanisms
 built — effectively a gate 2b — before gate 3 is unlocked.
+
+## Pass 3 — Gate 2b: salvage check, stopped at step 0 (access recon)
+
+**What and why:** Gate 2b asked whether raw WDC schema.org data carries genuine
+cross-shop category disagreement for the same product, which would give a real
+ADS axis independent of surface variation. Step 0 was the gated access recon,
+with instruction to stop if no feasible first-party source exists. It does not
+exist. **Stopped at step 0.** Steps 1–6 were not run: no data pulled, no
+normalization frozen, no disagreement measured, no ADS computed, no independence
+diagnostic. Report: `phase2/reports/gate2b_access_recon.md`. Re-runnable probe:
+`phase2/gate2b_access_recon.py`.
+
+**Step 0 verdict — STOP, for two independent reasons.**
+
+*Reason 1, the load-bearing one: the premise does not hold for the WDC LSPC
+distribution.* The corpus does not retain each shop's own `schema.org/category`.
+The authoritative first-party field list (WDC website source repo
+`wbsg-uni-mannheim/wdc-page`, `largescaleproductcorpus/v2/index.html` §2.2
+"Schema of the Corpus") is complete and short: `id, cluster_id, identifiers,
+category, title, description, brand, price, specTableContent`. The `category`
+field is documented verbatim as "One of 25 product categories the product was
+assigned to", and §2.1 states "**We learn a classifier** for assigning each offer
+to one of 25 top-level product categories." So `category` in every LSPC v2
+artifact is one model's output attached to the product, not the shop's
+annotation, and no second field holds the shop's annotation. The WDC extraction
+pipeline kept identifiers plus title/description/brand/price/specTable and
+discarded the rest. This is the same coarse cluster-constant field we already
+have, and it is the root cause of gate 2's dead Framing A.
+
+*Reason 2: the WDC data hosts remain down.* `webdatacommons.org` and
+`data.dws.informatik.uni-mannheim.de` both refuse connections (origin
+`134.155.98.56`, ports 80 and 443), now across three consecutive passes. This is
+at the origin, not a local block — an independent fetcher returns the same
+`ECONNREFUSED` while unrelated hosts serve normally.
+
+Reason 2 alone would only justify retrying later. Reason 1 means retrying would
+not help for any LSPC-derived data.
+
+**Sources checked, what each carries, join-ability, size, host status:**
+
+| Source | Per-shop raw category? | Joins to our 2,485 clusters? | Host |
+| --- | --- | --- | --- |
+| WDC-25 categorization gold standard | **No** | cluster_id present | data host DOWN |
+| LSPC v2 full corpus (2017, our clusters) | **No** — `category` is classifier output | yes, `cluster_id` | data host DOWN |
+| WDC Products 2022 benchmark | No, same fields | yes | webdatacommons.org DOWN |
+| MWPD challenge Task 2 | **Yes** — `CategoryText` field | **No cluster ids, one record per product** | reachable (Google Drive / bit.ly) |
+| Language-modelling product corpora | Unknown, plausible | unknown | data host DOWN |
+| WDC HuggingFace org | No — only `wdc/products-2017`, already ingested | n/a | reachable |
+| Zenodo | No WDC product corpus; 11 hits all third-party analyses | n/a | reachable |
+
+**The near-miss worth recording:** MWPD Task 2 is the one WDC-derived source
+that genuinely carries the signal — its `CategoryText` field is documented as
+the "website-specific product category, or breadcrum", i.e. the shop's own raw
+category. It fails for a reason unrelated to host status: records carry no
+cluster or product identifier, and there is one record per product (~16k
+instances). Even with a join there would be no second shop's category for the
+same product to disagree with. The data shape forbids the measurement, so steps
+3–6 would have had nothing to compute at any normalization strength.
+
+**Corroborating empirical check (committed in the recon script):** the WDC group
+commits sample files for each downloadable artifact to its website repo, which
+stayed reachable while the data host did not. Scanning all four for any
+category-like schema.org property found **none**. The gold-standard offer records
+do preserve raw per-offer `schema.org_properties` with the actual terms each shop
+used — `/availability`, `/brand`, `/description`, `/image`, `/manufacturer`,
+`/name`, `/price`, `/priceCurrency`, `/title` — which is exactly where a
+`/category` would appear if WDC had extracted one. It does not. Samples are 10
+records each, so this corroborates rather than proves; the corpus schema
+documentation above is the conclusive evidence.
+
+**Independent confirmation of gate 1 and gate 2:** the corpus documentation
+states the gold standard "consists of offers for **2485 products (ID-clusters)**",
+matching exactly the 2,485 clusters gate 1 recovered. And the gold standard's own
+methodology — "all offers in the cluster were annotated with the class label" —
+is the authors' own confirmation of gate 2's structural explanation for why
+per-cluster category purity is identically 1.0. Gate 2's Framing A verdict is now
+backed by WDC's documented procedure, not only by our measurement.
+
+**Invariant checks run:** #5 — no number or claim here is unmeasured; the two
+load-bearing claims (hosts down, no per-shop category property) are re-verifiable
+by `python phase2/gate2b_access_recon.py`, which self-checks and fails loudly if
+a category property ever appears, so the verdict cannot silently go stale. #7 —
+offline-compatible, CPU-only, no API key, no paid call; the recon makes only
+public unauthenticated HTTP requests. No third-party mirrors used or considered,
+per instruction. #1–#4, #6, #8 — not applicable; nothing was measured, built or
+claimed. Off-limits paths untouched; all changes under `phase2/`.
+
+**Interpretation.** Gate 2b cannot answer its question on WDC data. The
+label-disagreement axis this pass was meant to recover does not exist in the WDC
+LSPC distribution as published, so neither host availability nor normalization
+design would produce it. This does not weaken the gate 2 recommendation, it
+removes the main alternative to it: **Framing B with a frozen, principled
+blocking key** remains the only measured route to a live ADS axis on this corpus.
+
+**Recommendation for next pass:** a human decision is needed between two paths,
+and neither should be started unprompted.
+
+1. *Proceed on WDC with the blocking key* (gate 2 recommendation, unchanged).
+   ADS becomes key-ambiguity rather than label-inconsistency. Honest and
+   measured, but the consistency axis means something weaker than the paper
+   originally framed, and that shift must be stated openly in the paper.
+2. *Reconsider the dataset*, which is a spec §2 decision rather than a
+   normalization choice. If a genuine per-item label-inconsistency axis is
+   essential, it has to come from elsewhere. The spec's secondary dataset — a
+   Magellan "Dirty" benchmark via HuggingFace or Zenodo record 8164151 — is
+   reachable and is the natural place to look, but evaluating it is a scope
+   question for review.
+
+Two things to re-check if `webdatacommons.org` returns, neither worth waiting
+on: the language-modelling product corpora, whose paper abstract describes "the
+heterogeneous categorization information from the original web shops" and which
+is the only untested candidate that could carry both the signal and a cluster
+join; and the LSPC v2 corpus sample files, to confirm against real records rather
+than schema documentation that no per-shop category property exists.
