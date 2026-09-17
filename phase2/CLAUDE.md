@@ -84,6 +84,10 @@ Each pass ends with:
 2. An entry appended to phase2/PASSLOG.md stating: what you did and why, the key
    numbers or plots produced with their file paths, which invariant checks you
    ran and their results, and your recommendation for the next pass.
+3. STATE.md updated to reflect the new current status and the next step, and
+   PLAN.md updated if the phase arc changed. STATE.md is the file a fresh session
+   reads to orient, so after every pass it must describe reality as it now is,
+   not as it was before the pass.
 
 Then stop. Do not start the next pass. Wait for review. Work in gate-sized
 passes (see phase2-spec.md). Do not run past a gate without sign-off. Gate 2,
