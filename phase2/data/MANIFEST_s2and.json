@@ -1,0 +1,228 @@
+{
+  "source": "S2AND release, Allen Institute for AI (Semantic Scholar)",
+  "paper": "Subramanian, King, Downey, Feldman. S2AND: A Benchmark and Evaluation System for Author Name Disambiguation. JCDL '21.",
+  "code_repo": "https://github.com/allenai/S2AND",
+  "data_location_documented_at": "allenai/S2AND README, 'Download Data or Model': aws s3 sync --no-sign-request s3://ai2-s2-research-public/s2and-release",
+  "obtained_from": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/ (REST endpoint of the same bucket, no credentials)",
+  "first_party": "AI2's own public research bucket, not a third-party mirror",
+  "data_license": "ODC-BY (LICENSE.txt in the release prefix; README: 'The released dataset is under ODC-BY')",
+  "license_caveat": "README also notes some affiliation data comes from the Microsoft Academic Graph.",
+  "files": [
+    {
+      "key": "LICENSE.txt",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/LICENSE.txt",
+      "local": "data\\raw_s2and\\LICENSE.txt",
+      "bytes": 19976,
+      "sha256": "d56ae0d9ee04b7b71b6e789211652c0105f0adf93d0027e10918c8572e5b714f",
+      "present": true
+    },
+    {
+      "key": "aminer/aminer_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/aminer/aminer_signatures.json",
+      "local": "data\\raw_s2and\\aminer_aminer_signatures.json",
+      "bytes": 53211547,
+      "sha256": "7b8daa1b7118b19df4ae9fae30c44c69e068e2f24200dbd21cf1a5ab9ce4bbed",
+      "present": true
+    },
+    {
+      "key": "aminer/aminer_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/aminer/aminer_clusters.json",
+      "local": "data\\raw_s2and\\aminer_aminer_clusters.json",
+      "bytes": 8293034,
+      "sha256": "fbaf17103fb8962d93f304ee711902f4d9cca1305fe3d987a83f1d15bcee91d8",
+      "present": true
+    },
+    {
+      "key": "arnetminer/arnetminer_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/arnetminer/arnetminer_signatures.json",
+      "local": "data\\raw_s2and\\arnetminer_arnetminer_signatures.json",
+      "bytes": 1986984,
+      "sha256": "bb32d0c28eda0d56fa4049c3d3a78b8c1451b81454d758879ce89fff3e9a72e3",
+      "present": true
+    },
+    {
+      "key": "arnetminer/arnetminer_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/arnetminer/arnetminer_clusters.json",
+      "local": "data\\raw_s2and\\arnetminer_arnetminer_clusters.json",
+      "bytes": 196436,
+      "sha256": "10ed8a38e00ec3c999b71b1a3a817fe06bc9fec6ab42dff541814caacafe640e",
+      "present": true
+    },
+    {
+      "key": "inspire/inspire_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/inspire/inspire_signatures.json",
+      "local": "data\\raw_s2and\\inspire_inspire_signatures.json",
+      "bytes": 152242737,
+      "sha256": "14814d698c753a24d7415f0e48fef8563b3371efa0a676f265099fea25b67b7e",
+      "present": true
+    },
+    {
+      "key": "inspire/inspire_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/inspire/inspire_clusters.json",
+      "local": "data\\raw_s2and\\inspire_inspire_clusters.json",
+      "bytes": 6543879,
+      "sha256": "519fea1a33c2be6ff0a7c2999b057fc31c1e96f26d40e44e41a2fb7825608eb3",
+      "present": true
+    },
+    {
+      "key": "kisti/kisti_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/kisti/kisti_signatures.json",
+      "local": "data\\raw_s2and\\kisti_kisti_signatures.json",
+      "bytes": 11398448,
+      "sha256": "3c795304a3e6dfe2f09cf11a44e4f5613e72912fe50c64897162856ce9e63a1e",
+      "present": true
+    },
+    {
+      "key": "kisti/kisti_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/kisti/kisti_clusters.json",
+      "local": "data\\raw_s2and\\kisti_kisti_clusters.json",
+      "bytes": 917648,
+      "sha256": "a456e19a62fe4c8e998e69cf96d625d52196075e2f5841c54108bd44d8f02518",
+      "present": true
+    },
+    {
+      "key": "medline/medline_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/medline/medline_signatures.json",
+      "local": "data\\raw_s2and\\medline_medline_signatures.json",
+      "bytes": 1200185,
+      "sha256": "dff04fd051bd2ad57fcca7696b1538b9a88e9bfc1ddab32729e4c108a6d1fac5",
+      "present": true
+    },
+    {
+      "key": "medline/medline_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/medline/medline_clusters.json",
+      "status": "HTTP 404",
+      "present": false
+    },
+    {
+      "key": "pubmed/pubmed_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/pubmed/pubmed_signatures.json",
+      "local": "data\\raw_s2and\\pubmed_pubmed_signatures.json",
+      "bytes": 1113285,
+      "sha256": "9c7c0576f9d688683c6f435268b8ae808ea6e858facdf6155fdff715a88f6ed2",
+      "present": true
+    },
+    {
+      "key": "pubmed/pubmed_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/pubmed/pubmed_clusters.json",
+      "local": "data\\raw_s2and\\pubmed_pubmed_clusters.json",
+      "bytes": 55035,
+      "sha256": "55489d4fd82a4434406d3811c2ec45bdf94400b77223d235cc3b03fed2070e78",
+      "present": true
+    },
+    {
+      "key": "qian/qian_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/qian/qian_signatures.json",
+      "local": "data\\raw_s2and\\qian_qian_signatures.json",
+      "bytes": 1825243,
+      "sha256": "ddf2a2bb5626494b7a73d2c1019eadc823f5c1ba8fcf67b540c3bcdf85a94a32",
+      "present": true
+    },
+    {
+      "key": "qian/qian_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/qian/qian_clusters.json",
+      "local": "data\\raw_s2and\\qian_qian_clusters.json",
+      "bytes": 134579,
+      "sha256": "7cc3dfb23d309bb40d54b83a0209266239184846e5a4663b4131cb148c303571",
+      "present": true
+    },
+    {
+      "key": "zbmath/zbmath_signatures.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/zbmath/zbmath_signatures.json",
+      "local": "data\\raw_s2and\\zbmath_zbmath_signatures.json",
+      "bytes": 4218116,
+      "sha256": "aff0f80ff30f2593611dec23f55a3cb243d158000239ddbd944785d7386c8e7c",
+      "present": true
+    },
+    {
+      "key": "zbmath/zbmath_clusters.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/zbmath/zbmath_clusters.json",
+      "local": "data\\raw_s2and\\zbmath_zbmath_clusters.json",
+      "bytes": 349053,
+      "sha256": "33d10e20762076d3ede58e0a0b9845ab016e97ac1e38178e752fc94c98449632",
+      "present": true
+    },
+    {
+      "key": "medline/train_pairs.csv",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/medline/train_pairs.csv",
+      "local": "data\\raw_s2and\\medline_train_pairs.csv",
+      "bytes": 43945,
+      "sha256": "1c283765d26a78414c5c193eea2d3e276651c457a40b77937b019d6fce6bc46b",
+      "present": true
+    },
+    {
+      "key": "medline/test_pairs.csv",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/medline/test_pairs.csv",
+      "local": "data\\raw_s2and\\medline_test_pairs.csv",
+      "bytes": 11244,
+      "sha256": "549d85a7cbcd326c013a76dbba984428126d982f7cb1e0bc984069d1256e8433",
+      "present": true
+    },
+    {
+      "key": "zbmath/zbmath_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/zbmath/zbmath_papers.json",
+      "local": "data\\raw_s2and\\zbmath_zbmath_papers.json",
+      "bytes": 16415316,
+      "sha256": "545d68c64e33a8e7b668d0b18990f1e726cc88764087d5cc3c43ce98903f8ca6",
+      "present": true
+    }
+  ],
+  "papers_head_sniffs": [
+    {
+      "key": "aminer/aminer_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/aminer/aminer_papers.json",
+      "local": "data\\raw_s2and\\HEAD_aminer_aminer_papers.json",
+      "head_bytes": 200000,
+      "head_sha256": "9eac0df238ebb12642389f2b69ab2f01e0c705179b76dc5ea2f5fcd569dfe935",
+      "note": "first 200000 bytes only, schema cross-check"
+    },
+    {
+      "key": "arnetminer/arnetminer_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/arnetminer/arnetminer_papers.json",
+      "local": "data\\raw_s2and\\HEAD_arnetminer_arnetminer_papers.json",
+      "head_bytes": 200000,
+      "head_sha256": "1f76a5d19718584c554bc03e5ecaa56236422b5a8897141e98c1dedcffadde38",
+      "note": "first 200000 bytes only, schema cross-check"
+    },
+    {
+      "key": "inspire/inspire_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/inspire/inspire_papers.json",
+      "local": "data\\raw_s2and\\HEAD_inspire_inspire_papers.json",
+      "head_bytes": 200000,
+      "head_sha256": "dab8c0609124e6ce0b7b53edbf5b4da15071db39e30bfe5fbe460ccf369443bf",
+      "note": "first 200000 bytes only, schema cross-check"
+    },
+    {
+      "key": "kisti/kisti_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/kisti/kisti_papers.json",
+      "local": "data\\raw_s2and\\HEAD_kisti_kisti_papers.json",
+      "head_bytes": 200000,
+      "head_sha256": "5c1563cbce883b5ad406fe8b97277f85f3a5743889035d50ba119549d0e3cd74",
+      "note": "first 200000 bytes only, schema cross-check"
+    },
+    {
+      "key": "medline/medline_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/medline/medline_papers.json",
+      "local": "data\\raw_s2and\\HEAD_medline_medline_papers.json",
+      "head_bytes": 200000,
+      "head_sha256": "00bf59c21691eeccc52dd6db4b7409e0fac5605b3de6d8e37dacd4c975487c95",
+      "note": "first 200000 bytes only, schema cross-check"
+    },
+    {
+      "key": "pubmed/pubmed_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/pubmed/pubmed_papers.json",
+      "local": "data\\raw_s2and\\HEAD_pubmed_pubmed_papers.json",
+      "head_bytes": 200000,
+      "head_sha256": "876cef0c81bc38e692d72551fe0185e35f9827b26f6dbb1b9d68fdd98fbe5e03",
+      "note": "first 200000 bytes only, schema cross-check"
+    },
+    {
+      "key": "qian/qian_papers.json",
+      "url": "https://ai2-s2-research-public.s3.amazonaws.com/s2and-release/qian/qian_papers.json",
+      "local": "data\\raw_s2and\\HEAD_qian_qian_papers.json",
+      "head_bytes": 200000,
+      "head_sha256": "65031a2524e1048e74ff30965bed85e99c3395dc6ea3ee3ed9d824b747fc11bb",
+      "note": "first 200000 bytes only, schema cross-check"
+    }
+  ]
+}

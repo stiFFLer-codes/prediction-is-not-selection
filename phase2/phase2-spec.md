@@ -1,161 +1,129 @@
-# Phase 2 spec, ADS-Cascade
+# Phase 2 spec, S2AND substrate
 
-Reference document for Phase 2. The charter (CLAUDE.md) sets the boundaries;
-this fills them with the questions to answer and the method. Read both.
+Method reference. The charter (CLAUDE.md) sets the boundaries; this fills them
+with constructs, questions, and protocol. STATE.md says where we are; PLAN.md is
+the arc. This revision replaces the earlier WDC-based spec.
 
 ## 1. Paper identity
 
-A venue-neutral research paper. The unattackable core is a decomposition shown
-on real data: historical decision consistency (cluster purity, equivalently
-majority-vote agreement, here called ADS) strongly predicts each classification
-mechanism's own accuracy, but does not predict which mechanism wins a
-head-to-head comparison, because the winner is governed by surface-form
-(representation) stability, which the consistency signal is blind to. The
-constructive half tests whether a measured surface-stability co-signal recovers
-the selection the consistency signal cannot. Sibling in framing to Tan (2026),
-"Beyond ROC-AUC," which shows the same signal-versus-selection gap for model
-choice under decision economics; our blind axis is representational rather than
-economic.
+A venue-neutral research paper. The unattackable core is a decomposition shown on
+real data: a design-time consistency signal predicts each classification
+mechanism's own accuracy, but does not predict which mechanism wins a head-to-head
+comparison, because the winner is governed by surface-form stability, which the
+consistency signal is blind to. The constructive half tests whether a measured
+surface-stability co-signal recovers the selection the consistency signal cannot.
+Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows the same
+signal-versus-selection gap for model choice under decision economics; our blind
+axis is representational, not economic.
 
-## 2. Data (finalized)
+## 2. Data: S2AND
 
-Primary: WDC Product Data Corpus (Web Data Commons), the public product-offer
-corpus extracted from Common Crawl and grouped into clusters by GTIN and MPN
-identifiers. Offers of the same product from different shops give repeated entity
-keys with natural, un-engineered surface variation in their titles. Category
-labels are available via the WDC product-categorization gold standard (24
-categories, cluster-to-category mapping) and the cleansed PDC2020-C corpus. Start
-from a manageable public subset (a category-restricted slice, or the WDC
-Products benchmark variants and categorization gold standard), not the full
-98M-offer dump. Everything is a public offline download from webdatacommons.org.
+S2AND (Semantic Scholar Author Name Disambiguation, Allen Institute for AI)
+unifies eight prior author-disambiguation datasets into one format. Public,
+offline, with a reference implementation. Its records are signatures: an author
+mention on a paper, carrying the name string and context such as co-authors,
+venue, title, affiliation, and year (exact fields to be confirmed at ingest).
+Signatures are grouped into blocks by a normalized name string, and ground truth
+assigns each signature to a real author (a cluster). S2AND explicitly
+characterizes two block-level properties we use directly: homonymity (how many
+distinct authors share a name, our inverse-consistency axis) and synonymity (how
+many surface variants one author appears under, our inverse-surface-stability
+axis).
 
-Why this one: it is the only genuinely public source that carries all three
-properties we need at once, repeated keys, real cross-vendor surface noise, and
-labels. It replaces both the synthetic generator and the Romanian case study.
+The eight constituent datasets give cross-dataset generalization for free, which
+is exactly the breadth Tan (2026) lacked. Access, license, and a scoped
+not-scooped check are verified in Phase 2.1 before any building.
 
-Secondary (breadth and contrast): one Magellan "Dirty" benchmark (Dirty
-Walmart-Amazon or Dirty DBLP-ACM), available from HuggingFace
-(lighteval/EntityMatching) or Zenodo record 8164151. The clean-versus-dirty pair
-is the real-data analog of the old CLEAN and VARIED contrast, and a second
-domain guards against a single-dataset result, which is Tan's main weakness.
+## 3. Construct mapping (the faithful port)
 
-Rejected: public financial-transaction and payee categorization data.
-Conceptually the perfect fit, but the public versions are overwhelmingly
-synthetic (the popular Kaggle banking-transaction sets are explicitly
-simulated), and the one genuinely real labeled corpus is gated behind an email
-request. Using synthetic transaction data would reintroduce the exact toy-
-benchmark criticism we are escaping. Keep the "AMZN MKTPLACE PMTS" example only
-as narrative motivation in the introduction, never as evidence.
+- key = name block, the normalized name string. The recurring key, like a product
+  in the original invoice work.
+- label = author identity. Like the account in the original.
+- ADS(block) = purity of author assignments among the block's training
+  signatures, that is the share belonging to the block's single most frequent
+  author. High ADS means the name refers to essentially one person (low
+  homonymity); low ADS means the name is shared (high homonymity). Computed
+  train-only (design-time, history-only). This consistency signal is observed,
+  not a coarsening knob, which is precisely what makes it legitimate here where
+  the WDC blocking key was not.
+- surface stability = the inverse of within-author or within-block surface-form
+  variability, our synonymity-based axis. Low variability means the name is
+  written consistently, so exact match survives; high variability means many
+  variants, so fuzzy wins. Measured, never set, and never defined using the
+  winner (invariant 2).
+- unit of analysis = the block. Each block is a small classification problem with
+  its own ADS and its own surface stability, so blocks are the natural analog of
+  the synthetic experiment's conditions, and there are many of them.
 
-Demoted: the Phase 1 synthetic generator survives as a controlled causal-
-isolation probe (one secondary section), used to turn the surface-noise knob in
-a way real data cannot, which is a capability Tan lacks. It is never primary
-evidence.
+## 4. Mechanisms and winner
 
-## 3. The task-definition problem (resolve this first)
+Two mechanisms assign a held-out signature to an author, using a historical
+(train) knowledge base built per block:
 
-For the paper to work, both axes must be alive on the real data, and that
-depends entirely on how we define the label and the key. This is the single
-highest-risk design decision. Two candidate framings:
+- exact-match: assign the author of a training signature whose name string, and
+  optionally a fixed exact context key, matches exactly; abstain on no match. No
+  threshold to tune.
+- fuzzy retrieval: retrieve the most similar training signature by a lexical
+  similarity over the name, and optionally context, and assign its author; a
+  similarity cutoff calibrated once, before the frozen run, on a disjoint split.
 
-Framing A, label = category, key = cluster. Each cluster (one product) maps to
-one gold category, so per-cluster category purity is near 1.0 everywhere and ADS
-has almost no range. The "ADS predicts accuracy" axis dies. Do not assume this
-framing works; it probably does not.
+Primary metric: whole-set accuracy, abstention counts as incorrect, coverage
+reported. The exact-abstains and fuzzy-does-not asymmetry is a first-class
+result, not normalized away. Winner per block, or per ADS band, by paired
+bootstrap on the accuracy difference with a fixed practical-equivalence margin;
+ties are a distinct category. This is the Phase 1 rigor, carried over.
 
-Framing B, label = entity identity, key = a normalized surface or blocking key.
-ADS = for a normalized key, how consistently it resolves to one cluster. Generic
-or ambiguous strings resolve to multiple clusters (low ADS); distinctive strings
-resolve to one (high ADS). This yields a real ADS range, and the raw surface
-variation within a cluster drives the exact-versus-fuzzy outcome. This is the
-intended primary framing.
+## 5. The two axes and independence
 
-Gate 2 measures the ADS distribution under both framings on a subset and reports
-the histograms before anything downstream is built. Commit to a framing only
-after seeing real numbers. If neither yields usable ADS range, stop and rethink
-the data, not the paper.
+Phase 2.1 confirms, before anything is built: that ADS spans a real range across
+blocks (expected, since homonymity varies widely in this data), that surface
+stability spans a real range, and that the two are separable rather than the same
+quantity measured twice. The separability check (a correlation and scatter of
+block ADS against block surface variability) is what protects invariant 2. Where
+S2AND ships its own homonymity and synonymity measures, cross-check our measures
+against them.
 
-## 4. The two axes
+## 6. Phases and gates
 
-ADS (axis 1): per-key label purity computed on the training split only
-(design-time, history-only, as in Phase 1). Report its distribution first.
-
-Representation stability, RS (axis 2): a per-item, measured signal of surface-
-form stability, computed at design time from the historical strings for a key.
-Candidate signals to prototype (you choose and may add): normalized edit
-distance or Jaro-Winkler dispersion among a key's historical surface forms,
-token-set variability, character n-gram divergence, length variance. RS must be
-measured, never set, and never defined using the winner.
-
-## 5. Mechanisms and winner definition
-
-Two mechanisms, carried over in spirit from Phase 1: exact-match lookup (context-
-scoped then global, abstain on miss) versus fuzzy retrieval (rapidfuzz-style
-lexical similarity, cutoff calibrated once on a disjoint split, never abstains at
-the cutoff). Primary metric is whole-set accuracy with abstention counted as
-incorrect, and coverage reported (the rules-abstain versus retrieval-never-
-abstain asymmetry is a first-class result, not normalized away). Winner per
-condition by paired bootstrap on the accuracy difference with a practical-
-equivalence margin, ties a distinct category, exactly the Phase 1 rigor.
-
-## 6. Experiments and gates
-
-1. Scaffold and WDC ingest. Load a manageable subset into (surface_string, key,
-   label) form. No experiments.
-2. ADS-range sanity check (hard gate). Report ADS histograms under Framing A and
-   Framing B. Commit to a framing. Stop for review.
-3. Boundary finding on real natural noise. Show ADS predicts each mechanism's
-   accuracy (axis 1) but not the winner (axis 2). This is the keel; it must
-   stand alone.
-4. Co-signal. Measure RS. Build the two-signal selector. Evaluate against
-   ADS-only and RS-only baselines, held-out and cross-dataset. Report the
-   recovery number, whatever it is.
-5. Synthetic causal probe (demoted). Apply controlled perturbation on real
-   records to isolate the direction of the effect.
-6. Repo reorganization and release. Only after review: reorganize, deprecate
-   stale files, tag a new release, archive a new Zenodo version (additive, never
-   a history rewrite).
-
-Review with the human after every gate. Gates 2 and 4 are the make-or-break
-checks.
+See PLAN.md for the full arc. The make-or-break gates are 2.1 (the two-axis
+sanity check) and 2.3 (the co-signal). Nothing runs past a gate without review.
 
 ## 7. Evaluation protocol
 
-Thresholds fit on train only. Selector evaluated on held-out items and,
-separately, on the second dataset. Always report ADS-only, RS-only, and
-two-signal side by side. Complementarity (two-signal beats both) is the claim;
-if RS-only dominates, report that honestly. No in-sample selector number is a
-result.
+Thresholds and any selector are fit train-only. The selector is evaluated held
+out and across the eight sub-datasets. Always report consistency-only,
+stability-only, and two-signal baselines side by side; the dual-signal claim
+survives only if the two-signal version beats both. If stability-only dominates,
+say so plainly. No in-sample selector number is ever reported as a result.
 
 ## 8. Pre-registration draft
 
-Fix before the frozen run, following Phase 1 discipline.
+Fixed before the frozen run, following Phase 1 discipline.
 
-Hypotheses:
-- H1 (accuracy): realized ADS is positively associated with each mechanism's own
-  accuracy on real benchmarks.
-- H2 (selection blindness): ADS does not predict the winner across its observed
-  range.
-- H3 (co-signal): a measured RS co-signal predicts the winner where ADS cannot,
-  and the two-signal selector beats both single-signal baselines out-of-sample
-  by a pre-set margin.
+- H1 (accuracy): block consistency (ADS) is positively associated with each
+  mechanism's own accuracy.
+- H2 (selection blindness): ADS does not predict which mechanism wins across its
+  observed range.
+- H3 (co-signal): a measured surface-stability co-signal predicts the winner where
+  ADS cannot, and the two-signal selector beats both single-signal baselines
+  out-of-sample by a pre-set margin.
 
 Falsification table with four outcomes per hypothesis (supported, partial, not
 supported, inconclusive), fixed in advance. "Co-signal does not help" is an
-acceptable, publishable outcome. Freeze the winner definition, splits, cutoff,
-thresholds, and margins before the run; do not re-tune after seeing results.
+acceptable, publishable outcome. Freeze the blocking normalization, the
+surface-stability measure, the fuzzy cutoff, the winner definition, the splits,
+and the margins before measuring any accuracy.
 
-## 9. What success, partial, and failure look like
+## 9. Success, partial, failure
 
-- Success: boundary finding holds on two datasets, and the two-signal selector
+- Success: boundary finding holds across sub-datasets, and the two-signal selector
   beats both baselines out-of-sample.
-- Partial: boundary holds; co-signal helps but only partially or on one dataset.
-  Still a strong, honest paper.
+- Partial: boundary holds; co-signal helps but only partially or on some
+  sub-datasets. Still a strong, honest paper.
 - Co-signal failure: boundary holds, co-signal adds nothing. Still publishable as
-  a rigorous boundary result; the title leads with the boundary, not the
-  selector.
+  a rigorous boundary result; the title leads with the boundary.
 - Boundary failure: ADS has no range or the decomposition does not appear. Stop
-  and rethink the data before writing anything.
+  and reconsider before writing anything.
 
 ## 10. Paper skeleton and budget
 
@@ -164,22 +132,20 @@ Abstract (~220), Introduction (~1200), Related work (~1500), Problem setting
 Limitations (~500), Conclusion (~400). References, tables, and captions sit
 outside the body budget. Under 10k total.
 
-Related work streams to add, deliberately and not exhaustively: decision-focused
+Related-work streams, deliberately and not exhaustively: decision-focused
 evaluation (Hand 2009, Hernandez-Orallo et al. 2012, Elmachtoub and Grigas 2022,
-Vickers and Elkin 2006, Tan 2026 as sibling); entity resolution and the
-exact-versus-fuzzy dichotomy (WDC Products, one entity-matching survey, the
-Magellan and DeepMatcher lineage); representation stability and surface-form
-robustness. Keep the algorithm-selection spine (Rice, Smith-Miles, Barbudo) and
-trim the reject-option and learning-to-defer material to a short scoping
-paragraph.
+Vickers and Elkin 2006, Tan 2026 as sibling); author name disambiguation and
+entity linking as the home domain (S2AND, WhoIsWho, an AND survey); the
+algorithm-selection spine (Rice, Smith-Miles, Barbudo); representation and
+surface-form robustness. Trim reject-option and learning-to-defer to a short
+scoping paragraph.
 
 ## 11. arXiv posture
 
-Write venue-neutral LaTeX so journal retarget and arXiv upload are both cheap.
-The new content is entity resolution, product matching, and record linkage, so
-the honest primary category is cs.IR or cs.DB, with cs.LG as a cross-list rather
-than the default. Before any submission, run the pre-submission gate: an
-arXiv-moderation-risk audit (scope, scholarly framing, references, category fit,
-TeX cleanliness, endorsement and eligibility verified at that moment), an
-AI-writing-tells pass, and citation verification. Endorsement and eligibility
-are checked at submission time, not assumed.
+Venue-neutral LaTeX so journal retarget and arXiv upload are both cheap. The
+content is author name disambiguation and entity resolution, so the honest
+primary category is cs.DL (Digital Libraries) or cs.IR, cross-listing the other
+and cs.LG rather than defaulting to cs.LG. Before any submission, run the
+pre-submission gate: a moderation-risk audit (scope, scholarly framing,
+references, category fit, TeX cleanliness, endorsement and eligibility verified at
+that moment), an anti-AI-writing pass, and citation verification.

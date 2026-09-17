@@ -355,3 +355,217 @@ heterogeneous categorization information from the original web shops" and which
 is the only untested candidate that could carry both the signal and a cluster
 join; and the LSPC v2 corpus sample files, to confirm against real records rather
 than schema documentation that no per-shop category property exists.
+
+## Pass 4 — Phase 2.1: S2AND data foundation (hard gate, PASSED)
+
+**What and why:** the first pass on the new substrate. Steps 0 through 4 of
+Phase 2.1: access and license recon plus a scoped not-scooped check; ingest;
+freeze the blocking normalization; the two-axis sanity check; interpret and
+recommend. Measurement and ingest only. No mechanism, no accuracy, no
+similarity cutoff, no winner definition, no selector was built, and none exists
+anywhere under `phase2/` after this pass.
+
+Code: `phase2/fetch_s2and.py` (download + checksums),
+`phase2/s2and_blocking.py` (the frozen definitions, with a runnable
+self-check), `phase2/ingest_s2and.py` (table + shape report),
+`phase2/gate21_two_axes.py` (the gate). Reports:
+`reports/gate21_access_recon.md`, `reports/gate21_data_shape.md`,
+`reports/gate21_two_axes.md`. Figures: `reports/figs/gate21_*.png`.
+
+### Step 0 — access, license, not-scooped: all pass
+
+S2AND is obtainable as first-party public data. AI2's own public research
+bucket, `s3://ai2-s2-research-public/s2and-release`, which is the location the
+`allenai/S2AND` README documents under "Download Data or Model". Pulled over
+plain unauthenticated HTTPS at the S3 REST endpoint: no AWS credentials, no
+CLI, no API key, no paid call. Not a mirror, not HuggingFace, not Zenodo. The
+host was reachable on every request, in contrast to three passes of WDC.
+
+Which release matters. The current README steers new users to an Arrow release
+whose smoke-eval example names only `pubmed qian zbmath`. The paper-era JSON
+release the README keeps published is the one that carries **all eight**
+constituent datasets, and is what we use.
+
+License: **ODC-BY** for the data, stated in the README and shipped inside the
+release prefix as `LICENSE.txt` (downloaded and checksummed). ODC-BY permits
+our use and permits committing a processed subset as a derivative database,
+subject to attribution. Repo code is CC-BY-4.0 (package metadata says MIT); we
+use no S2AND code, only two attributed reimplementations for the cross-check.
+One caveat recorded rather than buried: the README notes some affiliation data
+comes from the Microsoft Academic Graph. `affiliation` is a droppable context
+column; flagged for the 2.6 pre-submission gate, not acted on.
+
+Provenance: `phase2/data/MANIFEST_s2and.json`, 19 files, sha256 of every
+downloaded byte, 260 MB. One 404 reported rather than hidden:
+`medline/medline_clusters.json` does not exist. The three files first fetched
+by hand during recon were deleted and re-downloaded by the committed script;
+all three checksums were byte-identical.
+
+**Not-scooped: not scooped, but one real flag.** No published work makes the
+claim that a design-time consistency signal predicts AND accuracy but not which
+matching mechanism to select. The flag is **Kim and Kim 2020 (JASIST 71(7),
+839-855; arXiv:2102.03250), "Effect of forename string on author name
+disambiguation."** Their abstract states that "performance gains by algorithmic
+disambiguation are pronounced when many forenames are initialized or homonym is
+prevalent" and that as full-forename ratios rise those gains "become marginal
+compared to the performances by string matching." That is a mechanism gap moving
+with both a surface quantity and a consistency quantity. It does not scoop us:
+their surface axis is a synthetic manipulation rather than a measurement, their
+unit is the dataset not the block, they report no winner flip (string matching
+"cannot defeat" the ML arm), and they build no selector. It is nonetheless a
+live risk to **H2**, since it reports homonymity modulating the gap, and it must
+be read in full before 2.2 freezes hypotheses. It also belongs in related work,
+where it was not.
+
+### Step 1 — ingest
+
+**Datasets used: seven of eight.** aminer, arnetminer, inspire, kisti, pubmed,
+qian, zbmath. **Medline excluded**, for a structural reason, not a size one: the
+release ships no `medline_clusters.json` (HTTP 404, confirmed against the bucket
+listing), because medline is distributed as labelled *pairs*
+(`train_pairs.csv` / `test_pairs.csv`), not clusters. With no cluster file there
+is no author label, so there is no ADS to compute. Its `given_block` field is
+also 0% populated, where the other seven are 100%. Nothing else was too small or
+malformed; every other dataset had 100% cluster coverage and zero rows dropped.
+
+Result: **766,133 signatures**, 26,939 blocks, 59,119 distinct authors, in
+`phase2/data/s2and_signatures.parquet` (16 MB, committed; the 260 MB of raw
+downloads is gitignored and re-fetchable).
+
+**Exact fields S2AND carries**, identical across all eight: the signature record
+is `signature_id`, `paper_id`, `author_id`, and an `author_info` object with
+`first`, `middle`, `last`, `suffix`, `position`, `block`, `given_block`,
+`affiliations`, `email`. Nothing else. The paper record is `paper_id`, `title`,
+`abstract`, `authors` (position + author_name), `venue`, `journal_name`, `year`,
+`references`.
+
+Two findings here that change how the data must be used:
+
+- **`author_id` is not the label.** It is a Semantic Scholar author id that
+  disagrees with the gold clustering: in zbmath, 796 of 2,334 gold clusters
+  contain more than one distinct `author_id`, and 201 `author_id`s span more
+  than one cluster. The label of record is the cluster id from
+  `*_clusters.json`. Carried in the table so the disagreement stays visible.
+- **The surface form is the raw printed name, not a reconstruction.** Joining
+  the signature's own `first middle last suffix` reproduces
+  `papers[paper_id].authors[position].author_name` **byte-identically** for
+  15,181 of 15,181 zbmath signatures, and for 100% of the several hundred
+  signatures checkable in the head sniff of each other papers file. This is what
+  makes the surface axis legitimate; it is a committed, re-runnable check.
+
+Papers and SPECTER pickles (~6.5 GiB) were deliberately not ingested: they carry
+paper-level context 2.2 may want and nothing 2.1 needs. Context-field coverage
+varies sharply by dataset and is tabulated in the shape report (affiliations 34%
+to 94%, middle names 3% to 43%, email 0% to 47%).
+
+### Step 2 — frozen blocking normalization
+
+Committed in `phase2/s2and_blocking.py` with an assert-based self-check, before
+any measurement existed (charter invariant 5). The rule in full: **block key =
+first initial + " " + last name, after transliterating to ASCII, lowercasing,
+and deleting every character that is not an ASCII letter.** The surface form is
+frozen in the same file: the signature's own name parts joined by single spaces,
+whitespace collapsed, case and punctuation and diacritics kept, because those
+*are* the variation being measured.
+
+We did not simply adopt S2AND's shipped `author_info.block`, for two measured
+reasons. It is not a function of the name: 406 of 69,077 distinct
+(dataset, first, middle, last) tuples map to more than one shipped block,
+affecting 4,247 signatures (0.55%), because hyphens were handled two ways in
+preprocessing, so "Murray Gell-Mann" appears under both `m gell-mann` and
+`m gellmann`. And it keeps internal spaces and hyphens, so `Gell-Mann` and
+`Gellmann` land in different blocks. Our key agrees with it on 98.79% of
+signatures and yields 26,939 blocks against its 27,658. Because coarsening a key
+raises measured ambiguity and could in principle buy ADS range, **every ADS
+number is reported under both keys**, and they agree (see below).
+
+**Block structure.** 26,939 blocks. Signatures per block: min 1, p25 1, median 5,
+p75 26, p90 79, p99 284, max 2,339, mean 28.44. Distinct authors per block: min
+1, median 1, p90 2, p99 45, max 684, mean 2.74. Distinct surface forms per
+block: min 1, median 1, p90 5, p99 15, max 126, mean 2.53. 18,984 blocks (70.5%)
+carry 2+ signatures and define both axes; those cover 99.0% of all signatures.
+
+### Step 3 — the two-axis check (the hard gate)
+
+**Consistency axis, ADS: alive.** Over the 18,984 blocks with 2+ signatures, the
+spike at exactly 1.0 is **75.77%**; min 0.0377, median 1.0000, mean 0.9017. The
+remaining 4,600 blocks are spread across the whole interval, not piled on a few
+small-denominator values: 1,385 in [0, 0.5), 1,566 in [0.5, 0.7), 983 in
+[0.7, 0.9), 666 in [0.9, 1.0). Fifth percentile 0.3750. Figure:
+`reports/figs/gate21_ads.png`. Recomputed on S2AND's own shipped block instead
+of ours: 19,227 blocks, spike 75.71%, mean 0.9012, min 0.0410. The axis does not
+depend on our key.
+
+**Surface axis, SV: alive, compressed by construction.** Defined as the expected
+normalized Levenshtein distance between two signatures drawn at random without
+replacement from the block, computed on the raw printed name and
+signature-weighted. 34.36% of blocks sit at exactly 0; median 0.0752, mean
+0.1048, p90 0.2637, p95 0.3226, p99 0.4502, max 1.0. Bands: 2.83% in (0, 0.02),
+7.07% in [0.02, 0.05), 11.77% in [0.05, 0.10), 24.00% in [0.10, 0.20), 13.35% in
+[0.20, 0.30), 5.94% in [0.30, 0.50), 0.69% at 0.50 or above. Figure:
+`reports/figs/gate21_sv.png` — a spike at 0 followed by a broad, smoothly
+decaying body, not a second spike. Its ceiling is well under 1 because every
+signature in a block shares a surname; for calibration, "Jane Smith" against
+"J. Smith" scores 0.30, against "Jane A. Smith" 0.23 and against "Jane Smyth"
+0.10, so the 0.1 to 0.3 range already means most pairs differ in form.
+
+**Independence: genuinely separable.** Over the 18,984 blocks where both are
+defined, Pearson r = **-0.2988**, Spearman rho = **-0.2612**, around 7% of rank
+variance shared. The sign is the expected one. Within block-size strata the
+Spearman association stays between -0.098 and -0.319, so it is not a block-size
+artifact. Scatter: `reports/figs/gate21_independence.png`, and the cloud fills
+the plane rather than tracing a line. Median-split quadrants hold 1,593 / 3,007 /
+7,899 / 6,485 blocks, so every combination of the two conditions is represented.
+These are not the same quantity measured twice.
+
+**Cross-check against S2AND's own facets.** S2AND defines block-level
+*homonymity* ("the fraction of records in the block with the same names that are
+in different clusters") and *synonymity* ("the fraction of records in the same
+cluster that have different names"). Both were reimplemented from their
+reference implementation (`s2and/eval.py`), on their normalized full name.
+Spearman: ADS vs homonymity **-0.818**; SV vs synonymity **+0.743**; ADS vs
+synonymity +0.180; SV vs homonymity +0.055; their homonymity vs their synonymity
+-0.158. Convergent high, divergent low, on both axes, and their own two facets
+are themselves only weakly related. One asymmetry recorded plainly: S2AND's
+synonymity is label-conditioned and therefore not computable at design time; our
+SV is label-free. The correlation is a validity check, not an equivalence claim.
+
+### Step 4 — verdict
+
+Both axes have real range on real data, and they are separable. Charter
+invariant 1 is satisfied, which it was not on WDC, and invariant 2 is not at
+risk from these two variables. **Recommendation: proceed to Phase 2.2.** Nothing
+in this pass licenses any claim about accuracy or about which mechanism wins.
+
+Carry-forward, not acted on: ADS must be recomputed train-only in 2.2, these are
+corpus-level numbers; inspire is 15,077 of 18,984 live blocks, so per-dataset
+reporting is not optional; 29.5% of blocks are singletons that drop out of both
+axes and will have no history to match against, which is a design decision for
+2.2 and not a silent exclusion; SV thresholds must come from its observed
+distribution, not from the [0, 1] scale; and Kim and Kim 2020 must be read before
+H2 is frozen.
+
+**Invariant checks run:** #1 — this pass *is* the invariant 1 check, and unlike
+gate 2 on WDC the answer is that both axes are live; histograms and the
+independence numbers are the evidence, and no downstream work was started. #2 —
+protected in advance: the surface signal is measured per block from the printed
+name and is never set by us, no winner exists yet to define anything from, and
+the independence numbers plus the discriminant cross-check confirm the two axes
+are not one variable. #5 — every number in the reports, PASSLOG and STATE is
+produced by committed re-runnable code; the reports interpolate computed values
+rather than restating them by hand. Two hand-typed values caught in draft, a
+singleton percentage and a set of calibration edit distances, were replaced by
+computed ones; the calibration figures had in fact been wrong. #7 — offline, CPU-only, no API key, no paid
+call, deterministic; `s2and_blocking.py` self-checks on every run,
+`ingest_s2and.py` asserts id uniqueness, non-empty keys and forms, label
+presence and label-dataset containment, and `gate21_two_axes.py` asserts ADS in
+(0, 1], exact 1.0 for single-author blocks, exact 0 for single-form blocks, SV
+defined on every 2+ block, and that the bands partition. All passed. #3, #4, #6,
+#8 — not yet applicable; no split, mechanism, baseline, selector or claim exists.
+Off-limits paths untouched; all changes are under `phase2/` plus one `.gitignore`
+line.
+
+**Recommendation for next pass:** Phase 2.2, the boundary finding, in a fresh
+session after review. Freeze the fuzzy cutoff, the winner definition, the splits
+and the practical-equivalence margin at its start, before any accuracy is
+measured. Read Kim and Kim 2020 first.
