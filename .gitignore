@@ -41,3 +41,6 @@ arxiv_final.tar*.gz
 
 # Compiled paper — rebuild from manuscript/ before submitting
 Final PDF/
+
+# Phase 2: WDC raw downloads — re-fetch with phase2/ingest_wdc.py
+phase2/data/raw/

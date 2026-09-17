@@ -1,0 +1,81 @@
+{
+  "source": "Web Data Commons \u2014 Training Dataset and Gold Standard for Large-Scale Product Matching, v2.0 (LSPC 2017)",
+  "citation": "Primpeli, Peeters, Bizer (WWW '19 Companion), 381-386",
+  "canonical_host": "https://webdatacommons.org/largescaleproductcorpus/v2/",
+  "obtained_from": "https://huggingface.co/datasets/wdc/products-2017",
+  "revision": "bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d",
+  "files": [
+    {
+      "file": "cameras/train_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/cameras/train_xlarge.json.gz",
+      "bytes": 21291906,
+      "sha256": "c23f4bea284e030bcc6bf67b143a0252b9a88baa1868ae4b91647d1f51684072"
+    },
+    {
+      "file": "cameras/valid_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/cameras/valid_xlarge.json.gz",
+      "bytes": 5338288,
+      "sha256": "b9c0527d4275b87e8ca2d13d93059407dfb78117b5941d0c9b349394dde33dfd"
+    },
+    {
+      "file": "cameras/test.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/cameras/test.json.gz",
+      "bytes": 662236,
+      "sha256": "bce167650dbf6c993e848baa9e2759ec91f4e0147c7032cec938eb0f6c777f2c"
+    },
+    {
+      "file": "computers/train_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/computers/train_xlarge.json.gz",
+      "bytes": 21979464,
+      "sha256": "d19055be29b211d7c7efd08413e1180c91fa4f7180c4d01572af9479ac31609a"
+    },
+    {
+      "file": "computers/valid_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/computers/valid_xlarge.json.gz",
+      "bytes": 5481832,
+      "sha256": "ce4789d79d228fd3cbe6c4a8de4027119c7c7c9332ceb73d014cd6b79c61ed96"
+    },
+    {
+      "file": "computers/test.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/computers/test.json.gz",
+      "bytes": 440473,
+      "sha256": "daeee50fc827d32838365da9963239917f621e367f8944ec9c90196ee529c46b"
+    },
+    {
+      "file": "shoes/train_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/shoes/train_xlarge.json.gz",
+      "bytes": 16435876,
+      "sha256": "1718653a3b4a8dcd47b5c1f55d7fae4e3fcf3c04af13e4446cf49a4b48f7f504"
+    },
+    {
+      "file": "shoes/valid_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/shoes/valid_xlarge.json.gz",
+      "bytes": 4181524,
+      "sha256": "461e37861da72d786ce11da3b78033fe0785969bf41df0b49ef27d6e7e5f0f27"
+    },
+    {
+      "file": "shoes/test.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/shoes/test.json.gz",
+      "bytes": 470891,
+      "sha256": "cb5fb369bea226e8abc6d0fefcbbb74f4d4fb262774c6a9ecc3686d42c640683"
+    },
+    {
+      "file": "watches/train_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/watches/train_xlarge.json.gz",
+      "bytes": 22312475,
+      "sha256": "265a1a8729a69ffcb20564ffe50bae14eb86dcce8f96ad36d1fb74ab084275a5"
+    },
+    {
+      "file": "watches/valid_xlarge.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/watches/valid_xlarge.json.gz",
+      "bytes": 5463237,
+      "sha256": "8c8dc012317e2b1df8ad01e4b3adecbc07ab4387e0b2259b9d55c86c7cb089df"
+    },
+    {
+      "file": "watches/test.json.gz",
+      "url": "https://huggingface.co/datasets/wdc/products-2017/resolve/bee4f71ca1bcfc51eb8fc41d65720fb6f487df9d/watches/test.json.gz",
+      "bytes": 514961,
+      "sha256": "d632c71bf50f7d127068e496acd8755247157b016a098d6b79a8c787c5b13ca4"
+    }
+  ]
+}
