@@ -569,3 +569,212 @@ line.
 session after review. Freeze the fuzzy cutoff, the winner definition, the splits
 and the practical-equivalence margin at its start, before any accuracy is
 measured. Read Kim and Kim 2020 first.
+
+## Pass 5 — Phase 2.2a: freeze the pre-registration (no measurement)
+
+**What and why:** the charter's invariant 5 requires the pre-registration to be
+committed before the measurement it governs, and the 2.1 carry-forward required
+Kim and Kim 2020 to be read in full before H2 was frozen. This pass does those
+two things and nothing else. No mechanism, no accuracy, no similarity cutoff, no
+winner, no selector was built, and none exists anywhere under `phase2/` after
+this pass. No new number was computed; every figure quoted in the new files is
+an already-committed Phase 2.1 measurement, cited as design context.
+
+New files: `phase2/PREREG.md` (the frozen pre-registration),
+`phase2/reports/kim2020_positioning.md` (the sibling read and the positioning).
+Edited: `phase2/phase2-spec.md` section 8 now points at PREREG.md as its
+successor, `phase2/PLAN.md` splits 2.2 into 2.2a and 2.2b, `phase2/STATE.md`,
+`.gitignore`.
+
+### Step 1 — Kim and Kim 2020, read in full
+
+Read from the author preprint the human placed at `phase2/Kim and Mim paper for
+review.pdf`, 25 pages, all body text plus appendices A and B plus the reference
+list. Title, authors, and journal reference checked against the arXiv abstract
+page for 2102.03250 and they match: JASIST 71(7), 839-855 (2020), DOI
+10.1002/asi.24298, categories cs.DL, cs.IR, cs.LG.
+
+**What they did.** Four labelled AND datasets (PENN, KISTI, AMINER, GESIS).
+Surface variation is *manufactured*, twice: the full-forename ratio is set from
+0% to 100% in steps of 10 with 10 random repetitions, and forenames are truncated
+to 1 through 10 characters. Blocking is surname plus first initial, the same
+family as ours, so the manipulation stays inside blocks. Heuristic arm is string
+matching on all available name strings; algorithmic arm is five classifiers over
+four pairwise features feeding hierarchical agglomerative clustering. Metric is
+B-cubed P/R/F1 at **dataset level**, averaged over 10 iterations.
+
+**What they found, stated precisely because the precision is the whole point.**
+The result is **gap compression, not a winner reversal**. The margin by which ML
+beats string matching shrinks as full forenames get more common, and their
+conclusion says string matching "cannot defeat feature-based machine learning."
+On B-cubed F1, against the best algorithmic arm, string matching **never wins**,
+in any of the four datasets, at any setting. Two component-metric crossings exist
+and are recorded in the report rather than smoothed over: heuristic precision
+overtakes Naive Bayes, their weakest classifier, above the 60% ratio in PENN, and
+heuristic recall exceeds the algorithms below the 50% ratio in PENN, which is
+degenerate because at 0% the heuristic puts nearly everything in one cluster for
+recall 0.99 at precision below 0.1. Neither survives into F1. In the two
+homonym-centric datasets (AMINER, GESIS) everything is flat and the algorithmic
+arms stay above the heuristic across the whole range.
+
+**One protocol detail worth carrying.** Their clustering threshold is chosen per
+block by trying values and keeping the one that maximises that block's B-cubed
+F1, that is a per-block oracle tuned on the evaluated outcome, while the
+heuristic has no parameter at all. "String matching cannot defeat ML" is
+therefore a zero-tuning arm against a per-block-oracle arm.
+
+**A limitation they state that opens our door.** They address only the
+initialization form of synonymy and explicitly exclude edit-distance variants and
+flipped token order, noting the effect may matter for German, Hispanic and Slavic
+names. That is exactly where our measured SV lives.
+
+**Point-by-point differences** are tabulated in the report across nine axes:
+manipulated vs measured surface axis, design-time availability, consistency axis
+(their dataset-level homonym characterization vs our per-block train-only ADS),
+unit (dataset vs block), mechanisms (string vs ML against exact vs fuzzy), task
+(clustering scored by B-cubed against assignment scored by accuracy with
+abstention), winner as a construct (absent there, pre-registered here), selector
+(none there), and generalization breadth.
+
+**Seven honest collapse risks, flagged rather than buried.** The sharpest: if our
+SV is mostly forename initialization, H3 is their manipulated variable observed
+instead of set, and the novelty reduces to unit of analysis plus framing. Also:
+gap compression without reversal *is* their result; H1 is close to already known
+and is demoted to a construct-validity check; H2 must be about the winner's sign
+and identity, not gap magnitude, because ADS predicting magnitude is their
+finding and is not a refutation; exact vs fuzzy is a smaller comparison than
+string vs ML; exact and fuzzy may *coincide* on a single-surface-form history, so
+the low-SV half of H3 may be structural ties rather than exact-match wins; and SV
+and the fuzzy mechanism share an edit-distance metric family. Every one of these
+is written into the pre-registration as a pre-listed reportable outcome or a
+pre-registered control.
+
+### Step 2 — `phase2/PREREG.md`, frozen
+
+Committed before any accuracy exists. Supersedes `phase2-spec.md` section 8.
+Carries an amendment rule: changes are appended as dated amendments in the same
+commit as the code that needs them and before the affected numbers exist; the
+original text is never edited away.
+
+**Hypotheses**, phrased for the specific design-time, per-block, measured
+dissociation rather than the general "surface affects the gap" that Kim and Kim
+already showed. H1 is labelled in the document itself as construct validity, not
+a contribution. H2 is explicitly about the *identity* of the decided winner at
+fixed SV, with the ADS-to-gap-magnitude relationship reported beside it as a
+previously known effect reproduced at block level. H3 requires a winner reversal
+at fixed ADS *and* survival of the initialization control.
+
+**Falsification table**, four outcomes per hypothesis, each with a concrete
+decision rule. Plus a separate list of six outcomes named as acceptable and
+honestly reportable, so none of them can later read as something to avoid. Two of
+them are the ones review asked for by name: "the gap only compresses, no
+reversal" is H3 not supported, reported in those words as a per-block,
+design-time, measured version of Kim and Kim's finding with the dissociation
+claim dropped; and "co-signal does not help" is listed for 2.3 under invariant 4,
+including the case where neither selector beats the better fixed policy. The
+other four: SV turns out to be initialization; the low-SV region is structurally
+tied; ADS predicts gap magnitude; the population is too thin and inconclusive is
+used rather than lowering a threshold.
+
+**Signals and thresholds.** ADS train-only, five fixed purity bands. SV is the
+gate-2.1 `surface_variability` function unchanged, applied train-only; the
+document states that train-only is a choice for SV rather than a necessity, since
+SV needs no labels, and gives the reason. Thresholds come from the observed
+distribution, not the [0,1] scale: band 0 is SV exactly 0 as a structural band of
+its own, bands 1 to 3 are terciles of the strictly positive values with cut
+points taken from the **calibration split**, so not even the band edges see
+evaluation data.
+
+**Winner definition.** Per block, paired bootstrap on the accuracy difference,
+B = 2000, both mechanisms scored on the same resample, 95% percentile interval,
+practical-equivalence margin delta = 0.05 fixed now. Four verdicts: exact wins,
+fuzzy wins, tie, undecided. Tie (equivalence shown) and undecided (no power) are
+kept apart deliberately, and verdict share is reported as a function of test-set
+size so no-winner regions cannot pass as equivalence. Per ADS band the summary is
+two things, both required: the four-way verdict distribution over blocks, and a
+pooled band verdict that resamples **blocks** rather than signatures because the
+block is the independent unit.
+
+**Winner-structure analysis, stated up front.** 2.2b will report whether the
+pattern is a genuine winner change or only gap compression, using three
+definitions fixed now: winner reversal, tie-crossing, and gap compression only.
+The exact-minus-fuzzy gap is reported as a function of both axes in a 5x4
+ADS-by-SV grid, so SV's effect is always shown at fixed ADS and ADS's at fixed
+SV; this is required, not optional, precisely because the axes correlate at
+Pearson -0.2988 / Spearman -0.2612. Cells under 30 blocks are printed with their
+counts, marked under-powered, and excluded from every decision rule.
+
+**Kim and Kim overlap control.** Primary: SV_resid, the same frozen SV function
+applied to an initialization-canonical surface form (first name and each middle
+token reduced to an initial, surname and suffix kept), under which "John Smith"
+and "J. Smith" are identical, so forename initialization contributes exactly
+zero. The whole grid is rerun with it and H3 requires the reversal in both.
+Secondary: stratification by INIT, the train-only share of initial-only given
+names, in three fixed bands. A third arm reruns fuzzy with Jaro-Winkler, against
+the fair objection that SV and the fuzzy mechanism share a metric family.
+
+**Per-dataset reporting made binding**, section 11, since inspire is 15,077 of
+18,984 live blocks. Every headline table and every hypothesis decision is
+reported per dataset, for inspire alone, and pooled non-inspire. A finding is
+called generalizing only if it holds pooled non-inspire *and* in a majority of
+qualifying non-inspire datasets, qualifying at 100 or more blocks; otherwise it is
+reported as an inspire finding in those words.
+
+**Split and ADS recomputation.** 15% of live blocks form the calibration split,
+seed 20260918, used once for the fuzzy cutoff and the band edges and never for a
+reported number. The other 85% is the evaluation split, with a within-block
+train/test rule of `n_train = max(1, min(n-1, floor(0.7n)))`. ADS is recomputed
+train-only. The primary analysis population is blocks with `n_train >= 2` and
+`n_test >= 1`; blocks of exactly 2 are a named, counted, separately reported
+exclusion rather than a silent drop, because ADS on one train signature is 1.0 by
+construction and SV is undefined.
+
+**Fuzzy-cutoff calibration protocol**, specified and not executed: calibration
+blocks only, fixed grid 0.50 to 0.95 in steps of 0.05, pick the highest pooled
+accuracy, break ties toward the higher (more abstaining) cutoff, commit the value
+and the full curve, then frozen. One global cutoff, not one per dataset or band,
+because a per-stratum cutoff would give fuzzy a tuning budget exact cannot have.
+The residual asymmetry, one tuned parameter against none, is to be stated in the
+paper.
+
+**Key numbers / plots:** none produced. This pass deliberately computed nothing.
+The two new documents are at `phase2/PREREG.md` and
+`phase2/reports/kim2020_positioning.md`.
+
+**Invariant checks run:** #5 — this pass *is* an invariant 5 action: the
+pre-registration is committed before the measurement it governs, and the
+positioning report is committed before the hypotheses it informed were frozen. No
+number in either file is new; each quoted figure is an already-committed 2.1
+measurement used as design context, and I verified that by re-reading
+`reports/gate21_two_axes.md` rather than recalling. #2 — protected in the design:
+PREREG.md section 12 records that the winner is defined only by labelled accuracy
+and that neither ADS nor SV nor SV_resid appears in its definition; the
+shared-metric objection between SV and the fuzzy mechanism is acknowledged as a
+fair criticism rather than dismissed, and a Jaro-Winkler arm is pre-registered
+against it. #3 — the calibration split is disjoint from the evaluation split at
+block level and is burned on the cutoff and the band edges; no test signature
+reaches any signal, cutoff, or band edge. #4 — the 2.3 baselines are restated in
+PREREG.md section 2 with the explicit outcome that if SV-only suffices, the paper
+says SV-only suffices. #6 — two mechanisms only; no semantic or LLM arm is
+specified. #7 — nothing was run, and the protocol as written stays offline,
+CPU-only, seeded and deterministic. #1 and #8 — 1 was satisfied at 2.1 and is
+untouched; 8 is what the falsification table and the acceptable-outcomes list
+exist to enforce. Off-limits paths untouched; all changes are under `phase2/`
+plus one `.gitignore` block.
+
+**One licensing note, acted on.** `phase2/Kim and Mim paper for review.pdf` is a
+publisher preprint with no redistribution licence, so it is gitignored and stays
+untracked rather than entering a repo that becomes public. The file is read from
+disk; the citation is what the paper carries.
+
+**Recommendation for next pass:** Phase 2.2b in a fresh session after review.
+Execute PREREG.md exactly and do not re-decide any of it; if something in it is
+unrunnable, append a dated amendment to that file in the same commit as the code
+that needs it, before the affected numbers exist. Order of work: build the split
+and the two mechanisms with their self-checks, calibrate the fuzzy cutoff once on
+the calibration split and commit the frozen value with its curve, compute the
+calibration-split band edges and commit those, and only then touch the evaluation
+split. The one thing to watch early is the mechanism agreement rate at low SV; if
+exact and fuzzy turn out to be the same procedure on most single-surface-form
+histories, that shapes the finding and should be surfaced at review rather than
+discovered in the writing phase.

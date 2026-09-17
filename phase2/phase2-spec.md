@@ -98,6 +98,10 @@ say so plainly. No in-sample selector number is ever reported as a result.
 
 ## 8. Pre-registration draft
 
+**Superseded by `phase2/PREREG.md`, frozen 2026-09-18 in Phase 2.2a.** That file
+is the binding pre-registration; this section is kept as the draft it grew from.
+Where the two differ, PREREG.md wins.
+
 Fixed before the frozen run, following Phase 1 discipline.
 
 - H1 (accuracy): block consistency (ADS) is positively associated with each

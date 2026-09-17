@@ -27,9 +27,15 @@ are where we slow down and review most carefully.
 - 2.1 Data foundation. Access and license recon, a scoped not-scooped check,
   ingest, and the two-axis sanity check (consistency range, surface-stability
   range, independence). HARD GATE.
-- 2.2 The boundary finding. Two mechanisms, a paired-bootstrap winner, then the
+- 2.2a Pre-registration. Read the nearest prior work (Kim and Kim 2020) in full,
+  position against it, then freeze PREREG.md: hypotheses, falsification table,
+  thresholds, split, winner definition, calibration protocol, controls, and
+  reporting rules. Committed before any accuracy exists, per invariant 5. No
+  measurement.
+- 2.2b The boundary finding. Two mechanisms, a paired-bootstrap winner, then the
   dissociation: consistency predicts each mechanism's accuracy but not the
-  winner; surface stability does. This is the keel and it must stand alone.
+  winner; surface stability does. Executes PREREG.md exactly. This is the keel
+  and it must stand alone.
 - 2.3 The co-signal. Measure surface stability, build the two-signal selector,
   evaluate it against consistency-only and stability-only baselines, held out and
   across S2AND's sub-datasets. Report the recovery number, whatever it is. HARD

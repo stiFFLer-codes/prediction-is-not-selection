@@ -45,3 +45,6 @@ Final PDF/
 # Phase 2: WDC raw downloads — re-fetch with phase2/ingest_wdc.py
 phase2/data/raw/
 phase2/data/raw_s2and/
+
+# Phase 2: prior-work PDF, publisher preprint, no redistribution licence
+phase2/*.pdf
