@@ -1482,3 +1482,121 @@ separation that this pass measured pointing the other way. Third, only after
 those, whether 2.3 proceeds, and with which baselines. The locked Phase 2.5
 pre-registration-integrity subsection needs no change: it was drafted blind and
 its argument is unaffected by an Inconclusive result.
+
+---
+
+## Pass 12 — Phase 2.5a, writing setup and outline (2026-09-18)
+
+**What I did and why.** Rewrote the paper identity in the working documents to
+the result 2.2e actually returned, then built the manuscript outline. No
+manuscript body text was drafted and nothing was measured. `PREREG.md` was not
+opened for editing: it stays frozen with Amendment 1 and Addendum 1a intact, as
+the record of what was fixed in advance.
+
+**The identity that was retired.** The two-signal role separation, consistency
+gating whether the mechanism choice is live and surface stability directing it
+where it is. It was removed from all four places it lived, not softened and not
+kept as a secondary claim: `phase2/CLAUDE.md` mission, `PLAN.md` paper identity,
+`PLAN.md` working titles, and `phase2-spec.md` sections 1 and 3. The reason is
+the one clause that tested it. Addendum 1a required ADS to be the stronger
+driver of decidability under both its measures, and 2.2e found it the stronger
+driver under neither, at every k and every margin.
+
+**The identity that replaces it.** A pre-registered negative result:
+design-time mechanism selection for author name disambiguation has no signal a
+designer can act on. Two halves, and the structural half is the sharper
+contribution.
+
+- **Structural.** Exact match is a strict sub-case of single-nearest retrieval,
+  so the naive rules-versus-fuzzy comparison cannot contest a winner at any
+  cutoff, in any metric family. Measured at 2.2b as zero `exact wins` out of
+  199,713 test signatures in both metric arms, then generalized at 2.2c to any
+  pair of mechanisms that assigns an author from the block's own history: no
+  precision-first rule can win where the history names one author, and none can
+  win where the history is written one way.
+- **Empirical.** With the two-sided pair, the mechanisms barely differ (pooled
+  0.8244 against 0.8294), the gap compresses weakly with surface stability and
+  never reverses below ADS = 1.0 at the primary margin, and neither signal
+  robustly predicts which mechanism to use. H2 and H3 Inconclusive because the
+  pre-registered margin is wider than every effect on both axes.
+- **What it retroactively explains.** The Phase 1 synthetic result reported a
+  winner that was a constant function of the lexical condition and a consistency
+  signal blind to it. That is the shape a nested pair returns by construction.
+  The outline carries this as an interpretation of our own published result in
+  discussion section 8.3, explicitly not as a new measurement.
+
+**The outline.** `phase2/reports/OUTLINE.md`. Ten sections, each with a
+one-sentence spine and a word budget, subsection budgets for the five largest,
+and a total of **8,100 body words plus a 250-word abstract**, leaving about
+1,600 words of headroom under the 10,000 total for captions and references. It
+adapts `phase2-spec.md` section 10 to a methodological-and-null paper, and that
+section now carries a banner pointing here. The structural result gets its own
+section (4, 650 words) rather than sitting inside related work or results, which
+is the main structural change from the old skeleton. Section 6.4 reproduces the
+locked pre-registration-integrity subsection from PLAN.md and is marked "not
+drafted, reproduced", with its own fill-at-writing checklist plus the two
+wording checks recorded at lock time.
+
+**The figure and table plan.** Six tables and five figures out of the 26 analysis
+tables and 10 figures that 2.2b, 2.2c and 2.2e produced. Tables: population
+accounting; two-sidedness across k with the 2.2b zero beside it; per-dataset
+accuracy and coverage; marginal pooled gap and verdict by ADS and by SV; the
+Addendum 1a driver comparison; the falsification table evaluated with margin and
+k sensitivity. Figures: H1 accuracy against ADS, the 5 by 4 gap grid, the
+decidability gradient, verdict share by test-set size, and the k curve. H1 keeps
+a main-text figure deliberately: without it the null reads as a dead experiment
+rather than as prediction working and selection failing. Everything else is named
+as a supplementary pointer to its committed file, including the SV_resid,
+Jaro-Winkler and INIT arms, which are reported as numbers in section 7.5 instead.
+
+**Title candidates.** Six, sentence case, in PLAN.md and OUTLINE.md with merging
+notes. Anything containing "cascade", "selector", "gating", "role" or
+"two-signal" was deliberately avoided, since all of them name the retired
+framing.
+
+**Writing constraints recorded in OUTLINE.md**, per instruction, so they govern
+every 2.5 session and not just this one: plain English and short concrete
+sentences, sentence-case headings, no em dashes, venue-neutral LaTeX, honest
+framing with no overclaim, every number traceable to a committed table, and the
+`/anti-ai` pass held back as a dedicated 2.5c session rather than applied during
+drafting.
+
+**Invariant checks run, and their results.**
+
+- **Invariant 5, no result before measurement: pass.** Nothing was computed this
+  pass. Every number written into the rewritten identity and into OUTLINE.md was
+  copied from a committed report or table. Spot-verified three of them directly
+  against the CSVs rather than against the prose: `phase2e_twosidedness_eval.csv`
+  gives 3,025 / 4,012 at k = 5 Levenshtein, `phase2e_driver_comparison.csv` gives
+  eta2_ADS 0.17489 against eta2_SV 0.38373 with averaged ranges 0.07072 against
+  0.07549, and `phase2e_accuracy_by_population.csv` gives 0.82444 against 0.82944
+  over 13,902 blocks and 197,479 test signatures.
+- **`PREREG.md` frozen: pass.** Not in the diff. Amendment 1 and Addendum 1a
+  unedited.
+- **The locked Phase 2.5 deliverable untouched: pass.** No line of the PLAN.md
+  deliverable block appears in the diff.
+- **Read-only paths respected: pass.** `git status` shows four modified files,
+  all under `phase2/`, plus the new `phase2/reports/OUTLINE.md`. `phase1-archive/`
+  and `manuscript/` were read for the retroactive-explanation paragraph and not
+  modified.
+- **No em dashes: pass.** Zero in all five touched files.
+- **Budget arithmetic: pass.** Section budgets sum to 8,100 and every subsection
+  list sums to its section total.
+
+**What I did not do, and why.** `phase2-spec.md` sections 7 and 9 still describe
+the selector protocol and the old success-partial-failure criteria. They were
+outside the instruction's scope for this pass, so they are flagged in OUTLINE.md
+open input 3 and in STATE.md rather than rewritten. Charter invariants 4 and 6
+also still assume a selector may be built; that depends on whether 2.3 runs at
+all, which is review's call. The primary margin was left at delta = 0.05,
+because moving it after seeing that delta = 0.02 is where the structure lives is
+exactly the move the pre-registration exists to prevent.
+
+**Recommendation for the next pass.** Review `reports/OUTLINE.md` and the
+rewritten identity, and settle the four open inputs OUTLINE.md lists, in
+particular whether delta = 0.05 stays primary and whether 2.3 and 2.4 happen at
+all. Then Phase 2.5b, drafting, in the order OUTLINE.md's last section gives:
+sections 4, 5 and 6 first, then 7, then 3, 8 and 9, then 1 and 2, then the
+abstract. The one thing worth deciding early is whether section 4 can be made to
+land as a contribution in its own right. If it cannot, the paper is thinner than
+this outline assumes, and that is better known before 8,000 words exist.

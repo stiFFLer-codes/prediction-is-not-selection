@@ -9,17 +9,40 @@ around it.
 ## Mission
 
 Rebuild the ADS-Cascade paper as a clean, venue-neutral research paper on real
-public benchmarks. The scientific core is a two-signal role separation: a
-design-time consistency signal (cluster purity, which we call ADS) governs
-whether the choice of classification mechanism is live at all, and a design-time
-surface-stability signal governs which mechanism to choose when it is. Neither
-signal alone predicts the winner. On top of that, a selector that uses both.
+public benchmarks. The scientific core is a pre-registered negative result:
+**design-time mechanism selection for author name disambiguation has no signal a
+designer can act on.** It has a structural half and an empirical half, and the
+two are separate contributions.
 
-Reframed at Phase 2.2d, 2026-09-18, from the earlier one-signal claim that ADS is
-blind to the winner. Two measured structural findings forced it: a single-nearest
-retriever contains exact match (2.2b), and a precision-first rule cannot win a
-block whose history names one author, so consistency necessarily carries some
-winner information (2.2c). Binding detail is in `PREREG.md` Amendment 1.
+**Structural.** Exact match is a strict sub-case of single-nearest retrieval. A
+test surface form that occurs in the block's history sits at similarity exactly
+1.0, the maximum of any similarity function, so any retriever that takes the
+single nearest form takes that form and resolves the same author. The naive
+rules-versus-fuzzy comparison therefore cannot contest a winner, at any cutoff
+and in any metric family. Measured at 2.2b: zero `exact wins` signatures out of
+199,713, in both metric arms. Generalized at 2.2c: for any pair of mechanisms
+that assigns an author from the block's own history, a precision-first rule can
+never win a block whose history names one author, and can never win a block whose
+history is written one way.
+
+**Empirical.** With a genuinely two-sided pair, designed at 2.2c and run at 2.2e,
+the two mechanisms barely differ: pooled held-out accuracy 0.8244 for the rule
+against 0.8294 for the k-nearest vote. The gap compresses weakly with surface
+stability and never reverses below ADS = 1.0 at the primary margin. Neither
+consistency nor surface stability robustly predicts which mechanism to use. H2
+and H3 both came out Inconclusive because the pre-registered margin is wider than
+every effect on both axes.
+
+Together these retroactively explain the Phase 1 synthetic result, where the
+winner looked like a clean constant function of the surface condition. That is
+what a nested pair returns by construction, on any data.
+
+**Retired at Phase 2.5a, 2026-09-18.** The two-signal role separation is dead,
+not weakened, and is not to be restated anywhere. The one pre-registered clause
+that tested it, Addendum 1a's driver comparison, found SV the stronger driver of
+decidability under both required measures, at every k and every margin. `PREREG.md`,
+including Amendment 1 and Addendum 1a, stays frozen and untouched as the record
+of what was fixed in advance and what was tested.
 
 ## Non-goals
 

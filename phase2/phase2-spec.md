@@ -6,24 +6,49 @@ the arc. This revision replaces the earlier WDC-based spec.
 
 ## 1. Paper identity
 
-A venue-neutral research paper. The core is a role separation shown on real data:
-the winner of a head-to-head mechanism comparison is a function of **both**
-design-time axes in interaction, and is not blind to consistency. Consistency
-gates decidability, that is whether the mechanism choice matters at all, and
-surface stability directs the decidable cases, that is which mechanism to pick
-where it does matter. Neither signal alone predicts the winner. The constructive
-half tests whether a selector using both beats each single-signal baseline.
+A venue-neutral research paper reporting a pre-registered negative result:
+**design-time mechanism selection for author name disambiguation has no signal a
+designer can act on.** The question the paper asks is whether a designer can
+measure a property of their own data before building anything and learn which
+classification mechanism to build. On this substrate the answer is no, for two
+separable reasons.
+
+**Structural.** Exact match is a strict sub-case of single-nearest retrieval. A
+test surface form present in the block's history sits at similarity exactly 1.0,
+the maximum of any similarity function, so any single-nearest retriever takes the
+same form and resolves the same author. The naive rules-versus-fuzzy comparison
+cannot contest a winner, at any cutoff and in any metric family. Measured at 2.2b
+as zero `exact wins` signatures out of 199,713 in both metric arms, then
+generalized at 2.2c: for any pair of mechanisms that assigns an author from the
+block's own history, a precision-first rule can never win where the history names
+one author, and can never win where the history is written one way.
+
+**Empirical.** With a genuinely two-sided pair, the exact-evidence rule against a
+k-nearest vote at k = 5, the two mechanisms barely differ on real data: pooled
+held-out accuracy 0.8244 against 0.8294 over 197,479 test signatures. The gap
+compresses weakly with surface stability and changes sign marginally on both
+axes, but no band clears the pre-registered margin, so H2 and H3 are both
+Inconclusive. Neither consistency nor surface stability robustly predicts which
+mechanism to use, and the one pre-registered clause that compared them found
+surface stability the stronger driver of decidability under both required
+measures.
+
+Together these retroactively explain the Phase 1 synthetic result, whose winner
+was a constant function of the lexical condition. A nested pair produces exactly
+that shape by construction.
 
 Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows a
 signal-versus-selection gap for model choice under decision economics, and to Kim
-and Kim (2020) on the surface axis; distinct from both, because neither has a
-decidability axis, a per-block unit of analysis, or a design-time signal.
+and Kim (2020) on the surface axis. Distinct from both: Tan's blind axis is
+economic and has no per-block unit; Kim and Kim manipulate one surface variable
+at dataset level, report a gap magnitude, and never claim a winner change.
 
-**Reframed at Phase 2.2d, 2026-09-18.** The earlier text here claimed consistency
-was blind to the winner. 2.2c showed that cannot hold for any mechanism pair in
-this family, because a precision-first rule cannot win a block whose train
-history names a single author. `PREREG.md` Amendment 1 is binding; this section
-follows it.
+**Rewritten at Phase 2.5a, 2026-09-18.** The text here previously claimed a
+two-signal role separation, consistency gating and surface stability directing.
+2.2e tested it and returned Inconclusive on both hypotheses, with the one clause
+that measured the role assignment failing under both required measures. That
+identity is retired, not softened. `PREREG.md`, with Amendment 1 and Addendum 1a,
+stays frozen and unedited as the record of what was fixed in advance.
 
 ## 2. Data: S2AND
 
@@ -60,18 +85,24 @@ not-scooped check are verified in Phase 2.1 before any building.
   written consistently, so the exact-evidence rule survives; high variability
   means many variants, so the retriever's coverage is expected to pay. Measured,
   never set, and never defined using the winner (invariant 2). Which way it
-  actually points is H3, not an assumption.
+  points was H3. Measured at 2.2e: the pooled gap does rise with SV and change
+  sign marginally, -0.0388 / -0.0144 / -0.0115 / +0.0189 across the four bands,
+  but no SV band pair is decided in opposite directions below ADS = 1.0 at any
+  margin, so the shape is gap compression and not direction.
 - unit of analysis = the block. Each block is a small classification problem with
   its own ADS and its own surface stability, so blocks are the natural analog of
   the synthetic experiment's conditions, and there are many of them.
-- **winner = a function of both axes, not of one** (added at Phase 2.2d). A block
-  whose train history names a single author returns that author from any
-  mechanism that assigns from history, so no precision-first rule can win there
-  and the choice is not live. A block whose history carries a single surface form
-  gives every mechanism the same evidence, with the same consequence. Consistency
-  therefore gates whether the comparison is decidable, and surface stability
-  directs it where it is. Neither is blind to the winner and neither determines
-  it alone.
+- **winner = structurally unreachable in two regions, and empirically almost
+  absent everywhere else** (rewritten at Phase 2.5a, after 2.2e). Two cells are
+  zero by construction for any pair of mechanisms that assigns an author from the
+  block's own history. A block whose train history names one author returns that
+  author from any non-empty pool, so a precision-first rule can differ there only
+  by abstaining, which scores as wrong. A block whose history carries one surface
+  form gives every mechanism the same evidence. Where a contest is structurally
+  possible, it is empirically small: at delta = 0.05 no ADS band and no SV band
+  has a decided pooled verdict, and 500 of 13,902 blocks carry a decided
+  per-block verdict. The winner is not a function of both axes in any actionable
+  sense. Most of the time it is not there.
 
 ## 4. Mechanisms and winner
 
@@ -155,6 +186,12 @@ and the margins before measuring any accuracy.
   and reconsider before writing anything.
 
 ## 10. Paper skeleton and budget
+
+> **Superseded by `reports/OUTLINE.md`, built at Phase 2.5a, 2026-09-18.** That
+> file carries the section list, the spines and the budget for the paper as it
+> now stands, adapted to a methodological-and-null result. The skeleton below is
+> the draft it grew from. Where the two differ, OUTLINE.md wins. The
+> related-work streams below are unchanged and still correct.
 
 Abstract (~220), Introduction (~1200), Related work (~1500), Problem setting
 (~900), Experimental design (~1400), Results (~1700), Discussion (~1100),

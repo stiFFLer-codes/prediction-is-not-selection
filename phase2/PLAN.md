@@ -6,50 +6,69 @@ the spec (phase2-spec.md) sets the method.
 
 ## Paper identity
 
-A venue-neutral research paper showing that two design-time, label-free signals
-play separable roles in mechanism choice. A consistency signal sets **whether**
-the choice of classification mechanism matters at all, and a surface-stability
-signal sets **which way** to choose where it does. Neither signal alone predicts
-the winner, and that conjunction is the contribution. On top of it, an honestly
-evaluated selector that uses both, reported beside a consistency-only and a
-stability-only baseline.
+**Rewritten at Phase 2.5a, 2026-09-18, to the result 2.2e returned.** The
+two-signal role-separation identity that stood here is retired. It is not
+softened and not carried as a secondary claim; it is gone. What replaces it is
+what the frozen rules actually produced.
+
+A venue-neutral research paper reporting a pre-registered negative result:
+**design-time mechanism selection for author name disambiguation has no signal a
+designer can act on.** The result has two halves, and the structural half is the
+sharper contribution.
+
+**The structural half: the comparison most people would run cannot have a
+winner.** Exact match is a strict sub-case of single-nearest retrieval, because a
+test surface form present in the block's history sits at similarity exactly 1.0,
+the maximum of any similarity function. The naive rules-versus-fuzzy comparison
+therefore cannot contest a winner at any cutoff, in any metric family, under any
+tie-break. This was measured before it was understood: 2.2b found zero `exact
+wins` signatures out of 199,713, in both metric arms. 2.2c then generalized it.
+For **any** pair of mechanisms that assigns an author from the block's own
+history, a precision-first rule can never win a block whose history names one
+author, and can never win a block whose history is written one way. Two cells of
+the design space are zero by construction, not by measurement.
+
+**The empirical half: where a contest is possible, there is almost nothing to
+select.** 2.2c built a genuinely two-sided pair, the exact-evidence rule against a
+k-nearest vote at k = 5, and 2.2e ran the frozen analysis on it. The pair is
+two-sided on held-out data: 3,025 signatures where the rule is right and the vote
+wrong, against 4,012 the other way. But the two mechanisms barely differ, pooled
+0.8244 against 0.8294. The gap compresses weakly along both axes and changes sign
+marginally, yet no ADS band and no SV band clears the pre-registered margin, so
+H2 and H3 are both Inconclusive. Neither consistency nor surface stability
+robustly predicts which mechanism to use, and the one pre-registered clause that
+tested the role assignment found surface stability, not consistency, the stronger
+driver of decidability, under both required measures, at every k and every
+margin.
+
+**What this retroactively explains.** The Phase 1 synthetic study reported a
+winner that was a constant function of the lexical condition and a consistency
+signal blind to it. That is what a nested mechanism pair returns by construction:
+the contained mechanism cannot win, so the winner cannot vary, and whatever
+tracks the margin then looks like it predicts the choice. The positive-looking
+shape of that result was a property of the mechanism pair, not of the data. The
+paper says this about its own prior work, as an interpretation of a published
+result and not as a new measurement.
+
+What stands on its own, whatever else review decides: the two structural facts
+above, H1 (train-only ADS predicts each mechanism's own held-out accuracy across
+seven datasets, Supported at both 2.2b and 2.2e), and the pre-registration record
+itself.
 
 Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows a
 signal-versus-selection gap for model choice under decision economics, and to Kim
-and Kim (2020), the nearest prior work on the surface axis. Distinct from both:
-Tan's blind axis is economic and has no per-block unit; Kim and Kim manipulate a
-single surface variable at dataset level and report a gap magnitude, with no
-decidability axis and no design-time signal.
+and Kim (2020), the nearest prior work on the surface axis. The distinction
+survives the retirement of the old identity and gets sharper. Tan's blind axis is
+economic and has no per-block unit. Kim and Kim manipulate a single surface
+variable at dataset level, report a gap magnitude, and never claim a winner
+change. Our gap-compression shape reproduces theirs at block level with measured
+rather than manipulated surface variation, and our null is about selection, which
+neither paper attempts.
 
-**How this identity was arrived at, and what is still untested.** It replaces an
-earlier one-signal claim that consistency is blind to the winner. 2.2b showed the
-frozen mechanism pair was nested, so no winner existed to be blind to, and 2.2c
-showed that a precision-first rule cannot win a block whose train history names
-one author, so consistency necessarily carries some winner information for any
-pair in this family. The blindness claim was not recoverable by changing
-mechanisms, so the claim was rebuilt rather than repaired, at Phase 2.2d.
-`PREREG.md` Amendment 1 is the binding version.
-
-What is established: train-only ADS predicts each mechanism's own held-out
-accuracy across seven datasets (H1, confirmed again at 2.2e for the amended
-pair), and the two structural gates above.
-
-**What 2.2e measured, and why this identity is now under review.** 2.2e ran the
-frozen table and returned H2 Inconclusive and H3 Inconclusive at the primary
-margin, H3 Partial at delta = 0.02. Neither was refuted; the pre-registered power
-floor is evaluated first and is not met, because every marginal pooled gap on
-both axes is smaller than delta = 0.05. Underneath the floor the pass measured
-three things this identity did not predict. The decidability gradient is not
-monotone and rises again at ADS = 1.0 instead of approaching zero. There is no
-SV-driven winner reversal below ADS = 1.0 at any margin, only a tie-crossing at
-0.02. And Addendum 1a's role-separation clause, the one pre-registered test of
-"consistency gates, surface stability directs", found **SV the stronger driver of
-decidability under both required measures**, stably across k and delta and more
-strongly with the structural ADS = 1.0 row removed.
-
-So the identity above is not refuted and not supported. Whether it stands is the
-first thing review decides, ahead of 2.3. Every outcome in the frozen table,
-including the ones that retire this identity, was and remains acceptable.
+**What this identity does not include.** No selector, and no claim about one. The
+constructive half of the old arc is not part of this paper unless review decides
+2.3 runs anyway, and on this result an honestly evaluated selector would have
+almost nothing to select over.
 
 ## Dataset
 
@@ -189,16 +208,23 @@ history.
 
 ## Working titles
 
-To merge with CC's suggestions at the writing phase, once results are in.
-Replaced at Phase 2.2d: the three earlier candidates all presumed consistency was
-blind to the winner, which 2.2c ruled out.
+Replaced at Phase 2.5a. The three candidates that stood here all presumed the
+two-signal role separation, which 2.2e retired. Six new candidates, in sentence
+case, for the author to merge with their own. Rationale and the discarded
+directions are in `reports/OUTLINE.md`.
 
-- Consistency decides whether the matcher matters, surface stability decides
-  which one: a two-signal design-time account.
-- When does the matcher matter, and which one: a per-block, design-time selector
-  for author name disambiguation.
-- Two design-time signals, two roles: gating and directing mechanism choice in
-  entity resolution.
+- Nothing to select: a pre-registered null result for design-time mechanism
+  choice in author name disambiguation.
+- Exact match is a sub-case of nearest-neighbour retrieval, and what that costs a
+  mechanism comparison.
+- Two design-time signals, no decision: measuring before you build does not tell
+  you what to build.
+- A comparison that cannot have a winner, and one that barely does: limits on
+  design-time mechanism selection.
+- When the choice does not matter: rules against retrieval on seven real
+  disambiguation datasets.
+- Measure your data first, then build what you like: a negative result on
+  design-time mechanism selection.
 
 ## Output constraints (from the charter)
 

@@ -6,19 +6,28 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.2e complete. `PREREG.md` as amended by Amendment 1 and
-  Addendum 1a was executed on the evaluation split. H1 Supported, H2
-  Inconclusive, H3 Inconclusive at the primary margin and Partial at delta =
-  0.02.** Awaiting human review. Phase 2.3 stays blocked.
+- Status: **Phase 2.5a complete. The paper identity has been rewritten to the
+  2.2e result and the manuscript outline is built.** Awaiting human review of
+  `reports/OUTLINE.md` and the rewritten identity. No manuscript body text has
+  been drafted. Phase 2.3 stays blocked and may not run at all.
+- **The two-signal role separation is retired.** The charter mission, PLAN.md's
+  paper identity, its working titles, and `phase2-spec.md` sections 1 and 3 now
+  describe a pre-registered negative result: design-time mechanism selection for
+  author name disambiguation has no signal a designer can act on, for a
+  structural reason and an empirical one. Removed, not softened. `PREREG.md`
+  was not touched and stays frozen.
+- Phase 2.2e complete. `PREREG.md` as amended by Amendment 1 and Addendum 1a was
+  executed on the evaluation split. H1 Supported, H2 Inconclusive, H3
+  Inconclusive at the primary margin and Partial at delta = 0.02.
 - **The mechanism pair is fixed.** The regression check reproduces the 2.2c
   counts exactly, and on the evaluation split `rule wins` is reachable: 3,025
   test signatures where the rule is right and the vote wrong, against 4,012 the
   other way, at k = 5. The 2.2b degeneracy is gone.
-- **The pass returns a result that points against the current paper identity.**
+- **The result that pointed against the old identity has now been acted on.**
   Addendum 1a's role-separation clause required ADS to be the stronger driver of
   decidability under both its measures. It is the stronger driver under neither.
-  This did not decide H2, because the power floor is evaluated first, but it is
-  the sharpest measurement in the pass and review has to weigh it.
+  That did not decide H2, because the power floor is evaluated first, but it was
+  the sharpest measurement in 2.2e and 2.5a retired the framing it tested.
 - Phase 2.2d complete, nothing outstanding. Phase 2.2c, 2.2b, 2.2a and 2.1
   complete. The 2.2b numbers stay as the frozen record of the nested pair and
   were not recomputed, overwritten or withdrawn.
@@ -114,8 +123,10 @@ surface stability directs it where it is, and neither signal alone predicts the
 winner. **2.2e has now tested that and the one clause that measured it came out
 against ADS.** The reframe's hypotheses are not refuted, because the power floor
 carried them to Inconclusive, but they are not supported either, and the
-role-separation clause pointed the other way. That is the live question for
-review.
+role-separation clause pointed the other way. **That question was settled at
+2.5a: the reframe is retired and the paper is now the negative result described
+at the top of this file.** This paragraph stays as the record of what was
+claimed and when.
 
 ## Phase 2.2c outcome, in numbers
 
@@ -220,38 +231,40 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   band-count-biased range test. Nothing measured.
 - Pass 10 (Phase 2.2d closed): the pre-registration-integrity subsection locked
   into PLAN.md verbatim, drafted blind to the 2.2e result. Nothing measured.
-- **Pass 11 (Phase 2.2e): the amended experiment run. Mechanism B implemented
-  and regression-checked against 2.2c before any evaluation signature was read,
-  then the frozen analysis executed on the evaluation split. H1 Supported, H2
+- Pass 11 (Phase 2.2e): the amended experiment run. Mechanism B implemented and
+  regression-checked against 2.2c before any evaluation signature was read, then
+  the frozen analysis executed on the evaluation split. H1 Supported, H2
   Inconclusive, H3 Inconclusive and margin-dependent. The pair is two-sided. The
-  role-separation clause failed under both required measures.**
+  role-separation clause failed under both required measures.
+- **Pass 12 (Phase 2.5a): writing setup and outline. The paper identity rewritten
+  to the true finding in the charter, PLAN.md and the spec; `reports/OUTLINE.md`
+  built with section spines, an 8,100-word body budget, a six-table and
+  five-figure plan, and six title candidates. Nothing measured. `PREREG.md`
+  untouched.**
 
-## Next: review decides three things, in this order
+## Next: review the outline and the rewritten identity
 
-Do not start 2.3. The 2.2e numbers are in and they raise questions the pass
-deliberately did not settle for itself.
+Do not start drafting. Two things to read, in this order.
 
-1. **Is delta = 0.05 still the right primary margin?** Every marginal pooled gap
-   on both axes falls below it, so the power floor decides both hypotheses
-   before any substantive rule is read. The delta = 0.02 column is where this
-   data has structure. Moving the primary margin now, after seeing that, is
-   exactly the move the pre-registration exists to prevent, so it is a decision
-   to take explicitly and record as an amendment, or to decline explicitly. It
-   is not a decision to slide into.
-2. **Does the paper identity survive the driver result?** PLAN.md's identity
-   paragraph, the charter mission and `phase2-spec.md` section 1 all assert that
-   consistency gates and surface stability directs. The one pre-registered clause
-   that measured this found SV the stronger driver of decidability under both
-   required measures, stably across k and delta, and more strongly with the
-   structural ADS row removed. H2 was not refuted, because the floor carried it
-   to Inconclusive, but nothing in this pass supports the role assignment either.
-3. **Only then, whether 2.3 proceeds and with which baselines.** Charter
-   invariant 4's ADS-only and SV-only baselines are now the interesting part
-   rather than the defensive part, and what they should be expected to show
-   depends on the answer to 2.
+1. **The rewritten identity.** `phase2/CLAUDE.md` mission, `PLAN.md` paper
+   identity and working titles, `phase2-spec.md` sections 1 and 3. The question
+   is whether the negative result as stated there is the paper you want to write
+   and whether anything in it overclaims. The old framing is gone from all four
+   places.
+2. **`reports/OUTLINE.md`.** Section list, spines, budgets, the six-table and
+   five-figure plan, and six title candidates to merge with your own. It also
+   records the writing constraints for the whole of 2.5 and lists four open
+   inputs, including whether delta = 0.05 stays the primary margin and whether
+   2.3 and 2.4 happen at all.
+
+Then Phase 2.5b, the drafting pass, in the order OUTLINE.md's last section
+gives: sections 4, 5 and 6 first, then 7, then 3, 8 and 9, then 1 and 2, then
+the abstract. 2.5c is the anti-AI and citation-verification pass and is separate
+by design.
 
 The locked Phase 2.5 pre-registration-integrity subsection needs no change. It
-was drafted blind and its argument is unaffected by an Inconclusive result.
+was drafted blind and its argument is unaffected by an Inconclusive result or by
+the identity rewrite.
 
 ## Open decisions
 
@@ -268,31 +281,60 @@ Frozen and committed, not to be re-decided:
   section 7 and the six resolutions: `PREREG.md` Amendment 1 and Addendum 1a
   (Phase 2.2d). Sign-off closed when 2.2e started; these are now history.
 
+Settled at Phase 2.5a:
+
+- **The paper identity.** Retired the two-signal role separation; the paper is
+  the negative result. Rewritten in the charter, PLAN.md and spec sections 1 and
+  3. `PREREG.md` untouched.
+
 Still open:
 
-- **The three review decisions above.** These are the live ones.
+- **Is delta = 0.05 still the primary margin?** Unchanged by this pass, and the
+  outline is written against it. Every marginal pooled gap on both axes falls
+  below it, so the power floor decides both hypotheses before any substantive
+  rule is read, and delta = 0.02 is where the data has structure. Moving it now,
+  after seeing that, is the move the pre-registration exists to prevent. It is a
+  decision to take explicitly and record as a dated amendment, or to decline
+  explicitly. It is not a decision to slide into.
+- **Whether 2.3 and 2.4 happen at all.** The rewritten identity has no selector
+  in it. If they run, it is as a negative control, and OUTLINE.md open input 2
+  says what changes in the outline.
+- `phase2-spec.md` sections 7 and 9 still describe the selector and its success
+  criteria. Out of scope for 2.5a; they should be rewritten or marked superseded.
 - Whether the "strictly lower in the top ADS band than in the bottom" clause
   should be pinned to one construction. It cost nothing this time and will not
   always.
 - Whether a third mechanism enters at all. Charter invariant 6 keeps it out
   unless it is actually implemented and evaluated.
-- Title: the three candidates in PLAN.md all presume the role separation that
-  decision 2 above puts in question.
+- Title: six candidates now in PLAN.md and OUTLINE.md, to merge with the
+  author's own.
 
 ## Live risks
 
-- **The role-separation clause failed, and it is the clause the paper identity
-  rests on.** New at 2.2e and now the dominant risk. eta2_ADS 0.1749 against
-  eta2_SV 0.3837 and averaged ranges 0.0707 against 0.0755, stable across k and
-  delta, wider still without the structural ADS row. H2's Inconclusive verdict
-  does not rescue the framing; it only means the frozen rules declined to decide.
+- **The paper is now a null result, and it has to be written as a contribution
+  rather than as a failed experiment.** New at 2.5a and now the dominant risk.
+  The structural half carries it: exact match is a strict sub-case of
+  single-nearest retrieval, and two cells are zero for any pair in the family.
+  The empirical half is honest but thin on its own. If the drafting pass cannot
+  make section 4 land as a result, the paper is in trouble and that is worth
+  knowing early.
+- **The role-separation clause failed, which is what retired the old identity.**
+  eta2_ADS 0.1749 against eta2_SV 0.3837 and averaged ranges 0.0707 against
+  0.0755, stable across k and delta, wider still without the structural ADS row.
+  H2's Inconclusive verdict did not rescue the framing; it only meant the frozen
+  rules declined to decide. Kept here because the paper reports the clause and
+  its failure rather than dropping it.
 - **The primary margin is wider than every effect on both axes.** Both
   hypotheses are decided by the power floor rather than by their own rules, at
   every margin on the curve for H2 and at two of three for H3. Whatever review
   decides about delta, the paper has to state plainly that the pre-registered
   margin is what made these Inconclusive.
-- **The reframe is post hoc and a reviewer will say so.** Carried from 2.2d and
-  unchanged. The defence is procedural and visible: the amendment is dated and
+- **The framing has changed twice after results, and a reviewer will say so.**
+  Carried from 2.2d and widened at 2.5a: the 2.2d amendment changed the
+  hypotheses, and 2.5a changed the paper identity again after they came out
+  Inconclusive. The second change is safer than the first, because it moves
+  toward the frozen table's own output rather than away from it, and because it
+  amends no pre-registration, but it has to be stated as plainly as the first. The defence is procedural and visible: the amendment is dated and
   appended, the superseded text and the 2.2b numbers stay in the repository,
   what forced each change was a measured structural fact, and no accuracy for the
   new mechanism existed when the amendment was written. The 2.2e regression
@@ -333,4 +375,5 @@ they are what bind** and they supersede sections 2, 4, 7 and 10 ->
 phase2/reports/phase2e_boundary.md (what 2.2e found, against the amended pair)
 -> phase2/reports/phase2b_boundary.md (what 2.2b found, against the retired
 pair) -> phase2/reports/phase2c_pair_design.md (why the pair changed) ->
-phase2/PASSLOG.md (history).
+phase2/reports/OUTLINE.md (what the paper will be) -> phase2/PASSLOG.md
+(history).
