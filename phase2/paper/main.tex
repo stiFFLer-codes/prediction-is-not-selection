@@ -1,0 +1,470 @@
+% Phase 2.5b manuscript, ADS-Cascade / S2AND mechanism-selection study.
+% Venue-neutral, generic article class, no journal style file.
+% Drafting order (phase2/reports/OUTLINE.md): 4, 5, 6, then 7, then 3, 8, 9,
+% then 1, 2, then the abstract.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\graphicspath{{../reports/figs/}}
+\bibliographystyle{plainnat}
+
+\setlength{\parskip}{0.25\baselineskip}
+
+\title{Prediction is not selection: a pre-registered study of design-time
+mechanism choice in author name disambiguation}
+
+\author{Maitreya Sapariya\thanks{ORCID 0009-0003-9346-3775.}}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+% ---------------------------------------------------------------------------
+% Abstract: drafted last, per OUTLINE.md.
+% ---------------------------------------------------------------------------
+
+% ---------------------------------------------------------------------------
+% 1. Introduction: drafted in the fifth block.
+% ---------------------------------------------------------------------------
+
+% ---------------------------------------------------------------------------
+% 2. Related work: drafted in the fifth block.
+% ---------------------------------------------------------------------------
+
+% ---------------------------------------------------------------------------
+% 3. Problem setting and constructs: drafted in the fourth block.
+% ---------------------------------------------------------------------------
+
+\section{A comparison that cannot have a winner}
+\label{sec:degenerate}
+
+\subsection{The containment argument}
+\label{sec:containment}
+
+Consider the comparison a practitioner reaches for first. Two mechanisms
+resolve a held-out name mention against the mentions already recorded under
+the same name block. A precision-first \emph{rule} looks for a training
+record whose surface form is identical to the test form, assigns the author
+carried by that form, and abstains when no such record exists. A
+coverage-first \emph{retriever} scores every distinct training form against
+the test form with a string similarity function, takes the nearest one, and
+assigns its author. Rules against retrieval, exact against fuzzy. Which one
+should you build?
+
+Suppose the test form occurs in the block's history. A normalized similarity
+function returns its maximum, 1.0, when two strings are identical, and no
+other training form can score above the maximum. A retriever that takes the
+single nearest form therefore takes the test form itself, and if the two
+mechanisms share a tie-break rule over candidates carrying the same form,
+they resolve the same author. Whenever the rule fires, the retriever returns
+what the rule returns. When the rule abstains, the retriever answers anyway.
+
+The rule's set of correct predictions is a subset of the retriever's. The
+rule cannot be right where the retriever is wrong. Under any winner
+definition based on accuracy, the verdict ``the rule wins'' is not merely
+rare. It is unreachable.
+
+The argument does not depend on the similarity function, since every function
+in the normalized string similarity family is maximized by identity, nor on
+the acceptance cutoff, since a cutoff cannot exceed 1.0 and so cannot exclude
+the identical form. What it does depend on is small and easy to miss: the
+retriever takes the single nearest form, and both mechanisms draw their
+candidates from the same history.
+
+\subsection{What we measured}
+\label{sec:degeneracy-measured}
+
+We did not derive the containment first and then confirm it. We
+pre-registered the hypotheses, the mechanisms, the bands, the margins, the
+splits and the falsification table; we froze the calibration constants in a
+separate commit; we ran the whole analysis; and we read the degeneracy off
+the output. That ordering is why this section is a result and not a remark.
+
+Across all 16{,}136 evaluation blocks and 199{,}713 held-out signatures, the
+number of signatures on which exact match is correct and fuzzy retrieval is
+incorrect is \textbf{zero}. Zero in the Levenshtein arm and zero in the
+Jaro-Winkler arm. The cutoff had been calibrated once on a disjoint split,
+landing at 0.50 in both metric families; no value on the pre-registered grid
+from 0.50 to 0.95 changes the count, because none of them can.
+
+Two pre-registered diagnostics collapsed along with the winner. The pooled
+accuracy gap, $-0.0196$ over the primary analysis population, reduces exactly
+to the coverage difference, because every signature exact match gets right
+fuzzy retrieval also gets right: exact coverage 0.9664 against fuzzy coverage
+0.9985 on the evaluation split. The mechanism agreement rate, pre-registered
+precisely to tell genuine practical equivalence apart from structural
+coincidence, came out at 0.9679, which is exact coverage plus the fuzzy
+abstention rate, $0.9664 + 0.0015$, to every printed digit. The diagnostic
+written to detect the structural case turned out to compute it.
+
+We report the order of discovery because it is the part that carries
+information. The degeneracy is easy to follow once someone states it in a
+paragraph. It was, in our hands, hard enough to see in advance that it
+survived a pre-registration careful enough to fix a deterministic tie-break
+chain for both mechanisms, and it was found by running the full frozen
+analysis and looking at an empty cell.
+
+\subsection{The general form}
+\label{sec:general-form}
+
+The containment argument is about one pair. The trap is wider. Take
+\emph{any} pair of mechanisms that assigns an author drawn from the block's
+own history, whatever the machinery inside them. Two regions of the design
+space are empty before any data is collected.
+
+\textbf{Where the history names one author, a precision-first rule cannot
+win.} If every training record in the block belongs to one author, then any
+mechanism that returns an author from a non-empty candidate pool returns that
+author. The rule returns the same author whenever it fires. Its only
+available difference is to abstain, and abstention scores as incorrect. So
+the rule can lose there and can tie there, and cannot win.
+
+\textbf{Where the history is written one way, no mechanism can win.} If the
+block's training records carry a single distinct surface form, every
+mechanism sees the same form and the same evidence attached to it. They all
+return the same author. The comparison is a tie by construction.
+
+Both statements are visible in our calibration-split probe of the redesigned
+pair described in Section~\ref{sec:repaired-pair}. Counting held-out
+signatures on which the rule is right and the retriever wrong, across the
+five consistency bands crossed with the four surface-variability bands, the
+count is exactly zero in all four cells of the top consistency band and
+exactly zero in all five cells of the zero-variability column. The other two
+candidate pairs we probed show the same two lines of zeros. A contest is
+possible only where the history is both impure and surface-varied, which on
+the calibration split is 41\% of held-out signatures.
+
+This is a trap practitioners fall into, not a theorem anyone needs. Anyone
+comparing a string-matching baseline against a retrieval or clustering method
+over the same recorded history is inside this family, and per-instance
+algorithm selection over such a portfolio inherits the problem whole: two
+regions of the selection space hold nothing to select. The check is cheap.
+Before running the comparison, count the items on which mechanism A is
+correct and mechanism B is not. If that count is zero, or zero throughout an
+entire stratum, the design produced it and the data had no say. Report those
+regions in the design section, where they are a property of the comparison,
+rather than in the results, where they read as a defect.
+
+\section{A pair that can}
+\label{sec:repaired-pair}
+
+\subsection{Three candidates, and why a k-nearest vote}
+\label{sec:candidates}
+
+The repair cannot be a different similarity function, because the containment
+holds for all of them. Mechanism B has to stop being a single-nearest
+retriever. We probed three ways of doing that on the calibration split, the
+15\% of blocks the pre-registration reserves for design choices, covering
+2{,}450 blocks and 35{,}732 held-out signatures. Mechanism A, the
+exact-evidence rule, is unchanged in all three pairs.
+
+\emph{Radius vote.} Pool every training record whose form is within
+similarity $r$ of the test form, and take the most frequent author in the
+pool. \emph{Normalized-key vote.} Pool every training record whose form
+carries the same ASCII-folded, lowercased, letters-only key as the test form.
+\emph{k-nearest vote.} Pool the nearest training records by form similarity,
+whole forms at a time, until at least $k$ records are pooled, and vote.
+
+All three are two-sided in the probe. We adopted the k-nearest vote at
+$k = 5$, for three reasons in order of weight. It gives the most balanced
+contest: 546 signatures where the rule is right and the vote wrong against
+744 the other way, with pooled accuracies 0.8234 and 0.8290. Rank beats
+radius on this substrate, because every name in a block shares a surname, so
+absolute similarity has no natural scale and a fixed radius means different
+things in different blocks; the radius family confirms it, with the rule-side
+count running from 1{,}461 at $r = 0.70$ down to 0 at $r = 0.95$, so the
+whole finding would have been a function of $r$. And the k-nearest vote never
+abstains, which puts abstention entirely on the rule's side and separates the
+two arms along exactly the precision-against-coverage axis the paper is
+about.
+
+\subsection{The calibration trap}
+\label{sec:calibration-trap}
+
+Read the accuracy column of the same probe and a second problem appears. The
+k-nearest vote's pooled accuracy falls monotonically as $k$ grows: 0.8390,
+0.8354, 0.8290 and 0.8188 at $k$ of 2, 3, 5 and 10. The radius vote's
+accuracy rises monotonically as $r$ grows, reaching 0.8239 at $r = 0.95$,
+where its rule-side count is 0. In both families the accuracy-maximizing
+parameter is the one nearest the single-nearest limit, and the single-nearest
+limit is the degeneracy of Section~\ref{sec:degenerate}.
+
+Our original pre-registration calibrated the retriever's one parameter by
+picking the value with the highest pooled accuracy on the calibration split.
+That protocol, applied unchanged to either parameterized pair, selects the
+degenerate parameter and walks the design straight back into a comparison
+that cannot have a winner. We therefore voided it. $k$ is fixed by definition
+at 5, disclosed as a calibration-split choice made for contest balance rather
+than for accuracy, with a mandatory sensitivity curve over $k$ in
+$\{2, 3, 5, 10\}$ reported beside every outcome.
+
+The general warning is worth more than the fix. When one member of a compared
+pair contains the other in a limit, tuning that member for accuracy is tuning
+it toward containment. A protocol that selects a parameter by maximizing the
+tuned arm's own performance will find that limit, and will then report a
+degenerate comparison as a well-calibrated one.
+
+\section{Experimental design and pre-registration}
+\label{sec:design}
+
+\subsection{Data, blocking and splits}
+\label{sec:data}
+
+The substrate is S2AND \citep{s2and2021}, which unifies eight prior author
+name disambiguation datasets into one format with a reference implementation.
+A \emph{signature} is one author mention on one paper, carrying a name string
+and context fields. Signatures are grouped into \emph{blocks} by a normalized
+name key, frozen before any measurement, and ground truth assigns each
+signature to a real author. We use seven of the eight constituent datasets:
+aminer, arnetminer, inspire, kisti, pubmed, qian and zbmath. Medline is
+excluded because the release ships no clusters file for it.
+
+Table~\ref{tab:population} accounts for every signature from the corpus down
+to the analysis population. Blocks with a single signature have no history to
+match against, so they sit outside the live set. Live blocks are split at
+block level with seed 20260918 into a 15\% calibration split and an 85\%
+evaluation split. The calibration split is used once, for the band edges and
+for the cutoff of the mechanism we later retired, and never for a reported
+hypothesis number. The evaluation split produces every result below. Inside
+each evaluation block, signatures are assigned to a training half and a test
+half with the same seed, by
+$n_{\mathrm{train}} = \max(1, \min(n - 1, \lfloor 0.7n \rfloor))$. The
+training signatures are the block's historical knowledge base. The test
+signatures are scored, and no test signature is visible to any signal, band
+edge, cutoff or mechanism.
+
+The primary analysis population is evaluation blocks with at least two
+training signatures and at least one test signature, that is blocks of three
+or more signatures. Below that, consistency is 1.0 by construction on a
+one-signature history and surface variability is undefined, so neither signal
+carries information. Blocks of exactly two are a named and counted exclusion,
+reported as their own stratum and used to decide nothing.
+
+\begin{table}[htbp]
+\centering
+\caption{Population accounting, from the corpus to the primary analysis
+population. Both exclusions are named and counted rather than dropped.
+Source: \texttt{reports/phase2e\_boundary.md}, generated by
+\texttt{phase2e\_run.py}.}
+\label{tab:population}
+\begin{tabular}{lrrr}
+\toprule
+Stratum & Blocks & Signatures & Share of signatures \\
+\midrule
+All signatures & 26{,}939 & 766{,}133 & 100.00\% \\
+Singleton blocks, outside the live set & 7{,}955 & 7{,}955 & 1.04\% \\
+Live blocks (2 or more signatures) & 18{,}984 & 758{,}178 & 98.96\% \\
+\quad Calibration split (15\%) & 2{,}848 & 116{,}308 & 15.18\% \\
+\quad Evaluation split (85\%) & 16{,}136 & 641{,}870 & 83.78\% \\
+\quad\quad Primary analysis population & 13{,}902 & 637{,}402 & 83.20\% \\
+\quad\quad Block-size-2 stratum, named exclusion & 2{,}234 & 4{,}468 & 0.58\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every reported number comes from the 13{,}902 blocks and 197{,}479 test
+signatures of the primary analysis population. A cell, band or dataset
+holding fewer than 30 blocks is printed with its count, marked under-powered,
+interpreted nowhere and used to decide nothing. A dataset qualifies for the
+generalization rule if it contributes at least 100 blocks.
+
+\subsection{The two signals and their bands}
+\label{sec:signals}
+
+Both signals are computed from the training half of each block only. That is
+what design-time means here, and it is load-bearing: a signal that needs the
+test items, or their labels, is not a signal a practitioner can act on before
+building anything.
+
+\textbf{ADS}, the consistency signal, is the share of a block's training
+signatures belonging to its single most frequent author. It runs on
+$(0, 1]$ and equals 1.0 when the history names one person. High ADS means low
+homonymity. Its bands are fixed by the definition of purity rather than read
+off a distribution: $[0, 0.5)$, $[0.5, 0.7)$, $[0.7, 0.9)$, $[0.9, 1.0)$ and
+exactly 1.0.
+
+\textbf{SV}, the surface-variability signal, is the expected normalized
+Levenshtein distance between two training signatures of the block drawn at
+random without replacement, computed on the frozen surface form and weighted
+by signature. Higher SV means less surface stability. Its scale is bounded
+well below 1 by construction, because every name in a block shares a surname,
+so fixed bands on the nominal scale would be meaningless. SV = 0, a history
+written one way, is structural and is its own band. The other three bands are
+the terciles of the strictly positive values, with cut points taken from the
+calibration split at 0.102644 and 0.195066 and committed before any
+evaluation number existed.
+
+Two controls travel with SV throughout, because the largest single source of
+within-block name variation in bibliographic data is forename initialization,
+which is the variable \citet{kimkim2020} manipulate. \textbf{SV\_resid} is
+the same function applied to an initialization-canonical form, in which the
+first name and each middle token are reduced to their first letter, so that
+``John Smith'' and ``J. Smith'' become the identical string and
+initialization contributes exactly zero. What remains is spelling,
+diacritics, hyphenation, transliteration, middle-name presence and suffixes.
+Its band edges, calibrated the same way, are 0.036782 and 0.082418.
+\textbf{INIT} is the share of a block's training signatures whose given-name
+field is an initial only, banded at INIT = 0, $0 < \mathrm{INIT} < 0.5$ and
+$\mathrm{INIT} \geq 0.5$, and the SV analysis is repeated inside each INIT
+band.
+
+The two axes were measured alive and separable before any mechanism was
+built. ADS and SV correlate at Spearman $-0.2612$ across the 18{,}984 live
+blocks, and each of our measures tracks its S2AND counterpart strongly while
+tracking the other weakly: Spearman $-0.818$ for ADS against S2AND's
+homonymity facet, $+0.743$ for SV against its synonymity facet.
+
+\subsection{Mechanisms, metric and the winner}
+\label{sec:winner-construct}
+
+\textbf{Mechanism A, the exact-evidence rule.} If the test signature's
+surface form occurs among the training forms, assign the most frequent author
+among training signatures carrying that exact form. Otherwise abstain. No
+parameter.
+
+\textbf{Mechanism B, the k-nearest vote.} Pool the nearest training
+signatures by similarity of their surface form to the test form, whole forms
+at a time, until the pool holds at least $k = 5$ training signatures; if the
+block holds fewer, the pool is the whole block. Vote the pooled signatures'
+authors, weighted by signature, and assign the winner. B does not abstain.
+
+Both mechanisms are untrained lookups over the block's own history, and both
+use the same frozen tie-break chain: most frequent author inside the pooled
+evidence, then most frequent author inside the block, then the
+lexicographically smallest author identifier. Sharing the chain matters,
+because giving the two arms different tie-breaks would turn part of the
+winner contest into a comparison of tie-break rules.
+
+\textbf{Metric.} Whole-set accuracy over the block's test signatures, with
+abstention counted as incorrect. Coverage, the share of test signatures not
+abstained on, is reported separately for each mechanism wherever accuracy is
+reported. The asymmetry that the rule abstains and the vote does not is a
+result we keep visible rather than normalize away.
+
+\textbf{Winner.} Per block, we take a paired bootstrap on the rule's accuracy
+minus the vote's accuracy, resampling the block's test signatures with
+replacement, $B = 2000$ draws, with both mechanisms scored on the same
+resample, and read the 95\% percentile interval. Per band and per grid cell
+we pool the band's test signatures and bootstrap by resampling \emph{blocks}
+with replacement, because the block is the independent unit. Four verdicts,
+mutually exclusive, against a practical-equivalence margin $\delta$:
+\emph{rule wins} if the interval's lower bound exceeds $+\delta$,
+\emph{k-NN wins} if its upper bound falls below $-\delta$, \emph{tie} if the
+interval lies entirely inside $[-\delta, +\delta]$, and \emph{undecided}
+otherwise.
+
+Tie and undecided are kept apart throughout, and we state the distinction
+here, before any result, because merging them is how a low-powered comparison
+comes to read as a positive finding of equivalence. A tie means equivalence
+was demonstrated. Undecided means the evidence did not reach a decision. We
+also report the verdict distribution against test-set size, so a reader can
+see how much of any no-winner region is one and how much is the other.
+
+The primary margin is $\delta = 0.05$ accuracy points, fixed in advance as a
+difference a practitioner would act on, with $\delta = 0.02$ and
+$\delta = 0.03$ pre-registered as a robustness curve. An outcome that holds
+at one margin and flips at another is reported as margin-dependent and
+treated as Partial, never Supported. The same rule applies across the $k$
+curve. And Inconclusive is evaluated first: if a hypothesis's pre-registered
+power floor is met, the outcome is Inconclusive regardless of what the other
+rows would have said. A set of bands that are all tie or all undecided is
+never read as support.
+
+\subsection{Pre-registration and its amendment}
+\label{sec:prereg-integrity}
+
+The text of this subsection was written during the amendment pass, before the
+run it defends was executed, and locked in the project plan at that point. It
+is reproduced here as written.
+
+\begin{quote}
+We pre-registered the hypotheses, the winner definition, the analysis bands,
+and the falsification table before computing any evaluation metric, and we
+froze the calibration constants in a separate commit before any evaluation
+number existed. The pre-registration and every subsequent amendment are in
+the public repository with full history.
+
+We amended the pre-registration once, after two exploratory runs, and we
+state that plainly rather than presenting the amended version as the
+original. The amendment was forced by two structural facts about the
+mechanisms, not by an unwelcome effect size. First, when a test name is
+present in a block's history it sits at the maximum of any similarity
+function, so a single-nearest retriever returns whatever exact match returns;
+exact match is therefore a strict sub-case of single-nearest retrieval, and
+the two cannot contest a winner. Second, a block whose history names one
+author returns that author from any non-empty candidate pool, so at maximum
+consistency the only move a mechanism can make is to abstain. The first fact
+required replacing the second mechanism with a k-nearest vote that does not
+reduce to exact match. The second required scoping the consistency hypothesis
+to whether the choice is decidable at all, rather than which mechanism wins
+at every consistency level.
+
+Three properties keep the amendment honest. The original hypotheses and the
+conditions of the runs that motivated the change remain in the
+pre-registration, unedited and dated. No accuracy figure for the k-nearest
+mechanism existed at the time the amended hypotheses were written; the
+amendment predates the run it governs. And the one component of the amended
+consistency hypothesis that is guaranteed by construction, the decline in
+decided winners as consistency approaches its maximum, is labeled as
+structural wherever it appears; the empirical content we test lies below that
+maximum, in the region where the outcome is not fixed in advance.
+\end{quote}
+
+Three points of record, checked at writing against the committed repository
+rather than against memory.
+
+\textbf{What ``amended once'' means.} The repository holds two dated appends
+to the pre-registration, not one. The first is the amendment itself, which
+replaced the second mechanism and rewrote the two selection hypotheses. The
+second is a short addendum that replaced one clause's measure of which signal
+drives decidability, because the original measure was an order statistic
+taken over a grid with five rows and four columns, and so favoured the axis
+with more bands, which was the axis the hypothesis needed to win. Both were
+committed in the same pass, within half an hour of each other, and both
+precede the run they govern. They are one amendment event recorded in two
+documents. The addendum tightens a rule and relaxes none.
+
+\textbf{What the two runs before the amendment were.} The first was not
+exploratory. It was the pre-registered run, executing the frozen
+pre-registration exactly, and it is what measured the degeneracy in
+Section~\ref{sec:degeneracy-measured}. The second was exploratory by
+construction: a design probe confined to the calibration split, which
+produced no evaluation-split number and evaluated no hypothesis.
+
+\textbf{The ordering claim, against commit timestamps.} The pre-registration
+was committed before the run that executed it. The calibration constants,
+including the band edges reused unchanged in the final run, were committed in
+their own earlier commit, before any evaluation-split accuracy existed. The
+amendment was committed just under two hours before the run it governs and
+the addendum about eighty minutes before it, and no prediction of the
+k-nearest vote on an evaluation block existed anywhere in the repository at
+either moment.\footnote{Commits, in order:
+\texttt{8869b82} freezes the pre-registration; \texttt{5e13e38} freezes the
+calibration constants; \texttt{3d86959} is the first run; \texttt{c20239a} is
+the calibration-split design probe; \texttt{5f452ad} and \texttt{3e79a48} are
+the amendment and its addendum; \texttt{9e3d921} is the run reported here.}
+The first evaluation-split number for the amended mechanism appears in the
+run commit itself. That run opens with a regression check, reported in
+Section~\ref{sec:two-sided}, which reproduces calibration-split counts frozen
+before the amendment was written and halts the run if they do not match.
+
+% ---------------------------------------------------------------------------
+% 7. Results: drafted in the third block.
+% ---------------------------------------------------------------------------
+
+% ---------------------------------------------------------------------------
+% 8. Discussion, 9. Limitations, 10. Conclusion: drafted in the fourth block.
+% ---------------------------------------------------------------------------
+
+\bibliography{references}
+
+\end{document}
