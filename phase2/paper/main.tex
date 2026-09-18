@@ -457,9 +457,392 @@ run commit itself. That run opens with a regression check, reported in
 Section~\ref{sec:two-sided}, which reproduces calibration-split counts frozen
 before the amendment was written and halts the run if they do not match.
 
-% ---------------------------------------------------------------------------
-% 7. Results: drafted in the third block.
-% ---------------------------------------------------------------------------
+\section{Results}
+\label{sec:results}
+
+Every number below comes from the evaluation split, from the 13{,}902 blocks
+and 197{,}479 test signatures of the primary analysis population, at $k = 5$
+in the Levenshtein arm and at $\delta = 0.05$ unless stated. The three
+outcomes are read off the falsification table frozen before the run, in the
+order it fixes. Anything reported beside an outcome is substance, and is
+labelled as substance, not as a result the frozen rules returned.
+
+\subsection{The pair is two-sided now}
+\label{sec:two-sided}
+
+The run opens with a regression check on the calibration split, executed
+before any evaluation signature is read. The k-nearest vote is implemented
+independently of the design probe of Section~\ref{sec:candidates}, and the
+check asserts its two-sidedness counts against the frozen probe table: 181
+against 736 at $k = 2$, 314 against 740 at $k = 3$, 546 against 744 at
+$k = 5$, and 912 against 748 at $k = 10$, with the rule's accuracy 0.8234
+identical across $k$, as it must be because the rule does not depend on $k$.
+All four reproduce exactly. The run halts if they do not.
+
+On the evaluation split the amended pair is two-sided at every $k$ on the
+mandatory curve (Table~\ref{tab:twosided}). At $k = 5$ there are 3{,}025
+held-out signatures on which the rule is right and the vote wrong, against
+4{,}012 the other way. The Jaro-Winkler arm gives 2{,}946 against 4{,}002.
+The retired pair measured zero on the rule's side across 199{,}713
+signatures. A winner now exists to be predicted, which is exactly what the
+earlier design lacked.
+
+\begin{table}[htbp]
+\centering
+\caption{Two-sidedness on held-out data, for the retired pair and for the
+amended pair across the mandatory $k$ curve and both metric families. The
+retired pair's row covers the full evaluation split of 16{,}136 blocks and
+199{,}713 signatures; the amended rows cover the primary analysis population.
+Source: \texttt{phase2e\_twosidedness\_eval.csv}, and
+\texttt{reports/phase2b\_boundary.md} for the retired row.}
+\label{tab:twosided}
+\begin{tabular}{llrrrrr}
+\toprule
+Pair & $k$ & A right, & B right, & Rule acc. & B acc. & Pooled gap \\
+     &     & B wrong  & A wrong  &           &        & \\
+\midrule
+Exact vs.\ fuzzy (retired) & 1 & \textbf{0} & --- & 0.8244 & 0.8441 & $-0.0196$ \\
+\midrule
+Rule vs.\ k-NN, Levenshtein & 2 & 987 & 3{,}990 & 0.8244 & 0.8396 & $-0.0152$ \\
+Rule vs.\ k-NN, Levenshtein & 3 & 1{,}724 & 4{,}004 & 0.8244 & 0.8360 & $-0.0115$ \\
+Rule vs.\ k-NN, Levenshtein & 5 & 3{,}025 & 4{,}012 & 0.8244 & 0.8294 & $-0.0050$ \\
+Rule vs.\ k-NN, Levenshtein & 10 & 5{,}176 & 4{,}040 & 0.8244 & 0.8187 & $+0.0058$ \\
+Rule vs.\ k-NN, Jaro-Winkler & 5 & 2{,}946 & 4{,}002 & 0.8244 & 0.8298 & $-0.0053$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The consistency signal is a real difficulty signal}
+\label{sec:h1}
+
+H1 asks whether train-only ADS tracks each mechanism's own held-out accuracy.
+It is a construct-validity check and not a contribution: that disambiguation
+accuracy falls as homonymity rises is already visible at dataset level in
+\citeauthor{kimkim2020}'s homonym-centric datasets and in the S2AND paper.
+What H1 confirms is that our per-block statistic behaves like the established
+dataset-level quantity.
+
+The Spearman correlation of train-only ADS with held-out accuracy is 0.5069,
+95\% block-bootstrap interval $[0.4919, 0.5224]$, for the rule, and 0.8298,
+$[0.8190, 0.8401]$, for the vote. Both intervals sit well clear of zero. The
+same holds in the pooled non-inspire analysis, at 0.5632 and 0.7659, and in
+all four qualifying non-inspire datasets. Under the frozen rule, \textbf{H1
+is Supported}.
+
+Figure~\ref{fig:h1} shows the shape behind the coefficient. Mean per-block
+rule accuracy rises 0.4991, 0.6758, 0.8389, 0.9418 across the first four ADS
+bands, and the vote's rises 0.4088, 0.6296, 0.8165, 0.9465. Measuring your
+data at design time does tell you how hard the problem will be. The rest of
+this section is about what it does not tell you.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{phase2e_h1_ads_accuracy.png}
+\caption{Per-block held-out accuracy against train-only ADS, for both
+mechanisms. The consistency signal predicts difficulty for each mechanism
+separately. Source: \texttt{phase2e\_h1\_ads\_accuracy.png}.}
+\label{fig:h1}
+\end{figure}
+
+\subsection{Head to head}
+\label{sec:head-to-head}
+
+Pooled, the rule scores 0.8244 and the vote 0.8294, a gap of $-0.0050$. Half
+an accuracy point. Rule coverage is 0.9686 against the vote's 1.0, so
+abstention sits entirely on the rule's side by design and is scored as
+incorrect throughout. The two mechanisms return the identical prediction on
+94.93\% of test signatures.
+
+Per dataset the picture is not uniform (Table~\ref{tab:accuracy}). inspire
+carries 11{,}110 of the 13{,}902 blocks, so the pooled number is largely an
+inspire number and we say so rather than letting a seven-dataset label stand
+for it. The rule is ahead on kisti by 0.1131 and on pubmed by 0.2466, though
+pubmed holds 34 blocks, is marked under-powered and decides nothing. The vote
+is ahead on inspire by 0.0163 and on zbmath by 0.0631. Pooled over the six
+non-inspire datasets the rule is ahead by 0.0221. The vote's accuracy falls
+monotonically in $k$, at 0.8396, 0.8360, 0.8294 and 0.8187, which is the
+calibration trap of Section~\ref{sec:calibration-trap} showing up on the
+evaluation split as well.
+
+\begin{table}[htbp]
+\centering
+\caption{Held-out accuracy, coverage and agreement per dataset, with inspire
+alone and pooled non-inspire. Datasets below 100 blocks do not qualify for
+the generalization rule and decide nothing. Source:
+\texttt{phase2e\_accuracy\_by\_population.csv}.}
+\label{tab:accuracy}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Population & Blocks & Test sigs. & Rule & k-NN & Gap & Rule cov. & Agree. \\
+\midrule
+All (primary) & 13{,}902 & 197{,}479 & 0.8244 & 0.8294 & $-0.0050$ & 0.9686 & 0.9493 \\
+\midrule
+aminer & 842 & 40{,}006 & 0.4076 & 0.4038 & $+0.0038$ & 0.9800 & 0.9620 \\
+arnetminer & 82 & 1{,}620 & 0.5093 & 0.5099 & $-0.0006$ & 0.9796 & 0.9716 \\
+inspire & 11{,}110 & 139{,}369 & 0.9482 & 0.9645 & $-0.0163$ & 0.9705 & 0.9612 \\
+kisti & 711 & 10{,}147 & 0.8466 & 0.7334 & $+0.1131$ & 0.9218 & 0.7826 \\
+pubmed & 34 & 803 & 0.8020 & 0.5554 & $+0.2466$ & 0.9489 & 0.6650 \\
+qian & 276 & 1{,}696 & 0.6079 & 0.5896 & $+0.0183$ & 0.9876 & 0.9629 \\
+zbmath & 847 & 3{,}838 & 0.8494 & 0.9125 & $-0.0631$ & 0.8953 & 0.8682 \\
+\midrule
+Pooled non-inspire & 2{,}792 & 58{,}110 & 0.5276 & 0.5054 & $+0.0221$ & 0.9640 & 0.9206 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{What the frozen table returned}
+\label{sec:h2h3}
+
+Per-block verdicts at the primary margin: 191 rule wins, 309 k-NN wins,
+10{,}172 ties and 3{,}230 undecided. Five hundred of 13{,}902 blocks carry a
+decided verdict.
+
+\textbf{H2 is Inconclusive and H3 is Inconclusive}, both at the primary
+margin, and the reason is the same for both. Inconclusive is evaluated first,
+and both power floors are met. No ADS band and no SV band has a decided
+pooled verdict at $\delta = 0.05$, because every marginal pooled gap on both
+axes is smaller than 0.05 in absolute value, so every marginal pooled verdict
+is a demonstrated tie. No cell of the five by four grid is decided either:
+eighteen of the twenty are ties and the other two are undecided. H2 requires
+two decided ADS bands and two decided SV bands and has none of either. H3
+requires two decided SV bands inside a single ADS band and has none.
+
+We state the consequence in the plainest available words. The pre-registered
+margin is what made these outcomes Inconclusive. Inconclusive means the
+frozen rules declined to decide, and it is not a finding that the effects
+below the margin are absent. Both floors were pre-listed as permitted
+outcomes, precisely so that this could be reported rather than worked around.
+
+The margin sensitivity curve was pre-registered for the same reason
+(Table~\ref{tab:falsification}). H2 is Inconclusive at all three margins. H3
+is Inconclusive at 0.05 and 0.03 and Partial at 0.02, which under the frozen
+rule makes it margin-dependent and therefore Partial rather than Supported at
+that margin. The power picture behind this is in Figure~\ref{fig:power}: ties
+dominate at every test-set size, and undecided grows with size to roughly a
+third of blocks between nine and sixty-four test signatures.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{phase2e_power_by_size.png}
+\caption{Verdict share against test-set size, with tie and undecided kept
+apart. A demonstrated tie is not the same as insufficient evidence, and this
+figure is what lets a reader tell them apart. Source:
+\texttt{phase2e\_power\_by\_size.png}.}
+\label{fig:power}
+\end{figure}
+
+\subsection{Gap compression on both axes}
+\label{sec:compression}
+
+What follows is substance reported beside the verdicts. None of it is a
+hypothesis outcome and none of it is offered in place of one.
+
+The pooled gap changes sign along both axes and is compressed along both
+(Table~\ref{tab:bands}, Figure~\ref{fig:grid}). Across ADS bands it runs
+$+0.0334$, $+0.0215$, $+0.0123$, $-0.0028$, $-0.0278$, from the rule ahead
+where the history is most impure to the vote ahead where it names one person.
+Across SV bands it runs $-0.0388$, $-0.0144$, $-0.0115$, $+0.0189$, from the
+vote ahead where the history is written one way to the rule ahead where it is
+most varied. The largest magnitude anywhere on either axis is 0.0388. At
+$\delta = 0.02$ the ADS ordering becomes a decided marginal reversal, rule
+wins in $[0, 0.5)$ against k-NN wins at ADS = 1.0.
+
+Below ADS = 1.0 there is no SV-driven winner reversal at any margin. The
+strongest structure the frozen rules find below the top band is a
+tie-crossing at $\delta = 0.02$. Substantively the shape is the
+pre-registered gap-compression one, which is
+\citeauthor{kimkim2020}'s dataset-level finding reproduced at block level
+with surface variation measured rather than manipulated.
+
+Robustness, gathered in one place. SV\_resid, which removes forename
+initialization by construction, gives the same shape at smaller magnitude and
+with no reversal: $-0.0124$, $-0.0025$, $-0.0025$, $+0.0130$. So the surface
+effect is not only initialization, and it is not large in either form. The
+Jaro-Winkler arm reproduces the SV sequence at $-0.0388$, $-0.0146$,
+$-0.0116$, $+0.0181$ with the same verdicts, so nothing here rests on sharing
+a metric family with SV. The compact regression of the per-block gap agrees
+in sign, with coefficients $-0.1889$ on ADS (s.e.\ 0.0076), $+0.0548$ on SV
+(s.e.\ 0.0212) and $+0.0208$ on log test-set size (s.e.\ 0.0018); it
+summarizes the grid and decides nothing. Inside the INIT bands the shape
+survives as a tie-crossing at INIT = 0 and at
+$\mathrm{INIT} \geq 0.5$, and flattens to compression only in between.
+
+\begin{table}[htbp]
+\centering
+\caption{Marginal pooled gap (rule minus k-NN) and pooled verdict by ADS band
+and by SV band, at all three pre-registered margins, with the decided-winner
+rate at the primary margin. No band is decided at $\delta = 0.05$, which is
+what carries both H2 and H3 to Inconclusive. Source:
+\texttt{phase2e\_pooled\_ads.csv}, \texttt{phase2e\_pooled\_sv.csv}.}
+\label{tab:bands}
+\begin{tabular}{lrrrlllr}
+\toprule
+Band & Blocks & Test sigs. & Gap & $\delta{=}0.05$ & $\delta{=}0.03$ & $\delta{=}0.02$ & Decided \\
+\midrule
+\multicolumn{8}{l}{\emph{By consistency (ADS)}} \\
+$[0, 0.5)$ & 1{,}071 & 47{,}167 & $+0.0334$ & tie & undecided & rule wins & 0.1083 \\
+$[0.5, 0.7)$ & 1{,}101 & 16{,}079 & $+0.0215$ & tie & tie & undecided & 0.0618 \\
+$[0.7, 0.9)$ & 743 & 12{,}660 & $+0.0123$ & tie & tie & tie & 0.0256 \\
+$[0.9, 1.0)$ & 450 & 12{,}683 & $-0.0028$ & tie & tie & tie & 0.0089 \\
+$1.0$ & 10{,}537 & 108{,}890 & $-0.0278$ & tie & tie & k-NN wins & 0.0278 \\
+\midrule
+\multicolumn{8}{l}{\emph{By surface variability (SV)}} \\
+SV $=0$ & 4{,}517 & 17{,}960 & $-0.0388$ & tie & k-NN wins & k-NN wins & 0.0354 \\
+SV low & 3{,}032 & 56{,}408 & $-0.0144$ & tie & tie & tie & 0.0142 \\
+SV mid & 3{,}218 & 59{,}433 & $-0.0115$ & tie & tie & tie & 0.0177 \\
+SV high & 3{,}135 & 63{,}678 & $+0.0189$ & tie & tie & undecided & 0.0766 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{phase2e_grid_gap_sv.png}
+\caption{Pooled gap over the frozen five by four grid of ADS bands crossed
+with SV bands. The empirical half of the result in one image: compression on
+both axes, a sign change on both, and no cell far from zero. Source:
+\texttt{phase2e\_grid\_gap\_sv.png}.}
+\label{fig:grid}
+\end{figure}
+
+\subsection{Which signal drives decidability}
+\label{sec:drivers}
+
+The amended pre-registration carried one clause that compared the two signals
+directly, asking which of them drives whether the mechanism choice is
+decidable at all. It required consistency to be the stronger driver under two
+measures at once, a variance decomposition over the eligible cells of the
+frozen grid and an averaged range across each axis.
+
+Consistency loses under both (Table~\ref{tab:drivers}). The variance
+decomposition gives $\eta^2_{\mathrm{ADS}} = 0.1749$ against
+$\eta^2_{\mathrm{SV}} = 0.3837$, and the averaged ranges give 0.0707 against
+0.0755. Under the addendum's own rule the clause \emph{failed} rather than
+splitting. It fails at every margin on the robustness curve. Across the $k$
+curve it fails at $k = 3$, 5 and 10 and splits at $k = 2$, so consistency
+wins both required measures at no point on the curve. Removing the structural
+ADS = 1.0 row widens the gap rather than closing it, at 0.1755 against
+0.4594; that restriction is a labelled diagnostic and decides nothing, as is
+the block-weighted variant at 0.3653 against 0.3765.
+
+This is the clause the amended consistency hypothesis needed consistency to
+win. It does not decide H2, because the power floor is read first. It is the
+sharpest single measurement in the run, and it points against the roles we
+had assigned the two signals.
+
+\begin{table}[htbp]
+\centering
+\caption{Decidability drivers. The clause required consistency to lead on
+both measures; it leads on neither. The lower two rows are labelled
+diagnostics and decide nothing. Source:
+\texttt{phase2e\_driver\_comparison.csv}.}
+\label{tab:drivers}
+\begin{tabular}{llrrrrl}
+\toprule
+Grid & $\delta$ & $\eta^2_{\mathrm{ADS}}$ & $\eta^2_{\mathrm{SV}}$ & Range ADS & Range SV & Clause \\
+\midrule
+Full & 0.05 & 0.1749 & 0.3837 & 0.0707 & 0.0755 & failed \\
+Full & 0.03 & 0.1664 & 0.3787 & 0.0800 & 0.0901 & failed \\
+Full & 0.02 & 0.1720 & 0.3783 & 0.0887 & 0.0953 & failed \\
+\midrule
+ADS $<1.0$ (diagnostic) & 0.05 & 0.1755 & 0.4594 & 0.0622 & 0.0875 & decides nothing \\
+Block-weighted (diagnostic) & 0.05 & 0.3653 & 0.3765 & --- & --- & decides nothing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Beside the clause sits the decidability gradient itself
+(Figure~\ref{fig:gradient}). The marginal decided-winner rate runs 0.1083,
+0.0618, 0.0256, 0.0089 across the first four ADS bands and then rises again
+to 0.0278 at ADS = 1.0. The amendment predicted it would approach zero there,
+on the structural ground that a block naming one author leaves the rule no
+move but abstention. The reasoning was right and the prediction was wrong.
+The rate rises, because in the blocks where the rule abstains often the vote
+wins by a wide and decidable margin, and the top band holds 10{,}537 of the
+13{,}902 blocks. The clause requiring the gradient to be non-increasing
+across ADS holds in none of the four usable SV bands.
+
+One pre-registration ambiguity surfaced at run time and was reported rather
+than improvised. The clause requiring the top ADS band to be strictly lower
+than the bottom admits two constructions, one per SV band and one on the
+marginal bands, and here they disagree: it holds in two of four usable SV
+bands, and holds marginally. Both readings are printed and neither was picked
+after seeing which way it fell. The disagreement changes no outcome, because
+the power floor is evaluated first.
+
+A non-trivial decidable region does exist below the top band, which the
+pre-registration required as a separate condition. The $[0, 0.5)$ and
+$[0.5, 0.7)$ bands each hold thirty or more blocks with a decided per-block
+verdict.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{phase2e_decidability_gradient.png}
+\caption{Decided-winner rate across ADS bands at fixed SV. The gradient falls
+across the first four bands and rises again at ADS = 1.0, against a
+pre-registered prediction that it would approach zero there. Source:
+\texttt{phase2e\_decidability\_gradient.png}.}
+\label{fig:gradient}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{The falsification table evaluated, with the fact that decided each
+outcome, plus the pre-registered margin and $k$ sensitivity curves. Every
+outcome is read off a rule frozen before the run. Source:
+\texttt{reports/phase2e\_boundary.md}, \texttt{phase2e\_margin\_sensitivity.csv},
+\texttt{phase2e\_k\_curve.csv}.}
+\label{tab:falsification}
+\begin{tabular}{llp{7.4cm}}
+\toprule
+& Outcome & Deciding fact \\
+\midrule
+H1 & Supported & Spearman positive with interval excluding zero for both
+mechanisms, 0.5069 and 0.8298, and generalizing to pooled non-inspire and all
+four qualifying non-inspire datasets. \\
+H2 & Inconclusive & Power floor met and evaluated first: zero ADS bands and
+zero SV bands with a decided pooled verdict at $\delta = 0.05$. \\
+H3 & Inconclusive & Power floor met and evaluated first: zero ADS bands
+containing two decided SV bands. \\
+\midrule
+\multicolumn{3}{l}{\emph{Margin sensitivity}} \\
+$\delta = 0.05$ & \multicolumn{2}{l}{H2 Inconclusive, H3 Inconclusive} \\
+$\delta = 0.03$ & \multicolumn{2}{l}{H2 Inconclusive, H3 Inconclusive} \\
+$\delta = 0.02$ & \multicolumn{2}{l}{H2 Inconclusive, H3 Partial, so H3 is margin-dependent} \\
+\midrule
+\multicolumn{3}{l}{\emph{$k$ sensitivity}} \\
+$k = 2$ & \multicolumn{2}{l}{Decidable region present; driver clause split} \\
+$k = 3, 5, 10$ & \multicolumn{2}{l}{Decidable region present; driver clause failed} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{phase2e_k_curve.png}
+\caption{Accuracy, two-sidedness and the driver clause across $k$. The
+conclusions do not rest on $k = 5$, and the vote's monotone accuracy in $k$
+is the calibration trap of Section~\ref{sec:calibration-trap}. Source:
+\texttt{phase2e\_k\_curve.png}.}
+\label{fig:kcurve}
+\end{figure}
+
+\subsection{Why no selector experiment is reported}
+\label{sec:no-selector}
+
+One negative control follows from the numbers above without being run. A
+design-time selector reading ADS and SV can only route at the granularity
+those two signals define, which is a cell of the frozen grid. At the primary
+margin no cell of that grid carries a decided pooled verdict: eighteen of
+twenty are demonstrated ties and two are undecided. Under the pre-registered
+decision rule there is therefore no cell in which one mechanism beats the
+other by an amount a practitioner would act on, and a selector routing
+between them would be fitting inside demonstrated ties. No selector can beat
+a fixed choice of mechanism where the gap is below the margin. So we built
+none, and this paper reports no selector experiment. That is a statement
+about the pre-registered margin and not a claim that the underlying gaps are
+zero; Section~\ref{sec:conditions} sets out what would have to be true for
+the question to be live.
 
 % ---------------------------------------------------------------------------
 % 8. Discussion, 9. Limitations, 10. Conclusion: drafted in the fourth block.
