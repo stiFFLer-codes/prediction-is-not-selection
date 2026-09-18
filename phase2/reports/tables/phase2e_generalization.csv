@@ -1,0 +1,10 @@
+population,blocks,qualifies (>=100 blocks),ADS bands (<1.0) with 2+ eligible SV bands,ADS bands (<1.0) with 2+ decided SV bands,winner reversal,tie-crossing,decidable region,gradient non-increasing (majority),gradient top<bottom (marginal)
+aminer,842,True,2,0,False,False,False,False,False
+arnetminer,82,False,0,0,False,False,False,False,
+inspire,11110,True,3,0,False,False,True,False,True
+kisti,711,True,0,0,False,False,True,True,True
+pubmed,34,False,0,0,False,False,False,False,
+qian,276,True,0,0,False,False,False,True,True
+zbmath,847,True,0,0,False,False,False,True,True
+inspire alone,11110,True,3,0,False,False,True,False,True
+pooled non-inspire,2792,True,4,0,False,True,True,False,True

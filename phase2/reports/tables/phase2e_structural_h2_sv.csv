@@ -1,0 +1,13 @@
+sv_band,eligible_bands,decided_bands,verdicts,outcome,delta
+SV=0,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",gap compression only,0.05
+SV low,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only,0.05
+SV mid,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only,0.05
+SV high,5,0,"[0,0.5)=undecided / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only,0.05
+SV=0,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing,0.03
+SV low,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only,0.03
+SV mid,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=tie",gap compression only,0.03
+SV high,5,1,"[0,0.5)=rule wins / [0.5,0.7)=undecided / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",tie-crossing,0.03
+SV=0,5,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing,0.02
+SV low,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing,0.02
+SV mid,5,0,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=undecided",gap compression only,0.02
+SV high,5,3,"[0,0.5)=rule wins / [0.5,0.7)=rule wins / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",winner reversal,0.02

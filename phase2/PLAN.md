@@ -31,12 +31,25 @@ mechanisms, so the claim was rebuilt rather than repaired, at Phase 2.2d.
 `PREREG.md` Amendment 1 is the binding version.
 
 What is established: train-only ADS predicts each mechanism's own held-out
-accuracy across seven datasets (H1, 2.2b), and the two structural gates above.
-**What is not yet measured: everything else.** The gating gradient, the SV
-reversal, and the role separation between them are hypotheses with a frozen
-falsification table, not results. 2.2e is the pass that tests them, and every
-outcome in that table, including the ones that retire this identity, is
-acceptable.
+accuracy across seven datasets (H1, confirmed again at 2.2e for the amended
+pair), and the two structural gates above.
+
+**What 2.2e measured, and why this identity is now under review.** 2.2e ran the
+frozen table and returned H2 Inconclusive and H3 Inconclusive at the primary
+margin, H3 Partial at delta = 0.02. Neither was refuted; the pre-registered power
+floor is evaluated first and is not met, because every marginal pooled gap on
+both axes is smaller than delta = 0.05. Underneath the floor the pass measured
+three things this identity did not predict. The decidability gradient is not
+monotone and rises again at ADS = 1.0 instead of approaching zero. There is no
+SV-driven winner reversal below ADS = 1.0 at any margin, only a tie-crossing at
+0.02. And Addendum 1a's role-separation clause, the one pre-registered test of
+"consistency gates, surface stability directs", found **SV the stronger driver of
+decidability under both required measures**, stably across k and delta and more
+strongly with the structural ADS = 1.0 row removed.
+
+So the identity above is not refuted and not supported. Whether it stands is the
+first thing review decides, ahead of 2.3. Every outcome in the frozen table,
+including the ones that retire this identity, was and remains acceptable.
 
 ## Dataset
 
@@ -80,20 +93,29 @@ are where we slow down and review most carefully.
   because it pointed straight back at the nesting limit. Nothing measured. Six
   under-determined points in the revision are resolved in the amendment and
   flagged for review.
-- **2.2e The mechanism experiment, re-run. HARD GATE.** Executes `PREREG.md`
-  Amendment 1 exactly, as 2.2b executed 2.2a. Build mechanism B with its own
-  self-check, freeze nothing new (the split, the band edges and the margins all
-  carry over), then run calibration-free and report. The 2.2b numbers stay as the
-  frozen record of the nested pair and are reported in the paper beside the new
-  ones.
+- **2.2e The mechanism experiment, re-run. HARD GATE. Done.** Executed
+  `PREREG.md` Amendment 1 and Addendum 1a exactly, as 2.2b executed 2.2a.
+  Mechanism B built with its own self-check and regression-checked against the
+  2.2c calibration counts before any evaluation signature was read; nothing new
+  frozen. **The pair is two-sided on held-out data, which is what 2.2b lacked,
+  but H2 and H3 both come out Inconclusive at the primary margin because every
+  marginal pooled gap falls below delta = 0.05.** H1 Supported. H3 is Partial at
+  delta = 0.02, so margin-dependent. The one clause that directly tested the
+  two-signal role assignment, Addendum 1a's driver comparison, found SV the
+  stronger driver of decidability under both required measures. See STATE.md and
+  `reports/phase2e_boundary.md`. The 2.2b numbers stay as the frozen record of
+  the nested pair and are reported in the paper beside the new ones.
 - 2.3 The co-signal. Measure surface stability, build the two-signal selector,
   evaluate it against consistency-only and stability-only baselines, held out and
   across S2AND's sub-datasets. Report the recovery number, whatever it is. HARD
-  GATE. **Blocked on 2.2e.** The pair is now two-sided and pre-registered, but
-  no evaluation-split number exists for it yet, so there is nothing to select
-  over. Charter invariant 4's ADS-only and SV-only baselines are load-bearing
-  rather than defensive here, since the amended hypotheses expect each signal to
-  carry a different part of the winner.
+  GATE. **Still blocked, now on review rather than on 2.2e.** The mechanical
+  blocker is gone: the pair is two-sided and 500 blocks carry a decided per-block
+  verdict at the primary margin, so there is something to select over. What is
+  missing is a settled premise. 2.2e supported neither H2 nor H3 and measured the
+  role-separation clause pointing the other way, so review has to decide whether
+  the two-signal framing stands before a two-signal selector is built. Charter
+  invariant 4's ADS-only and SV-only baselines are now the interesting part of
+  2.3 rather than the defensive part.
 - 2.4 Robustness and causal probe. Controlled perturbation on real records to pin
   the direction of the effect, plus robustness slices.
 - 2.5 Writing. Venue-neutral LaTeX, about 8,000 words of body, per the skeleton.

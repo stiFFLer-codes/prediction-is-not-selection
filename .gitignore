@@ -51,3 +51,4 @@ phase2/*.pdf
 
 # Phase 2: derived per-signature mechanism cache — rebuild with phase2/phase2b_run.py
 phase2/data/phase2b_eval_sigs.parquet
+phase2/data/phase2e_eval_sigs.parquet

@@ -1338,3 +1338,147 @@ the 2.2c calibration counts of 546 rule wins against 744 at k = 5 as a regressio
 check on the implementation, then re-run the frozen analysis with the renamed
 verdicts and report against the amended falsification table plus both mandatory
 curves, k and delta, and both decidability measures. Nothing new is calibrated.
+
+---
+
+## Pass 11 — Phase 2.2e, the amended boundary experiment (2026-09-18)
+
+**What I did and why.** Executed `PREREG.md` as amended by Amendment 1 and
+Addendum 1a, on the primary population, exactly as frozen. Nothing was
+re-tuned, re-banded or redefined: section 7 stays void, k is fixed by definition
+at 5, the split and the SV and SV_resid band edges are the ones committed in
+`phase2b_constants.py` at `5e13e38`, and the margins, the seeds and the
+four-verdict rule come straight from the 2.2a freeze. Two new modules:
+`phase2e_mech.py` for the mechanisms and `phase2e_run.py` for the analysis. The
+2.2b code and its numbers are untouched.
+
+**The regression check came first and cleared.** `phase2e_mech.py` implements
+mechanism B independently of `phase2c_probe.py`, so that checking it against
+2.2c is a check and not a restatement. Run on the calibration split alone, it
+reproduces the frozen 2.2c counts exactly at every k on the curve: 181/736 at
+k = 2, 314/740 at k = 3, **546/744 at k = 5**, 912/748 at k = 10, with rule
+accuracy 0.8234 identical across k and B's accuracy matching to four decimals.
+`main()` asserts all of it, so no evaluation-split signature can be read until it
+passes. It is also the first thing `phase2e_run.py` does.
+
+**The pair is two-sided on the evaluation split, which is the thing 2.2b could
+not produce.** `rule wins` measured **zero** for the retired pair on 199,713
+signatures. For the amended pair, at k = 5, the rule is right and the vote wrong
+on **3,025** test signatures against **4,012** the other way. Rule accuracy
+0.8244 against k-NN 0.8294, pooled gap -0.0050. The rule's accuracy is identical
+to 2.2b's exact-match accuracy to every digit, as it must be, since mechanism A
+was not amended. Abstention sits entirely on the rule's side, 3.14% against the
+vote's zero.
+
+**Outcomes against the amended falsification table**, Inconclusive evaluated
+first:
+
+- **H1 Supported.** Spearman of train-only ADS with held-out accuracy 0.5069
+  [0.4919, 0.5224] for the rule and 0.8298 [0.8190, 0.8401] for the k-nearest
+  vote, both intervals clear of zero, positive in pooled non-inspire and in all
+  four qualifying non-inspire datasets, so it generalizes. Still a
+  construct-validity check, not a contribution.
+- **H2 Inconclusive at all three margins.** The power floor is evaluated first
+  and is not met: at delta = 0.05 no ADS band and no SV band has a decided
+  pooled verdict, because every marginal pooled gap is smaller than the margin.
+- **H3 Inconclusive at delta = 0.05 and 0.03, Partial at 0.02, so
+  margin-dependent.** At 0.02 the ADS = 1.0 band clears the floor with three
+  decided SV bands, and two ADS bands below 1.0 show a tie-crossing rather than a
+  reversal.
+
+**The sharpest measurement in the pass is a clause H2 lost.** Addendum 1a's
+role-separation test says ADS must be the stronger driver of decidability under
+**both** its measures. It is the stronger driver under **neither**: eta2_ADS
+0.1749 against eta2_SV 0.3837, and averaged ranges 0.0707 against 0.0755. That
+is not a split, it is a clean failure, and it holds at every margin on the
+robustness curve and at every k on the mandatory curve. Dropping the structural
+ADS = 1.0 row widens the gap rather than closing it, 0.1755 against 0.4594, so
+it is not an artifact of the row Amendment 1 already conceded. The block-weighted
+diagnostic, which decides nothing by pre-registration, is 0.3653 against 0.3765
+and points the same way. H2's verdict is Inconclusive on the power floor, which
+is evaluated first, so this does not decide the hypothesis. It does point against
+the role assignment the 2.2d reframe adopted, and it is reported in those words.
+
+**Three more things beside the verdict, none offered in place of one.**
+
+- **The pooled gap changes sign on both axes.** Across ADS bands: +0.0334,
+  +0.0215, +0.0123, -0.0028, -0.0278. Across SV bands: -0.0388, -0.0144, -0.0115,
+  +0.0189. At delta = 0.02 the ADS ordering becomes a decided marginal reversal,
+  `rule wins` in [0, 0.5) against `k-NN wins` at ADS = 1.0. Both design-time
+  signals carry winner-identity information.
+- **The decidability gradient is not monotone and does not approach zero at
+  ADS = 1.0.** The marginal decided-winner rate runs 0.1083, 0.0618, 0.0256,
+  0.0089, then **rises** to 0.0278 in the top band, which holds 10,537 of the
+  13,902 primary-population blocks. Amendment 1 predicted it would approach zero
+  there. The reason it does not is the amendment's own structural argument: at
+  ADS = 1.0 the rule can only differ by abstaining, and where it abstains often
+  the vote wins by a decidable margin.
+- **No SV-driven winner reversal anywhere below ADS = 1.0, at any margin.** The
+  strongest structure below the top band is a tie-crossing at delta = 0.02.
+  Substantively the shape is the pre-registered gap-compression one. The frozen
+  rules make that a hypothesis outcome only above the power floor, which the
+  primary margin does not clear, so it is reported as substance.
+
+**One pre-registration ambiguity, found at run time, reported rather than
+improvised.** Amendment 1's H2 Supported row requires the decided-winner rate to
+be "strictly lower in the top ADS band than in the bottom". That admits two
+constructions, within each eligible SV band or on the marginal ADS bands, and
+here they disagree: 2 of 4 usable SV bands, so no majority, against True
+marginally. Both are computed and printed in the H2 facts, neither was picked
+after seeing which way it fell, and the disagreement changes no outcome because
+H2 is Inconclusive on the power floor. Recorded so the construction can be fixed
+before it can matter.
+
+**Robustness and diagnostics, all pre-registered, all run.** The Jaro-Winkler
+arm reproduces the same picture, pooled gaps -0.0388, -0.0146, -0.0116, +0.0181
+across SV bands with the same verdicts. SV_resid shows the same shape at smaller
+magnitude, -0.0124, -0.0025, -0.0025, +0.0130, and no reversal. The k curve, the
+delta curve, the mechanism agreement rate per SV band, the INIT stratification,
+the power-by-test-set-size report and the per-dataset and pooled non-inspire
+tables are all in the report. H1 holds in all seven datasets.
+
+**Numbers produced.** 13,902 primary-population blocks, 197,479 test signatures,
+unchanged from 2.2b because the split is unchanged. Key files:
+`reports/phase2e_boundary.md` (the report), `reports/tables/phase2e_*.csv` (26
+tables), `reports/figs/phase2e_*.png` (10 figures). The regression check is
+`reports/tables/phase2e_regression_check.csv`.
+
+**Invariant checks.** Invariant 2: the winner is defined only by labelled
+accuracy; neither ADS nor SV nor SV_resid appears in either mechanism, verified
+by inspection of `phase2e_mech.py`, which takes only forms and labels.
+Invariant 3: `verify_no_leakage` ran and passed, confirming the calibration and
+evaluation block sets are disjoint and partition the 18,984 live blocks, the
+frozen `n_train` rule is applied to every live block, and ADS and SV recompute
+train-only on a 300-block sample. Invariant 5: every number in the report is
+produced by the committed scripts; the report is regenerated end to end from
+them. Invariant 6: two mechanisms, neither trained. Invariant 7: offline,
+CPU-only, deterministic, no API call. Both new modules carry assert-based
+self-checks that pass (`phase2e_mech.demo`, `phase2e_run.demo`), and
+`phase2e_run.demo` pins the eta-squared decomposition against hand-computed
+answers, including the band-count invariance that is the whole reason Addendum 1a
+replaced the range test.
+
+**Two implementation notes worth keeping.** The Addendum 1a degenerate case is
+"SS_total is zero", and on a perfectly flat grid floating point leaves it at
+about 6e-32 rather than 0, which would have read as a decided clause with
+eta2 = 1.0 on both axes. It is compared against a tolerance of 1e-18, which sits
+far below the roughly 1e-8 that the smallest real between-cell difference can
+produce. Separately, `structural` and `gradient_clauses` build their frames with
+explicit columns, because a small per-dataset population can have no eligible
+band at all and an empty frame with no columns broke the first run.
+
+**Recommendation for the next pass.** Do not start 2.3 yet. This pass returns
+Inconclusive on both substantive hypotheses at the primary margin, and the one
+clause that directly tested the two-signal role assignment came out against ADS
+under both of its required measures, stably across k and delta. Three things
+belong to review, in this order. First, whether the primary margin is the right
+one, given that the pair is now two-sided and every marginal pooled gap falls
+below it; the delta = 0.02 column is where this data has structure, and moving
+the primary margin after seeing that is exactly the move the pre-registration
+exists to prevent, so it is a decision to take explicitly and to record, not to
+slide into. Second, whether the paper identity survives result 3 above, since
+PLAN.md's identity paragraph and the charter mission both assert a role
+separation that this pass measured pointing the other way. Third, only after
+those, whether 2.3 proceeds, and with which baselines. The locked Phase 2.5
+pre-registration-integrity subsection needs no change: it was drafted blind and
+its argument is unaffected by an Inconclusive result.
