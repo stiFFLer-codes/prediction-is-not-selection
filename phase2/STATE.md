@@ -6,10 +6,27 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.5a complete. The paper identity has been rewritten to the
-  2.2e result and the manuscript outline is built.** Awaiting human review of
-  `reports/OUTLINE.md` and the rewritten identity. No manuscript body text has
-  been drafted. Phase 2.3 stays blocked and may not run at all.
+- Status: **Phase 2.5b complete. The manuscript body is drafted end to end.**
+  All ten sections plus the abstract are in `paper/main.tex`, which builds
+  under pdflatex and bibtex at 24 pages with no undefined citations or
+  references. Awaiting human review of the drafted sections. Phase 2.3 stays
+  blocked and, on the 2.5b negative control, has no selector left to build.
+- **The manuscript is at `phase2/paper/main.tex`**, with
+  `phase2/paper/references.bib`. Venue-neutral LaTeX, generic `article` class,
+  no journal style file. Body 9,181 words against the outline's 8,100 budget,
+  abstract about 290, captions about 400, so roughly 9,900 against the
+  charter's 10,000 ceiling. Under the ceiling, thinner on headroom than the
+  charter asks for, and flagged for 2.5c to trim toward 8,500 body.
+- **The `/anti-ai` pass has not been run and no citation has been verified.**
+  Both are 2.5c and 2.6 work and were deliberately held back. `references.bib`
+  marks its three verification tiers in comments, and every unverified entry
+  carries its own `note`. **Tan (2026) is a placeholder** with no bibliographic
+  details anywhere in the repository, so the sibling-framing paragraph the
+  spec and PLAN.md describe was not drafted.
+- **The retired selector is now marked superseded in four places**, with
+  original text kept: `phase2-spec.md` sections 7 and 9, charter invariant 4,
+  and the last clause of charter invariant 6. OUTLINE.md open input 3 is
+  closed. The other three open inputs are still open.
 - **The two-signal role separation is retired.** The charter mission, PLAN.md's
   paper identity, its working titles, and `phase2-spec.md` sections 1 and 3 now
   describe a pre-registered negative result: design-time mechanism selection for
@@ -178,8 +195,11 @@ SV_resid 0.036782 / 0.082418. **These carry over to 2.2e unchanged.**
 - Pooled held-out accuracy: exact 0.8244, fuzzy 0.8441, gap -0.0196.
 - **H1 Supported.** Spearman 0.5069 exact, 0.7436 fuzzy.
 - **H2 Inconclusive. H3 Inconclusive at 0.05, Partial at 0.02.**
-- Per-block verdicts at delta 0.05: 0 exact wins, 302 fuzzy wins, 11,117 tie,
-  2,483 undecided.
+- Per-block verdicts at delta 0.05: 0 exact wins, 298 fuzzy wins, 11,117 tie,
+  2,487 undecided. **Corrected at 2.5b** from "302 / 2,483", which was a
+  transcription error in this file. `reports/phase2b_boundary.md` and
+  `reports/tables/phase2b_blocks_scored.csv.gz` both give 298 and 2,487. No
+  report, table or manuscript number was affected.
 - Signal correlations on the primary population: SV to SV_resid 0.51, SV to
   INIT 0.36, ADS to SV -0.27.
 - Reports: `reports/phase2b_boundary.md`, `reports/phase2b_calibration.md`.
@@ -236,35 +256,56 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   the frozen analysis executed on the evaluation split. H1 Supported, H2
   Inconclusive, H3 Inconclusive and margin-dependent. The pair is two-sided. The
   role-separation clause failed under both required measures.
-- **Pass 12 (Phase 2.5a): writing setup and outline. The paper identity rewritten
+- Pass 12 (Phase 2.5a): writing setup and outline. The paper identity rewritten
   to the true finding in the charter, PLAN.md and the spec; `reports/OUTLINE.md`
   built with section spines, an 8,100-word body budget, a six-table and
   five-figure plan, and six title candidates. Nothing measured. `PREREG.md`
-  untouched.**
+  untouched.
+- **Pass 13 (Phase 2.5b): the manuscript body drafted, in OUTLINE.md's order,
+  one commit per block. Five tables and four figures placed. Section 6.4
+  reproduces the locked deliverable verbatim and works its checklist against
+  the committed repository, including commit ids and the
+  amendment-predates-run timestamps. Section 7.7 states the logical negative
+  control: no cell of the frozen grid is decided at the primary margin, so no
+  selector over these two signals can beat a fixed choice, so none was built.
+  Nothing measured. `PREREG.md` untouched.**
 
-## Next: review the outline and the rewritten identity
+## Next: review the drafted manuscript
 
-Do not start drafting. Two things to read, in this order.
+Do not start 2.5c. The draft is for review first, and it should be reviewed
+against the committed reports rather than against the PASSLOG narrative.
 
-1. **The rewritten identity.** `phase2/CLAUDE.md` mission, `PLAN.md` paper
-   identity and working titles, `phase2-spec.md` sections 1 and 3. The question
-   is whether the negative result as stated there is the paper you want to write
-   and whether anything in it overclaims. The old framing is gone from all four
-   places.
-2. **`reports/OUTLINE.md`.** Section list, spines, budgets, the six-table and
-   five-figure plan, and six title candidates to merge with your own. It also
-   records the writing constraints for the whole of 2.5 and lists four open
-   inputs, including whether delta = 0.05 stays the primary margin and whether
-   2.3 and 2.4 happen at all.
+Read `phase2/paper/main.tex`. Three places are worth an independent, hostile
+read, in this order.
 
-Then Phase 2.5b, the drafting pass, in the order OUTLINE.md's last section
-gives: sections 4, 5 and 6 first, then 7, then 3, 8 and 9, then 1 and 2, then
-the abstract. 2.5c is the anti-AI and citation-verification pass and is separate
-by design.
+1. **Section 4, a comparison that cannot have a winner.** The whole paper
+   rests on this landing as a contribution rather than as a note. It carries
+   the containment argument, the measured zero, and the general form for any
+   pair assigning from the block's own history. If it does not land, the paper
+   is thinner than the outline assumed and that is worth knowing now.
+2. **Section 6.4 and its three points of record.** The locked deliverable is
+   reproduced verbatim; the three points after it work its fill-at-writing
+   checklist against the committed repository, covering the two dated appends
+   behind "amended once", what the two runs before the amendment actually
+   were, and the amendment-predates-run claim against commit timestamps. This
+   is the integrity argument and it has to survive a reviewer who is looking
+   for the seam.
+3. **Section 8.3, the reinterpretation of the Phase 1 synthetic result.** It
+   reinterprets published work of the author's own. The line between what was
+   an artifact of the near-nested pair, what stands, and what is intact but
+   narrower has to be exactly right, and the containment there is close rather
+   than exact, which the section says.
 
-The locked Phase 2.5 pre-registration-integrity subsection needs no change. It
-was drafted blind and its argument is unaffected by an Inconclusive result or by
-the identity rewrite.
+Then settle the three open inputs still open in `reports/OUTLINE.md`, listed
+again under "Still open" below. **Tan (2026) is the one that blocks drafting
+work**: it is cited by PLAN.md and by `phase2-spec.md` section 1 as the paper's
+sibling in framing, and no bibliographic details for it exist anywhere in the
+repository. Either it gets verified or the sibling framing comes out of the
+spec, PLAN.md and the abstract's surrounding argument.
+
+Then Phase 2.5c: the `/anti-ai` pass, the citation verification sweep over
+`paper/references.bib` block C, and the trim from 9,181 body words toward
+8,500. 2.6 is the pre-submission gate.
 
 ## Open decisions
 
@@ -287,6 +328,18 @@ Settled at Phase 2.5a:
   the negative result. Rewritten in the charter, PLAN.md and spec sections 1 and
   3. `PREREG.md` untouched.
 
+Settled at Phase 2.5b:
+
+- **The selector text is marked superseded, not deleted**, in `phase2-spec.md`
+  sections 7 and 9, charter invariant 4, and the last clause of charter
+  invariant 6. Each carries a dated banner and keeps its original text, and
+  each becomes live again unchanged if 2.3 runs. This closes OUTLINE.md open
+  input 3.
+- **The manuscript title in the draft is a placeholder**, "Prediction is not
+  selection: a pre-registered study of design-time mechanism choice in author
+  name disambiguation", supplied for 2.5b and not final. The six candidates in
+  PLAN.md and OUTLINE.md still stand to be merged with the author's own.
+
 Still open:
 
 - **Is delta = 0.05 still the primary margin?** Unchanged by this pass, and the
@@ -297,10 +350,17 @@ Still open:
   decision to take explicitly and record as a dated amendment, or to decline
   explicitly. It is not a decision to slide into.
 - **Whether 2.3 and 2.4 happen at all.** The rewritten identity has no selector
-  in it. If they run, it is as a negative control, and OUTLINE.md open input 2
-  says what changes in the outline.
-- `phase2-spec.md` sections 7 and 9 still describe the selector and its success
-  criteria. Out of scope for 2.5a; they should be rewritten or marked superseded.
+  in it, and 2.5b narrowed this further: manuscript section 7.7 states the
+  logical negative control, that no cell of the frozen grid is decided at the
+  primary margin, so no selector reading ADS and SV can beat a fixed choice.
+  If 2.3 runs anyway it runs as an empirical confirmation of that, not as a
+  constructive contribution.
+- **Tan (2026) is a placeholder citation and blocks part of the framing.** No
+  bibliographic details for it exist anywhere in the repository, yet PLAN.md
+  and `phase2-spec.md` section 1 both call it the paper's sibling in framing.
+  2.5b drafted section 2.1 without the sibling paragraph and left a TeX comment
+  saying why. Verify it in full, or take the sibling framing out of the spec
+  and PLAN.md.
 - Whether the "strictly lower in the top ADS band than in the bottom" clause
   should be pinned to one construction. It cost nothing this time and will not
   always.
@@ -311,13 +371,20 @@ Still open:
 
 ## Live risks
 
-- **The paper is now a null result, and it has to be written as a contribution
-  rather than as a failed experiment.** New at 2.5a and now the dominant risk.
-  The structural half carries it: exact match is a strict sub-case of
-  single-nearest retrieval, and two cells are zero for any pair in the family.
-  The empirical half is honest but thin on its own. If the drafting pass cannot
-  make section 4 land as a result, the paper is in trouble and that is worth
-  knowing early.
+- **The paper is a null result and has to read as a contribution rather than as
+  a failed experiment.** Still the dominant risk, and 2.5b has now taken its
+  first shot at it rather than only naming it. Section 4 carries the structural
+  half in about 930 words, with the order of discovery stated as evidence, the
+  general form stated for any pair in the family, and a one-count check a
+  reader can run. **Whether that lands is the single most important thing for
+  review to judge**, and it cannot be judged from this file. Read section 4
+  itself.
+- **Two unverified citations sit in the drafted paper, and one of them is a
+  placeholder.** New at 2.5b. `references.bib` block C is eight entries that
+  have not been checked against a source, each flagged in its own `note`, and
+  Tan (2026) has no details at all. The charter requires every citation
+  verified and resolvable, so this is a real open item and not housekeeping.
+  Nothing in block C is quoted for a number.
 - **The role-separation clause failed, which is what retired the old identity.**
   eta2_ADS 0.1749 against eta2_SV 0.3837 and averaged ranges 0.0707 against
   0.0755, stable across k and delta, wider still without the structural ADS row.
@@ -375,5 +442,6 @@ they are what bind** and they supersede sections 2, 4, 7 and 10 ->
 phase2/reports/phase2e_boundary.md (what 2.2e found, against the amended pair)
 -> phase2/reports/phase2b_boundary.md (what 2.2b found, against the retired
 pair) -> phase2/reports/phase2c_pair_design.md (why the pair changed) ->
-phase2/reports/OUTLINE.md (what the paper will be) -> phase2/PASSLOG.md
-(history).
+phase2/reports/OUTLINE.md (what the paper will be) ->
+**phase2/paper/main.tex (what the paper now is, drafted at 2.5b)** ->
+phase2/PASSLOG.md (history).

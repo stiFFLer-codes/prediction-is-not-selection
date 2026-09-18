@@ -1600,3 +1600,172 @@ sections 4, 5 and 6 first, then 7, then 3, 8 and 9, then 1 and 2, then the
 abstract. The one thing worth deciding early is whether section 4 can be made to
 land as a contribution in its own right. If it cannot, the paper is thinner than
 this outline assumes, and that is better known before 8,000 words exist.
+
+---
+
+## Pass 13 — Phase 2.5b, drafting the manuscript body (2026-09-18)
+
+**What and why.** The drafting pass. `reports/OUTLINE.md` was executed as
+written, in the order its last section fixes: sections 4, 5 and 6 first, then
+7, then 3, 8, 9 and 10, then 1 and 2, then the abstract, then one budget trim
+over the whole draft. Venue-neutral LaTeX, generic `article` class, no journal
+style file. The `/anti-ai` pass was deliberately not run; that is 2.5c and is a
+separate session by design. Nothing was measured this pass.
+
+**Where the manuscript lives.** `phase2/paper/main.tex` and
+`phase2/paper/references.bib`. Built with pdflatex and bibtex into the session
+scratchpad, not into the repository. 24 pages, no undefined citations or
+references, no em dashes anywhere.
+
+**Seven commits, one per drafting block plus the banners:**
+
+- `cb06770` sections 4, 5 and 6, plus `references.bib`
+- `dfa3831` section 7, results
+- `672839e` sections 3, 8, 9 and 10
+- `4a10f00` sections 1 and 2
+- `9ebc341` the abstract
+- `925bcb7` the budget trim over the whole draft
+- `8dc3c14` the four superseded-selector banners, not manuscript
+
+**The eight drafting instructions, and what each produced.**
+
+1. **Section 4 states that the degeneracy was found by running a full
+   pre-registered analysis before it was understood.** Section 4.2 opens on it
+   and closes on it: it was found by looking at an empty cell in the output of
+   the full frozen analysis, and it survived a pre-registration careful enough
+   to fix a deterministic tie-break chain for both mechanisms. The general form
+   is 4.3 and is framed as a trap with a one-count check, not as a theorem.
+2. **Section 1 carries a page-one practitioner statement.** End of 1.3, three
+   sentences: check the pair is not nested by counting the items where each is
+   right and the other wrong, expect the choice not to matter and decide on
+   cost where it does not, and measure your data to learn how hard it is rather
+   than what to build. Repeated as the closing paragraph of section 10.
+3. **Section 3 justifies the two untrained lookups as a scoping choice.**
+   Section 3.1, third paragraph, with three reasons: the design-time budget
+   question, the need for the pair to sit inside the rules-versus-retrieval
+   family the structural result is about, and holding training budget and model
+   class fixed so a winner difference cannot be a spending difference. Kim and
+   Kim's per-block oracle-tuned comparison is named as carrying exactly that
+   confound. Section 9 still carries the scope as a limitation, pointing back
+   at 3.1.
+4. **Section 8.3 reinterprets the Phase 1 result with care.** Zenodo concept
+   DOI `10.5281/zenodo.21644207` cited as `adscascade2026`. Three labelled
+   paragraphs separate what was an artifact of the pair (the constancy of the
+   winner), what stands (the accuracy prediction, reproduced here as H1), and
+   what is intact but narrower (the widening margin). Framed as a limitation
+   the near-nested design imposed, stated as an interpretation of a published
+   result rather than a new measurement, and explicit that the containment
+   there is close rather than exact, because the two-stage company-then-global
+   fallback and tie-breaking are the two ways the rules arm could differ in its
+   own favour.
+5. **The logical negative control is section 7.7.** No cell of the frozen 5 by
+   4 grid carries a decided pooled verdict at the primary margin, eighteen of
+   twenty being demonstrated ties and two undecided, so a selector reading ADS
+   and SV routes only inside demonstrated ties. No selector experiment is run
+   and none is reported. Stated as a claim about the pre-registered margin and
+   not about the underlying gaps.
+6. **Every count traces to a committed 2.2e table.** The 2.2b numbers appear in
+   exactly two places, section 4.2 and the retired-pair row of table 2, both
+   labelled with their own population. 2.2b's per-block verdict counts are not
+   in the paper at all.
+7. **Section 6.4 reproduces the locked deliverable.** Verbatim, inside a
+   `quote` block, its argument untouched. Its fill-at-writing checklist is
+   worked through after it as three labelled points of record.
+8. **Verdicts come from the frozen table.** Section 7's preamble says so, and
+   7.5 and 7.6 open by labelling their contents as substance. "Inconclusive
+   means the frozen rules declined to decide; it is not a finding that the
+   effects below the margin are absent" is stated in 7.4 in those words.
+
+**The fill-at-writing checklist, worked against the committed repository.**
+
+- **Commit ids confirmed.** `8869b82` freezes `PREREG.md`; `5e13e38` freezes
+  the calibration constants; `3d86959` is the 2.2b run; `c20239a` is the 2.2c
+  probe; `5f452ad` and `3e79a48` are Amendment 1 and Addendum 1a; `9e3d921` is
+  the 2.2e run. All seven are in the footnote to section 6.4.
+- **The amendment-predates-run claim confirmed against timestamps.** Amendment
+  1 at 12:36:16 and Addendum 1a at 13:04:42, against the 2.2e run commit at
+  14:25:07. Just under two hours and about eighty minutes respectively, all on
+  2026-09-18. `5e13e38` at 10:46:50 precedes the 2.2b run at 11:43:11.
+- **"Amended once" resolved.** The paper says the repository holds two dated
+  appends, names what each did, states that both precede the run they govern
+  and were committed within half an hour of each other, and calls them one
+  amendment event in two documents.
+- **"Two exploratory runs" resolved.** The paper says the first was not
+  exploratory but the pre-registered run executing the frozen text, and the
+  second was the calibration-split design probe. The locked text is unchanged;
+  the correction sits beside it.
+
+**Invariant checks run, and their results.**
+
+- **Invariant 5, no result before measurement: pass.** Nothing was computed
+  into the manuscript. Every number was copied from a committed report or
+  table. Two were re-verified directly against the committed data rather than
+  against prose, by reading `phase2e_blocks_scored.csv.gz` and
+  `phase2b_blocks_scored.csv.gz`: the 2.2e per-block verdicts at k = 5 and
+  delta = 0.05 are 191 rule wins, 309 k-NN wins, 10,172 tie and 3,230
+  undecided, giving 500 decided, exactly as the paper states; the 2.2b
+  distribution is 0 / 298 / 11,117 / 2,487.
+- **A transcription error found and fixed in STATE.md.** STATE.md recorded
+  2.2b's per-block verdicts as "302 fuzzy wins ... 2,483 undecided". The
+  generated report and the committed blocks table both give 298 and 2,487.
+  STATE.md was the hand-written copy and was wrong; it is corrected this pass.
+  No report, table or paper number changes, because the paper never carried
+  2.2b's per-block counts.
+- **`PREREG.md` frozen: pass.** Not in any diff this pass.
+- **The locked PLAN.md deliverable untouched: pass.** Not in any diff. It is
+  quoted into the manuscript, not edited in place.
+- **Read-only paths respected: pass.** `manuscript/main.tex` and
+  `manuscript/references.bib` were read for section 8.3 and for the
+  carried-over bibliography entries, and not modified. Everything written is
+  under `phase2/`.
+- **No em dashes: pass.** Zero in `main.tex` and zero in the two files given
+  supersession banners.
+- **Builds: pass.** pdflatex, bibtex, then two more pdflatex passes. 24 pages,
+  zero undefined citation or reference warnings.
+
+**Budget, and the one thing that is off target.** The body is 9,181 words
+against the outline's 8,100, with the abstract at about 290 and captions at
+about 400, so roughly 9,900 against the charter's 10,000 ceiling. Under the
+ceiling, but with less headroom than the charter asks for. The trim pass
+already removed 492 words of genuine duplication between sections 3 and 6 and
+inside section 1. What remains is spread across section 6, where the locked
+deliverable alone is 400 words that cannot be cut, section 4, which the
+instructions asked to expand, and section 7, which gained 7.7. Flagged rather
+than fixed by further shaving, because 2.5c is a tightening pass and can take
+it down properly.
+
+**Citations, stated plainly.** `references.bib` carries three verification
+tiers as comments. Block A is carried over from the Experiment 1 citation
+audit. Block B, Kim and Kim 2020, was verified at 2.2a against the source
+itself. Block C is not verified and every entry says so in its own `note`
+field: S2AND, WhoIsWho, the AND survey, Backes 2018, Hand 2009,
+Hernandez-Orallo et al. 2012, Vickers and Elkin 2006, Elmachtoub and Grigas
+2022. **Tan (2026) is a placeholder with no bibliographic details anywhere in
+the repository**, so the sibling-framing paragraph that PLAN.md and the spec
+both describe was not drafted; a TeX comment in section 2.1 says why and what
+to do. Either verify it in full at 2.5c or drop the framing.
+
+**The superseded-selector banners.** Four places still described the retired
+selector as live and now carry dated banners with their original text kept:
+`phase2-spec.md` sections 7 and 9, charter invariant 4, and the last clause of
+charter invariant 6. All four become live again unchanged if review decides
+2.3 runs. OUTLINE.md open input 3 is closed by this.
+
+**What I did not do, and why.** No `/anti-ai` pass, by instruction; that is
+2.5c. No citation verification sweep, which the charter requires and 2.6
+schedules; the unverified entries are flagged per entry instead. The primary
+margin was left at delta = 0.05 and the paper is drafted against it, with the
+delta = 0.02 structure reported as the robustness curve and named in section
+8.1 as the caveat that changes a reader's takeaway. Open inputs 1, 2 and 4 in
+OUTLINE.md are still open; only 3 is closed.
+
+**Recommendation for the next pass.** Review the drafted sections against the
+committed reports, not against this narrative. The three places most worth an
+independent read are section 4, because the whole paper rests on it landing as
+a contribution; section 6.4 and its three points of record, because that is
+the integrity argument and it has to survive a hostile read; and section 8.3,
+because it reinterprets published work of the author's own and the line
+between artifact and standing result has to be exactly right. Then settle
+OUTLINE.md's remaining open inputs, in particular whether Tan (2026) stays.
+After that, 2.5c: the anti-AI pass, the citation verification sweep, and the
+trim from 9,181 body words toward 8,500.
