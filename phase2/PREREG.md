@@ -19,6 +19,16 @@ section to this file, stating what changed and why, in the same commit as the
 code that needs it and before the affected numbers are produced. The original
 text is never edited away.
 
+**Revision history.** 2026-09-18, review of the 2.2a freeze, still before any
+measurement and before 2.2b starts: two rules were added at the reviewer's
+instruction, verbatim. Section 8 gained "Margin sensitivity", which makes delta
+= 0.05 the primary margin and requires a 0.02 and 0.03 robustness curve beside
+it. Section 10 gained "Order of evaluation", which makes Inconclusive take
+precedence over every other outcome row. Both tighten the rules; neither relaxes
+one. Recorded here rather than applied silently, because this document's
+authority comes from being fixed in advance. See commit history for the exact
+diff.
+
 ---
 
 ## 1. What is being tested
@@ -302,6 +312,15 @@ are required, because they answer different questions.
 The pooled band verdict is what section 9's reversal and compression tests
 operate on.
 
+### Margin sensitivity
+
+**Margin sensitivity, pre-registered.** The primary margin is delta = 0.05. Every
+band-level and cell-level verdict, and the H2 and H3 outcomes, are also
+recomputed at delta = 0.02 and delta = 0.03 and reported as a robustness curve
+beside the primary. An H2 or H3 outcome that holds at one margin and flips at
+another is reported as margin-dependent and treated as Partial, not Supported.
+Fixed now so the margin cannot be chosen after seeing results.
+
 ---
 
 ## 9. Winner-structure analysis, stated in advance
@@ -398,6 +417,12 @@ evaluation split only, and "generalizes" always means the section 10
 generalization rule: the result holds in the pooled non-inspire analysis **and**
 in a majority of qualifying non-inspire datasets, where qualifying means at least
 100 blocks in the primary analysis population.
+
+**Order of evaluation.** **Inconclusive is evaluated first.** If a hypothesis's
+Inconclusive power floor is met, the outcome is Inconclusive regardless of the
+other rows. In particular, a set of bands that are all tie or undecided is not H2
+Supported unless there are at least two ADS bands and two SV bands, each with 30
+or more blocks and a decided pooled verdict.
 
 ### H1, accuracy
 

@@ -778,3 +778,29 @@ split. The one thing to watch early is the mechanism agreement rate at low SV; i
 exact and fuzzy turn out to be the same procedure on most single-surface-form
 histories, that shapes the finding and should be surfaced at review rather than
 discovered in the writing phase.
+
+### Pass 5, addendum — two reviewer rules folded into PREREG.md
+
+Applied at review of the 2.2a freeze, still before any measurement and before
+2.2b starts. Both were supplied by the reviewer and are inserted verbatim.
+
+- **Section 8, margin sensitivity.** delta = 0.05 is the primary margin, and
+  every band-level and cell-level verdict plus the H2 and H3 outcomes are also
+  recomputed at delta = 0.02 and 0.03 and reported as a robustness curve. An
+  outcome that holds at one margin and flips at another is margin-dependent and
+  is treated as Partial, not Supported. This closes a hole I left: delta was
+  fixed but nothing stopped 2.2b from reporting a single margin's result as if
+  the choice of margin were immaterial.
+- **Section 10, order of evaluation.** Inconclusive is evaluated first and takes
+  precedence over every other row. In particular, an all-tie-or-undecided band
+  set is not H2 Supported unless at least two ADS bands and two SV bands each
+  have 30 or more blocks and a decided pooled verdict. This closes a real
+  loophole in the H2 Supported row as I wrote it: "or all such verdicts are tie
+  or undecided" would have let a completely underpowered run read as support for
+  selection blindness, which is the hypothesis most flattered by having no
+  evidence at all.
+
+Both rules tighten the falsification table; neither relaxes it. A revision
+history note was added at the top of PREREG.md recording the change and its
+timing, so the document's authority as a pre-registration is auditable rather
+than asserted.

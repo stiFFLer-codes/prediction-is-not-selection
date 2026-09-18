@@ -95,8 +95,11 @@ Almost none remain for 2.2. What is now **frozen and committed**:
 - Hypotheses, falsification table, splits and seeds, analysis population,
   minimum cell sizes, ADS and SV band rules, mechanism definitions and
   tie-breaking, the winner definition and the practical-equivalence margin
-  (delta = 0.05), the fuzzy-cutoff calibration protocol, the two controls for
-  the Kim and Kim overlap, and the per-dataset generalization rule. All in
+  (primary delta = 0.05, with a required 0.02 and 0.03 robustness curve and
+  margin-dependent outcomes demoted to Partial), the precedence of Inconclusive
+  over every other outcome row, the fuzzy-cutoff calibration protocol, the two
+  controls for the Kim and Kim overlap, and the per-dataset generalization
+  rule. All in
   `phase2/PREREG.md` (Phase 2.2a).
 
 Still open:
