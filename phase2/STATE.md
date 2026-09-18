@@ -7,10 +7,17 @@ full arc in PLAN.md, the method in phase2-spec.md.
 ## Where we are
 
 - Status: **Phase 2.2d (pre-registration revision) complete. `PREREG.md`
-  Amendment 1 is appended, dated and binding. Nothing was measured.** Awaiting
-  human review of the amendment before 2.2e runs.
-- **Next is 2.2e**, the re-run against Amendment 1. Phase 2.3 stays blocked until
-  2.2e produces numbers.
+  Amendment 1 and Addendum 1a are appended, dated and binding. Nothing was
+  measured.** Awaiting human review before 2.2e runs.
+- **Next is 2.2e**, the re-run against Amendment 1 as revised by Addendum 1a.
+  Phase 2.3 stays blocked until 2.2e produces numbers.
+- **One deliverable is outstanding and does not gate 2.2e.** A
+  pre-registration-integrity subsection was to be locked into PLAN.md as a
+  required Phase 2.5 writing deliverable, carrying author-supplied text verbatim.
+  The text was not supplied (the paste arrived as a placeholder and no
+  `posthoc-defense-deliverable.md` exists in the repository), and it was not
+  substituted with drafted text, because the deliverable's value depends on
+  having been written blind to the 2.2e result. Outstanding, not dropped.
 - Phase 2.2c (mechanism redesign) complete: three two-sided candidate pairs
   checked on the calibration split, P3 recommended and now adopted. Phase 2.2b
   complete; its numbers are the frozen record of the nested pair and are
@@ -75,8 +82,12 @@ in `PREREG.md` Amendment 1, "Resolutions of ambiguity".
    as the known-degenerate case.
 4. "Decided" in H2 means the **per-block** verdict; H3's reversal keeps using the
    **pooled band** verdict.
-5. "ADS is the stronger driver of decidability" means the larger averaged range
-   of the decided-winner rate across its axis of the frozen 5 by 4 grid.
+5. "ADS is the stronger driver of decidability" is now a two-part test, set by
+   **Addendum 1a**: ADS must have the larger one-way variance component
+   (eta-squared style, unweighted over eligible cells) **and** the larger
+   averaged range. A split makes the clause Partial. The original
+   range-only test was replaced because range is not invariant to band count and
+   the grid is 5 by 4, which handed ADS an unearned edge.
 6. "A non-trivial decidable region" means at least one ADS band below 1.0 with 30
    or more blocks holding 30 or more decided per-block verdicts.
 
@@ -230,30 +241,39 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   candidate pairs checked on the calibration split, one recommended, and two
   structurally-zero winner cells found that H2's old wording could not survive.
   No evaluation, no amendment.
-- **Pass 8 (Phase 2.2d): pre-registration revision. `PREREG.md` Amendment 1
+- Pass 8 (Phase 2.2d): pre-registration revision. `PREREG.md` Amendment 1
   appended and dated, reframing the paper from one-signal blindness to two-signal
   role separation, adopting the k-nearest vote at k = 5, and voiding the
   accuracy-maximizing calibration. Identity updated in the charter, the spec and
-  PLAN.md. Nothing measured.**
+  PLAN.md. Nothing measured.
+- **Pass 9 (Phase 2.2d continued): Addendum 1a, replacing resolution 5's
+  band-count-biased range test with a one-way variance decomposition plus the
+  range test as a second required condition. One requested deliverable left
+  outstanding for want of its supplied text. Nothing measured.**
 
 ## Next: review verifies Amendment 1, then a fresh session runs 2.2e
 
 Do not run any evaluation until the amendment is signed off. Review should read
 `PREREG.md` Amendment 1 end to end, and in particular:
 
-1. **The six resolutions above.** They are the only places where this pass made a
-   judgement call rather than transcribing the revision. Overrule now or not at
-   all.
+1. **The six resolutions above**, and **Addendum 1a**, which replaced
+   resolution 5. They are the only places where this pass made a judgement call
+   rather than transcribing the instruction. Overrule now or not at all.
 2. **The new H2 and H3, and their falsification table.** Especially whether
-   resolutions 5 and 6 set the H2 bar in the right place, since they are the two
-   thresholds that were not given.
+   resolution 6 and Addendum 1a set the H2 bar in the right place, since they are
+   the thresholds that were not given.
 3. **That the amendment claims nothing.** Every hypothesis in it is untested.
+4. **Whether to supply the Edit B text** for the outstanding Phase 2.5
+   deliverable, or to drop it.
 
 Then a fresh session runs 2.2e: implement mechanism B with its own assert-based
 self-check, confirm the self-check reproduces the 2.2c calibration counts,
 re-run the frozen analysis with the renamed verdicts, and report against the
 amended falsification table plus the mandatory k and delta curves. Nothing new is
 calibrated in 2.2e; the split, the band edges and the margins all carry over.
+Both decidability measures of Addendum 1a are computed and reported, the
+unweighted decomposition deciding and the block-weighted variant beside it as a
+diagnostic that decides nothing.
 
 ## Open decisions
 
@@ -276,7 +296,8 @@ re-decided once 2.2e starts:
   k = 5, with the k curve mandatory.
 - The hypotheses, the contribution statement and the falsification table.
 - That section 7 is void and nothing new is calibrated for 2.2e.
-- The six resolutions of ambiguity.
+- The six resolutions of ambiguity, with resolution 5 as replaced by
+  Addendum 1a.
 
 Still open:
 
@@ -312,8 +333,15 @@ Still open:
 - **The new H2 has a partly structural component.** The decline of decidability
   into the ADS = 1.0 band is guaranteed, not discovered. The amendment says so in
   its own text and puts the load-bearing content on the gradient below 1.0 and on
-  the existence of a decidable region. A reviewer who reads only the headline
-  will still mistake one for the other.
+  the existence of a decidable region. Addendum 1a reduces that row's leverage on
+  the role-separation clause by unweighting cells, but does not remove the row,
+  and says so. A reviewer who reads only the headline will still mistake one for
+  the other, so the two statements go in the paper adjacent.
+- **Measures chosen to decide a hypothesis can tilt toward it.** Surfaced at
+  Pass 9 and worth carrying: resolution 5's range test favoured ADS purely
+  because the grid is 5 by 4. Every remaining threshold that was set rather than
+  given, resolution 6 and the two halves of Addendum 1a, deserves the same
+  question before 2.2e starts, since none can be changed after.
 - **Power in the contested region.** It is 41% of calibration test signatures
   and excludes every ADS = 1.0 block, so it is smaller than the population 2.2b
   was already power-limited on at delta = 0.05.

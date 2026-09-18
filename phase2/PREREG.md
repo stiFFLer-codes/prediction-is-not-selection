@@ -21,6 +21,15 @@ text is never edited away.
 
 **Revision history.**
 
+2026-09-18, Phase 2.2d, review of the Amendment 1 freeze, still before 2.2e and
+still before any measurement: **Addendum 1a**, appended after Amendment 1. It
+replaces resolution 5's averaged-range test for "ADS is the stronger driver of
+decidability" with a one-way variance decomposition, because range is not
+invariant to band count and the grid is 5 by 4, which handed ADS an edge in the
+comparison H2 needs ADS to win. The range test is retained as a second required
+condition, and a split between the two measures makes the clause Partial. This
+tightens the rule; it does not relax one.
+
 2026-09-18, Phase 2.2d, after 2.2b and 2.2c and before 2.2e: **Amendment 1, the
 two-signal reframe**, appended at the end of this file. It supersedes sections 2,
 4, 7 and 10 and renames the section 8 verdicts. Forced by two structural findings
@@ -829,7 +838,10 @@ section 9 specifies. The two hypotheses therefore read different rows of the sam
 frozen table, which is deliberate: decidability is a property of a population of
 blocks, winner identity is a property of a band.
 
-**Resolution 5, "ADS is the stronger driver of decidability".** Operationalized
+**Resolution 5, "ADS is the stronger driver of decidability".**
+**Superseded by Addendum 1a, 2026-09-18, at the end of this file**, because the
+range measure below is biased by the grid not being square. The text is kept for
+the record. Operationalized
 as a comparison of ranges over the frozen 5 by 4 grid. For each SV band with 30
 or more blocks, take the range, maximum minus minimum, of the decided-winner rate
 across its eligible ADS cells, and average those ranges over SV bands; do the
@@ -865,3 +877,94 @@ The original section 12 carries over, with the mechanism names updated.
 - The 2.2b numbers are not recomputed, not overwritten, and not withdrawn. They
   stay in `reports/phase2b_boundary.md` as the record of the nested pair and are
   reported in the paper beside the 2.2e numbers.
+
+---
+
+## Addendum 1a to Amendment 1, 2026-09-18: resolution 5 replaced
+
+**Status: binding. Supersedes resolution 5 of Amendment 1 above.** Append-only,
+in the same style as the amendment it revises: nothing above this line is edited
+or removed, and resolution 5 carries a pointer here.
+
+**Still before any measurement.** No mechanism B prediction on the evaluation
+split exists anywhere under `phase2/`. Nothing in this addendum was informed by a
+result, because no result for the amended design exists.
+
+### Why resolution 5 had to change
+
+Resolution 5 tested "ADS is the stronger driver of decidability than SV" by
+comparing the averaged **range**, maximum minus minimum, of the decided-winner
+rate across each axis of the frozen 5 by 4 grid. That measure is biased in favour
+of the conclusion H2 needs. The range is an order statistic, so its expectation
+grows with the number of values it is taken over, and the grid is not square: ADS
+has 5 bands and SV has 4. ADS therefore enters the comparison with a built-in
+edge that has nothing to do with the data. A hypothesis should not be handed a
+measure that tilts toward supporting it.
+
+### The replacement test, fixed now
+
+**Primary measure: a one-way variance decomposition, eta-squared style.**
+
+Let the observations be the **eligible cells** of the frozen 5 by 4 ADS-by-SV
+grid, where eligible keeps the existing meaning of 30 or more blocks. Let `p_c`
+be the decided-winner rate of cell `c`, defined as in resolution 4, and let
+`p_bar` be the unweighted mean of `p_c` over eligible cells.
+
+    SS_total    = sum over eligible cells of (p_c - p_bar)^2
+    SS_ADS      = sum over ADS bands b of  m_b * (p_bar_b - p_bar)^2
+    SS_SV       = sum over SV bands s of   m_s * (p_bar_s - p_bar)^2
+
+where `m_b` is the number of eligible cells in ADS band `b` and `p_bar_b` their
+unweighted mean, and likewise for SV. Then
+
+    eta2_ADS = SS_ADS / SS_total        eta2_SV = SS_SV / SS_total
+
+Each is an ordinary one-way effect size in [0, 1], computed over the same
+observations, so the comparison is invariant to the number of bands on either
+axis. **ADS is the stronger driver under the primary measure if
+`eta2_ADS > eta2_SV`.**
+
+**Secondary measure: the averaged-range test of the original resolution 5**, kept
+verbatim and unchanged. It is no longer the test; it is the second of two
+conditions.
+
+**The combined rule, which is what section 10's H2 row now means by "ADS is the
+stronger driver of decidability than SV".**
+
+| both measures | H2 role-separation clause |
+| --- | --- |
+| ADS larger under the variance decomposition **and** under the averaged range | condition met, H2 may be Supported if its other clauses hold |
+| ADS larger under one measure but not the other | **Partial**, never Supported, and the disagreement is reported with both pairs of numbers |
+| ADS larger under neither | the clause fails; H2 falls to Partial under "SV rivals ADS as a driver of decidability", or lower if another clause also fails |
+
+Both pairs of numbers, `eta2_ADS` against `eta2_SV` and the two averaged ranges,
+are reported in every case. Neither is ever reported as a verdict alone.
+
+### Fixed choices inside the primary measure
+
+**Cells are unweighted.** Each eligible cell contributes one observation,
+regardless of how many blocks it holds. The alternative, weighting each cell by
+its block count, is **not** used to decide anything, for a stated reason: the
+ADS = 1.0 row holds roughly three quarters of the primary analysis population,
+and its low decidability is the part of H2 that Amendment 1 already concedes is
+partly structural. Block-weighting would give that one row decisive leverage over
+exactly the comparison H2 needs ADS to win, which is the same kind of tilt this
+addendum exists to remove. The block-weighted decomposition is computed and
+reported beside the unweighted one as a diagnostic, and **decides nothing**.
+
+**Degenerate cases.** If `SS_total` is zero, that is every eligible cell has the
+same decided-winner rate, the ratios are undefined and the role-separation clause
+is **Inconclusive**, which under the Order of evaluation rule carries H2 to
+Inconclusive. The same applies if fewer than two levels of either factor contain
+an eligible cell, or if fewer than four eligible cells exist in total.
+
+### What this does not fix, stated plainly
+
+The ADS = 1.0 row still carries a partly structural decidability collapse, and it
+is still one of the five rows entering the primary measure. Unweighting stops it
+dominating, but it does not remove it, and no variant that removes it is
+pre-registered here, because deleting the row would test a different hypothesis
+from the one H2 states. The consequence is that a reader must take the H2 verdict
+together with Amendment 1's own statement that the decline into the top ADS band
+is guaranteed rather than discovered. Both go in the paper, adjacent, not one
+without the other.

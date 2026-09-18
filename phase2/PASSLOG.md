@@ -1191,3 +1191,89 @@ table plus both mandatory curves, k and delta. Nothing new is calibrated in
 margin and the bootstrap are unchanged and the decidable region is a subset of
 the population; if it does, Inconclusive is a permitted verdict and is used
 rather than reached around.
+
+---
+
+## Pass 9, Phase 2.2d continued: Addendum 1a, and one deliverable outstanding
+
+**Date:** 2026-09-18. **Branch:** phase-2. Nothing run, nothing measured.
+
+**Two edits were requested. One is applied, one is blocked on missing input.**
+
+### Edit A, applied: resolution 5 replaced by Addendum 1a
+
+Resolution 5 of Amendment 1 tested "ADS is the stronger driver of decidability
+than SV" by comparing the averaged range of the decided-winner rate across each
+axis of the frozen 5 by 4 grid. That measure is biased toward the conclusion H2
+needs. Range is an order statistic, so its expectation grows with the number of
+values it is taken over, and the grid is not square: 5 ADS bands against 4 SV
+bands. ADS entered the comparison with an edge that came from the grid shape
+rather than from the data.
+
+Replaced by a one-way variance decomposition over the eligible cells of the same
+grid: `eta2_ADS = SS_ADS / SS_total` against `eta2_SV = SS_SV / SS_total`, both
+ordinary one-way effect sizes over the same observations, so the comparison is
+invariant to band count. The averaged-range test is kept verbatim as a **second
+required condition**. ADS counts as the stronger driver only if it wins under
+both. A split between the two measures makes the H2 role-separation clause
+**Partial**, never Supported, and both pairs of numbers are reported in every
+case.
+
+Two choices inside the new measure were not specified and are fixed in the
+addendum, with reasons.
+
+- **Cells are unweighted**, one observation each. Block-weighting is computed and
+  reported beside it but decides nothing, because the ADS = 1.0 row holds roughly
+  three quarters of the primary analysis population and its low decidability is
+  the part of H2 that Amendment 1 already concedes is partly structural.
+  Weighting by blocks would give that single row decisive leverage over exactly
+  the comparison H2 needs ADS to win, which is the same kind of tilt this
+  addendum exists to remove.
+- **Degenerate cases are Inconclusive**: zero total sum of squares, fewer than
+  two levels of either factor holding an eligible cell, or fewer than four
+  eligible cells in total.
+
+The addendum also states what it does not fix. The ADS = 1.0 row still carries a
+partly structural collapse and is still one of the five rows entering the
+measure. Unweighting stops it dominating but does not remove it, and no variant
+that deletes the row is pre-registered, because deleting it would test a
+different hypothesis from the one H2 states. The H2 verdict and Amendment 1's own
+statement that the top-band decline is guaranteed rather than discovered go in
+the paper adjacent to each other.
+
+Applied append-only, as instructed: Addendum 1a sits after Amendment 1, nothing
+prior is overwritten, resolution 5 carries a one-line pointer, and the file's
+revision history gained a dated entry.
+
+### Edit B, not applied: the pre-registration-integrity subsection
+
+**Blocked, and deliberately left undone.** The instruction was to add a required
+Phase 2.5 deliverable to PLAN.md carrying supplied drafted text verbatim. The
+paste came through as the literal placeholder
+`[Paste the contents of posthoc-defense-deliverable.md here.]`, and no file of
+that name exists anywhere in the repository; the only `posthoc` hits are Phase 1
+archive artifacts under `data/outputs/experiments/exp1/`, unrelated and
+read-only.
+
+Not substituted with drafted text, because the point of the deliverable is that
+it was written by the author blind to the 2.2e result. Text composed here, after
+two passes of reading the results that motivate the defence, would be the exact
+thing the deliverable exists to rule out, and calling it verbatim would be false.
+It is recorded here as outstanding rather than silently dropped.
+
+It does not gate 2.2e. It is a Phase 2.5 writing deliverable and can be added at
+any point before the writing pass.
+
+**Numbers produced:** none. **Invariant checks.** Invariant 5: no measurement,
+and the addendum states in its own text that no mechanism B prediction on the
+evaluation split exists. Invariants 2, 3, 6, 7: untouched by this pass. The three
+module self-checks were re-run and pass.
+
+**Artifacts.** `phase2/PREREG.md` (Addendum 1a, one pointer at resolution 5, one
+revision-history entry).
+
+**Recommendation for the next pass.** Supply the Edit B text, which can be folded
+into any later commit, then run 2.2e. 2.2e is unchanged by this pass except that
+it must now compute and report both decidability measures rather than one, and
+must implement the unweighted decomposition as the deciding one with the
+block-weighted variant beside it as a reported diagnostic.
