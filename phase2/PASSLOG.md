@@ -804,3 +804,151 @@ Both rules tighten the falsification table; neither relaxes it. A revision
 history note was added at the top of PREREG.md recording the change and its
 timing, so the document's authority as a pre-registration is auditable rather
 than asserted.
+
+---
+
+## Pass 6 — Phase 2.2b, the boundary experiment (2026-09-18)
+
+**What I did and why.** Executed `PREREG.md` as frozen, in the order it
+prescribes: build the split and the train-only signals, calibrate the fuzzy
+cutoff once on the calibration split and commit it, then and only then touch the
+evaluation split. Two commits, deliberately: `5e13e38` freezes the calibration
+before any evaluation number exists, `3d86959` carries the results. Nothing in
+PREREG.md was re-tuned, re-banded or redefined, and no amendment was needed,
+because nothing in it turned out unrunnable.
+
+**The headline is methodological, and it was measured rather than deduced.**
+Under PREREG section 4 as frozen, **exact match is a strict sub-case of fuzzy
+retrieval**. When a test surface form occurs among the train forms it sits at
+similarity exactly 1.0, which is the maximum, so the fuzzy arm selects that same
+form at any cutoff at or below 1.0 and resolves the author with the same frozen
+tie-break. Across all 16,136 evaluation blocks and 199,713 test signatures there
+are **zero** signatures on which exact is right and fuzzy is wrong, in either
+metric arm. Three consequences:
+
+- `exact wins` is an unreachable verdict. The four-verdict rule can only return
+  fuzzy wins, tie, or undecided, so a winner reversal, which H3 requires and H2
+  forbids, cannot occur for either signal at any margin. The design could not
+  have produced the alternative outcome.
+- The pooled gap is exactly one quantity: minus the share of test signatures
+  where exact abstains and fuzzy is correct. The whole exact-minus-fuzzy story
+  is the 3.2-point coverage difference, 0.9686 against 0.9988.
+- The mechanism agreement rate, which PREREG section 4 added specifically to
+  separate genuine equivalence from structural coincidence, turns out to be the
+  identity exact coverage plus fuzzy abstention rate: 0.9664 + 0.0015 = 0.9679,
+  to every digit. The diagnostic measures the structural coincidence exactly.
+
+`reports/kim2020_positioning.md` item 6 anticipated this risk, but as a low-SV
+effect. Measured, it is total and holds at every SV level. **Reported, not
+repaired.** Changing the mechanism pair, the cutoff or the tie-break to make the
+comparison two-sided is a change to a frozen definition after the affected
+numbers exist, which the amendment rule reserves for review.
+
+**Outcomes against the frozen falsification table**, Inconclusive evaluated
+first per the 2.2a reviewer rule:
+
+- **H1 Supported.** Spearman of train-only ADS with held-out accuracy is 0.5069
+  [0.4916, 0.5224] for exact and 0.7436 [0.7305, 0.7568] for fuzzy, both
+  block-bootstrap intervals clear of zero, positive in pooled non-inspire and in
+  all four qualifying non-inspire datasets (aminer, kisti, qian, zbmath), so it
+  generalizes. Stated in PREREG as a construct-validity check, not a
+  contribution, and reported as one.
+- **H2 Inconclusive.** The power floor is not met: at delta = 0.05 no ADS band
+  and no SV band has a decided pooled verdict. This is the reviewer rule added
+  at the 2.2a freeze doing exactly its job, since the all-tie band set would
+  otherwise have read as support for the hypothesis most flattered by an absence
+  of evidence.
+- **H3 Inconclusive at delta = 0.05, Partial at 0.02, so margin-dependent.**
+  At 0.02 the ADS = 1.0 row clears the floor with three decided SV bands and one
+  ADS band shows a tie-crossing, which is the Partial row.
+
+**Substance beside the verdict, reported separately rather than substituted for
+it.** The pattern is gap compression: at fixed ADS the pooled gap grows with SV
+monotonically in four of the five ADS bands and never changes sign. Under the
+frozen rules that reading is only available above the power floor, which is not
+cleared at the primary margin, so the verdict stays Inconclusive and the
+substance is stated next to it.
+
+**Key numbers and where they live.**
+
+- Report: `reports/phase2b_boundary.md`. Calibration: `reports/phase2b_calibration.md`.
+- Frozen constants: `phase2/phase2b_constants.py`. Cutoff 0.50 for both metric
+  families, on the lower boundary of the pre-registered grid because both
+  accuracy-versus-cutoff curves are monotonically decreasing: with abstention
+  scored as wrong, the fuzzy arm is never helped by abstaining. SV band edges
+  0.102644 / 0.195066, SV_resid 0.036782 / 0.082418, all from calibration blocks.
+- Population: 13,902 primary-population blocks, 197,479 test signatures. Named
+  exclusions reported not dropped: 7,955 singleton blocks (1.04% of signatures)
+  and 2,234 block-size-2 blocks (0.58%).
+- Pooled accuracy exact 0.8244, fuzzy 0.8441, gap -0.0196.
+- Per-block verdicts at delta 0.05: 0 exact wins, 302 fuzzy wins, 11,117 tie,
+  2,483 undecided.
+- Regression of the per-block gap: ADS -0.0495 (se 0.0043), SV -0.1443 (se
+  0.0172), log test-set size +0.0308 (se 0.0015).
+- Signals: SV to SV_resid Spearman 0.51, SV to INIT 0.36, ADS to SV -0.27. SV is
+  correlated with forename initialization but is not it.
+- Figures: `reports/figs/phase2b_h1_ads_accuracy.png`, `phase2b_grid_gap_sv.png`,
+  `phase2b_grid_gap_svresid.png`, `phase2b_verdicts_by_sv.png`,
+  `phase2b_verdicts_by_ads.png`, `phase2b_power_by_size.png`,
+  `phase2b_margin_sensitivity.png`. Tables: `reports/tables/phase2b_*.csv`.
+
+**Two readings I had to fix, both recorded in the report rather than resolved
+silently.** First, PREREG section 9 gates the structural classification at two
+bands of 30 or more blocks while section 10 sets the Inconclusive floor at two
+bands that are also decided; the Order of evaluation rule makes the latter a
+hypothesis-level test, so both counts are printed per row and either reading can
+be checked against the same numbers. Second, section 9 asks for block-clustered
+standard errors on a regression whose unit of observation is the block, where
+each cluster holds one observation and the estimator reduces algebraically to
+the heteroskedasticity-robust one; that is what is computed and the report says
+so instead of printing a label that would imply more.
+
+**Invariant checks run.** #2 — the winner is defined only by labelled accuracy;
+neither ADS nor SV nor SV_resid appears in its definition, and the shared-metric
+objection is answered by the Jaro-Winkler arm, which reproduces the same picture
+(pooled gaps -0.0379, -0.0177, -0.0181, -0.0192 across SV bands, all ties at
+delta 0.05). #3 — `verify_no_leakage` runs on every execution and asserts the
+calibration and evaluation block sets are disjoint and partition the 18,984 live
+blocks, that the frozen n_train rule holds for every live block, and that ADS
+and SV recompute train-only on a 300-block sample. It passes. The cutoff and the
+band edges were committed before the evaluation split was read. #5 — every
+number above is produced by committed, re-runnable code; re-running
+`phase2b_build.py` reproduces `phase2b_constants.py` byte for byte, verified
+before the freeze commit. #6 — two mechanisms only. #7 — offline, CPU-only,
+seeded, deterministic, no API call. #1 and #8 — 1 was satisfied at 2.1; 8 is why
+the degeneracy leads the report instead of sitting in a limitations paragraph.
+Off-limits paths untouched; every change is under `phase2/` plus one `.gitignore`
+line.
+
+**One bug found and fixed before the final run.** The per-block paired bootstrap
+was seeded with the block index alone rather than 20260918 offset by it, as
+PREREG section 8 specifies. Fixed and re-run; no outcome changed.
+
+**One disclosure.** The calibration run printed exact-match accuracy on the
+calibration split (0.8223) alongside the fuzzy curve, as console context. It
+entered no frozen choice: the cutoff rule selects on pooled fuzzy accuracy
+alone and both it and the band rules are mechanical. Recorded here because the
+value was observed before the evaluation split was read.
+
+**Recommendation for the next pass.** Do not start 2.3 as planned. The selector
+question 2.3 exists to ask cannot be asked of this mechanism pair: a selector
+choosing between a mechanism and a strict superset of it has nothing to choose,
+and an SV-only or two-signal selector would be scored against a comparison whose
+winner is fixed in advance. Review needs to decide one of:
+
+1. Amend PREREG section 4 to a genuinely two-sided mechanism pair, dated and
+   agreed before any new accuracy exists. The obvious candidate is to make the
+   fuzzy arm exclude exact matches, or to give exact an advantage fuzzy lacks,
+   but any such change is a new pre-registration and its numbers are new numbers.
+2. Keep the pair and retarget the paper on what this run does establish: the
+   design-time consistency signal predicts each mechanism's accuracy and
+   generalizes across datasets, while the winner between a mechanism and its own
+   relaxation is a coverage question with no selection content. That is a
+   smaller paper and the title would have to change.
+3. Replace the second mechanism with one that is not nested, which reopens
+   charter invariant 6 and is a larger scope change.
+
+Whichever is chosen, the 2.2b numbers stand as the frozen evidence base for it,
+and the degeneracy is a result to report in the paper rather than a mistake to
+erase, because it is a property of a mechanism pair that a reader might
+reasonably have proposed themselves.
