@@ -32,13 +32,230 @@ mechanism choice in author name disambiguation}
 % Abstract: drafted last, per OUTLINE.md.
 % ---------------------------------------------------------------------------
 
-% ---------------------------------------------------------------------------
-% 1. Introduction: drafted in the fifth block.
-% ---------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
 
-% ---------------------------------------------------------------------------
-% 2. Related work: drafted in the fifth block.
-% ---------------------------------------------------------------------------
+\subsection{The design-time question}
+\label{sec:the-question}
+
+Someone building a record-linking or disambiguation system starts with a
+history and no labels for the future. They can read everything already
+recorded. They cannot evaluate anything on the decisions that have not been
+made yet. The question they face is which mechanism to build, and they face
+it before any evidence about the answer exists.
+
+Predicting how hard a problem will be from properties of its data is well
+studied, and so is choosing an algorithm per instance. Algorithm selection
+\citep{rice1976, smithmiles2009, barbudo2023} asks which member of a
+portfolio performs best on a given instance, and answers it by fitting a
+selector on measured per-instance performance. That measurement needs labels.
+The question here is narrower and earlier: can a designer measure a property
+of their own history, before building anything and before any labelled
+evaluation exists, and learn from it which of two mechanisms to build?
+
+The gap between predicting performance and selecting a mechanism is what this
+paper is about. A signal can do the first perfectly and the second not at
+all. Knowing that a block is hard tells you both mechanisms will do badly
+there. It does not tell you which will do less badly, and the second question
+is the one a designer has to answer.
+
+\subsection{Why author name disambiguation}
+\label{sec:why-and}
+
+The question needs a substrate where two block-level properties vary
+natively, separately, and visibly at design time. Author name disambiguation
+has exactly that. How many distinct people share a name and how many ways one
+person's name is written are different properties of the same block, and both
+are readable from the history alone. Clean product-matching and record-linkage
+benchmarks mostly have only the second: their labels are close to
+deterministic, so the consistency axis is a point mass and there is no
+variation to select on.
+
+We use S2AND \citep{s2and2021}, which unifies eight prior disambiguation
+datasets into one format, ships a reference implementation, measures both
+properties itself as homonymity and synonymity, runs offline, and gives
+cross-dataset generalization at no extra cost. Seven of its eight datasets
+are usable here. Section~\ref{sec:setting} sets out the constructs and
+Section~\ref{sec:design} the protocol.
+
+\subsection{What we found}
+\label{sec:what-we-found}
+
+The answer is no, for two separate reasons.
+
+\textbf{The comparison most people would run cannot have a winner.} A rule
+that assigns on an exact surface match is a strict sub-case of a retriever
+that assigns from the single nearest surface form, because a test form
+present in the history sits at the maximum of any similarity function. The
+retriever takes it, resolves the same author, and is right everywhere the
+rule is right. No cutoff, metric family or tie-break changes this. We measured
+zero rule wins on 199{,}713 held-out signatures in two metric families before
+we understood why, and the general form covers any pair of mechanisms that
+assigns an author from the block's own history: such a rule cannot win where
+the history names one author and cannot win where the history is written one
+way.
+
+\textbf{Where a contest is possible, there is almost nothing to select.} We
+built a pair that avoids both problems, an exact-evidence rule against a
+k-nearest vote, pre-registered the analysis, and ran it. The pair is
+genuinely two-sided on held-out data. The two mechanisms are then within half
+an accuracy point pooled, 0.8244 against 0.8294. The gap compresses along
+both design-time axes and changes sign on both, but no band clears the
+pre-registered five-point margin, so both selection hypotheses return
+Inconclusive under the frozen rules. The one clause that asked which signal
+drives whether the choice is decidable at all found surface stability, not
+consistency, at every $k$ and every margin.
+
+\textbf{The contrast that makes this informative.} The consistency signal is
+not weak. It predicts each mechanism's own held-out accuracy at Spearman 0.51
+and 0.83, positive with intervals excluding zero in every qualifying dataset.
+It works. It simply does not answer the question a designer is asking.
+
+For a practitioner the message fits in three lines. Check that the two
+mechanisms you are comparing are not nested, by counting the items where each
+is right and the other wrong; a zero there is a fact about your design and
+not about your data. Expect the choice not to matter on most of your corpus,
+and decide on cost and maintainability where it does not. And measure your
+data to learn how hard it will be, not to learn what to build.
+
+\subsection{Contributions, and what is not claimed}
+\label{sec:contributions}
+
+We claim four things. First, exact match is a strict sub-case of
+single-nearest retrieval, so a comparison between them cannot have a winner;
+this is structural, general, and was measured before it was understood.
+Second, for any pair of mechanisms assigning an author from the block's own
+history, two regions of the design space are empty by construction. Third, on
+a pair built to avoid both, neither design-time signal yields an actionable
+selection rule at the pre-registered margin. Fourth, a design-time
+consistency statistic does predict each mechanism's own accuracy and
+generalizes across datasets.
+
+We do not claim that no design-time selection signal exists for any mechanism
+pair anywhere; the claim is scoped to this substrate, these two mechanisms
+and this margin. We do not claim the effects measured below the margin are
+zero; they are small, they change sign, and the frozen rules declined to
+decide them. We claim nothing about a selector, because none was built and
+none is evaluated, for the reason given in Section~\ref{sec:no-selector}. And
+we claim nothing about learned disambiguation systems: both mechanisms here
+are untrained lookups, on purpose.
+
+\section{Related work}
+\label{sec:related}
+
+\subsection{Decision-focused evaluation}
+\label{sec:decision-focused}
+
+A line of work argues that a model's score under a general-purpose metric is
+not the quantity a decision-maker cares about. \citet{hand2009} shows that
+the area under the ROC curve implicitly averages over a cost distribution
+that depends on the classifier being scored, so it is incoherent for
+comparing classifiers. \citet{hernandezorallo2012} give a unified account in
+which a metric is a choice of threshold policy plus a cost distribution, and
+different metrics answer different decision questions.
+\citet{vickers2006} make the point operationally in clinical prediction, by
+scoring models against the decision a clinician would take at a given
+threshold. \citet{elmachtoub2022} push it into the training objective, fitting
+the prediction to the downstream optimization rather than to the prediction
+error.
+
+Our gap sits one step earlier than any of these. They ask whether a
+measurement answers the decision question once the candidate models exist. We
+ask whether a measurement taken before either candidate is built answers a
+choice between them. The unit is also different: theirs is a model on a
+dataset, ours is a mechanism on a block, with tens of thousands of blocks in
+one corpus.
+% NOTE, 2.5c: the sibling framing against Tan (2026) is held back until that
+% citation is verified. No bibliographic details for it exist in the repo.
+
+\subsection{Author name disambiguation as the home domain}
+\label{sec:and-domain}
+
+Author name disambiguation is a mature benchmark domain with its own
+vocabulary for exactly the two axes we need. S2AND \citep{s2and2021} unifies
+eight datasets and defines homonymity and synonymity per block, which we use
+as external checks on our own two signals. WhoIsWho \citep{whoiswho2023}
+provides a larger benchmark with a competition around it. Surveys of the area
+\citep{ferreira2012} classify methods by the evidence they use, and
+string-based matching is a standing baseline rather than a straw man:
+\citet{backes2018} argues that name-matching and blocking choices dominate
+reported differences between disambiguation methods, which is a version of
+the concern this paper makes structural.
+
+We use S2AND as substrate rather than as target. We do not propose a
+disambiguation method, and neither of our two mechanisms is competitive with
+the systems this literature builds. They are small on purpose, for the
+reasons in Section~\ref{sec:blocks}.
+
+\subsection{Algorithm selection}
+\label{sec:algsel}
+
+\citet{rice1976} framed algorithm selection as a mapping from instance
+features to the best-performing algorithm in a portfolio, and
+\citet{smithmiles2009} and \citet{barbudo2023} trace how that framing became
+meta-learning and then automated pipeline search. The framing assumes a
+portfolio whose members can beat each other on some instances. That
+assumption is almost never stated and almost never checked.
+
+Section~\ref{sec:degenerate} is a case where it fails, and fails in a way
+that is invisible in aggregate performance. Two mechanisms can differ in
+accuracy, in coverage and in failure mode, and still have one contained in
+the other, so that the per-instance selection target is constant over part of
+the instance space. A selector fitted there is fitting a region where no
+choice exists. The check is one count, and we give it in
+Section~\ref{sec:general-form}.
+
+\subsection{Surface-form robustness, and the nearest prior result}
+\label{sec:kimkim}
+
+\citet{kimkim2020} is the closest prior work on the surface axis. They ask
+how much author forenames contribute to disambiguation, on four labelled
+datasets, and they do it by manipulation: they choose a random share of name
+instances to keep full forenames and initialize the rest, sweeping that share
+from 0 to 100\% in steps of ten with ten repetitions, and separately truncate
+every forename to its first $n$ characters. They compare a zero-parameter
+string-matching heuristic against feature-based machine learning over four
+features and five classifiers, with agglomerative clustering whose threshold
+is chosen per block against the B-cubed F1 being scored
+\citep{amigo2009}. The reported unit is the dataset crossed with the
+manipulation setting.
+
+Their headline is gap compression. As full forenames become more common, the
+margin by which machine learning beats string matching shrinks. It shrinks
+and does not cross: string matching never beats the best algorithmic arm on
+B-cubed F1 in any of their four datasets at any setting. Two local crossings
+exist on component metrics, neither survives into F1, and the authors do not
+present either as a change of winner. Their practical advice, which is the
+closest they come to our question, is to characterize the name ambiguity in a
+dataset before choosing a method, offered to a human reader rather than as a
+measurable signal or a procedure.
+
+Four differences matter. Their surface axis is manipulated and ours is
+measured as found, which also means theirs is not available to a practitioner
+looking at their own data. Their unit is the dataset and ours is the block,
+which turns one observation per setting into tens of thousands. Their surface
+variable is an experimental arm and ours is a design-time signal. And their
+outcome is a gap magnitude, where ours is a winner construct with a
+practical-equivalence margin and a distinct tie. Our
+Section~\ref{sec:compression} reproduces their compression shape at block
+level with measured variation, which we report as their finding reproduced
+rather than as a new one. What neither of us finds is a winner change, and
+they tested the harder version of the comparison.
+
+They also state a limitation we inherit and partly address: they treat only
+the initialization form of synonymy, and explicitly exclude edit-distance and
+token-order variation. Our surface measure covers those, and our
+initialization-free control separates them.
+
+\subsection{Adjacent and out of scope}
+\label{sec:adjacent}
+
+Two neighbouring literatures are about a different decision. The reject
+option \citep{chow1970, hendrickx2024} and learning to defer
+\citep{mozannarsontag2020} both choose, per item and at inference time,
+whether to answer at all. Our abstention is a fixed property of one mechanism
+rather than a tunable policy, and our decision is taken once, at design time,
+about what to build.
 
 \section{Problem setting and constructs}
 \label{sec:setting}
