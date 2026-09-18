@@ -28,9 +28,35 @@ mechanism choice in author name disambiguation}
 \begin{document}
 \maketitle
 
-% ---------------------------------------------------------------------------
-% Abstract: drafted last, per OUTLINE.md.
-% ---------------------------------------------------------------------------
+\begin{abstract}
+Can a designer measure a property of their own data before building anything
+and learn which classification mechanism to build? On seven public author
+name disambiguation datasets the answer is no, for two separate reasons.
+
+The first is structural. A rule that assigns on an exact surface match is a
+strict sub-case of a retriever that assigns from the single nearest surface
+form, because a test string present in the history sits at the maximum of any
+similarity function. The comparison most practitioners would run therefore
+cannot have a winner, at any cutoff and in any metric family. We measured
+zero rule wins on 199{,}713 held-out signatures in two metric families while
+executing a pre-registered analysis, before we understood why. The general
+form covers any pair of mechanisms that assigns an author from the block's
+own history: a precision-first rule cannot win where the history names one
+author, and cannot win where the history is written one way, so two regions
+of the design space are empty before the data is seen.
+
+The second is empirical. We built a pair that avoids both problems, an
+exact-evidence rule against a k-nearest vote, and pre-registered the
+hypotheses, the winner definition, the analysis bands and the falsification
+table before running it. Over 13{,}902 held-out blocks the two mechanisms
+differ by half an accuracy point, 0.8244 against 0.8294. The gap compresses
+and changes sign along both design-time axes, but no band clears the
+pre-registered margin, so both selection hypotheses return Inconclusive: the
+margin is wider than every effect. The same consistency statistic predicts
+each mechanism's own accuracy at Spearman 0.51 and 0.83. Prediction is not
+selection. No selector was built, because none can beat a fixed choice where
+the gap sits below the margin.
+\end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
