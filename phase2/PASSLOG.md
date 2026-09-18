@@ -1769,3 +1769,163 @@ between artifact and standing result has to be exactly right. Then settle
 OUTLINE.md's remaining open inputs, in particular whether Tan (2026) stays.
 After that, 2.5c: the anti-AI pass, the citation verification sweep, and the
 trim from 9,181 body words toward 8,500.
+
+## Pass 14 — Phase 2.5c, two correctness fixes and the /anti-ai pass (2026-09-18)
+
+**What I did and why.** Two targeted fixes first, then `/anti-ai` over the
+manuscript prose, then the budget trim OUTLINE.md prescribes. Nothing was
+measured, no analysis code ran, and `PREREG.md` was not touched. The only
+file changed is `phase2/paper/main.tex`.
+
+**Fix 1, the population attribution of the pooled gap.** Section 4.2 said the
+gap of `-0.0196` was "over the primary analysis population", then supported it
+with coverage figures (0.9664, 0.9985) and an agreement rate (0.9679) taken
+from the whole evaluation split, and the Table 2 caption said the retired
+pair's whole row covered the full evaluation split. Checked against the
+committed tables:
+
+- `reports/tables/phase2b_accuracy_by_population.csv` row
+  `all (primary population)`, 13,902 blocks and 197,479 test signatures:
+  exact 0.8244420925769322, fuzzy 0.8440694959970427, gap
+  -0.019627403420110493, exact coverage 0.9685586821889922, fuzzy coverage
+  0.998794808561923, agreement 0.9697638736270692. So **-0.0196 is a
+  primary-analysis-population number**, and the coverage and agreement
+  figures that belong beside it are 0.9686, 0.9988 and 0.9698.
+- The 0.9664 / 0.9985 / 0.9679 triple comes from `section_domination` in
+  `phase2b_run.py`, which runs over `bk_all`, the **whole evaluation split**
+  of 16,136 blocks and 199,713 signatures. That is also the population the
+  zero `exact wins` count is measured on.
+
+Section 4.2 now opens by naming both populations, gives the zero on the
+evaluation split, and gives the gap, the accuracies, the coverages and the
+agreement rate together on the primary analysis population. The
+agreement identity still holds to every printed digit there:
+0.9686 + 0.0012 = 0.9698. The Table 2 caption now says the retired pair's
+zero was counted over the whole evaluation split and that every accuracy and
+gap in the table, the retired pair's included, is on the primary analysis
+population. No number was altered; two were swapped for the same quantity on
+the population the sentence is about.
+
+**Fix 2, section 8.3.** "The two-stage company-then-global fallback the arms
+shared" now sits in its own sentence and is scoped in one clause as an
+invoice-domain lookup that tries the issuing company's own history before the
+whole corpus. A reader of an author-name paper no longer meets an unexplained
+company.
+
+**The `/anti-ai` pass, 22 prose edits.** Use case is academic manuscript, so
+formal register, passive voice in methods and justified statistical hedging
+were left alone. What the audit actually found, and what was done:
+
+- **"rather than" 31 times**, roughly one per 300 words and the draft's
+  dominant construction. It is the academic register's negative parallelism.
+  Cut to 20, of which 2 are inside the locked quote and untouchable and the
+  rest carry real contrasts ("measured rather than manipulated", "close
+  rather than exact", "failed rather than splitting").
+- **A self-congratulating honesty refrain**: "we say so rather than letting a
+  seven-dataset label stand for it", "we say so plainly rather than treating
+  Inconclusive as evidence of absence", "reported rather than worked around",
+  "reported rather than improvised", "checked against the committed
+  repository rather than against memory", "we state the consequence in the
+  plainest available words", "reasons rather than excuses". All rewritten to
+  the direct statement. The paper still says every one of these things; it
+  stops narrating its own virtue while saying them.
+- **Rule of three.** Dropped "for three reasons in order of weight" in 5.1
+  and the "the message fits in three lines" triad in 1.3, which was a
+  near-verbatim duplicate of the closing triad in section 10.
+- **Compulsive summary.** Section 10 opened "Four things are on the record"
+  and then restated all four claims chronologically, the fourth of them
+  already stated in the same section's first paragraph. Replaced with a
+  synthesis that separates the structural half from the empirical one.
+- **Duplicated paragraphs.** 3.1's "A designer stands after the history"
+  restated 1.1 almost sentence for sentence; 4.3 ended with the
+  report-it-in-the-design-section advice that 8.2 gives again. Both cut once.
+- One intensifier, "Crucially we measure it rather than set it", replaced.
+- Zero em dashes in prose, unchanged. The only `---` are two "not
+  applicable" table cells, which are table cells and out of scope for this
+  pass. Sentence-case headings unchanged.
+
+Burstiness was already fine and was not manufactured: 458 sentences, mean
+20.0 words, sd 11.2, 84 sentences under ten words and one over sixty.
+
+**The budget trim, per OUTLINE.md's order.** Section 2.3, algorithm
+selection, is cut entirely. Its three citations survive in 1.1 and 8.2, which
+both use the combined `\citep{rice1976, smithmiles2009, barbudo2023}`; the
+portfolio assumption it set up is stated in 8.2 and the structural
+consequence in 4.3; nothing `\ref`s `sec:algsel`. Section 7.3's prose is cut
+to what Table 3 cannot say for itself; the table, its caption and every
+number in it stay, so the mandatory per-dataset reporting is intact. Five
+numbers lost a second appearance in 7.3's prose (0.1131, 0.2466, 34, 0.0163,
+0.0631) and all five are still in Table 3.
+
+**Word count, stated against my own counter so the delta is honest.** My
+counter reads about 190 words higher than 2.5b's on the same file, so absolute
+numbers here are not comparable to the 9,181 in Pass 13.
+
+| | before this pass | after |
+| --- | ---: | ---: |
+| body | 9,374 | 9,157 |
+| abstract | 290 | 290 |
+| captions | 434 | 462 |
+| prose total | 10,098 | 9,909 |
+
+Body is down 217 words and the prose total is under 10,000, but **the body is
+still around 9,150 against the 8,500 target and OUTLINE.md's 8,100 budget**.
+The overrun now lives in section 6 (1,738 against 1,100, of which 400 is the
+locked deliverable), section 7 (1,769 against 1,600), section 8 (1,250
+against 950) and section 4 (1,021 against 650). Those are the three sections
+STATE.md sends to review as the ones whose landing has to be judged first, so
+this pass did not cut into them. That is a decision for review, not for a
+prose pass.
+
+**Invariant checks.**
+
+- **The locked 6.4 quote block: byte-identical, verified.** 1,985 bytes,
+  compared programmatically against the pass baseline, not by eye. It is not
+  in any replacement string.
+- **No number, table cell, figure file, label, citation key or verdict word
+  changed: verified programmatically.** Bag-of-tokens comparison against the
+  baseline. Figure files unchanged, all 5. Verdict words unchanged, all 7.
+  The only diffs are the five 7.3 restatements above, the three `\citet` keys
+  and the `sec:algsel` label that went with section 2.3, and the three `\ref`
+  counts that moved with it.
+- **No result before measurement: pass.** Nothing measured, no analysis code
+  run, no report or table touched.
+- **`PREREG.md` untouched: pass.** Not in the diff.
+- **Read-only paths respected: pass.** Only `phase2/paper/main.tex` changed.
+- **Builds: pass.** pdflatex, bibtex, three further pdflatex passes. **23
+  pages, zero LaTeX warnings, zero undefined citations, zero undefined
+  references.** Down from 24 pages.
+
+**Four items flagged for 2.6, not fixed here, per instruction.**
+
+1. **The Zenodo DOI.** `references.bib` gives `adscascade2026` the DOI
+   `10.5281/zenodo.21644207` with a note that version 1.0.0 is at
+   `10.5281/zenodo.21644208`. Which of the two is the concept DOI and which
+   is the version DOI is unverified against Zenodo. Section 8.3 is the only
+   place it is cited.
+2. **Section 6.4's commit hashes: checked this pass, and they hold.** All
+   seven resolve on `phase-2` and their subject lines match the roles 6.4
+   assigns them, in the stated order. The timing claims check too:
+   `5f452ad` 12:36:16, `3e79a48` 13:04:42, `9e3d921` 14:25:07 on 2026-09-18,
+   so the amendment is 1h49m before the run ("just under two hours"), the
+   addendum 1h20m before it ("about eighty minutes"), and the two appends
+   28 minutes apart ("within half an hour"). What is left for 2.6 is to
+   re-check them if the branch is ever rebased, since they are short hashes
+   in published text.
+3. **Tan (2026): verify or drop.** Unchanged from 2.5b. Still a placeholder
+   with no bibliographic details anywhere in the repository, still named as
+   the paper's sibling in framing by PLAN.md and `phase2-spec.md` section 1,
+   still absent from section 2.1 with a TeX comment saying why.
+4. **The author affiliation line.** `\author{Maitreya Sapariya\thanks{ORCID
+   0009-0003-9346-3775.}}` carries an ORCID and no affiliation. Needs a
+   decision before submission.
+
+**Recommendation for the next pass.** Review the prose changes against the
+diff, particularly section 4.2, where the two populations now have to read as
+a clarification and not as hedging, and section 10, where the recap became a
+synthesis. Then decide the body-length question, because it is the one thing
+2.5c could not settle alone: either accept about 9,150 body words, or say
+which of sections 4, 6, 7 and 8 may be cut into, since all four are over
+budget and three of them are the sections review was asked to judge. Then
+2.6: the citation verification sweep over `references.bib` block C, the four
+items above, and the `affiliation` column question the S2AND README raises.

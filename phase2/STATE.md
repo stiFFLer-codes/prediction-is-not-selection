@@ -6,23 +6,46 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.5b complete. The manuscript body is drafted end to end.**
-  All ten sections plus the abstract are in `paper/main.tex`, which builds
-  under pdflatex and bibtex at 24 pages with no undefined citations or
-  references. Awaiting human review of the drafted sections. Phase 2.3 stays
-  blocked and, on the 2.5b negative control, has no selector left to build.
+- Status: **Phase 2.5c complete. The manuscript is drafted, voice-edited and
+  builds clean.** All ten sections plus the abstract are in `paper/main.tex`,
+  which builds under pdflatex and bibtex at 23 pages with zero LaTeX
+  warnings and no undefined citations or references. Awaiting human review.
+  Phase 2.3 stays blocked and, on the 2.5b negative control, has no selector
+  left to build.
 - **The manuscript is at `phase2/paper/main.tex`**, with
   `phase2/paper/references.bib`. Venue-neutral LaTeX, generic `article` class,
-  no journal style file. Body 9,181 words against the outline's 8,100 budget,
-  abstract about 290, captions about 400, so roughly 9,900 against the
-  charter's 10,000 ceiling. Under the ceiling, thinner on headroom than the
-  charter asks for, and flagged for 2.5c to trim toward 8,500 body.
-- **The `/anti-ai` pass has not been run and no citation has been verified.**
-  Both are 2.5c and 2.6 work and were deliberately held back. `references.bib`
-  marks its three verification tiers in comments, and every unverified entry
-  carries its own `note`. **Tan (2026) is a placeholder** with no bibliographic
+  no journal style file.
+- **Body length is the one thing 2.5c could not settle and it needs a
+  decision.** Measured with the counter in the Pass 14 PASSLOG entry, which
+  reads about 190 words higher than the counter Pass 13 used: body went from
+  9,374 to 9,157, captions 434 to 462, abstract 290 unchanged, prose total
+  10,098 to 9,909. The prose total is under the charter's 10,000 ceiling.
+  **The body is still around 9,150 against the 8,500 target and the
+  outline's 8,100 budget.** The overrun now sits in section 6 (1,738 against
+  1,100, of which the locked deliverable is 400 that cannot be cut), section
+  7 (1,769 against 1,600), section 8 (1,250 against 950) and section 4
+  (1,021 against 650). Three of those four are the sections review was asked
+  to judge, so 2.5c did not cut into them. Review decides whether to accept
+  the length or to name which of them may be cut.
+- **The `/anti-ai` pass has been run.** 22 prose edits, academic-manuscript
+  register, no number or verdict touched and the locked 6.4 quote verified
+  byte-identical. The dominant tell was "rather than", 31 occurrences cut to
+  20 of which 2 are inside the locked quote; beside it a self-congratulating
+  honesty refrain, two rule-of-three signposts, two duplicated paragraphs and
+  the chronological recap that opened section 10. Details in PASSLOG Pass 14.
+- **No citation has been verified.** That is 2.6 work. `references.bib` marks
+  its three verification tiers in comments, and every unverified entry carries
+  its own `note`. **Tan (2026) is a placeholder** with no bibliographic
   details anywhere in the repository, so the sibling-framing paragraph the
   spec and PLAN.md describe was not drafted.
+- **The pooled gap -0.0196 is a primary-analysis-population number**, settled
+  at 2.5c against `reports/tables/phase2b_accuracy_by_population.csv`: 13,902
+  blocks, 197,479 test signatures, exact 0.8244 against fuzzy 0.8441, exact
+  coverage 0.9686, fuzzy coverage 0.9988, agreement 0.9698. The 0.9664 /
+  0.9985 / 0.9679 triple that used to sit beside it in section 4.2 is the
+  **whole evaluation split** (16,136 blocks, 199,713 signatures), which is
+  also the population the zero `exact wins` count is measured on. Section 4.2
+  and the Table 2 caption now name both populations explicitly.
 - **The retired selector is now marked superseded in four places**, with
   original text kept: `phase2-spec.md` sections 7 and 9, charter invariant 4,
   and the last clause of charter invariant 6. OUTLINE.md open input 3 is
@@ -268,15 +291,28 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   amendment-predates-run timestamps. Section 7.7 states the logical negative
   control: no cell of the frozen grid is decided at the primary margin, so no
   selector over these two signals can beat a fixed choice, so none was built.
-  Nothing measured. `PREREG.md` untouched.**
+  Nothing measured. `PREREG.md` untouched.
+- **Pass 14 (Phase 2.5c): two correctness fixes, then the `/anti-ai` pass,
+  then the budget trim.** The pooled gap's population reconciled across
+  section 4.2 and the Table 2 caption; the invoice-domain
+  company-then-global fallback scoped in section 8.3; 22 anti-AI prose edits;
+  section 2.3 cut entirely and section 7.3's prose cut to what Table 3 cannot
+  say for itself, per OUTLINE.md's cut order. Four items flagged for 2.6 and
+  not fixed. Nothing measured. `PREREG.md` untouched.**
 
-## Next: review the drafted manuscript
+## Next: review the edited manuscript, and decide the body length
 
-Do not start 2.5c. The draft is for review first, and it should be reviewed
+Do not start 2.6. The draft is for review first, and it should be reviewed
 against the committed reports rather than against the PASSLOG narrative.
 
-Read `phase2/paper/main.tex`. Three places are worth an independent, hostile
-read, in this order.
+**The one decision 2.5c hands up.** The body is about 9,150 words against an
+8,500 target. Sections 4, 6, 7 and 8 are all over their outline budget and
+2.5c cut none of them, because three of the four are the sections listed
+below as the ones whose landing review has to judge. Either accept the
+length, or name which sections may be cut into.
+
+Read `phase2/paper/main.tex`, and the Pass 14 diff for the prose changes.
+Three places are worth an independent, hostile read, in this order.
 
 1. **Section 4, a comparison that cannot have a winner.** The whole paper
    rests on this landing as a contribution rather than as a note. It carries
@@ -294,18 +330,27 @@ read, in this order.
    reinterprets published work of the author's own. The line between what was
    an artifact of the near-nested pair, what stands, and what is intact but
    narrower has to be exactly right, and the containment there is close rather
-   than exact, which the section says.
+   than exact, which the section says. 2.5c also scoped the
+   company-then-global fallback there to the earlier study's invoice domain.
+
+Two prose changes are worth checking on their own terms. Section 4.2 now
+opens by naming two populations before giving any number, which has to read
+as a clarification and not as hedging. Section 10's second paragraph was a
+chronological recap of all four claims and is now a synthesis that separates
+the structural half from the empirical one, so check that nothing load
+bearing was lost with the recap.
 
 Then settle the three open inputs still open in `reports/OUTLINE.md`, listed
-again under "Still open" below. **Tan (2026) is the one that blocks drafting
-work**: it is cited by PLAN.md and by `phase2-spec.md` section 1 as the paper's
+again under "Still open" below. **Tan (2026) is the one that now blocks
+finalization**: it is cited by PLAN.md and by `phase2-spec.md` section 1 as the paper's
 sibling in framing, and no bibliographic details for it exist anywhere in the
 repository. Either it gets verified or the sibling framing comes out of the
 spec, PLAN.md and the abstract's surrounding argument.
 
-Then Phase 2.5c: the `/anti-ai` pass, the citation verification sweep over
-`paper/references.bib` block C, and the trim from 9,181 body words toward
-8,500. 2.6 is the pre-submission gate.
+Then Phase 2.6, the pre-submission gate: the citation verification sweep over
+`paper/references.bib` block C, the four items 2.5c flagged and listed under
+"Open decisions", and the `affiliation` column question the S2AND README
+raises.
 
 ## Open decisions
 
@@ -340,8 +385,30 @@ Settled at Phase 2.5b:
   name disambiguation", supplied for 2.5b and not final. The six candidates in
   PLAN.md and OUTLINE.md still stand to be merged with the author's own.
 
+Flagged at Phase 2.5c for the 2.6 gate, not fixed:
+
+- **The Zenodo DOI for the earlier study.** `references.bib` gives
+  `adscascade2026` the DOI `10.5281/zenodo.21644207` with a note that version
+  1.0.0 is archived at `10.5281/zenodo.21644208`. Which is the concept DOI
+  and which the version DOI is unverified against Zenodo. Section 8.3 is the
+  only place it is cited.
+- **Section 6.4's commit hashes: checked at 2.5c and they hold.** All seven
+  resolve on `phase-2` and their subject lines match the roles 6.4 assigns
+  them, in order. The timings check too: `5f452ad` 12:36:16, `3e79a48`
+  13:04:42, `9e3d921` 14:25:07 on 2026-09-18, giving 1h49m for "just under
+  two hours", 1h20m for "about eighty minutes" and 28 minutes for "within
+  half an hour". Left open only because they are short hashes in published
+  text and would need re-checking after any rebase.
+- **Tan (2026): verify or drop.** Unchanged from 2.5b, restated below.
+- **The author affiliation line.** `\author{Maitreya Sapariya\thanks{ORCID
+  0009-0003-9346-3775.}}` carries an ORCID and no affiliation. Needs a
+  decision before submission.
+
 Still open:
 
+- **Body length.** About 9,150 body words against an 8,500 target, with
+  sections 4, 6, 7 and 8 all over budget. 2.5c cut sections 2.3 and 7.3, the
+  two OUTLINE.md names first, and stopped there. See "Next".
 - **Is delta = 0.05 still the primary margin?** Unchanged by this pass, and the
   outline is written against it. Every marginal pooled gap on both axes falls
   below it, so the power floor decides both hypotheses before any substantive
@@ -374,8 +441,8 @@ Still open:
 - **The paper is a null result and has to read as a contribution rather than as
   a failed experiment.** Still the dominant risk, and 2.5b has now taken its
   first shot at it rather than only naming it. Section 4 carries the structural
-  half in about 930 words, with the order of discovery stated as evidence, the
-  general form stated for any pair in the family, and a one-count check a
+  half in about 1,000 words, with the order of discovery stated as evidence,
+  the general form stated for any pair in the family, and a one-count check a
   reader can run. **Whether that lands is the single most important thing for
   review to judge**, and it cannot be judged from this file. Read section 4
   itself.
