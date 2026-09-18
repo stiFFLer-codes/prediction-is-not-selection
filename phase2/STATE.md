@@ -380,10 +380,26 @@ Settled at Phase 2.5b:
   invariant 6. Each carries a dated banner and keeps its original text, and
   each becomes live again unchanged if 2.3 runs. This closes OUTLINE.md open
   input 3.
-- **The manuscript title in the draft is a placeholder**, "Prediction is not
-  selection: a pre-registered study of design-time mechanism choice in author
-  name disambiguation", supplied for 2.5b and not final. The six candidates in
-  PLAN.md and OUTLINE.md still stand to be merged with the author's own.
+- The manuscript title supplied at 2.5b was a placeholder. **Superseded: the
+  title is final as of 2.5d, see below.**
+
+Settled at Phase 2.5d:
+
+- **The title is final**, set by the author and no longer a candidate:
+  "Prediction is not selection: a pre-registered study of design-time
+  mechanism selection in entity resolution." It is the string in
+  `paper/main.tex` and in PLAN.md, which now carries it under a "Title"
+  heading with the six superseded candidates kept below it as the record of
+  what was considered. `reports/OUTLINE.md` still lists those six as
+  candidates and was not edited; read PLAN.md for the decision.
+- **The title names entity resolution, which is broader than the substrate,
+  and that is deliberate but load-bearing.** The empirical work is on seven
+  author name disambiguation datasets and the abstract names them in its
+  second sentence, so the scope is stated where a reader meets it first. The
+  structural result is what earns the wider word: it holds for any pair of
+  mechanisms assigning from the record's own history. A reviewer who reads
+  "entity resolution" and then finds only author names is the risk to watch,
+  and sections 1.2 and 1.4 are where the scoping has to hold.
 
 Flagged at Phase 2.5c for the 2.6 gate, not fixed:
 
@@ -433,8 +449,6 @@ Still open:
   always.
 - Whether a third mechanism enters at all. Charter invariant 6 keeps it out
   unless it is actually implemented and evaluated.
-- Title: six candidates now in PLAN.md and OUTLINE.md, to merge with the
-  author's own.
 
 ## Live risks
 

@@ -206,12 +206,24 @@ history.
    next phase.
 5. Only then does the next fresh session start.
 
-## Working titles
+## Title
 
-Replaced at Phase 2.5a. The three candidates that stood here all presumed the
-two-signal role separation, which 2.2e retired. Six new candidates, in sentence
-case, for the author to merge with their own. Rationale and the discarded
-directions are in `reports/OUTLINE.md`.
+**Final, set by the author at Phase 2.5d, 2026-09-18.** This is the title, not
+a working candidate, and it is the string in `paper/main.tex`:
+
+> Prediction is not selection: a pre-registered study of design-time mechanism
+> selection in entity resolution.
+
+It names entity resolution, which is broader than the substrate. The empirical
+work is on seven author name disambiguation datasets, and the abstract says so
+in its second sentence. The structural result is the part that earns the wider
+scope: it holds for any pair of mechanisms assigning from the record's own
+history, so it is a statement about entity resolution generally rather than
+about author names.
+
+The six candidates carried here from Phase 2.5a are superseded by the line
+above and are kept only as the record of what was considered. Rationale and
+the discarded directions are in `reports/OUTLINE.md`.
 
 - Nothing to select: a pre-registered null result for design-time mechanism
   choice in author name disambiguation.
