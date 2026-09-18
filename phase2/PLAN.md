@@ -98,9 +98,60 @@ are where we slow down and review most carefully.
   the direction of the effect, plus robustness slices.
 - 2.5 Writing. Venue-neutral LaTeX, about 8,000 words of body, per the skeleton.
   Likely two or three sessions: draft, tighten, then anti-AI and
-  citation-verification passes.
+  citation-verification passes. **Carries one required deliverable fixed in
+  advance: the pre-registration-integrity subsection, drafted blind during 2.2d
+  and reproduced verbatim below. It ships whatever 2.2e returns.**
 - 2.6 Pre-submission gate and release. arXiv-moderation audit, citation
   verification, repo reorganization, new Zenodo version, category selection.
+
+## Required Phase 2.5 deliverable: pre-registration-integrity subsection
+
+**Status: required. Drafted by the author during Phase 2.2d, blind to the 2.2e
+result, and locked here on 2026-09-18 before 2.2e ran.** It is not to be softened
+or strengthened by what 2.2e returns. The writing pass reproduces it, works
+through its own fill-at-writing checklist, and does not rewrite its argument.
+
+Why it is fixed in advance. The paper's hypotheses were amended after two passes
+returned results, which is post hoc, and a reader is entitled to say so. A
+defence of that amendment written after seeing the outcome it defends is worth
+less than one written before, so this one was written before and pinned here. The
+lock is the point: a later pass that finds the defence inconvenient does not get
+to soften it, and a later pass that finds the result flattering does not get to
+strengthen it.
+
+The text below is verbatim as supplied. Do not reflow, edit, or paraphrase it
+here; drafting changes belong in the manuscript pass, against this as the source.
+
+--- BEGIN DELIVERABLE ---
+
+Draft subsection: pre-registration and its amendment
+
+We pre-registered the hypotheses, the winner definition, the analysis bands, and the falsification table before computing any evaluation metric, and we froze the calibration constants in a separate commit before any evaluation number existed. The pre-registration and every subsequent amendment are in the public repository with full history.
+
+We amended the pre-registration once, after two exploratory runs, and we state that plainly rather than presenting the amended version as the original. The amendment was forced by two structural facts about the mechanisms, not by an unwelcome effect size. First, when a test name is present in a block's history it sits at the maximum of any similarity function, so a single-nearest retriever returns whatever exact match returns; exact match is therefore a strict sub-case of single-nearest retrieval, and the two cannot contest a winner. Second, a block whose history names one author returns that author from any non-empty candidate pool, so at maximum consistency the only move a mechanism can make is to abstain. The first fact required replacing the second mechanism with a k-nearest vote that does not reduce to exact match. The second required scoping the consistency hypothesis to whether the choice is decidable at all, rather than which mechanism wins at every consistency level.
+
+Three properties keep the amendment honest. The original hypotheses and the conditions of the runs that motivated the change remain in the pre-registration, unedited and dated. No accuracy figure for the k-nearest mechanism existed at the time the amended hypotheses were written; the amendment predates the run it governs. And the one component of the amended consistency hypothesis that is guaranteed by construction, the decline in decided winners as consistency approaches its maximum, is labeled as structural wherever it appears; the empirical content we test lies below that maximum, in the region where the outcome is not fixed in advance.
+
+Fill-at-writing checklist: confirm every reference and commit id against the committed repo; confirm the amendment-predates-run claim against actual commit timestamps and order; if 2.2e lands H3 as gap-compression-only, this subsection stays essentially unchanged and only the surrounding framing shifts.
+
+--- END DELIVERABLE ---
+
+### Two checks to add to its own checklist, noted at lock time, text unchanged
+
+Both are wording questions against the repository record, not disagreements with
+the argument. They are recorded here rather than applied, because the text is
+locked and because resolving them is a writing-pass job against the committed
+history.
+
+- **"amended once."** The repository shows two dated appends to `PREREG.md`, both
+  made during 2.2d and both before any 2.2e number: Amendment 1, the reframe, and
+  Addendum 1a, which replaced resolution 5's decidability measure. They are one
+  amendment event in two documents, so "once" is defensible, but the writing pass
+  should say which it means rather than leave a reader to find a second dated
+  append and wonder.
+- **"two exploratory runs."** 2.2b was the pre-registered run executing the 2.2a
+  freeze, not an exploratory one; 2.2c was the exploratory calibration-split
+  probe. The writing pass should check that this phrase says what it intends.
 
 ## How each phase runs (the loop)
 

@@ -1277,3 +1277,64 @@ into any later commit, then run 2.2e. 2.2e is unchanged by this pass except that
 it must now compute and report both decidability measures rather than one, and
 must implement the unweighted decomposition as the deciding one with the
 block-weighted variant beside it as a reported diagnostic.
+
+---
+
+## Pass 10, Phase 2.2d closed: the pre-registration-integrity deliverable locked
+
+**Date:** 2026-09-18. **Branch:** phase-2. Nothing run, nothing measured.
+
+**What this pass did.** Applied Edit B, the one item Pass 9 left outstanding for
+want of its supplied text. `phase2/PLAN.md` gains a new section, "Required Phase
+2.5 deliverable: pre-registration-integrity subsection", carrying the
+author-supplied draft verbatim between explicit BEGIN and END markers, and the
+2.5 bullet in the phase list now points at it. Phase 2.2d is closed.
+
+**Provenance, which is the point of the deliverable.** The text was drafted by
+the author during Phase 2.2d, blind to the 2.2e result, and locked on 2026-09-18
+before 2.2e ran. It is marked in PLAN.md as not to be softened or strengthened by
+what 2.2e returns. The lock cuts both ways and the section says so: a later pass
+that finds the defence inconvenient does not get to soften it, and a later pass
+that finds the result flattering does not get to strengthen it. Reproduced
+without reflowing, editing or paraphrasing; drafting changes belong in the
+manuscript pass, worked against this as the source.
+
+**Why a locked defence is worth more than a written-later one.** The hypotheses
+were amended after two passes returned results, which is post hoc and a reader is
+entitled to say so. A defence of an amendment composed after seeing the outcome
+it defends is worth less than one composed before. This one was composed before,
+and the repository timestamps show it: the deliverable is committed on the same
+branch as, and before, any 2.2e artifact exists.
+
+**Two wording checks recorded beside the text, and deliberately not applied to
+it.** Both are questions against the repository record rather than disagreements
+with the argument, and both are noted in PLAN.md under the deliverable as
+additions to its own fill-at-writing checklist.
+
+- **"amended once."** `PREREG.md` carries two dated appends, Amendment 1 and
+  Addendum 1a, both made during 2.2d and both before any 2.2e number exists. They
+  are one amendment event in two documents, so "once" is defensible, but a reader
+  who finds the second append should not have to reconstruct that for themselves.
+- **"two exploratory runs."** 2.2b was the pre-registered run executing the 2.2a
+  freeze, not an exploratory one. 2.2c was the exploratory calibration-split
+  probe. The phrase may not say what it intends.
+
+Neither was edited into the text, because the text is locked and because
+resolving them is a writing-pass job against committed history. Recording them
+rather than silently fixing them is the same discipline the deliverable itself
+argues for.
+
+**Numbers produced:** none. **Invariant checks.** Invariant 5: nothing measured,
+and no 2.2e artifact exists. Invariants 2, 3, 6, 7: untouched. The three module
+self-checks were re-run and pass.
+
+**Artifacts.** `phase2/PLAN.md` (new required-deliverable section, amended 2.5
+bullet).
+
+**Recommendation for the next pass.** Phase 2.2d is closed with nothing
+outstanding. Run 2.2e against `PREREG.md` Amendment 1 as revised by Addendum 1a:
+implement mechanism B with its own assert-based self-check, confirm it reproduces
+the 2.2c calibration counts of 546 rule wins against 744 at k = 5 as a regression
+check on the implementation, then re-run the frozen analysis with the renamed
+verdicts and report against the amended falsification table plus both mandatory
+curves, k and delta, and both decidability measures. Nothing new is calibrated.

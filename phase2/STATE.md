@@ -11,13 +11,10 @@ full arc in PLAN.md, the method in phase2-spec.md.
   measured.** Awaiting human review before 2.2e runs.
 - **Next is 2.2e**, the re-run against Amendment 1 as revised by Addendum 1a.
   Phase 2.3 stays blocked until 2.2e produces numbers.
-- **One deliverable is outstanding and does not gate 2.2e.** A
-  pre-registration-integrity subsection was to be locked into PLAN.md as a
-  required Phase 2.5 writing deliverable, carrying author-supplied text verbatim.
-  The text was not supplied (the paste arrived as a placeholder and no
-  `posthoc-defense-deliverable.md` exists in the repository), and it was not
-  substituted with drafted text, because the deliverable's value depends on
-  having been written blind to the 2.2e result. Outstanding, not dropped.
+- **Nothing is outstanding.** The pre-registration-integrity subsection is locked
+  into PLAN.md as a required Phase 2.5 writing deliverable, author-drafted blind
+  to the 2.2e result, reproduced verbatim, and marked not to be softened or
+  strengthened by what 2.2e returns.
 - Phase 2.2c (mechanism redesign) complete: three two-sided candidate pairs
   checked on the calibration split, P3 recommended and now adopted. Phase 2.2b
   complete; its numbers are the frozen record of the nested pair and are
@@ -246,10 +243,15 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   role separation, adopting the k-nearest vote at k = 5, and voiding the
   accuracy-maximizing calibration. Identity updated in the charter, the spec and
   PLAN.md. Nothing measured.
-- **Pass 9 (Phase 2.2d continued): Addendum 1a, replacing resolution 5's
+- Pass 9 (Phase 2.2d continued): Addendum 1a, replacing resolution 5's
   band-count-biased range test with a one-way variance decomposition plus the
   range test as a second required condition. One requested deliverable left
-  outstanding for want of its supplied text. Nothing measured.**
+  outstanding for want of its supplied text. Nothing measured.
+- **Pass 10 (Phase 2.2d closed): the pre-registration-integrity subsection locked
+  into PLAN.md verbatim, drafted blind to the 2.2e result. Two wording checks
+  against the repository record were noted beside it rather than edited into it,
+  because it is locked. Nothing measured. 2.2d is complete with nothing
+  outstanding.**
 
 ## Next: review verifies Amendment 1, then a fresh session runs 2.2e
 
@@ -263,8 +265,9 @@ Do not run any evaluation until the amendment is signed off. Review should read
    resolution 6 and Addendum 1a set the H2 bar in the right place, since they are
    the thresholds that were not given.
 3. **That the amendment claims nothing.** Every hypothesis in it is untested.
-4. **Whether to supply the Edit B text** for the outstanding Phase 2.5
-   deliverable, or to drop it.
+4. **The locked Phase 2.5 deliverable** in PLAN.md, if it has not been read
+   since it was written. It is fixed in advance on purpose, so the moment to
+   object to it is before 2.2e, not after.
 
 Then a fresh session runs 2.2e: implement mechanism B with its own assert-based
 self-check, confirm the self-check reproduces the 2.2c calibration counts,
@@ -342,6 +345,11 @@ Still open:
   because the grid is 5 by 4. Every remaining threshold that was set rather than
   given, resolution 6 and the two halves of Addendum 1a, deserves the same
   question before 2.2e starts, since none can be changed after.
+- **The post hoc objection is now answered in a fixed text, not improvised
+  later.** The Phase 2.5 pre-registration-integrity subsection is locked in
+  PLAN.md, drafted blind to the 2.2e result. The risk it does not remove is that
+  a reader may still judge the amendment inadequate; what it removes is the
+  weaker position of arguing the point after seeing the outcome it defends.
 - **Power in the contested region.** It is 41% of calibration test signatures
   and excludes every ADS = 1.0 block, so it is smaller than the population 2.2b
   was already power-limited on at delta = 0.05.
