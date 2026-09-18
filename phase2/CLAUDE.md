@@ -77,9 +77,17 @@ and only after review.
 3. Held-out only. Any selector is evaluated on held-out items or a different
    dataset than the one its thresholds were fit on. In-sample selector accuracy
    is never reported as a result.
-4. Baselines always. Report an ADS-only selector and an RS-only selector beside
-   any two-signal selector. The dual-signal claim survives only if the
-   two-signal version beats both. If RS-only suffices, say so plainly.
+4. **Superseded at Phase 2.5b, 2026-09-18. Kept, not deleted.** Baselines
+   always. Report an ADS-only selector and an RS-only selector beside any
+   two-signal selector. The dual-signal claim survives only if the two-signal
+   version beats both. If RS-only suffices, say so plainly.
+   *Why superseded:* the two-signal selector this invariant guards is retired.
+   The 2.5a identity has no selector, and 2.5b drafted the logical reason
+   there is none to guard: no cell of the frozen grid carries a decided pooled
+   verdict at the primary margin, so no selector over ADS and SV can beat a
+   fixed choice. The invariant becomes live again unchanged if review decides
+   Phase 2.3 runs. Until then, no selector is built, so there is nothing to
+   report baselines beside.
 5. No result before measurement. Never write a number, claim, or conclusion that
    was not produced by committed, re-runnable code. Verified numbers are a
    frozen evidence base; prose passes must not alter them.
@@ -89,8 +97,13 @@ and only after review.
    fuzzy retrieval until 2.2b measured that pair to be nested. Both mechanisms
    are untrained lookups over the block's own history. A third mechanism
    (semantic or LLM) may appear only if it is actually implemented and
-   evaluated. Otherwise it is named as future scope, not shipped inside the
-   selector.
+   evaluated. ~~Otherwise it is named as future scope, not shipped inside the
+   selector.~~
+   **Last clause superseded at Phase 2.5b, 2026-09-18. Kept, not deleted.**
+   There is no selector to ship anything inside. The rest of this invariant
+   stands unchanged and is load-bearing: two mechanisms, neither trained, and
+   no third arm unless it is actually built and evaluated. A third mechanism
+   that is not implemented is named as future scope and nothing more.
 7. Offline and reproducible. The pipeline stays public, offline, no API keys, no
    paid calls, CPU-runnable, and covered by tests. This is load-bearing for
    arXiv and for the paper's identity.

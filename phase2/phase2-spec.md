@@ -146,6 +146,16 @@ runs past a gate without review.
 
 ## 7. Evaluation protocol
 
+> **Superseded at Phase 2.5b, 2026-09-18.** This section describes the
+> evaluation protocol for a selector. The selector is retired: the paper
+> identity rewritten at 2.5a has none in it, and 2.5b established the logical
+> reason none can be built here, drafted as manuscript section 7.7. No cell of
+> the frozen 5 by 4 grid carries a decided pooled verdict at the primary
+> margin, so a selector reading ADS and SV can only route inside demonstrated
+> ties, and no selector can beat a fixed choice where the gap is below the
+> margin. The text below is kept as the record of what was planned, not
+> deleted. It becomes live again only if review decides Phase 2.3 runs.
+
 Thresholds and any selector are fit train-only. The selector is evaluated held
 out and across the eight sub-datasets. Always report consistency-only,
 stability-only, and two-signal baselines side by side; the dual-signal claim
@@ -175,6 +185,16 @@ surface-stability measure, the fuzzy cutoff, the winner definition, the splits,
 and the margins before measuring any accuracy.
 
 ## 9. Success, partial, failure
+
+> **Superseded at Phase 2.5b, 2026-09-18.** These criteria are written around
+> a selector and around a "boundary finding" the 2.2d reframe and the 2.5a
+> identity rewrite both moved past. What actually happened maps onto none of
+> the four rows cleanly: the mechanism pair of 2.2a turned out nested, the
+> amended pair is two-sided but the pre-registered margin is wider than every
+> effect on both axes, and both selection hypotheses came out Inconclusive on
+> the power floor. The binding success criterion is now the one the charter
+> states, which is to lead with whatever the frozen falsification table
+> returns. Kept as the record of what was planned, not deleted.
 
 - Success: boundary finding holds across sub-datasets, and the two-signal selector
   beats both baselines out-of-sample.
