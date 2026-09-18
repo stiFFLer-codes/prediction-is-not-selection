@@ -40,9 +40,93 @@ mechanism choice in author name disambiguation}
 % 2. Related work: drafted in the fifth block.
 % ---------------------------------------------------------------------------
 
-% ---------------------------------------------------------------------------
-% 3. Problem setting and constructs: drafted in the fourth block.
-% ---------------------------------------------------------------------------
+\section{Problem setting and constructs}
+\label{sec:setting}
+
+\subsection{Blocks, and what design time means}
+\label{sec:blocks}
+
+A name block is a set of author mentions sharing a normalized name string.
+Each block is a small classification problem in its own right: a history of
+mentions already assigned to authors, and new mentions arriving that have to
+be assigned to one of them. A single corpus holds tens of thousands of these
+problems and they differ enormously from each other. That is why the block,
+not the dataset, is our unit of analysis, and it is what lets a design-time
+question be asked many times over instead of once.
+
+A designer stands after the history and before everything else. They can read
+every mention already recorded. They cannot read the labels of the mentions
+that have not arrived. Every signal we call design-time is therefore computed
+from the training half of a block and from nothing else. A statistic that
+needs the test items, or their labels, is not available at the moment the
+decision is made, whatever its correlation with the outcome afterwards.
+
+\textbf{Both mechanisms are untrained lookups, on purpose.} This is a scoping
+choice tied to the question, not only a limitation. Three reasons. The
+question is what a practitioner can build from the history alone, before
+committing to a labelled training effort, and untrained lookups are what that
+budget buys and what gets built first. The structural result of
+Section~\ref{sec:degenerate} is a statement about mechanisms that assign an
+author drawn from the block's own history, so the pair has to sit inside the
+rules-versus-retrieval family for the general form to be demonstrated rather
+than asserted. And two untrained mechanisms hold everything else fixed:
+neither arm has a training budget, a feature set or a model class the other
+lacks, so a winner difference cannot be a difference in what was spent on
+each arm. \citeauthor{kimkim2020} compare a zero-parameter heuristic against
+a learned model whose clustering threshold is tuned per block against the
+metric being scored, which is the harder comparison and carries exactly that
+confound. Section~\ref{sec:limitations} returns to what our choice scopes
+out.
+
+\subsection{The two axes}
+\label{sec:axes}
+
+Two properties of a block vary in author name disambiguation, vary
+separately, and are both visible at design time.
+
+\textbf{Consistency} is how many distinct people a name refers to. S2AND
+calls the inverse of it homonymity. A block whose history names one person is
+maximally consistent; a block collecting five different people under one name
+is not. We measure it as ADS, the purity of author assignments among the
+block's training signatures.
+
+\textbf{Surface stability} is how consistently one person's name is written.
+S2AND calls the inverse of it synonymity. We measure the inverse directly, as
+SV, the expected normalized edit distance between two training signatures of
+the block. Crucially we measure it rather than set it: the variation is
+whatever the corpus contains.
+
+The separability of the two is load-bearing and not decorative. If the
+consistency signal and the surface signal were the same quantity measured
+twice, any claim that one of them predicts accuracy and the other predicts
+the winner would be an artifact of how we had defined them. Measured, they
+correlate at Spearman $-0.2612$ across 18{,}984 live blocks, so roughly 7\%
+of rank variance is shared and they are nowhere near the same thing. Each of
+our measures tracks its own S2AND counterpart strongly and the other one
+weakly. Separately, the winner is defined only by labelled held-out accuracy,
+and neither signal appears anywhere in the definition of either mechanism or
+of the winner.
+
+\subsection{What it means to win a block}
+\label{sec:winning}
+
+A mechanism wins a block when its held-out accuracy on that block is higher
+than the other's by more than a fixed margin, with the difference resampled
+so that a small test set cannot produce a win by luck. The margin is there
+because a designer choosing what to build does not act on a difference of a
+tenth of an accuracy point. We fixed it at five accuracy points in advance,
+and we report two smaller values beside it because the choice of margin is
+itself a judgement a reader may not share.
+
+Three outcomes are therefore possible rather than two, and we keep four
+labels for them. The rule wins, the vote wins, the two are demonstrated
+equivalent within the margin, or the evidence does not settle it. The last
+two are different statements and we never merge them. A block whose interval
+sits entirely inside the margin has shown that the mechanisms are
+interchangeable there. A block whose interval straddles a margin boundary has
+shown nothing. Merging them is how a low-powered study comes to read as a
+positive finding of equivalence, and a paper whose result is largely made of
+ties has to be able to say which kind of tie it has.
 
 \section{A comparison that cannot have a winner}
 \label{sec:degenerate}
@@ -280,28 +364,24 @@ generalization rule if it contributes at least 100 blocks.
 \subsection{The two signals and their bands}
 \label{sec:signals}
 
-Both signals are computed from the training half of each block only. That is
-what design-time means here, and it is load-bearing: a signal that needs the
-test items, or their labels, is not a signal a practitioner can act on before
-building anything.
+Both signals are computed from the training half of each block only, for the
+reason Section~\ref{sec:blocks} gives.
 
 \textbf{ADS}, the consistency signal, is the share of a block's training
 signatures belonging to its single most frequent author. It runs on
-$(0, 1]$ and equals 1.0 when the history names one person. High ADS means low
-homonymity. Its bands are fixed by the definition of purity rather than read
-off a distribution: $[0, 0.5)$, $[0.5, 0.7)$, $[0.7, 0.9)$, $[0.9, 1.0)$ and
-exactly 1.0.
+$(0, 1]$ and equals 1.0 when the history names one person. Its bands are
+fixed by the definition of purity rather than read off a distribution:
+$[0, 0.5)$, $[0.5, 0.7)$, $[0.7, 0.9)$, $[0.9, 1.0)$ and exactly 1.0.
 
 \textbf{SV}, the surface-variability signal, is the expected normalized
 Levenshtein distance between two training signatures of the block drawn at
 random without replacement, computed on the frozen surface form and weighted
-by signature. Higher SV means less surface stability. Its scale is bounded
-well below 1 by construction, because every name in a block shares a surname,
-so fixed bands on the nominal scale would be meaningless. SV = 0, a history
-written one way, is structural and is its own band. The other three bands are
-the terciles of the strictly positive values, with cut points taken from the
-calibration split at 0.102644 and 0.195066 and committed before any
-evaluation number existed.
+by signature. Its scale is bounded well below 1 by construction, because
+every name in a block shares a surname, so fixed bands on the nominal scale
+would be meaningless. SV = 0, a history written one way, is structural and is
+its own band. The other three bands are the terciles of the strictly positive
+values, with cut points taken from the calibration split at 0.102644 and
+0.195066 and committed before any evaluation number existed.
 
 Two controls travel with SV throughout, because the largest single source of
 within-block name variation in bibliographic data is forename initialization,
@@ -317,11 +397,12 @@ field is an initial only, banded at INIT = 0, $0 < \mathrm{INIT} < 0.5$ and
 $\mathrm{INIT} \geq 0.5$, and the SV analysis is repeated inside each INIT
 band.
 
-The two axes were measured alive and separable before any mechanism was
-built. ADS and SV correlate at Spearman $-0.2612$ across the 18{,}984 live
-blocks, and each of our measures tracks its S2AND counterpart strongly while
-tracking the other weakly: Spearman $-0.818$ for ADS against S2AND's
-homonymity facet, $+0.743$ for SV against its synonymity facet.
+Both axes were checked alive and separable before any mechanism was built,
+as a hard gate on proceeding at all. Beyond the correlation quoted in
+Section~\ref{sec:axes}, each of our measures tracks its S2AND counterpart
+strongly and the other one weakly: Spearman $-0.818$ for ADS against S2AND's
+homonymity facet and $+0.743$ for SV against its synonymity facet, against
+cross terms of $+0.18$ and $+0.06$.
 
 \subsection{Mechanisms, metric and the winner}
 \label{sec:winner-construct}
@@ -362,12 +443,9 @@ mutually exclusive, against a practical-equivalence margin $\delta$:
 interval lies entirely inside $[-\delta, +\delta]$, and \emph{undecided}
 otherwise.
 
-Tie and undecided are kept apart throughout, and we state the distinction
-here, before any result, because merging them is how a low-powered comparison
-comes to read as a positive finding of equivalence. A tie means equivalence
-was demonstrated. Undecided means the evidence did not reach a decision. We
-also report the verdict distribution against test-set size, so a reader can
-see how much of any no-winner region is one and how much is the other.
+We report the verdict distribution against test-set size wherever verdicts
+appear, so that a reader can see how much of any no-winner region is
+demonstrated equivalence and how much is a small test set.
 
 The primary margin is $\delta = 0.05$ accuracy points, fixed in advance as a
 difference a practitioner would act on, with $\delta = 0.02$ and
@@ -844,9 +922,236 @@ about the pre-registered margin and not a claim that the underlying gaps are
 zero; Section~\ref{sec:conditions} sets out what would have to be true for
 the question to be live.
 
-% ---------------------------------------------------------------------------
-% 8. Discussion, 9. Limitations, 10. Conclusion: drafted in the fourth block.
-% ---------------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{What does not work, and why}
+\label{sec:what-fails}
+
+Design-time mechanism selection fails here for two reasons that have nothing
+to do with each other, and separating them is most of what this paper has to
+offer.
+
+The first reason is structural. The mechanism pair a practitioner reaches for
+first is nested, so the winner is not a free variable and there is nothing
+for a signal to predict. This is not a property of author name
+disambiguation, or of our corpus, or of our sample size. It is a property of
+the comparison, and it would hold on any data.
+
+The second reason is empirical and only appears once the first is fixed. With
+a genuinely two-sided pair, the two mechanisms are close: 0.8244 against
+0.8294 pooled, and 10{,}172 of 13{,}902 blocks are demonstrated ties at a
+five-point margin, with 500 blocks decided either way. The gap moves with
+both signals, changes sign on both, and stays small on both. A practitioner
+who wants to be told which mechanism to build cannot be told, because for
+most of the corpus there is no answer that clears the threshold at which they
+would act.
+
+Neither reason is a measurement failure and both are actionable. The first
+converts into a check to run before the comparison. The second converts into
+permission to stop deliberating and build whichever mechanism is cheaper to
+maintain, which for the rule against the vote is a real operational
+difference rather than an accuracy one.
+
+One caveat belongs here rather than in the limitations, because it changes
+what the reader should take away. All of this is stated against a five-point
+margin. A practitioner whose margin is two points is in a different position:
+at $\delta = 0.02$ the consistency axis does produce a decided marginal
+reversal, the rule ahead where the history is most impure and the vote ahead
+where it names one person. The finding is that no signal is actionable at the
+margin we pre-registered, not that the underlying differences are zero.
+
+\subsection{What the structural result means for benchmark and portfolio
+design}
+\label{sec:portfolio}
+
+Per-instance algorithm selection assumes a portfolio whose members can beat
+each other \citep{rice1976, smithmiles2009, barbudo2023}. That assumption is
+usually left implicit, and it is not free. Where the portfolio members draw
+their candidate answers from the same history, and one of them is a
+restriction of another, part of the selection space is empty before the
+selector is trained, and a selector fitted there is fitting noise in a region
+where no choice exists.
+
+Three practices follow, all cheap.
+
+Check that the members can beat each other, and check it per stratum rather
+than only in aggregate. One count does it: items where A is right and B
+wrong. A zero, or a zero confined to a stratum, is a fact about the design.
+
+Report the structurally empty regions in the design section, not in the
+results. Reported in the design section they are a property of the comparison
+and a contribution. Discovered in the results they read as a defect, and the
+temptation to repair them after the fact is exactly what a pre-registration
+exists to resist.
+
+Do not calibrate the containing member for accuracy. Where one mechanism
+contains the other in a limit of its parameter, maximizing that mechanism's
+own accuracy walks the parameter toward the limit, and the protocol then
+certifies a degenerate comparison as a well-calibrated one. Fix the parameter
+by a definitional argument and report a sensitivity curve.
+
+The warning applies directly to author name disambiguation, where
+string-matching baselines are treated as mandatory \citep{backes2018,
+kimkim2020}, and to any comparison of rules against retrieval anywhere else.
+
+\subsection{What this says about our own earlier result}
+\label{sec:earlier-synthetic}
+
+This paper grew out of an earlier controlled study of ours, a pre-registered
+240-condition synthetic factorial comparing exact-match rules against fuzzy
+retrieval across six consistency targets and two lexical conditions
+\citep{adscascade2026}. It reported that realized consistency predicted each
+mechanism's own accuracy well, Pearson above 0.9 in both lexical conditions,
+but did not predict which mechanism won, because the winner was instead a
+constant function of the separately manipulated lexical condition. A frozen
+consistency-threshold rule agreed with the empirical winner in 100\% of
+comparisons in one consistency band and in 0\% in another.
+
+Read through Section~\ref{sec:degenerate}, part of that shape was not a
+discovery. The retrieval arm took the single best lexical match over the same
+historical records the rules arm matched against, so a string present in the
+history sat at the maximum of the similarity score and retrieval returned
+what the rules arm returned. The rules arm could differ in its own favour
+only where the two-stage company-then-global fallback the arms shared let
+them stop at different stages, or through tie-breaking among equal-scoring
+records. The containment there is close rather than exact, and it is close
+enough: retrieval won every defined comparison in that study and the rules
+arm won none, and the clean-lexical condition contributed zero defined
+comparisons, meaning the two mechanisms were demonstrated equivalent there at
+that study's own margin.
+
+Being precise about what this does and does not undo matters, because the
+earlier result was carefully reported and most of it stands.
+
+\textbf{What was an artifact of the pair.} The constancy of the winner. ``The
+winner is a constant function of the lexical condition'' is what a near-nested
+pair returns on any data. One value of that constant function is retrieval,
+which the containment makes close to inevitable, and the other is a tie,
+which the earlier paper's own numbers already say: a gap of about half an
+accuracy point in the clean condition, well inside its two-point margin. A
+consistency signal then looks blind to a choice that was never open, and the
+100\% against 0\% band split follows from a threshold rule agreeing with a
+constant winner in one band and disagreeing in another.
+
+\textbf{What stands.} The accuracy prediction. That consistency predicts each
+mechanism's own accuracy is a claim about each arm separately, and
+containment says nothing about it. We reproduce it here on real data as H1,
+Supported in both runs and generalizing across seven datasets.
+
+\textbf{What stands but means less than it looked.} The magnitude claim. That
+study reported the rules arm's disadvantage widening rather than shrinking as
+consistency rose, and presented it as an empirical outcome rather than a
+consequence of the construction, which was the right call. On real data we
+see the same direction, with the gap moving from the rule ahead at low
+consistency to the vote ahead at maximum consistency and a regression
+coefficient of $-0.1889$ on ADS. The direction survives the move to a
+two-sided pair and to real data. What does not survive is reading a widening
+margin as evidence about a winner, because in a nested pair the margin can
+widen without the winner having been in contest at any point.
+
+This is an interpretation of a published result of ours and not a new
+measurement; nothing here re-runs that experiment. Its value is that it makes
+the general warning of Section~\ref{sec:general-form} concrete. A nested pair
+produced a clean, publishable-looking shape, and the design rather than the
+data produced half of it.
+
+\subsection{What would have to be true for design-time selection to work}
+\label{sec:conditions}
+
+These are conditions, not promises of future work. Any one of them failing is
+enough to reproduce the result reported here.
+
+\textbf{The mechanisms have to be far enough apart.} Far enough that the gap
+clears a margin the practitioner would actually act on. Half an accuracy
+point pooled is not that, whatever its statistical status.
+
+\textbf{The contested region has to be more than a minority.} Here a contest
+requires a history that is both impure and surface-varied, which is 41\% of
+held-out signatures on the calibration split, and only 500 of 13{,}902 blocks
+carry a decided verdict at the primary margin. A selection rule that only
+applies to a thin slice of the corpus is not a design-time decision
+procedure.
+
+\textbf{The signal's association with the winner has to survive its
+controls.} Ours had two pre-registered controls, an
+initialization-free residual and a different metric family, and the surface
+effect survived both at reduced magnitude. Surviving them is necessary. It is
+not sufficient, because an association with the winner is not the same as a
+gap that clears a margin.
+
+\section{Limitations}
+\label{sec:limitations}
+
+\textbf{Power in the contested region, and the margin.} Five hundred of
+13{,}902 blocks carry a decided per-block verdict at the primary margin. The
+margin is what carried both selection hypotheses to Inconclusive, and we say
+so plainly rather than treating Inconclusive as evidence of absence. We kept
+$\delta = 0.05$ because moving the primary margin after seeing that
+$\delta = 0.02$ is where the structure lives is precisely the move a
+pre-registration exists to prevent. A reader who holds a different margin can
+read the whole robustness curve in Table~\ref{tab:bands} and
+Table~\ref{tab:falsification} and draw their own conclusion.
+
+\textbf{The hypotheses were amended after results existed.} They were, and a
+reader is entitled to hold it against the paper.
+Section~\ref{sec:prereg-integrity} states the case rather than re-arguing it
+here: the original text is unedited in the repository, the amendment was
+forced by a structural fact and not by an effect size, and it predates the
+run it governs. We note additionally that the framing changed twice, once
+when the hypotheses were amended and once when the amended framing was
+retired in favour of the result reported here. The second change moves toward
+the frozen table's own output rather than away from it, and it amends no
+pre-registration, but it is a change and it is on the record.
+
+\textbf{One dataset dominates.} inspire contributes 11{,}110 of the 13{,}902
+blocks. Per-dataset and pooled non-inspire reporting was mandatory and was
+run. H1 generalizes under the frozen rule. The consistency hypothesis's
+requirement that its gradient hold in the pooled non-inspire analysis is not
+met, and no dataset shows a surface-driven winner reversal.
+
+\textbf{Two simple untrained mechanisms.} Section~\ref{sec:blocks} gives the
+reasons for this scope, and they are reasons rather than excuses, but the
+scope still bounds the claim. A winner change between a rule and a vote is a
+narrower phenomenon than a winner change between a heuristic and a learned
+system, and \citeauthor{kimkim2020} tested the harder version and reported no
+winner change either. We do not claim that no design-time signal exists for
+any mechanism pair. We claim that none is actionable for this pair, on this
+substrate, at this margin.
+
+\textbf{The surface axis overlaps with forename initialization.} SV
+correlates with the initialization share at Spearman 0.36. The
+initialization-free residual arm bounds the overlap rather than removing it:
+the same shape appears in the residual at smaller magnitude and with no
+reversal, so the surface effect is more than initialization and is small in
+both forms.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+A design-time consistency statistic predicts how hard each mechanism will
+find a block, with Spearman 0.51 and 0.83 on held-out data across seven
+datasets. It does not tell you which mechanism to build. Prediction is not
+selection, and on this substrate there is nothing to select.
+
+Four things are on the record. Exact match is a strict sub-case of
+single-nearest retrieval, so the comparison between them cannot have a
+winner, at any cutoff and in any metric family. For any pair of mechanisms
+that assigns an author from the block's own history, a precision-first rule
+cannot win where the history names one author and cannot win where the
+history is written one way, so two regions of the design space are empty
+before the data is seen. On a pair built to avoid both problems, neither
+design-time signal yields an actionable selection rule at the pre-registered
+margin, and the one pre-registered clause comparing the two signals found
+surface stability, not consistency, the stronger driver of whether the choice
+is decidable at all. And the consistency signal does predict each mechanism's
+own accuracy, and generalizes.
+
+For a practitioner the reading is short. Check that the two mechanisms you
+are comparing are not nested, with one count of the items where each is right
+and the other wrong. Expect the choice not to matter on most of your data,
+and pick on cost and maintainability when it does not. And measure your data
+to learn how hard it is, not to learn what to build.
 
 \bibliography{references}
 
