@@ -14,12 +14,20 @@ evaluated co-signal that recovers the selection. Sibling in framing to Tan
 (2026), "Beyond ROC-AUC," which shows the same signal-versus-selection gap for
 model choice under decision economics; our blind axis is representational.
 
-**Status of that identity after 2.2b.** The first half survived and
+**Status of that identity after 2.2b and 2.2c.** The first half survived and
 generalizes: train-only ADS predicts each mechanism's own held-out accuracy
-across seven datasets. The second half is not testable on the mechanism pair
-PREREG.md currently freezes, because exact match turned out to be a strict
-sub-case of fuzzy retrieval, so there is no winner for a signal to be blind to.
-The identity above is kept as written until 2.2c decides, rather than quietly
+across seven datasets. The second half does not survive as written. 2.2b showed
+the frozen mechanism pair is nested, so no winner exists to be blind to. 2.2c
+found two-sided replacement pairs, which repairs that, but also showed that a
+precision-first rule cannot win a block whose train history names one author, so
+**ADS necessarily carries some winner information for any pair of this shape**.
+The blindness claim is therefore not recoverable by changing mechanisms.
+
+The identity the evidence supports is two-signal rather than blind: consistency
+predicts each mechanism's accuracy and says whether the choice between them
+matters at all, and surface stability says which way to go where it does.
+Neither signal alone determines the winner. The identity above is kept as
+written, marked, until review adopts it or something else, rather than quietly
 rewritten to match the result.
 
 ## Dataset
@@ -47,17 +55,31 @@ are where we slow down and review most carefully.
   consistency predicts accuracy and generalizes, but the two mechanisms turned
   out to be nested, so no winner exists to be predicted or to be blind to. See
   STATE.md and `reports/phase2b_boundary.md`.**
-- **2.2c Decision gate, new, inserted by the 2.2b result. HARD GATE.** The arc
-  cannot continue until review chooses between amending the mechanism pair,
-  retargeting the paper on what 2.2b established, or replacing the second
-  mechanism. The three options and their costs are in STATE.md. This gate is a
-  human decision, not a session: nothing is measured in it.
+- **2.2c Mechanism redesign, new, inserted by the 2.2b result. HARD GATE.**
+  Design-and-propose only: candidate mechanism pairs, a cheap two-sidedness
+  check on the calibration split, and a recommendation. No evaluation, no
+  amendment to PREREG.md. **Done.** Three two-sided pairs found, P3 (the
+  exact-evidence rule against a k-nearest vote, k = 5) recommended, and two
+  winner cells found to be zero by construction, which is what forces the change
+  to the paper identity above. See `reports/phase2c_pair_design.md`.
+- **2.2d New pre-registration, new. HARD GATE.** Only after review adopts a
+  pair. A dated amendment section appended to PREREG.md per its own amendment
+  rule, committed before any new accuracy exists. It has to settle three things
+  the old one did not face: the replacement for H2, the analysis population
+  (probably the contested region, ADS < 1 and SV > 0), and the margin inside it.
+  It must also replace PREREG section 7's accuracy-maximizing calibration for
+  the retriever's parameter, which points straight back at the nesting limit.
+- **2.2e The boundary experiment, re-run. HARD GATE.** Executes 2.2d exactly, as
+  2.2b executed 2.2a. The 2.2b numbers stay as the frozen record of the nested
+  pair and are reported in the paper beside the new ones.
 - 2.3 The co-signal. Measure surface stability, build the two-signal selector,
   evaluate it against consistency-only and stability-only baselines, held out and
   across S2AND's sub-datasets. Report the recovery number, whatever it is. HARD
-  GATE. **Blocked on 2.2c.** A selector cannot choose between a mechanism and a
-  strict superset of it, so this phase is not runnable against the mechanism
-  pair PREREG.md section 4 currently freezes.
+  GATE. **Blocked on 2.2d and 2.2e.** A selector cannot choose between a
+  mechanism and a strict superset of it, so this phase is not runnable until a
+  two-sided pair is adopted and pre-registered. Charter invariant 4's ADS-only
+  and SV-only baselines become load-bearing rather than defensive, since 2.2c
+  indicates both signals carry part of the winner.
 - 2.4 Robustness and causal probe. Controlled perturbation on real records to pin
   the direction of the effect, plus robustness slices.
 - 2.5 Writing. Venue-neutral LaTeX, about 8,000 words of body, per the skeleton.
@@ -81,9 +103,11 @@ are where we slow down and review most carefully.
 ## Working titles
 
 To merge with CC's suggestions at the writing phase, once results are in. All
-three below presume a winner exists to be predicted; 2.2b showed that it does
-not for the current mechanism pair, so if 2.2c takes the retargeting path they
-all have to be replaced with something built on the accuracy finding instead.
+three below presume both that a winner exists and that consistency is blind to
+it. 2.2b removed the first for the current pair and 2.2c removed the second for
+any pair of this shape, so **all three need replacing**. What the evidence points
+at instead is a two-signal title: consistency says whether the choice matters,
+surface stability says which way to go.
 
 - Historical consistency predicts accuracy, not method choice: a design-time
   blind spot in entity resolution.

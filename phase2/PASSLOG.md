@@ -952,3 +952,105 @@ Whichever is chosen, the 2.2b numbers stand as the frozen evidence base for it,
 and the degeneracy is a result to report in the paper rather than a mistake to
 erase, because it is a property of a mechanism pair that a reader might
 reasonably have proposed themselves.
+
+---
+
+## Pass 7, Phase 2.2c: mechanism redesign, design-and-propose
+
+**Date:** 2026-09-18. **Branch:** phase-2.
+
+**What this pass did and why.** 2.2b found the frozen mechanism pair nested, so
+the selection question 2.3 exists to ask is unanswerable against it. This pass
+designs a replacement: a mechanism pair where each side can win in some regime.
+It proposes, checks the proposals cheaply on the calibration split, and stops.
+No evaluation-split number was produced, `PREREG.md` was not amended, and the
+2.2b evidence base is untouched.
+
+**The narrow reason the old pair failed, which rules out most repairs.** When the
+test surface form occurs in the train history it sits at similarity exactly 1.0,
+the maximum of any similarity function, so any retriever that takes the single
+nearest form takes that form and resolves the same author. Exact match is
+contained in *every* 1-NN retriever, whatever the metric, cutoff or tie-break.
+A different similarity cannot fix it; mechanism B has to stop being 1-NN, either
+by aggregating over a neighbourhood or by matching on a representation under
+which the test form is not privileged.
+
+**What was built.** `phase2/phase2c_probe.py`, calibration blocks only, with an
+assert-based self-check. Mechanism A is the PREREG section 4 exact-evidence rule,
+unchanged. Three candidate B arms, all label-free at prediction time, all
+untrained, none using forename fullness as the axis: a radius vote (P1), a
+normalized-key vote (P2, no parameter, and built so initialization does *not*
+collapse), and a k-nearest vote (P3). The frozen 2.2b fuzzy arm is scored beside
+them as a probe self-check and returns 0 on the A side, reproducing the nesting.
+
+**Two-sidedness on the calibration split**, 2,450 blocks, 35,732 test signatures,
+as (A right and B wrong) / (B right and A wrong):
+
+- rule vs nn1, the 2.2b pair: **0** / 731. Dead, as in 2.2b.
+- P1 radius: 1,461/635 at r=0.70, 793/503 at 0.80, 253/247 at 0.90, **0**/16 at 0.95.
+- P2 mergekey: 158/437, no parameter on either side.
+- P3 knn: 181/736 at k=2, 314/740 at k=3, **546/744 at k=5**, 912/748 at k=10.
+
+All three candidates are genuinely two-sided. Accuracies at the recommended
+setting are 0.8234 for the rule and 0.8290 for knn@5, so it is a real contest.
+
+**The structural constraint the probe found, which is the pass's main result.**
+The rule wins zero signatures in every SV=0 cell and zero in every ADS=1.0 cell,
+for all three pairs, and both zeros are necessary rather than small. At SV=0 the
+history carries one distinct form, so every mechanism pools the same evidence. At
+ADS=1.0 the history names one author, so any non-empty pool returns it and the
+rule's only possible difference is to abstain. **The second holds for any pair of
+mechanisms that assign an author from the block's own history, not just these.**
+A contest therefore exists only where the history is both impure and
+surface-varied, which is 41% of calibration test signatures.
+
+**This contradicts H2 as PREREG section 2 words it**, and no redesign inside this
+family can rescue that wording: ADS does predict part of the winner, because at
+ADS=1.0 the retriever wins or ties by construction. Equally, at fixed ADS the
+sign of the gap still flips with SV in all four ADS bands below 1.0, so ADS alone
+does not determine the winner either. The supportable shape is a two-signal one:
+consistency says whether the choice matters, surface stability says which way to
+go when it does. That is a change to the paper's identity and it is review's to
+make.
+
+**The calibration trap, flagged for the new pre-registration.** For both
+parameterized pairs the retriever's pooled accuracy is monotone toward the 1-NN
+limit: knn falls 0.8390, 0.8354, 0.8290, 0.8188 as k grows, radius rises to
+0.8239 at r=0.95. PREREG section 7 calibrates by maximizing pooled accuracy, so
+applied unchanged it would select k=2 or r=0.95 and walk the design straight back
+into nesting. The parameter must be fixed by a definitional argument with a
+pre-registered sensitivity curve, never chosen to maximize the retriever.
+
+**Ruled out cheaply.** A context-based mechanism (co-authors, venue, title) was
+considered and dropped without building it: the ingested table carries `paper_id`
+but only 18.7% of its papers hold 2 or more signatures, so co-authorship is too
+thin to found a mechanism on, and the papers files that carry the rest are the
+3.4 GiB S2AND payload Phase 2.1 deliberately did not ingest. The pair stays in
+the name-string family, which is also where charter invariant 6 wants it.
+
+**Invariant checks run.** Invariant 2, no tautology: the winner would still be
+defined by labelled accuracy alone and neither ADS nor SV appears in any
+mechanism definition. Invariant 3, held-out only: the probe touches calibration
+blocks only, which are disjoint at block level from every block that has ever
+produced a reported number. Invariant 5, no result before measurement: nothing
+here is a result and the report says so twice; `PREREG.md` is byte-unchanged.
+Invariant 6, two-mechanism core: two mechanisms, neither trained. Invariant 7,
+offline and CPU-only, with an assert-based self-check that fails loudly if any
+mechanism drifts.
+
+**Artifacts.** `phase2/phase2c_probe.py`,
+`phase2/reports/phase2c_pair_design.md`,
+`phase2/reports/tables/phase2c_pair_twosidedness.csv`,
+`phase2/reports/tables/phase2c_pair_regimes.csv`.
+
+**Recommendation for the next pass.** Adopt P3, the exact-evidence rule against a
+k-nearest vote with k fixed a priori at 5 and the k in {2,3,5,10} curve reported
+as mandatory sensitivity. P2 is the fallback if review prefers zero parameters on
+both sides. Then, and only then, write a new pre-registration as a dated
+amendment section appended to `PREREG.md`, before any new accuracy exists. That
+new pre-registration has three things to settle that the old one did not face:
+the replacement for H2, given that two of its cells are zero by construction; the
+analysis population, which should probably become the contested region; and the
+margin inside that region, since 2.2b was already power-limited at delta = 0.05
+on a larger population. Do not run the evaluation until that document is frozen
+and committed.
