@@ -1,0 +1,10 @@
+population,blocks,qualifies (>=100 blocks),ADS bands with 2+ eligible SV bands,ADS bands with 2+ decided SV bands,winner reversal,tie-crossing,outcomes
+aminer,842,True,2,0,False,False,gap compression only / not eligible
+arnetminer,82,False,0,0,False,False,not eligible
+inspire,11110,True,4,0,False,False,gap compression only / not eligible
+kisti,711,True,0,0,False,False,not eligible
+pubmed,34,False,0,0,False,False,not eligible
+qian,276,True,0,0,False,False,not eligible
+zbmath,847,True,1,1,False,False,gap compression only / not eligible
+inspire alone,11110,True,4,0,False,False,gap compression only / not eligible
+pooled non-inspire,2792,True,5,0,False,True,gap compression only / tie-crossing
