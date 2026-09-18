@@ -6,29 +6,37 @@ the spec (phase2-spec.md) sets the method.
 
 ## Paper identity
 
-A venue-neutral research paper showing that a design-time consistency signal
-predicts each classification mechanism's accuracy but not which mechanism to
-select, because the winner is governed by surface-form stability, an axis the
-consistency signal cannot see. On top of that boundary finding, an honestly
-evaluated co-signal that recovers the selection. Sibling in framing to Tan
-(2026), "Beyond ROC-AUC," which shows the same signal-versus-selection gap for
-model choice under decision economics; our blind axis is representational.
+A venue-neutral research paper showing that two design-time, label-free signals
+play separable roles in mechanism choice. A consistency signal sets **whether**
+the choice of classification mechanism matters at all, and a surface-stability
+signal sets **which way** to choose where it does. Neither signal alone predicts
+the winner, and that conjunction is the contribution. On top of it, an honestly
+evaluated selector that uses both, reported beside a consistency-only and a
+stability-only baseline.
 
-**Status of that identity after 2.2b and 2.2c.** The first half survived and
-generalizes: train-only ADS predicts each mechanism's own held-out accuracy
-across seven datasets. The second half does not survive as written. 2.2b showed
-the frozen mechanism pair is nested, so no winner exists to be blind to. 2.2c
-found two-sided replacement pairs, which repairs that, but also showed that a
-precision-first rule cannot win a block whose train history names one author, so
-**ADS necessarily carries some winner information for any pair of this shape**.
-The blindness claim is therefore not recoverable by changing mechanisms.
+Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows a
+signal-versus-selection gap for model choice under decision economics, and to Kim
+and Kim (2020), the nearest prior work on the surface axis. Distinct from both:
+Tan's blind axis is economic and has no per-block unit; Kim and Kim manipulate a
+single surface variable at dataset level and report a gap magnitude, with no
+decidability axis and no design-time signal.
 
-The identity the evidence supports is two-signal rather than blind: consistency
-predicts each mechanism's accuracy and says whether the choice between them
-matters at all, and surface stability says which way to go where it does.
-Neither signal alone determines the winner. The identity above is kept as
-written, marked, until review adopts it or something else, rather than quietly
-rewritten to match the result.
+**How this identity was arrived at, and what is still untested.** It replaces an
+earlier one-signal claim that consistency is blind to the winner. 2.2b showed the
+frozen mechanism pair was nested, so no winner existed to be blind to, and 2.2c
+showed that a precision-first rule cannot win a block whose train history names
+one author, so consistency necessarily carries some winner information for any
+pair in this family. The blindness claim was not recoverable by changing
+mechanisms, so the claim was rebuilt rather than repaired, at Phase 2.2d.
+`PREREG.md` Amendment 1 is the binding version.
+
+What is established: train-only ADS predicts each mechanism's own held-out
+accuracy across seven datasets (H1, 2.2b), and the two structural gates above.
+**What is not yet measured: everything else.** The gating gradient, the SV
+reversal, and the role separation between them are hypotheses with a frozen
+falsification table, not results. 2.2e is the pass that tests them, and every
+outcome in that table, including the ones that retire this identity, is
+acceptable.
 
 ## Dataset
 
@@ -62,24 +70,30 @@ are where we slow down and review most carefully.
   exact-evidence rule against a k-nearest vote, k = 5) recommended, and two
   winner cells found to be zero by construction, which is what forces the change
   to the paper identity above. See `reports/phase2c_pair_design.md`.
-- **2.2d New pre-registration, new. HARD GATE.** Only after review adopts a
-  pair. A dated amendment section appended to PREREG.md per its own amendment
-  rule, committed before any new accuracy exists. It has to settle three things
-  the old one did not face: the replacement for H2, the analysis population
-  (probably the contested region, ADS < 1 and SV > 0), and the margin inside it.
-  It must also replace PREREG section 7's accuracy-maximizing calibration for
-  the retriever's parameter, which points straight back at the nesting limit.
-- **2.2e The boundary experiment, re-run. HARD GATE.** Executes 2.2d exactly, as
-  2.2b executed 2.2a. The 2.2b numbers stay as the frozen record of the nested
-  pair and are reported in the paper beside the new ones.
+- **2.2d Pre-registration revision, the two-signal reframe. HARD GATE. Done.**
+  `PREREG.md` Amendment 1, appended and dated 2026-09-18 under the file's own
+  amendment rule, superseding sections 2, 4, 7 and 10 and renaming the section 8
+  verdicts. H2 becomes consistency gates whether the choice is live; H3 becomes
+  surface stability directs it where it is, and consistency does not. Mechanism B
+  becomes the k-nearest vote at k = 5, fixed by definition rather than calibrated,
+  with a mandatory k curve. Section 7's accuracy-maximizing calibration is void,
+  because it pointed straight back at the nesting limit. Nothing measured. Six
+  under-determined points in the revision are resolved in the amendment and
+  flagged for review.
+- **2.2e The mechanism experiment, re-run. HARD GATE.** Executes `PREREG.md`
+  Amendment 1 exactly, as 2.2b executed 2.2a. Build mechanism B with its own
+  self-check, freeze nothing new (the split, the band edges and the margins all
+  carry over), then run calibration-free and report. The 2.2b numbers stay as the
+  frozen record of the nested pair and are reported in the paper beside the new
+  ones.
 - 2.3 The co-signal. Measure surface stability, build the two-signal selector,
   evaluate it against consistency-only and stability-only baselines, held out and
   across S2AND's sub-datasets. Report the recovery number, whatever it is. HARD
-  GATE. **Blocked on 2.2d and 2.2e.** A selector cannot choose between a
-  mechanism and a strict superset of it, so this phase is not runnable until a
-  two-sided pair is adopted and pre-registered. Charter invariant 4's ADS-only
-  and SV-only baselines become load-bearing rather than defensive, since 2.2c
-  indicates both signals carry part of the winner.
+  GATE. **Blocked on 2.2e.** The pair is now two-sided and pre-registered, but
+  no evaluation-split number exists for it yet, so there is nothing to select
+  over. Charter invariant 4's ADS-only and SV-only baselines are load-bearing
+  rather than defensive here, since the amended hypotheses expect each signal to
+  carry a different part of the winner.
 - 2.4 Robustness and causal probe. Controlled perturbation on real records to pin
   the direction of the effect, plus robustness slices.
 - 2.5 Writing. Venue-neutral LaTeX, about 8,000 words of body, per the skeleton.
@@ -102,19 +116,16 @@ are where we slow down and review most carefully.
 
 ## Working titles
 
-To merge with CC's suggestions at the writing phase, once results are in. All
-three below presume both that a winner exists and that consistency is blind to
-it. 2.2b removed the first for the current pair and 2.2c removed the second for
-any pair of this shape, so **all three need replacing**. What the evidence points
-at instead is a two-signal title: consistency says whether the choice matters,
-surface stability says which way to go.
+To merge with CC's suggestions at the writing phase, once results are in.
+Replaced at Phase 2.2d: the three earlier candidates all presumed consistency was
+blind to the winner, which 2.2c ruled out.
 
-- Historical consistency predicts accuracy, not method choice: a design-time
-  blind spot in entity resolution.
-- The selection signal that is most confident where it is most wrong:
-  consistency, surface stability, and mechanism choice.
-- Two axes, one signal: consistency predicts difficulty, surface stability
-  decides the winner.
+- Consistency decides whether the matcher matters, surface stability decides
+  which one: a two-signal design-time account.
+- When does the matcher matter, and which one: a per-block, design-time selector
+  for author name disambiguation.
+- Two design-time signals, two roles: gating and directing mechanism choice in
+  entity resolution.
 
 ## Output constraints (from the charter)
 

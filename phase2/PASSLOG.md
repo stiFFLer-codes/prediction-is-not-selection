@@ -1054,3 +1054,140 @@ analysis population, which should probably become the contested region; and the
 margin inside that region, since 2.2b was already power-limited at delta = 0.05
 on a larger population. Do not run the evaluation until that document is frozen
 and committed.
+
+---
+
+## Pass 8, Phase 2.2d: pre-registration revision, the two-signal reframe
+
+**Date:** 2026-09-18. **Branch:** phase-2.
+
+**What this pass did and why.** Applied the handed-over revision that rebuilds
+the paper's claim from a one-signal blindness statement into a two-signal role
+separation. Nothing was run, measured, or computed. The pass is entirely
+documents.
+
+**Why the claim had to be rebuilt rather than repaired.** Two measured structural
+findings, one per preceding pass. 2.2b: a test form present in the train history
+sits at similarity exactly 1.0, so any single-nearest retriever contains exact
+match, and `exact wins` measured zero on 199,713 test signatures in both metric
+arms. 2.2c: a precision-first rule cannot win a block whose train history names
+one author, because any non-empty pool returns that author and the rule's only
+possible difference is to abstain, which holds for any pair of mechanisms that
+assign an author from the block's own history. The second one is what kills the
+old H2: consistency necessarily carries some winner information, so "ADS does not
+predict which mechanism wins" is not true of any pair in this family and is not
+recoverable by changing mechanisms.
+
+**How the amendment was applied, and one deviation from the instruction.** The
+revision said to replace sections 2, 4, 7 and 10 of `PREREG.md` in place.
+PREREG's own amendment rule says the opposite: a change is made by appending a
+dated amendment section, and the original text is never edited away. Applied as
+an appended **Amendment 1** carrying the full replacement text and marked
+binding, with a superseded banner inserted at the head of each of sections 2, 4,
+7 and 10 pointing to it, and a new first entry in the revision history. Same
+binding effect, and the 2.2a text and the conditions 2.2b was run under stay
+readable in full. Flagged here because it is a deviation in form from the
+instruction, taken to satisfy the document's own rule.
+
+**What Amendment 1 fixes.**
+
+- **Section 2, replaced.** H1 unchanged in substance, still a validity check. H2
+  is now a gating hypothesis: holding SV fixed, the share of blocks with a
+  decided winner declines as ADS rises, approaching zero in the top band, while
+  staying non-trivially positive lower down. H3 is now two required parts,
+  direction by SV (a genuine reversal at fixed ADS below 1.0) and non-direction
+  by ADS (the old blindness claim, correctly scoped to decidable blocks at fixed
+  surface stability, which is where it can be true). The contribution is the
+  conjunction.
+- **Section 4, amended.** Mechanism A is untouched. Mechanism B is the
+  k-nearest-vote retriever: pool nearest training signatures, whole forms at a
+  time, until at least k are pooled, then a signature-weighted author vote. It
+  does not abstain, so abstention sits entirely on the rule's side.
+- **Section 7, void for 2.2e.** B has no cutoff to calibrate. k = 5 is fixed by
+  definition, never by maximizing accuracy, because accuracy is monotone toward
+  the single-nearest limit and that limit is the 2.2b nesting. The k in
+  {2, 3, 5, 10} curve is mandatory and a k-dependent outcome is Partial. Section
+  6's SV and SV_resid band edges, calibrated under the same protocol at
+  `5e13e38`, carry over unchanged and are not recomputed.
+- **Section 8, renamed only.** `exact wins` to `rule wins`, `fuzzy wins` to
+  `k-NN wins`. Bootstrap, seeds, margins, four-verdict rule all as frozen.
+- **Section 10, replaced.** New falsification table. Inconclusive still evaluated
+  first. Two acceptable outcomes added: the choice is never live, and consistency
+  directs as well as gates.
+- **Section 3 unchanged.** ADS = 1.0 blocks stay in the primary population,
+  because H2 needs them. H3 scopes itself to ADS below 1.0 in its own wording,
+  which is the right place for that restriction. This settles the open question
+  2.2c raised about moving to a contested-region population: the answer is no.
+
+**Six resolutions, all flagged for review.** The revision was under-determined or
+drifted from what 2.2c measured in six places, each resolved in the amendment
+before any number exists. (1) "k nearest" counts signatures, not forms, because
+that is what 2.2c measured and the form-counted reading is untested. (2)
+Mechanism B uses the frozen section 4 tie-break chain, not "toward the nearest
+form", which is under-determined for equidistant forms and would give the two
+mechanisms different tie-breaks, turning part of the winner contest into a
+comparison of tie-break rules. (3) The nesting limit is k = 1, not k = 2 as the
+revision states; k = 2 measured 181 rule wins against 736, so it is close to the
+limit but not at it, and k = 1 stays off the curve as the known-degenerate case.
+(4) "Decided" in H2 means the per-block verdict; H3's reversal keeps the pooled
+band verdict. (5) "ADS is the stronger driver of decidability" means the larger
+averaged range of the decided-winner rate across its axis of the frozen 5 by 4
+grid. (6) "A non-trivial decidable region" means at least one ADS band below 1.0
+with 30 or more blocks holding 30 or more decided per-block verdicts, an absolute
+count reusing the existing minimum rather than a new threshold.
+
+Resolutions 5 and 6 are the two that set a bar where none was given, so they are
+the two most worth review's attention. They can be overruled before 2.2e starts
+and not after.
+
+**Identity reframed in the governing documents.** `phase2/CLAUDE.md` mission,
+`phase2/PLAN.md` paper identity, and `phase2/phase2-spec.md` section 1 and the
+section 3 construct note, all per the instruction. Three further lines were stale
+after the reframe and would have left the charter contradicting the amendment, so
+they were updated too and are listed here rather than made silently: charter
+invariant 6, which named exact match versus fuzzy retrieval as the core
+comparison; charter invariant 8, which told future passes to lead with "the
+boundary finding", a thing that no longer exists under that name; and spec
+section 3's surface-stability bullet, which asserted "so fuzzy wins" as though it
+were settled rather than being H3. Spec section 4 gained a superseded pointer and
+spec section 6's gate list was brought up to date. PLAN.md's working titles were
+replaced with the three supplied.
+
+**Numbers produced:** none. **Invariant checks run.** Invariant 5, no result
+before measurement: no mechanism B prediction on the evaluation split has been
+computed anywhere, the amendment says so in its own header, and the only
+measurements cited in it are the 2.2c calibration diagnostics, disclosed as such.
+Invariant 2, no tautology: neither ADS nor SV nor SV_resid appears in either
+mechanism definition. Invariant 3, held-out only: the split is unchanged, so
+2.2e's evaluation blocks are 2.2b's evaluation blocks, and the k = 5 choice used
+calibration blocks only. Invariant 6, two-mechanism core: two mechanisms, neither
+trained; the charter's wording of this invariant was updated to name the new
+pair. Invariant 7: nothing added that is not offline and CPU-only. The three
+existing module self-checks still pass and were re-run.
+
+**The honest risk this pass creates.** The hypotheses were rewritten after two
+passes returned results. That is post hoc, and a reviewer will say so. The
+defence is procedural and has to be visible in the paper rather than only in the
+repository: the amendment is dated and appended instead of edited in, the
+superseded text and the 2.2b numbers stay where they are, what forced each change
+is a measured structural fact rather than a disappointing number, and no accuracy
+for the new mechanism existed anywhere when the amendment was written. It is also
+worth stating plainly that the new H2 has a partly structural component, the
+guaranteed decline into the ADS = 1.0 band, which the amendment flags in its own
+text and which the load-bearing content deliberately sits below.
+
+**Artifacts.** `phase2/PREREG.md` (Amendment 1, plus four banners and a revision
+history entry), `phase2/CLAUDE.md`, `phase2/PLAN.md`, `phase2/phase2-spec.md`,
+`phase2/STATE.md`.
+
+**Recommendation for the next pass.** Review verifies Amendment 1 end to end,
+and the six resolutions in particular, before anything runs. Then 2.2e: implement
+mechanism B in a module with its own assert-based self-check, confirm it
+reproduces the 2.2c calibration-split counts of 546 rule wins against 744 at
+k = 5 as a regression check on the implementation, then re-run the frozen
+analysis with the renamed verdicts and report against the amended falsification
+table plus both mandatory curves, k and delta. Nothing new is calibrated in
+2.2e. Expect the primary-margin power floor from 2.2b to still bite, since the
+margin and the bootstrap are unchanged and the decidable region is a subset of
+the population; if it does, Inconclusive is a permitted verdict and is used
+rather than reached around.

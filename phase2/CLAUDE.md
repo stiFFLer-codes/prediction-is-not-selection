@@ -9,13 +9,17 @@ around it.
 ## Mission
 
 Rebuild the ADS-Cascade paper as a clean, venue-neutral research paper on real
-public benchmarks. The scientific core is a two-part finding: a standard
-historical-consistency statistic (cluster purity, which we call ADS) predicts
-each classification mechanism's own accuracy but is blind to which mechanism
-wins, because the winner is governed by surface-form stability, an axis the
-consistency signal cannot see. On top of that boundary finding we test one
-constructive step: whether a measured surface-stability co-signal carries the
-information ADS lacks.
+public benchmarks. The scientific core is a two-signal role separation: a
+design-time consistency signal (cluster purity, which we call ADS) governs
+whether the choice of classification mechanism is live at all, and a design-time
+surface-stability signal governs which mechanism to choose when it is. Neither
+signal alone predicts the winner. On top of that, a selector that uses both.
+
+Reframed at Phase 2.2d, 2026-09-18, from the earlier one-signal claim that ADS is
+blind to the winner. Two measured structural findings forced it: a single-nearest
+retriever contains exact match (2.2b), and a precision-first rule cannot win a
+block whose history names one author, so consistency necessarily carries some
+winner information (2.2c). Binding detail is in `PREREG.md` Amendment 1.
 
 ## Non-goals
 
@@ -56,16 +60,23 @@ and only after review.
 5. No result before measurement. Never write a number, claim, or conclusion that
    was not produced by committed, re-runnable code. Verified numbers are a
    frozen evidence base; prose passes must not alter them.
-6. Two-mechanism core. Exact-match versus fuzzy retrieval is the core
-   comparison. A third mechanism (semantic or LLM) may appear only if it is
-   actually implemented and evaluated. Otherwise it is named as future scope,
-   not shipped inside the selector.
+6. Two-mechanism core. A precision-first exact-evidence rule versus a
+   coverage-first k-nearest-vote retriever is the core comparison, as fixed by
+   `PREREG.md` Amendment 1 (Phase 2.2d). It was exact match versus thresholded
+   fuzzy retrieval until 2.2b measured that pair to be nested. Both mechanisms
+   are untrained lookups over the block's own history. A third mechanism
+   (semantic or LLM) may appear only if it is actually implemented and
+   evaluated. Otherwise it is named as future scope, not shipped inside the
+   selector.
 7. Offline and reproducible. The pipeline stays public, offline, no API keys, no
    paid calls, CPU-runnable, and covered by tests. This is load-bearing for
    arXiv and for the paper's identity.
-8. Honest framing. Lead with the boundary finding, which stands on its own.
-   Present the selector as an honestly evaluated step. Never pre-commit to a
-   recovery number.
+8. Honest framing. Lead with whatever the frozen falsification table returns,
+   not with the framing that motivated the run. Present the selector as an
+   honestly evaluated step. Never pre-commit to a recovery number. Two structural
+   results already stand on their own whatever 2.2e finds: single-nearest
+   retrieval subsumes exact match, and a precision-first rule cannot win where
+   the history names one author.
 
 ## Freedom zone
 

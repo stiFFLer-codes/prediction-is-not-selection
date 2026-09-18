@@ -6,16 +6,79 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.2c (mechanism redesign) complete as a design-and-propose
-  pass. A two-sided replacement pair is proposed and checked on the calibration
-  split.** Awaiting human review.
-- **Phase 2.3 is still blocked and must not start.** It unblocks only after
-  review adopts a mechanism pair and a new pre-registration is frozen and
-  committed for it.
-- Phase 2.2b (the boundary experiment) complete; its numbers are the frozen
-  evidence base and are untouched by 2.2c. Phase 2.1 (data foundation) complete,
-  hard gate passed. Phase 2.2a (pre-registration) complete and frozen.
-  **Nothing in PREREG.md has been amended, by this pass or any other.**
+- Status: **Phase 2.2d (pre-registration revision) complete. `PREREG.md`
+  Amendment 1 is appended, dated and binding. Nothing was measured.** Awaiting
+  human review of the amendment before 2.2e runs.
+- **Next is 2.2e**, the re-run against Amendment 1. Phase 2.3 stays blocked until
+  2.2e produces numbers.
+- Phase 2.2c (mechanism redesign) complete: three two-sided candidate pairs
+  checked on the calibration split, P3 recommended and now adopted. Phase 2.2b
+  complete; its numbers are the frozen record of the nested pair and are
+  untouched. Phase 2.1 complete, hard gate passed. Phase 2.2a complete.
+- **PREREG.md has been amended once**, at 2.2d. The amendment is appended, not
+  edited in, so the 2.2a text and the 2.2b run conditions remain readable in
+  full. Sections 2, 4, 7 and 10 carry banners pointing to it.
+
+## The 2.2d reframe in one paragraph
+
+The paper's claim was rebuilt rather than repaired. It used to say a consistency
+signal predicts each mechanism's accuracy but is blind to which mechanism wins.
+2.2c showed that cannot be true of any mechanism pair in this family, because a
+block whose train history names one author returns that author from any
+mechanism that assigns from history, so a precision-first rule cannot win there
+and consistency necessarily carries some winner information. The claim is now a
+role separation: **consistency gates whether the mechanism choice is live at
+all, surface stability directs it where it is, and neither signal alone predicts
+the winner.** H1 is unchanged and still a validity check. H2 is now a gating
+hypothesis about the decided-winner rate declining as ADS rises. H3 keeps the SV
+reversal requirement and adds the non-direction-by-ADS half, which is the old
+blindness claim correctly scoped to decidable blocks at fixed surface stability.
+Mechanism B is the k-nearest vote at k = 5. None of this is measured; it is a
+frozen falsification table awaiting 2.2e.
+
+## What Amendment 1 changed, in one list
+
+- **Section 2, replaced.** New H2 (gating) and H3 (directing, two required
+  parts), new contribution statement. H1 unchanged in substance.
+- **Section 4, amended.** Mechanism B is the k-nearest-vote retriever: pool
+  nearest training signatures, whole forms at a time, until at least k are
+  pooled, then a signature-weighted author vote. It never abstains. Mechanism A,
+  the exact-evidence rule, is untouched.
+- **Section 7, void for 2.2e.** B has no similarity cutoff. k = 5 is fixed by
+  definition, never by maximizing accuracy, because accuracy is monotone toward
+  the single-nearest limit, which is the 2.2b nesting. The k in {2, 3, 5, 10}
+  sensitivity curve is mandatory and a k-dependent outcome is Partial.
+- **Section 8, renamed only.** `exact wins` becomes `rule wins`, `fuzzy wins`
+  becomes `k-NN wins`. Bootstrap, seeds, margins and the four-verdict rule are as
+  frozen at 2.2a.
+- **Section 10, replaced.** New falsification table for the new H2 and H3.
+  Inconclusive still evaluated first. Two new acceptable outcomes: the choice is
+  never live, and consistency directs as well as gates.
+- **Unchanged and not recomputed:** the section 3 split and population, the
+  section 5 ADS bands, the section 6 SV and SV_resid band edges frozen in
+  `phase2b_constants.py` at `5e13e38`, the section 9 controls and grid, and the
+  section 11 per-dataset rule.
+
+## Six resolutions flagged for review
+
+The revision as handed over was under-determined or drifted from what 2.2c
+measured in six places. Each is resolved in the amendment, before any number
+exists, and **each can be overruled before 2.2e starts and not after**. Full text
+in `PREREG.md` Amendment 1, "Resolutions of ambiguity".
+
+1. "k nearest" counts **signatures**, not forms. That is what 2.2c measured; the
+   form-counted reading is untested.
+2. Mechanism B uses the **frozen section 4 tie-break chain**, not "toward the
+   nearest form", which is under-determined and would give the two mechanisms
+   different tie-breaks.
+3. The nesting limit is **k = 1**, not k = 2. k = 1 is off the sensitivity curve
+   as the known-degenerate case.
+4. "Decided" in H2 means the **per-block** verdict; H3's reversal keeps using the
+   **pooled band** verdict.
+5. "ADS is the stronger driver of decidability" means the larger averaged range
+   of the decided-winner rate across its axis of the frozen 5 by 4 grid.
+6. "A non-trivial decidable region" means at least one ADS band below 1.0 with 30
+   or more blocks holding 30 or more decided per-block verdicts.
 
 ## The 2.2c result in one paragraph
 
@@ -163,31 +226,34 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
 - Pass 6 (Phase 2.2b): PREREG.md executed. Calibration frozen in its own commit
   first, then the evaluation split. H1 Supported, H2 and H3 Inconclusive, and
   the mechanism pair found to be nested.
-- **Pass 7 (Phase 2.2c): mechanism redesign, design-and-propose. Three two-sided
+- Pass 7 (Phase 2.2c): mechanism redesign, design-and-propose. Three two-sided
   candidate pairs checked on the calibration split, one recommended, and two
-  structurally-zero winner cells found that H2's current wording cannot survive.
-  No evaluation, no amendment.**
+  structurally-zero winner cells found that H2's old wording could not survive.
+  No evaluation, no amendment.
+- **Pass 8 (Phase 2.2d): pre-registration revision. `PREREG.md` Amendment 1
+  appended and dated, reframing the paper from one-signal blindness to two-signal
+  role separation, adopting the k-nearest vote at k = 5, and voiding the
+  accuracy-maximizing calibration. Identity updated in the charter, the spec and
+  PLAN.md. Nothing measured.**
 
-## Next: review adopts a pair, then a fresh session writes the new pre-registration
+## Next: review verifies Amendment 1, then a fresh session runs 2.2e
 
-Do not open 2.3 and do not run any evaluation. Review decides, in this order:
+Do not run any evaluation until the amendment is signed off. Review should read
+`PREREG.md` Amendment 1 end to end, and in particular:
 
-1. **Which mechanism pair.** P3 (exact-evidence rule vs k-nearest vote, k = 5)
-   recommended; P2 (rule vs normalized-key vote) the parameter-free fallback.
-   Full rationale, risks and counts in `reports/phase2c_pair_design.md`.
-2. **What replaces H2.** This is the larger decision. H2 as PREREG section 2
-   words it cannot survive, because ADS = 1.0 makes the rule unable to win by
-   construction, so ADS predicts part of the winner for any pair of this shape.
-   The supportable shape is two-signal: consistency says whether the choice
-   matters at all, surface stability says which way to go when it does. That
-   changes the paper's stated identity in CLAUDE.md and PLAN.md.
-3. **The analysis population and the margin.** The contested region (ADS < 1 and
-   SV > 0) is the natural population, and it is smaller than 2.2b's, which was
-   already power-limited at delta = 0.05.
+1. **The six resolutions above.** They are the only places where this pass made a
+   judgement call rather than transcribing the revision. Overrule now or not at
+   all.
+2. **The new H2 and H3, and their falsification table.** Especially whether
+   resolutions 5 and 6 set the H2 bar in the right place, since they are the two
+   thresholds that were not given.
+3. **That the amendment claims nothing.** Every hypothesis in it is untested.
 
-Only after those three are settled does a fresh session write the new
-pre-registration, as a dated amendment section appended to `PREREG.md` per its
-own amendment rule, committed before any new accuracy exists.
+Then a fresh session runs 2.2e: implement mechanism B with its own assert-based
+self-check, confirm the self-check reproduces the 2.2c calibration counts,
+re-run the frozen analysis with the renamed verdicts, and report against the
+amended falsification table plus the mandatory k and delta curves. Nothing new is
+calibrated in 2.2e; the split, the band edges and the margins all carry over.
 
 ## Open decisions
 
@@ -203,34 +269,51 @@ Frozen and committed, not to be re-decided:
 - Fuzzy cutoff value, SV and SV_resid band edges: `phase2/phase2b_constants.py`
   (Phase 2.2b). Reproducible byte for byte from `phase2b_build.py`.
 
-Still open, in the order review should take them:
+Decided at 2.2d and now frozen in `PREREG.md` Amendment 1, not to be
+re-decided once 2.2e starts:
 
-- **Which mechanism pair.** P3 recommended, P2 the fallback. See the Next
-  section above and `reports/phase2c_pair_design.md`.
-- **What replaces H2.** The largest live decision. Its current wording cannot
-  survive the ADS = 1.0 structural zero, for any pair of this shape.
-- **The analysis population and the margin** inside the contested region.
+- The mechanism pair: the exact-evidence rule against the k-nearest vote at
+  k = 5, with the k curve mandatory.
+- The hypotheses, the contribution statement and the falsification table.
+- That section 7 is void and nothing new is calibrated for 2.2e.
+- The six resolutions of ambiguity.
+
+Still open:
+
+- **Sign-off on Amendment 1**, and on the six resolutions in particular. This is
+  the only live decision, and it closes when 2.2e starts.
 - Whether a third mechanism enters at all. Charter invariant 6 keeps it out
   unless it is actually implemented and evaluated. 2.2c did not propose one.
-- Title: working candidates in PLAN.md. All three presume ADS is blind to the
-  winner, which 2.2c shows it cannot be, so all three need replacing.
+- Title: three new candidates in PLAN.md, all built on the two-signal framing.
+  They are provisional until 2.2e returns outcomes.
 
 ## Live risks
 
 - **The nesting has fired and is now repairable.** 2.2c found three two-sided
   replacement pairs, so this is a design decision with a recommendation attached
   rather than an open risk. The nesting itself stays in the paper as a result.
-- **ADS cannot be blind to the winner.** New at 2.2c, and the dominant risk now,
-  because it is a constraint on any mechanism pair rather than on ours: at
-  ADS = 1.0 a precision-first rule cannot win, so the consistency signal
-  necessarily carries some winner information. The paper's stated identity in
-  CLAUDE.md, PLAN.md and phase2-spec.md all say the opposite and all three need
-  review.
-- **The parameter calibration protocol selects for degeneracy.** PREREG section
-  7 maximizes the retriever's pooled accuracy, which for both parameterized
-  candidate pairs points at the 1-NN limit. Carrying section 7 over unchanged
-  would re-create the 2.2b failure. Fix the parameter by definition, report a
-  sensitivity curve.
+- **ADS cannot be blind to the winner.** Found at 2.2c, absorbed at 2.2d. The
+  charter, PLAN.md and phase2-spec.md now state the two-signal framing, and
+  `PREREG.md` Amendment 1 is the binding version. No longer an open risk, but the
+  reason the paper's identity changed, and it belongs in the paper.
+- **The parameter calibration protocol selects for degeneracy.** Fixed at 2.2d:
+  section 7 is void, k = 5 is fixed by definition, and the k curve is mandatory.
+  The residual risk is that k = 5 was chosen on the calibration split for contest
+  balance, which is disclosed in the amendment and is what the k curve exists to
+  expose.
+- **The reframe is post hoc and a reviewer will say so.** New at 2.2d, and the
+  dominant framing risk. The hypotheses were rewritten after 2.2b and 2.2c
+  returned results. The defence is procedural and has to be visible in the paper:
+  the amendment is dated and appended rather than edited in, the superseded text
+  and the 2.2b numbers stay in the repository, what forced each change is a
+  measured structural fact rather than a disappointing number, and no accuracy
+  for the new mechanism existed when the amendment was written. Whether that
+  defence holds is review's call, not this pass's.
+- **The new H2 has a partly structural component.** The decline of decidability
+  into the ADS = 1.0 band is guaranteed, not discovered. The amendment says so in
+  its own text and puts the load-bearing content on the gradient below 1.0 and on
+  the existence of a decidable region. A reviewer who reads only the headline
+  will still mistake one for the other.
 - **Power in the contested region.** It is 41% of calibration test signatures
   and excludes every ADS = 1.0 block, so it is smaller than the population 2.2b
   was already power-limited on at delta = 0.05.
@@ -254,7 +337,9 @@ Still open, in the order review should take them:
 ## Read order for a fresh session
 
 root CLAUDE.md -> phase2/CLAUDE.md (charter) -> this file (STATE.md) ->
-phase2/PLAN.md (arc) -> phase2/phase2-spec.md (method) -> phase2/PREREG.md
-(binding for 2.2, supersedes spec section 8) -> phase2/reports/phase2b_boundary.md
-(what 2.2b found) -> phase2/reports/phase2c_pair_design.md (the proposed
-replacement pair and what constrains it) -> phase2/PASSLOG.md (history).
+phase2/PLAN.md (arc) -> phase2/phase2-spec.md (method) -> phase2/PREREG.md,
+**reading Amendment 1 at the end of that file first, because it is what binds**
+and it supersedes sections 2, 4, 7 and 10 -> phase2/reports/phase2b_boundary.md
+(what 2.2b found, against the retired pair) ->
+phase2/reports/phase2c_pair_design.md (why the pair changed and what constrains
+any replacement) -> phase2/PASSLOG.md (history).

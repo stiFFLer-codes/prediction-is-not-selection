@@ -6,15 +6,24 @@ the arc. This revision replaces the earlier WDC-based spec.
 
 ## 1. Paper identity
 
-A venue-neutral research paper. The unattackable core is a decomposition shown on
-real data: a design-time consistency signal predicts each classification
-mechanism's own accuracy, but does not predict which mechanism wins a head-to-head
-comparison, because the winner is governed by surface-form stability, which the
-consistency signal is blind to. The constructive half tests whether a measured
-surface-stability co-signal recovers the selection the consistency signal cannot.
-Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows the same
-signal-versus-selection gap for model choice under decision economics; our blind
-axis is representational, not economic.
+A venue-neutral research paper. The core is a role separation shown on real data:
+the winner of a head-to-head mechanism comparison is a function of **both**
+design-time axes in interaction, and is not blind to consistency. Consistency
+gates decidability, that is whether the mechanism choice matters at all, and
+surface stability directs the decidable cases, that is which mechanism to pick
+where it does matter. Neither signal alone predicts the winner. The constructive
+half tests whether a selector using both beats each single-signal baseline.
+
+Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows a
+signal-versus-selection gap for model choice under decision economics, and to Kim
+and Kim (2020) on the surface axis; distinct from both, because neither has a
+decidability axis, a per-block unit of analysis, or a design-time signal.
+
+**Reframed at Phase 2.2d, 2026-09-18.** The earlier text here claimed consistency
+was blind to the winner. 2.2c showed that cannot hold for any mechanism pair in
+this family, because a precision-first rule cannot win a block whose train
+history names a single author. `PREREG.md` Amendment 1 is binding; this section
+follows it.
 
 ## 2. Data: S2AND
 
@@ -48,14 +57,28 @@ not-scooped check are verified in Phase 2.1 before any building.
   the WDC blocking key was not.
 - surface stability = the inverse of within-author or within-block surface-form
   variability, our synonymity-based axis. Low variability means the name is
-  written consistently, so exact match survives; high variability means many
-  variants, so fuzzy wins. Measured, never set, and never defined using the
-  winner (invariant 2).
+  written consistently, so the exact-evidence rule survives; high variability
+  means many variants, so the retriever's coverage is expected to pay. Measured,
+  never set, and never defined using the winner (invariant 2). Which way it
+  actually points is H3, not an assumption.
 - unit of analysis = the block. Each block is a small classification problem with
   its own ADS and its own surface stability, so blocks are the natural analog of
   the synthetic experiment's conditions, and there are many of them.
+- **winner = a function of both axes, not of one** (added at Phase 2.2d). A block
+  whose train history names a single author returns that author from any
+  mechanism that assigns from history, so no precision-first rule can win there
+  and the choice is not live. A block whose history carries a single surface form
+  gives every mechanism the same evidence, with the same consequence. Consistency
+  therefore gates whether the comparison is decidable, and surface stability
+  directs it where it is. Neither is blind to the winner and neither determines
+  it alone.
 
 ## 4. Mechanisms and winner
+
+**Superseded by `PREREG.md` Amendment 1 (Phase 2.2d) for mechanism B and the
+verdict names.** Mechanism B is now a k-nearest vote with k = 5 and no cutoff.
+The text below is the draft this grew from and is kept for the record; where the
+two differ, PREREG.md wins.
 
 Two mechanisms assign a held-out signature to an author, using a historical
 (train) knowledge base built per block:
@@ -85,8 +108,10 @@ against them.
 
 ## 6. Phases and gates
 
-See PLAN.md for the full arc. The make-or-break gates are 2.1 (the two-axis
-sanity check) and 2.3 (the co-signal). Nothing runs past a gate without review.
+See PLAN.md for the full arc, which gained 2.2c, 2.2d and 2.2e after the 2.2b
+result. The make-or-break gates are 2.1 (the two-axis sanity check), 2.2e (the
+re-run against the amended pre-registration) and 2.3 (the co-signal). Nothing
+runs past a gate without review.
 
 ## 7. Evaluation protocol
 

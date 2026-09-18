@@ -19,7 +19,16 @@ section to this file, stating what changed and why, in the same commit as the
 code that needs it and before the affected numbers are produced. The original
 text is never edited away.
 
-**Revision history.** 2026-09-18, review of the 2.2a freeze, still before any
+**Revision history.**
+
+2026-09-18, Phase 2.2d, after 2.2b and 2.2c and before 2.2e: **Amendment 1, the
+two-signal reframe**, appended at the end of this file. It supersedes sections 2,
+4, 7 and 10 and renames the section 8 verdicts. Forced by two structural findings
+that 2.2b and 2.2c measured: a single-nearest retriever contains exact match, and
+a precision-first rule cannot win a block whose history names one author. Written
+before any accuracy for the new mechanism exists anywhere under `phase2/`.
+
+2026-09-18, review of the 2.2a freeze, still before any
 measurement and before 2.2b starts: two rules were added at the reviewer's
 instruction, verbatim. Section 8 gained "Margin sensitivity", which makes delta
 = 0.05 the primary margin and requires a 0.02 and 0.03 robustness curve beside
@@ -47,6 +56,10 @@ test items, is not a signal a practitioner can act on.
 ---
 
 ## 2. Hypotheses
+
+> **Superseded by Amendment 1 (Phase 2.2d, 2026-09-18), at the end of this
+> file.** The text below is what was frozen at 2.2a and what 2.2b was run
+> against. It is kept for the record and is no longer binding.
 
 Phrased to claim the specific design-time, per-block, measured dissociation. The
 general statement that surface form affects the margin between two disambiguation
@@ -154,6 +167,11 @@ population.
 
 ## 4. Mechanisms
 
+> **Mechanism B and the verdict names are superseded by Amendment 1 (Phase
+> 2.2d, 2026-09-18), at the end of this file.** Mechanism A, the metric, the
+> tie-breaking chain and the coverage rules below are unchanged and still
+> binding.
+
 Both mechanisms use only the block's train signatures, each carrying a surface
 form and an author label. Both may abstain.
 
@@ -237,6 +255,11 @@ separately computed cut points, defines the SV_resid bands of section 9.
 ---
 
 ## 7. The fuzzy cutoff calibration protocol
+
+> **Void for 2.2e under Amendment 1 (Phase 2.2d, 2026-09-18), at the end of
+> this file.** Mechanism B no longer has a similarity cutoff. The protocol
+> below is the record of what produced the frozen 2.2b cutoff. Section 6's
+> band edges, calibrated under the same protocol, do carry over.
 
 Specified here, executed in 2.2b, not in this pass.
 
@@ -412,6 +435,10 @@ family. If it does not, that is reported as a limit on the finding.
 
 ## 10. Falsification table
 
+> **Superseded by Amendment 1 (Phase 2.2d, 2026-09-18), at the end of this
+> file.** The table below is what was frozen at 2.2a and what decided the 2.2b
+> outcomes. It is kept for the record and is no longer binding.
+
 Four outcomes per hypothesis, fixed now. Every rule below is evaluated on the
 evaluation split only, and "generalizes" always means the section 10
 generalization rule: the result holds in the pooled non-inspire analysis **and**
@@ -514,3 +541,327 @@ inspire, is reported as an inspire finding in those words.
   invariant 6.
 - Every quantity introduced here gets an assert-based self-check in the module
   that defines it, following `s2and_blocking.py`.
+
+---
+
+# Amendment 1, Phase 2.2d, 2026-09-18: the two-signal reframe
+
+**Status: binding. This amendment supersedes sections 2, 4, 7 and 10 of the
+original text above.** Where this amendment and the original differ, this
+amendment wins. Sections 1, 3, 5, 6, 8, 9, 11 and 12 carry over unchanged except
+where named below.
+
+**Made under the amendment rule at the head of this file**, which requires a
+change to be a dated appended section, stating what changed and why, committed
+before the affected numbers exist. The original text is left in place rather than
+edited away, so that a reader can see exactly what was frozen at 2.2a and what
+2.2b was run against. Sections 2, 4, 7 and 10 each carry a banner pointing here.
+
+**Written before any new accuracy exists.** No mechanism B prediction on the
+evaluation split has been computed, scored, or printed. The only measurements
+that informed this amendment are the calibration-split design diagnostics of
+Phase 2.2c, reported in `reports/phase2c_pair_design.md`, which are disclosed as
+such below and are not evidence for any hypothesis.
+
+## Why this amendment exists
+
+Two findings force it, one from each of the last two passes.
+
+**From 2.2b.** The frozen mechanism pair is nested. A test surface form that
+occurs in the train history sits at similarity exactly 1.0, the maximum of any
+similarity function, so any retriever taking the single nearest train form takes
+that form and resolves the same author. Exact match is contained in every
+single-nearest retriever, whatever the metric or cutoff. `exact wins` was
+unreachable, and measured zero on 199,713 test signatures in both metric arms.
+Mechanism B must therefore vote over a neighbourhood rather than take the nearest
+form.
+
+**From 2.2c.** A precision-first rule cannot win a block whose train history
+names a single author, because any non-empty pool returns that author and the
+rule's only possible difference is to abstain. This holds for **any** pair of
+mechanisms that assign an author from the block's own history, not only for ours.
+Consistency therefore necessarily carries some winner information, and H2 as
+originally worded, that ADS does not predict which mechanism wins, cannot be true
+of any pair in this family. It is not rescuable by changing mechanisms.
+
+The claim is therefore rebuilt rather than repaired. Consistency is given the
+role the structure forces on it, gating whether the choice is live, and surface
+stability keeps the role the original H3 gave it, directing the choice where it
+is live. Neither signal alone predicts the winner, which is the contribution.
+
+---
+
+## Section 2, replaced: hypotheses
+
+### H1, accuracy (validity check, not a contribution)
+
+Across evaluation blocks, train-only ADS is positively associated with each
+mechanism's own held-out accuracy, separately for the exact-evidence rule (A) and
+the k-nearest-vote retriever (B, k = 5). Stated as a validity check: it confirms
+that per-block ADS behaves like the established dataset-level homonymity effect
+reported by Kim and Kim (2020) and in the S2AND paper. Reported as such, not as a
+finding.
+
+### H2, consistency gates whether the choice is live
+
+Train-only ADS governs whether the mechanism choice is decidable at all. Holding
+SV fixed, the share of blocks with a decided winner, that is the rule wins or
+k-NN wins as opposed to tie or undecided, declines as ADS rises, approaching zero
+in the top ADS band, while remaining non-trivially positive in the lower ADS
+bands. In words: high consistency means it does not matter which mechanism you
+use, low consistency means the choice is live.
+
+The decline toward zero at ADS = 1.0 is **partly structural** and is reported as
+such in those words, because a block naming one author returns that author from
+any non-empty pool, so only abstention can differ. The load-bearing empirical
+content is the gradient across the rest of the range and the existence of a
+non-trivial decidable region at low ADS, neither of which is structural.
+
+**Role-separation check.** ADS's association with decidability is reported
+alongside SV's, and H2 expects ADS to be the stronger driver. Operationalized in
+resolution 5 below.
+
+### H3, surface stability directs the choice, consistency does not
+
+Among blocks where the choice is decidable, train-only surface stability governs
+which mechanism wins, and consistency does not. Two parts, both required.
+
+- **Direction by SV.** Holding ADS fixed within a band below 1.0, the decided
+  pooled winner's identity changes across SV bands, and the change is a genuine
+  reversal as defined in section 8, that is two SV bands with decided pooled
+  verdicts of opposite identity, not only a change in gap magnitude.
+- **Non-direction by ADS.** Holding SV fixed, the decided pooled winner's
+  identity does not change across ADS bands. This is the original
+  selection-blindness claim, now scoped to decidable blocks at fixed surface
+  stability, which is where it can be true.
+
+H3 additionally requires the SV reversal to survive the initialization control of
+section 9, that is to be present with SV_resid and not only with raw SV, to hold
+with the Jaro-Winkler metric arm, and to generalize beyond inspire under the
+section 11 rule.
+
+### Contribution
+
+The contribution is the conjunction of H2 and H3: two design-time, label-free
+signals play separable roles, consistency setting whether the choice matters and
+surface stability setting which way to choose, and neither signal alone predicts
+the winner. This is distinct from Kim and Kim (2020), who report a single
+dataset-level gap magnitude modulated by a manipulated surface variable, with no
+decidability axis, no per-block interaction, and no design-time signal. See
+`reports/kim2020_positioning.md`.
+
+### Out of scope for 2.2, carried over unchanged
+
+The two-signal selector remains Phase 2.3 and the original section 2 text
+governing it stands: it is reported only beside an ADS-only selector and an
+SV-only selector, on held-out blocks, and the dual-signal claim survives only if
+the two-signal version beats both by more than the same delta. A fixed
+always-k-NN and a fixed always-rule policy are reported as floor baselines.
+Charter invariant 4's two baselines are now load-bearing rather than defensive,
+since this amendment expects both signals to carry part of the winner.
+
+---
+
+## Sections 4 and 7, amended: mechanism B and its parameter
+
+**Mechanism A, the exact-evidence rule, is unchanged.** Original section 4's
+exact-match definition, its metric, its coverage reporting and its tie-break all
+stand verbatim.
+
+**Mechanism B is now the k-nearest-vote retriever**, replacing the thresholded
+fuzzy arm. For a test signature, pool the nearest training signatures in the
+block by similarity of their surface form to the test form, whole forms at a
+time, until the pool holds at least k training signatures; if the block holds
+fewer than k training signatures, the pool is the whole block. Vote the pooled
+signatures' authors, signature-weighted, and assign the winner. **B does not
+abstain** when the block has at least one training signature, which on the
+primary analysis population is every block, so abstention sits entirely on the
+rule's side. Coverage is still reported for both mechanisms at every level at
+which accuracy is reported.
+
+**k is fixed by definition at k = 5. It is not calibrated by maximizing
+accuracy.** This supersedes section 7's accuracy-maximizing cutoff calibration,
+which no longer applies: B has no similarity cutoff, and B's accuracy is monotone
+toward the single-nearest limit, which is exactly the nesting that killed 2.2b.
+Section 7 is therefore void for 2.2e and no cutoff is calibrated. Section 6's SV
+and SV_resid band edges, calibrated under the same protocol and frozen in
+`phase2b_constants.py` at commit `5e13e38`, **carry over unchanged and are not
+recomputed**.
+
+**Disclosure.** k = 5 was chosen on the calibration split for contest balance,
+not for accuracy, from the counts in `reports/phase2c_pair_design.md`. That is a
+calibration-split design choice of exactly the kind the calibration split exists
+for, and it is disclosed here rather than presented as arbitrary.
+
+**The k sensitivity curve is mandatory.** Every H2 and H3 outcome is recomputed
+at k in {2, 3, 5, 10} and reported beside the primary. An outcome that holds at
+k = 5 and flips elsewhere on the curve is reported as k-dependent and treated as
+Partial, not Supported. This is the same rule section 8 applies to delta.
+
+**Metric-family robustness arm, restated.** Section 9's Jaro-Winkler arm becomes
+simpler under this amendment: it is the same k-nearest vote with Jaro-Winkler
+similarity in place of normalized Levenshtein, and it calibrates nothing, because
+there is no cutoff to calibrate. Everything else in section 9 stands, including
+SV_resid, the INIT stratification, the 5 by 4 grid, and the three structural
+outcomes.
+
+**Section 8 carries over unchanged**, except that the verdict `fuzzy wins` is
+renamed `k-NN wins` and `exact wins` is renamed `rule wins`. The four verdicts
+are `rule wins`, `k-NN wins`, `tie`, `undecided`; the per-block paired bootstrap,
+the block-resampling pooled bootstrap, B = 2000, the seeds, the primary margin
+delta = 0.05 and the {0.02, 0.03} robustness curve are all as originally frozen.
+The renames are cosmetic: the same mechanisms under their new names.
+
+**Section 3 carries over unchanged.** The primary analysis population stays
+blocks with `n_train >= 2` and `n_test >= 1`. ADS = 1.0 blocks are **not**
+excluded: H2 needs them, because the decline of decidability into that band is
+what H2 is about. H3 is scoped to ADS bands below 1.0 by its own wording, which
+is the right place for that restriction.
+
+---
+
+## Section 10, replaced: falsification table
+
+**Order of evaluation, carried over.** Inconclusive is evaluated first for every
+hypothesis. If the Inconclusive power floor is met, the outcome is Inconclusive
+regardless of the other rows. An all-tie or all-undecided set of bands is never
+read as support for H2 or H3.
+
+"Generalizes" always means the section 11 rule: the result holds in the pooled
+non-inspire analysis and in a majority of qualifying non-inspire datasets, where
+a dataset qualifies at 100 or more blocks in the primary analysis population.
+
+### H1, accuracy
+
+| outcome | rule |
+| --- | --- |
+| Supported | Spearman of train-only ADS with held-out accuracy is positive with a 95% block-bootstrap interval excluding 0, for **both** mechanisms, and it generalizes. |
+| Partial | Positive and interval-excluding-0 for one mechanism but not both, or pooled but not generalizing. |
+| Not supported | Interval includes 0 for both mechanisms, or the correlation is negative with an interval excluding 0 for either. |
+| Inconclusive | Fewer than 500 blocks in the primary analysis population, or fewer than 2 qualifying non-inspire datasets. |
+
+### H2, consistency gates decidability
+
+| outcome | rule |
+| --- | --- |
+| Supported | Holding SV fixed, the decided-winner rate is non-increasing across ADS bands in the majority of eligible SV bands, **and** is strictly lower in the top ADS band than in the bottom, **and** at least one ADS band below 1.0 holds a non-trivial decidable region (resolution 6), **and** ADS is the stronger driver of decidability than SV (resolution 5), **and** this holds in the pooled non-inspire analysis. |
+| Partial | The gradient holds pooled but not per-dataset; or the decidable region exists but the gradient is weak or non-monotone; or SV rivals ADS as a driver of decidability. |
+| Not supported | The decided-winner rate does not decline with ADS, being flat or rising; or no ADS band holds a non-trivial decidable region, meaning the choice is never live, as in 2.2b. |
+| Inconclusive | Fewer than 2 ADS bands and 2 SV bands with 30 or more blocks and a decided pooled verdict. |
+
+### H3, surface stability directs the choice
+
+| outcome | rule |
+| --- | --- |
+| Supported | Within at least one ADS band below 1.0 with 30 or more blocks per SV cell, two SV bands have decided pooled verdicts of opposite identity, a genuine reversal; **and** holding SV fixed, winner identity does not reverse across ADS bands, or all such verdicts are tie or undecided; **and** the reversal is present with SV_resid; **and** it holds with the Jaro-Winkler arm; **and** it generalizes past inspire. |
+| Partial | A reversal with raw SV but not SV_resid, meaning the surface axis is forename initialization, Kim and Kim's variable; **or** a tie-crossing rather than a reversal; **or** an SV reversal that holds but ADS also reverses the winner at fixed SV, which is impure role separation; **or** a reversal that holds pooled but does not generalize; **or** one that holds with edit distance but not Jaro-Winkler; **or** one that is margin-dependent or k-dependent. |
+| Not supported | **Gap compression only.** The magnitude of the gap varies with SV but no SV band pair is decided in opposite directions in any ADS band, in any qualifying analysis. This is an honest, publishable outcome and is reported in those words: a per-block, design-time, measured version of Kim and Kim's gap-compression finding, obtained with two simple mechanisms, together with the methodological point that single-nearest retrieval subsumes exact match. The two-signal dissociation claim is dropped and the paper retargets to this result. |
+| Inconclusive | Fewer than 2 SV bands with 30 or more blocks and a decided pooled verdict inside any single ADS band. |
+
+### Outcomes that are explicitly acceptable, not failures to hide
+
+The original section 10 list carries over, with one entry updated and one added.
+
+- **The gap only compresses, there is no reversal.** H3 not supported. Unchanged.
+- **The co-signal does not help.** In 2.3, the SV-only selector matches or beats
+  the two-signal selector out of sample, or neither beats the better fixed
+  policy. Unchanged.
+- **SV is forename initialization.** Effect present in SV, absent in SV_resid.
+  Unchanged.
+- **The choice is never live.** Updated from "the low-SV region is structurally
+  tied". If no ADS band holds a non-trivial decidable region, H2 is Not supported
+  and the paper reports that on this substrate the mechanism choice does not
+  matter anywhere, which is itself a usable practitioner finding and is reported
+  in those words.
+- **Consistency directs as well as gates.** New. If ADS reverses the winner at
+  fixed SV, the role separation is impure, H3 is Partial, and the paper reports a
+  two-signal interaction without clean role assignment rather than claiming one.
+- **ADS predicts gap magnitude.** Expected, consistent with Kim and Kim, and not
+  a refutation of anything here. Unchanged.
+- **The primary analysis population is too thin.** Inconclusive is a permitted
+  verdict and will be used rather than reaching for a smaller threshold.
+  Unchanged.
+
+---
+
+## Resolutions of ambiguity, fixed now
+
+Six places where the revision as handed over was under-determined or drifted from
+what 2.2c measured. Each is resolved here, before any number exists, rather than
+being settled during the run. **All six are flagged for review.** Any of them can
+be overruled before 2.2e starts; none can be changed after it.
+
+**Resolution 1, what "k nearest" counts.** The revision says "retrieve the k
+nearest training forms". Fixed here as the **signature-counted** version stated
+in the section 4 amendment above: forms are added whole, nearest first, until the
+pool holds at least k training signatures. The two readings differ whenever a
+form carries more than one signature, which is the common case, and the k = 5
+balance evidence in `reports/phase2c_pair_design.md` was produced under the
+signature-counted reading. The form-counted reading has not been checked for
+two-sidedness and is not adopted.
+
+**Resolution 2, tie-breaking inside mechanism B.** The revision says "break ties
+toward the nearest form". Not adopted, for two reasons: it is under-determined
+when two forms are equidistant, and it would make the two mechanisms use
+different tie-breaks, which turns part of the winner contest into a comparison of
+tie-break rules. **The frozen original section 4 chain is used for both
+mechanisms**: most frequent author inside the pooled evidence, then most frequent
+author inside the block, then the lexicographically smallest author id. This is
+what 2.2c measured.
+
+**Resolution 3, the nesting limit is k = 1, not k = 2.** The revision calls k = 2
+"the single-nearest limit". Under the signature-counted definition the exact
+single-nearest-form retriever is k = 1. k = 2 is close to it but not identical,
+and measured 181 rule wins against 736 on the calibration split, against 546
+against 744 at k = 5. The substantive point stands unchanged: accuracy is
+monotone toward the nesting limit, so accuracy-maximizing calibration would walk
+the design back into 2.2b. k = 1 is not on the sensitivity curve, because it is
+the known-degenerate case and its result is already reported in
+`reports/phase2b_boundary.md`.
+
+**Resolution 4, what "decided" means in H2.** Decidability is measured with the
+**per-block** paired-bootstrap verdict of section 8, not the pooled band verdict.
+The decided-winner rate of a cell is the share of that cell's blocks whose
+per-block verdict is `rule wins` or `k-NN wins`. This is the quantity section 8
+already requires under "Verdict distribution", so no new statistic is introduced.
+H3's reversal test continues to use the **pooled** band verdict, as the original
+section 9 specifies. The two hypotheses therefore read different rows of the same
+frozen table, which is deliberate: decidability is a property of a population of
+blocks, winner identity is a property of a band.
+
+**Resolution 5, "ADS is the stronger driver of decidability".** Operationalized
+as a comparison of ranges over the frozen 5 by 4 grid. For each SV band with 30
+or more blocks, take the range, maximum minus minimum, of the decided-winner rate
+across its eligible ADS cells, and average those ranges over SV bands; do the
+same with the axes swapped. **ADS is the stronger driver if its averaged range is
+the larger.** Cells under 30 blocks are excluded, as everywhere else. Reported as
+both numbers, never as the verdict alone.
+
+**Resolution 6, "a non-trivial decidable region".** Fixed as: **at least one ADS
+band below 1.0, holding 30 or more blocks, in which 30 or more blocks have a
+decided per-block verdict.** An absolute count, not a rate, and it reuses the
+section 3 minimum of 30 rather than introducing a new threshold. It is set as a
+count because it is also exactly what H3 needs in order to have material to
+analyse, so the two hypotheses share one floor.
+
+---
+
+## Reproducibility and invariant checks for 2.2e
+
+The original section 12 carries over, with the mechanism names updated.
+
+- All seeds stay at 20260918. The split of section 3 is unchanged, so the
+  calibration and evaluation blocks of 2.2e are the same blocks as 2.2b's.
+- No test signature reaches any signal, any band edge, or the choice of k. The
+  k = 5 disclosure above concerns calibration-split blocks only. Per charter
+  invariant 3.
+- The winner is defined only by labelled accuracy. Neither ADS nor SV nor
+  SV_resid appears in either mechanism definition. Per charter invariant 2.
+- Two mechanisms only, neither trained. Per charter invariant 6.
+- Offline, CPU-only, deterministic, no API key. Per charter invariant 7.
+- Mechanism B gets an assert-based self-check in the module that defines it,
+  including the case that fixes resolution 1 and the case that fixes
+  resolution 2.
+- The 2.2b numbers are not recomputed, not overwritten, and not withdrawn. They
+  stay in `reports/phase2b_boundary.md` as the record of the nested pair and are
+  reported in the paper beside the 2.2e numbers.
