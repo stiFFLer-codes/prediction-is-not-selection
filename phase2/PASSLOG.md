@@ -2058,3 +2058,121 @@ the hashes and paths; and flatten the figure paths for the arXiv tarball. Then
 decide the affiliation, the generative-AI disclosure, and whether the body
 length is accepted. Endorsement is the item with the longest lead time and is
 worth checking before anything else is polished.
+
+## Pass 16 — Phase 2.6b, submission-content edits (2026-09-21)
+
+**What I did and why.** Acted on five of the ten findings Pass 15 surfaced,
+using text the author supplied for the two that needed an author's words.
+Content edits only. No commit history was rebased, squashed or altered, so the
+seven short hashes in section 6.4's footnote are untouched and still resolve.
+Nothing was measured, no analysis code ran, and `PREREG.md` was not touched.
+Files changed: `paper/main.tex`, `.gitignore`,
+`reports/phase2_6_moderation_audit.md`, this file and `STATE.md`. Files added:
+`paper/figs/` with five PNGs, and `paper/main.bbl`.
+
+**1. The affiliation, corrected.** Pass 15's "Independent researcher" was a
+wrong default and is gone. `\author{}` now carries the Department of
+Information Technology, A. D. Patel Institute of Technology (ADIT), Charutar
+Vidya Mandal (CVM) University, New Vallabh Vidyanagar, Anand, Gujarat, India,
+with `maitreyasapariya@gmail.com` as the corresponding address and the ORCID.
+Checked against the supplied string word for word. The only typographic liberty
+is `A.~D.~Patel`, which is the LaTeX idiom for initials: it renders as
+"A. D. Patel" and stops the pair breaking across a line.
+
+**2. The generative-AI disclosure**, as `\section*{Generative-AI disclosure}`
+after the conclusion. The author's text is reproduced **verbatim**, verified
+character for character by a script that normalizes whitespace and compares
+against the supplied string: exact match, no paraphrase, nothing added.
+
+**3. The data and code availability statement**, as
+`\section*{Data and code availability}` before the disclosure. It names the
+GitHub repository and states that the Phase 2 code and pre-registration will be
+public there at release; it ties that repository to the commit history section
+6.4 depends on; it gives the Zenodo concept DOI `10.5281/zenodo.21644207` as a
+resolvable link; and it names S2AND, cites it, states the ODC-BY licence, and
+says explicitly that nothing is redistributed and that the repository holds
+only the download code and the manifest.
+
+**4. The build is now self-contained, and this was verified the way arXiv will
+test it.** The five PNGs are copied to `paper/figs/` and confirmed
+sha256-identical to their sources under `reports/figs/`. `\graphicspath` is
+`{{figs/}}`. `main.tex` contains no `../` anywhere.
+
+**The verification that matters:** `main.tex`, `main.bbl` and `figs/` were
+copied alone into an empty directory with no access to the repository, and
+built there. All five `\includegraphics` resolved from `figs/`; zero undefined
+citations, zero undefined references, zero LaTeX warnings after the third pass,
+25 pages. That is an AutoTeX simulation, not an inference from the source.
+
+**`main.bbl` is committed and explicitly not ignored.** Pass 15 was wrong to
+gitignore it. `.gitignore` now carries a comment saying why it is exempt:
+AutoTeX does not run BibTeX, so the `.bbl` has to ship. `main.aux`, `.blg`,
+`.log`, `.out` and `.pdf` stay ignored.
+
+**The figures now exist twice in the repository**, in `reports/figs/` and in
+`paper/figs/`. Deliberate: `paper/` is now a self-contained submission
+directory, which is worth 356 KB of duplication. `reports/figs/` stays the
+generated output of `phase2e_run.py` and is the copy to regenerate.
+
+**Post-edit checks, all run.** Zero undefined citations. Zero undefined
+references. Zero LaTeX warnings. **Zero em dashes**, both the TeX `---` form
+and U+2014. Source still pure ASCII, zero non-ASCII bytes and zero stray
+control characters. Cite-key parity holds unchanged at 17 against 17, and all
+22 `\texttt{}` artifact references still resolve locally. 25 pages, up from 24.
+
+**Length, and a ceiling that is now effectively touched.** The body is
+unchanged at 9,076 words on this pass's counter; the two back-matter sections
+add 215. Back matter is conventionally outside a body budget, like references
+and captions, which puts prose at 9,770. **Counted the other way, with back
+matter inside, the prose total is 9,985 against the charter's 10,000 ceiling:
+fifteen words of headroom.** Whichever convention review adopts, the practical
+consequence is the same. Nothing further can be added to this manuscript
+without cutting something, and the body-length decision 2.5c handed up is now
+the binding constraint rather than a tidiness question.
+
+**The audit report was updated rather than superseded.**
+`reports/phase2_6_moderation_audit.md` keeps every finding's original text and
+adds a dated 2.6b note to each one that moved, plus a status column. Five
+closed (2, 3, 4, 7, and the endorsement position improved), one reduced but not
+closed (1), four unchanged (5, 6, 8, 10) and one whose fix shape changed (9).
+
+**The finding that did not close, and why it gates the upload.** Finding 1 is
+reduced, not closed. The paper now names the repository, but `phase-2` is still
+unpushed, so the seven hashes in section 6.4 and the availability statement's
+promise both point at a repository that does not yet contain what the paper
+says it contains. A reader following the URL today lands on `main`, which is
+the Phase 1 project. **The manuscript must not be uploaded before that push
+happens.** Adding the URL without the push moved the problem from silent to
+stated, which is an improvement and is not a fix.
+
+**New finding, from the affiliation itself.** The corresponding address is a
+personal Gmail account, which is what the author asked for and is fine in
+print. It matters only for the arXiv account: automatic endorsement keys off a
+registered institutional email domain plus publication history, so a personal
+address forecloses the automatic route and leaves the manual request.
+Registering an `adit.ac.in` or `cvmu.edu.in` address with arXiv, independently
+of what the paper prints, is now the cheapest item on the list. Recorded in the
+audit report.
+
+**Invariant checks.** Invariant 5, no result before measurement: held, nothing
+measured and no number, verdict or table altered. Invariant 7, offline and
+reproducible: held, no network call and no new dependency; the figure copies
+are local. Invariant 8, honest framing: the availability statement's future
+tense is deliberate and is flagged above rather than being allowed to read as a
+present-tense promise. Writing invariants: em dashes zero, headings sentence
+case, and the prose ceiling is now effectively reached, which is on the record.
+
+**What I did not do, and why.** Did not push `phase-2`, tag it, or touch any
+remote: out of scope and the author's call. Did not rebase, squash or amend
+anything, by instruction. Did not act on findings 5, 6, 8 or 10, which are
+metadata and licence decisions taken at submission time, not manuscript edits.
+Did not cut anything to make room for the 215 new words; that is the
+body-length decision and it is review's.
+
+**Recommendation for the next pass.** 2.7, the peer-review dry run, can proceed
+on the manuscript as it stands: nothing outstanding blocks a review read. Two
+things are worth doing in parallel because they are slow and are not writing.
+Push `phase-2` and tag the state section 6.4 describes, which closes finding 1
+without touching a hash. And register an institutional email with arXiv, then
+start the endorsement request for cs.DL, which has the longest lead time of
+anything left.

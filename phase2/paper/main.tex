@@ -13,7 +13,7 @@
 \usepackage{natbib}
 \usepackage[hidelinks]{hyperref}
 
-\graphicspath{{../reports/figs/}}
+\graphicspath{{figs/}}
 \bibliographystyle{plainnat}
 
 \setlength{\parskip}{0.25\baselineskip}
@@ -21,8 +21,10 @@
 \title{Prediction is not selection: a pre-registered study of design-time
 mechanism selection in entity resolution}
 
-\author{Maitreya Sapariya\thanks{Independent researcher.
-ORCID 0009-0003-9346-3775.}}
+\author{Maitreya Sapariya\thanks{Department of Information Technology,
+A.~D.~Patel Institute of Technology (ADIT), Charutar Vidya Mandal (CVM)
+University, New Vallabh Vidyanagar, Anand, Gujarat, India. Corresponding
+author: \texttt{maitreyasapariya@gmail.com}. ORCID 0009-0003-9346-3775.}}
 
 \date{}
 
@@ -1351,6 +1353,34 @@ are comparing are not nested, with one count of the items where each is right
 and the other wrong. Expect the choice not to matter on most of your data,
 and pick on cost and maintainability when it does not. And measure your data
 to learn how hard it is, not to learn what to build.
+
+\section*{Data and code availability}
+
+The source code, the pre-registration and its amendments, and the scripts
+that produce every table and figure in this paper will be public at release
+in the repository \url{https://github.com/stiFFLer-codes/ADS-Cascade}, whose
+commit history is what Section~\ref{sec:prereg-integrity} refers to. The
+project is archived on Zenodo under the concept DOI
+\href{https://doi.org/10.5281/zenodo.21644207}{10.5281/zenodo.21644207},
+which resolves to the latest archived version.
+
+The data is S2AND, the Semantic Scholar Author Name Disambiguation benchmark
+\citep{s2and2021}. It is publicly available and we use it under its ODC-BY
+licence. We redistribute none of it; the repository holds the code that
+downloads it and the manifest that records what was downloaded.
+
+\section*{Generative-AI disclosure}
+
+The author used an AI assistant (Claude, Anthropic), including the Claude
+Code agent, to help plan the study, to write and run the analysis code, and
+to draft and revise the text of this manuscript, working under author
+direction. The research design, the pre-registration and its amendments, the
+analyses, every reported number, the selection and verification of every
+citation, and the final wording were determined, checked and approved by the
+author, who takes full responsibility for the content. This is a statement
+about how the paper was produced and not about the systems it studies: both
+mechanisms evaluated here, the exact-evidence rule and the k-nearest vote,
+are untrained lookups that invoke no language model.
 
 \bibliography{references}
 

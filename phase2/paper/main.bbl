@@ -1,0 +1,134 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Amig{\'o} et~al.(2009)Amig{\'o}, Gonzalo, Artiles, and
+  Verdejo]{amigo2009}
+Enrique Amig{\'o}, Julio Gonzalo, Javier Artiles, and Felisa Verdejo.
+\newblock A comparison of extrinsic clustering evaluation metrics based on
+  formal constraints.
+\newblock \emph{Information Retrieval}, 12\penalty0 (4), 2009.
+\newblock \doi{10.1007/s10791-008-9066-8}.
+
+\bibitem[Backes(2018)]{backes2018}
+Tobias Backes.
+\newblock The impact of name-matching and blocking on author disambiguation.
+\newblock In \emph{Proceedings of the 27th ACM International Conference on
+  Information and Knowledge Management (CIKM)}, 2018.
+\newblock \doi{10.1145/3269206.3271699}.
+
+\bibitem[Barbudo et~al.(2023)Barbudo, Ventura, and Romero]{barbudo2023}
+Rafael Barbudo, Sebasti{\'a}n Ventura, and Jos{\'e}~Ra{\'u}l Romero.
+\newblock Eight years of {AutoML}: Categorisation, review and trends.
+\newblock \emph{Knowledge and Information Systems}, 65\penalty0 (12), 2023.
+\newblock \doi{10.1007/s10115-023-01935-1}.
+
+\bibitem[Chen et~al.(2023)Chen, Zhang, Tang, et~al.]{whoiswho2023}
+Bo~Chen, Jing Zhang, Jie Tang, et~al.
+\newblock Web-scale academic name disambiguation: the {WhoIsWho} benchmark,
+  leaderboard, and toolkit.
+\newblock In \emph{Proceedings of the 29th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining (KDD)}, 2023.
+\newblock \doi{10.1145/3580305.3599930}.
+
+\bibitem[Chow(1970)]{chow1970}
+C.~K. Chow.
+\newblock On optimum recognition error and reject tradeoff.
+\newblock \emph{IEEE Transactions on Information Theory}, 16\penalty0 (1),
+  1970.
+\newblock \doi{10.1109/TIT.1970.1054406}.
+
+\bibitem[Elmachtoub and Grigas(2022)]{elmachtoub2022}
+Adam~N. Elmachtoub and Paul Grigas.
+\newblock Smart ``predict, then optimize''.
+\newblock \emph{Management Science}, 68\penalty0 (1):\penalty0 9--26, 2022.
+\newblock \doi{10.1287/mnsc.2020.3922}.
+
+\bibitem[Ferreira et~al.(2012)Ferreira, Gon{\c{c}}alves, and
+  Laender]{ferreira2012}
+Anderson~A. Ferreira, Marcos~Andr{\'e} Gon{\c{c}}alves, and Alberto H.~F.
+  Laender.
+\newblock A brief survey of automatic methods for author name disambiguation.
+\newblock \emph{ACM SIGMOD Record}, 41\penalty0 (2):\penalty0 15--26, 2012.
+\newblock \doi{10.1145/2350036.2350040}.
+
+\bibitem[Hand(2009)]{hand2009}
+David~J. Hand.
+\newblock Measuring classifier performance: A coherent alternative to the area
+  under the {ROC} curve.
+\newblock \emph{Machine Learning}, 77\penalty0 (1):\penalty0 103--123, 2009.
+\newblock \doi{10.1007/s10994-009-5119-5}.
+
+\bibitem[Hendrickx et~al.(2024)Hendrickx, Perini, Van~der Plas, Meert, and
+  Davis]{hendrickx2024}
+Kilian Hendrickx, Lorenzo Perini, Dries Van~der Plas, Wannes Meert, and Jesse
+  Davis.
+\newblock Machine learning with a reject option: A survey.
+\newblock \emph{Machine Learning}, 2024.
+\newblock \doi{10.1007/s10994-024-06534-x}.
+
+\bibitem[Hern{\'a}ndez-Orallo et~al.(2012)Hern{\'a}ndez-Orallo, Flach, and
+  Ferri]{hernandezorallo2012}
+Jos{\'e} Hern{\'a}ndez-Orallo, Peter Flach, and C{\`e}sar Ferri.
+\newblock A unified view of performance metrics: Translating threshold choice
+  into expected classification loss.
+\newblock \emph{Journal of Machine Learning Research}, 13:\penalty0 2813--2869,
+  2012.
+\newblock URL \url{https://www.jmlr.org/papers/v13/hernandez-orallo12a.html}.
+
+\bibitem[Kim and Kim(2020)]{kimkim2020}
+Jinseok Kim and Jenna Kim.
+\newblock Effect of forename string on author name disambiguation.
+\newblock \emph{Journal of the Association for Information Science and
+  Technology}, 71\penalty0 (7):\penalty0 839--855, 2020.
+\newblock \doi{10.1002/asi.24298}.
+
+\bibitem[Mozannar and Sontag(2020)]{mozannarsontag2020}
+Hussein Mozannar and David Sontag.
+\newblock Consistent estimators for learning to defer to an expert.
+\newblock In \emph{Proceedings of the 37th International Conference on Machine
+  Learning (ICML), PMLR vol. 119}, 2020.
+\newblock URL \url{https://proceedings.mlr.press/v119/mozannar20b.html}.
+
+\bibitem[Rice(1976)]{rice1976}
+John~R. Rice.
+\newblock The algorithm selection problem.
+\newblock \emph{Advances in Computers}, 15, 1976.
+\newblock \doi{10.1016/S0065-2458(08)60520-3}.
+
+\bibitem[Sapariya(2026)]{adscascade2026}
+Maitreya Sapariya.
+\newblock {ADS}-{C}ascade: design-time mechanism selection from historical
+  decision consistency, 2026.
+\newblock Concept DOI, resolves to the latest version (currently v1.1.0 at
+  \texttt{10.5281/zenodo.22258609}). Version 1.0.0 is archived at
+  \texttt{10.5281/zenodo.21644208}.
+
+\bibitem[Smith-Miles(2009)]{smithmiles2009}
+Kate~A. Smith-Miles.
+\newblock Cross-disciplinary perspectives on meta-learning for algorithm
+  selection.
+\newblock \emph{ACM Computing Surveys}, 41\penalty0 (1), 2009.
+\newblock \doi{10.1145/1456650.1456656}.
+
+\bibitem[Subramanian et~al.(2021)Subramanian, King, Downey, and
+  Feldman]{s2and2021}
+Shivashankar Subramanian, Daniel King, Doug Downey, and Sergey Feldman.
+\newblock {S2AND}: A benchmark and evaluation system for author name
+  disambiguation.
+\newblock In \emph{Proceedings of the ACM/IEEE Joint Conference on Digital
+  Libraries (JCDL)}, 2021.
+\newblock \doi{10.1109/JCDL52503.2021.00029}.
+
+\bibitem[Vickers and Elkin(2006)]{vickers2006}
+Andrew~J. Vickers and Elena~B. Elkin.
+\newblock Decision curve analysis: A novel method for evaluating prediction
+  models.
+\newblock \emph{Medical Decision Making}, 26\penalty0 (6):\penalty0 565--574,
+  2006.
+\newblock \doi{10.1177/0272989X06295361}.
+
+\end{thebibliography}

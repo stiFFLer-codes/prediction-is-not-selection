@@ -6,22 +6,46 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.6 complete. The manuscript is submittable in content and
-  is not yet packaged for arXiv.** All ten sections plus the abstract are in
-  `paper/main.tex`, which builds under pdflatex and bibtex at 24 pages with
-  zero LaTeX warnings and no undefined citations or references. Housekeeping
-  is closed, the verified bibliography is in, the title's scope risk is fixed
-  in prose, and the moderation audit has run and is reported but **not acted
-  on, by instruction**. Awaiting human review of its findings. Phase 2.3 stays
-  blocked and, on the 2.5b negative control, has no selector left to build.
-- **Two moderation findings block a first arXiv upload and are cheap to fix.**
-  (1) The manuscript cites seven short commit hashes and fifteen repository
-  artifact paths and gives no repository URL, while branch `phase-2` has never
-  been pushed to `origin`, so none of it resolves for any reader. All 22
-  resolve locally; 2.6 checked every one. (2)
-  `\graphicspath{{../reports/figs/}}` escapes the submission directory and
-  will not build under arXiv's AutoTeX. Full findings, ten of them ranked, in
-  `reports/phase2_6_moderation_audit.md`.
+- Status: **Phase 2.6b complete. The manuscript is submission-ready in
+  content and in build, and one thing outside the manuscript still gates the
+  upload.** All ten sections, the abstract and two back-matter statements are
+  in `paper/main.tex`, which builds under pdflatex and bibtex at 25 pages with
+  zero LaTeX warnings, no undefined citations or references and zero em dashes.
+  Housekeeping is closed, the bibliography is verified, the title's scope risk
+  is fixed in prose, the affiliation is correct, the generative-AI disclosure
+  and the data and code availability statement are in, and the build is
+  self-contained. Phase 2.3 stays blocked and, on the 2.5b negative control,
+  has no selector left to build.
+- **The one thing that gates a first upload is not a manuscript edit.**
+  `phase-2` has never been pushed, so the seven commit hashes in section 6.4
+  and the new availability statement both point at a repository that does not
+  yet contain what the paper says it contains. A reader following the URL today
+  lands on `main`, the Phase 1 project. **Do not upload before that push.**
+  Adding the URL made the problem stated rather than silent; it did not fix it.
+- **The build is self-contained and this was verified the way arXiv tests it.**
+  The five PNGs live in `paper/figs/`, sha256-identical to `reports/figs/`, and
+  `\graphicspath` is `{{figs/}}` with no `../` anywhere. `main.tex`,
+  `main.bbl` and `figs/` were copied alone into an empty directory and built
+  there with no repository access: all five figures resolved, zero undefined
+  citations, zero undefined references, zero LaTeX warnings. `main.bbl` is
+  committed and explicitly un-ignored, because AutoTeX does not run BibTeX.
+- **Five of the ten moderation findings are closed at 2.6b, one is reduced,
+  four are open.** Closed: the `\graphicspath` build blocker, the
+  generative-AI disclosure, the `main.bbl` packaging requirement, the
+  availability and ODC-BY statement, and the affiliation that improved the
+  endorsement position. Reduced but not closed: the repository is now named in
+  the paper but `phase-2` is still unpushed. Open: the abstract's 154
+  characters of headroom, the `{,}` separators in the metadata abstract, the
+  cs.LG cross-list question and the arXiv licence choice, all of which are
+  submission-time decisions rather than manuscript edits.
+  `reports/phase2_6_moderation_audit.md` carries every finding with its
+  original text plus a dated 2.6b note and a status column.
+- **New at 2.6b: the corresponding address is a personal Gmail account.** Fine
+  in print, and it matters for the arXiv account. Automatic endorsement keys
+  off a registered institutional email domain plus publication history, so a
+  personal address leaves only the manual endorsement request. Registering an
+  `adit.ac.in` or `cvmu.edu.in` address with arXiv, whatever the paper prints,
+  is the cheapest remaining item and has the longest lead time.
 - **The manuscript is at `phase2/paper/main.tex`**, with
   `phase2/paper/references.bib`. Venue-neutral LaTeX, generic `article` class,
   no journal style file.
@@ -323,26 +347,49 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   author name disambiguation instance, which cost +198 body words. The
   moderation findings were surfaced, not fixed. Nothing measured. `PREREG.md`
   untouched. Folds in the 2.5d title micro-pass, which had no PASSLOG entry.
+- **Pass 16 (Phase 2.6b): five moderation findings acted on, the build made
+  self-contained.** Affiliation corrected from the wrong "Independent
+  researcher" default to ADIT / CVM University; the author's generative-AI
+  disclosure added verbatim and verified character for character; a data and
+  code availability statement added naming the repository, the Zenodo concept
+  DOI and S2AND's ODC-BY licence; the five figures copied to `paper/figs/` with
+  `\graphicspath` made relative-downward, verified by an isolated flat
+  directory build; `main.bbl` un-ignored and committed. No history rebased,
+  squashed or amended, so section 6.4's hashes are intact. Nothing measured.
+  `PREREG.md` untouched.
 
-## Next: review the moderation findings, then package for arXiv
+## Next: Phase 2.7, the peer-review dry run
 
-Read `reports/phase2_6_moderation_audit.md`. Its ten findings are ranked and
-none was acted on. The two blocking ones both have to land before a first upload and
-are cheap: give the manuscript a resolvable repository, by pushing `phase-2`
-and citing its URL or by cutting the hashes and paths; and flatten
-`\graphicspath` for the arXiv tarball, which also has to ship `main.bbl`
-because AutoTeX does not run BibTeX. **Endorsement has the longest lead time
-of anything on the list and is worth checking first**: a first-time submitter
-with no institutional affiliation will probably need an endorser for cs.DL or
-cs.IR.
+**2.7 is the next pass.** Run the manuscript through a simulated peer review
+and act on what it returns. Nothing outstanding blocks a review read: the paper
+builds clean, the citations are verified, the scope is stated, and the two
+back-matter statements are in. The three places 2.5c asked for a hostile read
+are still the three places worth the reviewer's attention, and they are listed
+under the held-over section below.
 
-Three decisions are the author's and nothing else can be packaged around them:
-the affiliation line (2.6 set "Independent researcher" as a default, not as a
-verified fact), whether a generative-AI disclosure goes in the manuscript, and
-whether the body length is accepted.
+**Two slow things are worth starting in parallel, because neither is writing.**
+Push `phase-2` and tag the state section 6.4 describes, which closes the last
+self-containment finding without touching a commit hash. And register an
+institutional email with arXiv, then open the endorsement request for cs.DL.
+Endorsement is the only item here measured in weeks.
+
+**The body-length decision is now the binding constraint, not a tidiness
+question.** Counting the two back-matter statements inside the prose total puts
+it at 9,985 against the charter's 10,000 ceiling: fifteen words of headroom.
+Counting them outside it, which is the usual convention for availability and
+disclosure statements, puts it at 9,770. Either way, **2.7 cannot add a word
+without cutting one**, and a peer-review pass usually wants to add. Decide
+before 2.7 runs whether back matter counts, and which of sections 4, 6, 7 and 8
+may be cut into.
+
+**Four moderation findings stay open and are all submission-time decisions**,
+not manuscript edits: the abstract's 154 characters of headroom, retyping the
+`{,}` separators for the plain-text metadata field, whether cs.LG is worth
+requesting as a cross-list beside cs.IR (cs.DB may fit better), and which arXiv
+licence to select.
 
 The review of the draft that 2.5c asked for is still worth doing and was not
-part of 2.6. It is preserved below.
+part of 2.6 or 2.6b. It is preserved below and feeds directly into 2.7.
 
 ## Held over from 2.5c: review the edited manuscript, and decide the body length
 
@@ -460,12 +507,16 @@ Flagged at Phase 2.5c for the 2.6 gate, not fixed:
   half an hour". Left open only because they are short hashes in published
   text and would need re-checking after any rebase.
 - **Tan (2026): verify or drop.** Unchanged from 2.5b, restated below.
-- **The author affiliation line. Filled at 2.6 with a default, not settled.**
-  It now reads `Independent researcher. ORCID 0009-0003-9346-3775.` No
-  affiliation for the author exists anywhere in the repository, `CITATION.cff`
-  included, so 2.6 chose the conventional wording for an unaffiliated author
-  rather than inventing one. The author confirms or replaces it. It also bears
-  on arXiv endorsement.
+- **Settled at 2.6b: the author affiliation.** 2.6's "Independent researcher"
+  was a wrong default and is gone. `\author{}` now carries the Department of
+  Information Technology, A. D. Patel Institute of Technology (ADIT), Charutar
+  Vidya Mandal (CVM) University, New Vallabh Vidyanagar, Anand, Gujarat, India,
+  with `maitreyasapariya@gmail.com` as the corresponding address and the ORCID.
+  Set from the author's own string. `CITATION.cff` still carries no affiliation
+  and could be brought into line at the release pass.
+- **Settled at 2.6b: the generative-AI disclosure.** The author's statement is
+  in the manuscript verbatim, as `\section*{Generative-AI disclosure}` after
+  the conclusion, verified character for character against the supplied text.
 
 Still open:
 
@@ -517,13 +568,17 @@ Still open:
 - **Retired at 2.6: the unverified citations.** Block C is verified, every
   entry resolves by DOI or publisher URL, and the one placeholder is removed.
   The charter's "every citation verified and resolvable" rule is met.
-- **New at 2.6: the manuscript is not self-contained for a reader who cannot
-  see this repository.** Section 6.4's integrity argument turns on seven short
-  commit hashes, and table and figure captions name fifteen repository
-  artifact paths. All 22 resolve locally and none resolves publicly: no
-  repository URL appears in the paper, and `phase-2` is not pushed. As it stands the strongest part of the paper's defence is
-  unverifiable by the people it is written for. This is the top moderation
-  finding and it is a credibility risk, not only a formatting one.
+- **Narrowed at 2.6b and still the top risk: the repository the paper points
+  at does not yet contain the paper's evidence.** Section 6.4's integrity
+  argument turns on seven short commit hashes, and captions name fifteen
+  repository artifacts. All 22 resolve locally. 2.6b added the availability
+  statement, so the paper now names `github.com/stiFFLer-codes/ADS-Cascade`
+  and says the Phase 2 code and pre-registration will be public there at
+  release. **`phase-2` is still unpushed**, so that sentence is a promise and
+  the hashes still resolve nowhere. The strongest part of the paper's defence
+  remains unverifiable by the people it is written for until the push happens.
+  **This gates the upload.** The fix is a push plus a tag, never a rebase: the
+  hashes are in published text and 2.6b was instructed to leave history alone.
 - **The role-separation clause failed, which is what retired the old identity.**
   eta2_ADS 0.1749 against eta2_SV 0.3837 and averaged ranges 0.0707 against
   0.0755, stable across k and delta, wider still without the structural ADS row.

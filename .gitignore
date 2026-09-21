@@ -55,8 +55,10 @@ phase2/data/phase2e_eval_sigs.parquet
 
 # Phase 2: LaTeX build artifacts — rebuild with pdflatex + bibtex in phase2/paper/
 phase2/paper/main.aux
-phase2/paper/main.bbl
 phase2/paper/main.blg
 phase2/paper/main.log
 phase2/paper/main.out
 phase2/paper/main.pdf
+
+# main.bbl is deliberately NOT ignored: arXiv's AutoTeX does not run BibTeX,
+# so the .bbl has to ship in the submission tarball.

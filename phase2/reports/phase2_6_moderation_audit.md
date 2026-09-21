@@ -2,7 +2,14 @@
 
 Audit of `phase2/paper/main.tex` at the end of Pass 15, against arXiv's own
 moderation criteria over the seven dimensions the pass was asked to cover.
-**Nothing here was fixed. By instruction this pass surfaces findings only.**
+**Nothing was fixed when this was written. By instruction Pass 15 surfaced
+findings only.**
+
+**Updated at Phase 2.6b, 2026-09-21.** Pass 16 acted on five of the ten
+findings. Each is marked in the table and in its own section with what changed
+and what is left. The original text of every finding is kept; nothing is
+deleted. Findings written in the present tense below describe the state at
+Pass 15 unless a 2.6b note says otherwise.
 
 **The requested skill does not exist.** `arxiv-moderation-check` is not
 installed and is not in this session's skill list. Both skill directories
@@ -12,22 +19,32 @@ exactly the dimensions asked for. Findings are ranked, not skill-scored.
 
 ## Verdict
 
-**No desk-reject risk on content.** Two findings block a first upload, both
-mechanical and both cheap. One finding is a decision only the author can take.
-The rest are polish.
+**No desk-reject risk on content.** Two findings blocked a first upload, both
+mechanical and both cheap; 2.6b cleared one outright and reduced the other.
+One finding was a decision only the author could take, and the author has now
+taken it. The rest are polish.
 
-| # | Finding | Dimension | Severity |
-|---|---------|-----------|----------|
-| 1 | Commit hashes and artifact paths resolve nowhere public; `phase-2` is unpushed | self-containment | blocking |
-| 2 | `\graphicspath{{../reports/figs/}}` escapes the submission directory | format | blocking |
-| 3 | No generative-AI disclosure, against a repository that carries AI co-author trailers | disclosure | author decision |
-| 4 | `main.bbl` must ship in the tarball; AutoTeX does not run BibTeX | format | high |
-| 5 | Abstract is 1,766 of 1,920 allowed characters | metadata | medium |
-| 6 | `{,}` digit separators will appear literally in the metadata abstract | metadata | medium |
-| 7 | No data or code availability statement; S2AND's ODC-BY licence is never named | rights | medium |
-| 8 | cs.LG cross-list is the weakest of the three categories | category fit | low |
-| 9 | Short hashes in published text break on any rebase | self-containment | low |
-| 10 | No arXiv licence chosen | rights | low, but required at submission |
+| # | Finding | Dimension | Severity at 2.6 | State after 2.6b |
+|---|---------|-----------|-----------------|------------------|
+| 1 | Commit hashes and artifact paths resolve nowhere public; `phase-2` is unpushed | self-containment | blocking | **reduced**, not closed: the paper now names the repository, the Zenodo concept DOI and the data source, but `phase-2` is still unpushed so the seven hashes still resolve nowhere |
+| 2 | `\graphicspath{{../reports/figs/}}` escapes the submission directory | format | blocking | **closed**, verified by an isolated flat-directory AutoTeX simulation |
+| 3 | No generative-AI disclosure, against a repository that carries AI co-author trailers | disclosure | author decision | **closed**, author's verbatim statement added |
+| 4 | `main.bbl` must ship in the tarball; AutoTeX does not run BibTeX | format | high | **closed** in the repository: `main.bbl` is un-ignored and committed. Packaging must still put it in the tarball |
+| 5 | Abstract is 1,766 of 1,920 allowed characters | metadata | medium | open, unchanged |
+| 6 | `{,}` digit separators will appear literally in the metadata abstract | metadata | medium | open, unchanged |
+| 7 | No data or code availability statement; S2AND's ODC-BY licence is never named | rights | medium | **closed**, both named in the new availability statement |
+| 8 | cs.LG cross-list is the weakest of the three categories | category fit | low | open, a decision |
+| 9 | Short hashes in published text break on any rebase | self-containment | low | open, and 2.6b's instruction not to alter history makes a tag or archive the right answer rather than a rewrite |
+| 10 | No arXiv licence chosen | rights | low, but required at submission | open, unchanged |
+
+**New at 2.6b: the corresponding address is not institutional.** The author now
+has a full institutional affiliation in the manuscript, which strengthens the
+endorsement position in section 8. The corresponding address is a personal Gmail
+account. arXiv's automatic endorsement keys off a registered institutional email
+domain together with publication history, so a personal address forecloses the
+automatic route and leaves only a manual endorsement request. Registering an
+`adit.ac.in` or `cvmu.edu.in` address with the arXiv account, whatever address
+the paper prints, is the cheapest thing available on this list.
 
 ## 1. Content type and desk-reject risk
 
@@ -127,6 +144,27 @@ carrying the repository URL and a tag or Zenodo DOI pinning the exact state the
 paper describes, and replace the short hashes with full ones or with references
 to that pinned state.
 
+**2.6b, partly done.** The availability paragraph exists. It names
+`github.com/stiFFLer-codes/ADS-Cascade`, says the Phase 2 code and
+pre-registration will be public there at release, points at the Zenodo concept
+DOI `10.5281/zenodo.21644207`, and states that the section 6.4 commit history
+lives in that repository. The data statement names S2AND and its ODC-BY licence
+and says nothing is redistributed.
+
+**What is left is the part that matters most.** `phase-2` is still unpushed.
+Until it is, the seven commit hashes in section 6.4 resolve nowhere for anyone,
+and the availability statement's future tense is doing real work: it promises
+rather than delivers. A reader who follows the URL today finds `main`, which is
+the Phase 1 project. **The paper must not be uploaded before that push
+happens**, because the availability statement would then be pointing at a
+repository that does not contain what the paper says it contains.
+
+Two things follow from 2.6b's instruction to leave commit history alone, which
+is the right instruction. The hashes in section 6.4 have to stay exactly as
+they are, so the fix for finding 9 cannot be a rewrite. It has to be a tag on
+`phase-2` at the state the paper describes, or a Zenodo archive of that state,
+either of which pins the hashes without touching them.
+
 ## 4. Tone
 
 **Clean. Nothing to fix.**
@@ -167,6 +205,16 @@ which is the author's to write and not this pass's to draft. It should be
 settled before finding 1 is fixed, since fixing finding 1 is what makes the
 commit trailers visible.
 
+**2.6b, closed.** The author supplied the statement and it is in the manuscript
+verbatim as `\section*{Generative-AI disclosure}`, checked character for
+character against the text as given. It covers planning, code, drafting and
+revision; it states that design, pre-registration, analyses, numbers, citations
+and final wording were determined and approved by the author, who takes
+responsibility; and it separates how the paper was made from what it studies,
+noting that both evaluated mechanisms are untrained lookups invoking no
+language model. That last sentence is worth keeping: it forecloses the
+misreading a reviewer could otherwise reach for.
+
 ## 6. Metadata and format
 
 **Title.** 107 characters, sentence case, no trailing period as of this pass,
@@ -192,10 +240,26 @@ escapes it and the five `\includegraphics` calls will fail. The PNGs must be
 shipped inside the submission tree, with the path made relative-downward or
 dropped entirely.
 
+**2.6b, closed and verified.** The five PNGs are copied to `paper/figs/`,
+sha256-identical to their sources in `reports/figs/`, and `\graphicspath` is
+now `{{figs/}}`. `main.tex` contains no `../` anywhere. Verified the way it
+will actually be tested: `main.tex`, `main.bbl` and `figs/` were copied alone
+into an empty directory and built there, with no access to the repository. All
+five figures resolved from `figs/`, and the build came out at zero undefined
+citations, zero undefined references and zero LaTeX warnings. The figures now
+exist in two places in the repository, which is duplication accepted on purpose
+so that `paper/` is a self-contained submission directory.
+
 **`main.bbl` must be in the tarball.** AutoTeX does not run BibTeX. The file is
-generated, and this pass added it to `.gitignore` as a build artifact, which is
+generated, and Pass 15 added it to `.gitignore` as a build artifact, which is
 right for the repository and means the packaging step has to produce it
 explicitly.
+
+**2.6b, closed in the repository.** Pass 15 was wrong to ignore it. `main.bbl`
+is now explicitly un-ignored, with a comment in `.gitignore` saying why, and is
+committed. `main.aux`, `.blg`, `.log`, `.out` and `.pdf` stay ignored. This
+guarantees the file exists to be packaged; it does not package it, and the
+tarball step still has to include it.
 
 **Everything else about the source is AutoTeX-clean.** `article` class at 11pt;
 `fontenc`, `inputenc`, `geometry`, `amsmath`, `booktabs`, `graphicx`, `natbib`,
@@ -215,6 +279,12 @@ README give ODC-BY, recorded with a sha256 in
 `s2and2021` attributes the paper; naming the licence attributes the database.
 One sentence in an availability statement covers both, and finding 7 and
 finding 1 share a fix.
+
+**2.6b, closed.** The availability statement names S2AND, cites `s2and2021`,
+states the ODC-BY licence, and says explicitly that none of the data is
+redistributed and that the repository holds only the download code and the
+manifest of what was downloaded. That is the full ODC-BY attribution
+obligation discharged in the paper rather than only in the repository.
 
 **The `affiliation` column question is clean for the paper.** S2AND's README
 notes that some affiliation data derives from the Microsoft Academic Graph.
@@ -254,6 +324,20 @@ Endorsement is per-archive, is requested through arXiv's own flow, and depends
 on finding an endorser who has published in that archive. Setting
 `\author{}` to "Independent researcher" in this pass makes the question
 sharper, not different: it was already true.
+
+**2.6b, materially improved and not resolved.** The "Independent researcher"
+line was a wrong default and is gone. The author is in the Department of
+Information Technology, A. D. Patel Institute of Technology (ADIT), Charutar
+Vidya Mandal (CVM) University. An institutional affiliation is most of what an
+endorser or an automatic endorsement looks for.
+
+**The corresponding address is still a personal Gmail account**, which is what
+the author asked for and is fine in print. It matters only for the arXiv
+account: automatic endorsement keys off a registered institutional email domain
+plus publication history, so a personal address leaves only the manual route.
+Registering an institutional address with arXiv, independently of what the paper
+prints, is the cheapest remaining item on this list and should be done before
+the manual endorsement request is attempted.
 
 **Check this before polishing anything else.** Every other item on this list is
 hours of work. This one is not under the author's control and can take weeks.
