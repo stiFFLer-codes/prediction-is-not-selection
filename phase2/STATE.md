@@ -6,12 +6,22 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.5c complete. The manuscript is drafted, voice-edited and
-  builds clean.** All ten sections plus the abstract are in `paper/main.tex`,
-  which builds under pdflatex and bibtex at 23 pages with zero LaTeX
-  warnings and no undefined citations or references. Awaiting human review.
-  Phase 2.3 stays blocked and, on the 2.5b negative control, has no selector
-  left to build.
+- Status: **Phase 2.6 complete. The manuscript is submittable in content and
+  is not yet packaged for arXiv.** All ten sections plus the abstract are in
+  `paper/main.tex`, which builds under pdflatex and bibtex at 24 pages with
+  zero LaTeX warnings and no undefined citations or references. Housekeeping
+  is closed, the verified bibliography is in, the title's scope risk is fixed
+  in prose, and the moderation audit has run and is reported but **not acted
+  on, by instruction**. Awaiting human review of its findings. Phase 2.3 stays
+  blocked and, on the 2.5b negative control, has no selector left to build.
+- **Two moderation findings block a first arXiv upload and are cheap to fix.**
+  (1) The manuscript cites seven short commit hashes and fifteen repository
+  artifact paths and gives no repository URL, while branch `phase-2` has never
+  been pushed to `origin`, so none of it resolves for any reader. All 22
+  resolve locally; 2.6 checked every one. (2)
+  `\graphicspath{{../reports/figs/}}` escapes the submission directory and
+  will not build under arXiv's AutoTeX. Full findings, ten of them ranked, in
+  `reports/phase2_6_moderation_audit.md`.
 - **The manuscript is at `phase2/paper/main.tex`**, with
   `phase2/paper/references.bib`. Venue-neutral LaTeX, generic `article` class,
   no journal style file.
@@ -26,18 +36,23 @@ full arc in PLAN.md, the method in phase2-spec.md.
   7 (1,769 against 1,600), section 8 (1,250 against 950) and section 4
   (1,021 against 650). Three of those four are the sections review was asked
   to judge, so 2.5c did not cut into them. Review decides whether to accept
-  the length or to name which of them may be cut.
+  the length or to name which of them may be cut. **2.6 then added 198 body
+  words to section 1**, for the instructed scope fix, so read every figure
+  above as that much lower than reality. The page count is 24.
 - **The `/anti-ai` pass has been run.** 22 prose edits, academic-manuscript
   register, no number or verdict touched and the locked 6.4 quote verified
   byte-identical. The dominant tell was "rather than", 31 occurrences cut to
   20 of which 2 are inside the locked quote; beside it a self-congratulating
   honesty refrain, two rule-of-three signposts, two duplicated paragraphs and
   the chronological recap that opened section 10. Details in PASSLOG Pass 14.
-- **No citation has been verified.** That is 2.6 work. `references.bib` marks
-  its three verification tiers in comments, and every unverified entry carries
-  its own `note`. **Tan (2026) is a placeholder** with no bibliographic
-  details anywhere in the repository, so the sibling-framing paragraph the
-  spec and PLAN.md describe was not drafted.
+- **The citations are verified and the bibliography is final.** Done at 2.6:
+  block C's eight entries each carry a DOI, or the publisher URL for
+  `hernandezorallo2012`, and `whoiswho2023` was corrected to the KDD 2023
+  paper actually published. 17 cited keys against 17 defined keys, exact set
+  equality in both directions. **`tan2026` is removed**, as unverifiable: no
+  indexed citable record of it exists. The sibling framing that depended on it
+  is out of PLAN.md and `phase2-spec.md`, each with a dated note saying what
+  was cut. It was never cited in the manuscript.
 - **The pooled gap -0.0196 is a primary-analysis-population number**, settled
   at 2.5c against `reports/tables/phase2b_accuracy_by_population.csv`: 13,902
   blocks, 197,479 test signatures, exact 0.8244 against fuzzy 0.8441, exact
@@ -299,10 +314,39 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   section 2.3 cut entirely and section 7.3's prose cut to what Table 3 cannot
   say for itself, per OUTLINE.md's cut order. Four items flagged for 2.6 and
   not fixed. Nothing measured. `PREREG.md` untouched.**
+- **Pass 15 (Phase 2.6): housekeeping closed, the verified bibliography in,
+  the title's scope risk fixed, the moderation audit run and reported.** The
+  five housekeeping items are done (affiliation, Tan removal, `n/a` cells,
+  title period, OUTLINE banner); `references.bib` replaced and cite keys
+  checked both ways; sections 1.2 and 1.4 rewritten so the structural result
+  is stated at entity resolution width and the empirical null is stated as the
+  author name disambiguation instance, which cost +198 body words. The
+  moderation findings were surfaced, not fixed. Nothing measured. `PREREG.md`
+  untouched. Folds in the 2.5d title micro-pass, which had no PASSLOG entry.
 
-## Next: review the edited manuscript, and decide the body length
+## Next: review the moderation findings, then package for arXiv
 
-Do not start 2.6. The draft is for review first, and it should be reviewed
+Read `reports/phase2_6_moderation_audit.md`. Its ten findings are ranked and
+none was acted on. The two blocking ones both have to land before a first upload and
+are cheap: give the manuscript a resolvable repository, by pushing `phase-2`
+and citing its URL or by cutting the hashes and paths; and flatten
+`\graphicspath` for the arXiv tarball, which also has to ship `main.bbl`
+because AutoTeX does not run BibTeX. **Endorsement has the longest lead time
+of anything on the list and is worth checking first**: a first-time submitter
+with no institutional affiliation will probably need an endorser for cs.DL or
+cs.IR.
+
+Three decisions are the author's and nothing else can be packaged around them:
+the affiliation line (2.6 set "Independent researcher" as a default, not as a
+verified fact), whether a generative-AI disclosure goes in the manuscript, and
+whether the body length is accepted.
+
+The review of the draft that 2.5c asked for is still worth doing and was not
+part of 2.6. It is preserved below.
+
+## Held over from 2.5c: review the edited manuscript, and decide the body length
+
+The draft should be reviewed
 against the committed reports rather than against the PASSLOG narrative.
 
 **The one decision 2.5c hands up.** The body is about 9,150 words against an
@@ -416,15 +460,22 @@ Flagged at Phase 2.5c for the 2.6 gate, not fixed:
   half an hour". Left open only because they are short hashes in published
   text and would need re-checking after any rebase.
 - **Tan (2026): verify or drop.** Unchanged from 2.5b, restated below.
-- **The author affiliation line.** `\author{Maitreya Sapariya\thanks{ORCID
-  0009-0003-9346-3775.}}` carries an ORCID and no affiliation. Needs a
-  decision before submission.
+- **The author affiliation line. Filled at 2.6 with a default, not settled.**
+  It now reads `Independent researcher. ORCID 0009-0003-9346-3775.` No
+  affiliation for the author exists anywhere in the repository, `CITATION.cff`
+  included, so 2.6 chose the conventional wording for an unaffiliated author
+  rather than inventing one. The author confirms or replaces it. It also bears
+  on arXiv endorsement.
 
 Still open:
 
-- **Body length.** About 9,150 body words against an 8,500 target, with
-  sections 4, 6, 7 and 8 all over budget. 2.5c cut sections 2.3 and 7.3, the
-  two OUTLINE.md names first, and stopped there. See "Next".
+- **Body length, and 2.6 moved it the wrong way on purpose.** About 9,150 body
+  words against an 8,500 target on the Pass 14 counter, with sections 4, 6, 7
+  and 8 all over budget. 2.5c cut sections 2.3 and 7.3 and stopped there. 2.6
+  then added 198 words to section 1 for the instructed scope fix, measured on
+  one counter across both versions so the delta is sound even though its
+  absolute reads about 190 lower than Pass 14's. Prose total is still under the
+  charter's 10,000 ceiling. Page count went 23 to 24.
 - **Is delta = 0.05 still the primary margin?** Unchanged by this pass, and the
   outline is written against it. Every marginal pooled gap on both axes falls
   below it, so the power floor decides both hypotheses before any substantive
@@ -438,12 +489,15 @@ Still open:
   primary margin, so no selector reading ADS and SV can beat a fixed choice.
   If 2.3 runs anyway it runs as an empirical confirmation of that, not as a
   constructive contribution.
-- **Tan (2026) is a placeholder citation and blocks part of the framing.** No
-  bibliographic details for it exist anywhere in the repository, yet PLAN.md
-  and `phase2-spec.md` section 1 both call it the paper's sibling in framing.
-  2.5b drafted section 2.1 without the sibling paragraph and left a TeX comment
-  saying why. Verify it in full, or take the sibling framing out of the spec
-  and PLAN.md.
+- **Closed at 2.6: Tan (2026) is removed.** It was unverifiable, so the entry,
+  the section 2.1 TeX comment and the sibling framing in PLAN.md and
+  `phase2-spec.md` are all out, each removal leaving a dated note.
+  `PREREG.md` and `phase2d-prereg-revision.md` still mention it and were not
+  touched; they are frozen records.
+- **New at 2.6: the generative-AI disclosure.** The manuscript makes no
+  statement about generative-AI use and the repository's commits carry
+  `Co-Authored-By: Claude`. arXiv expects authors to disclose it. This is a
+  decision about what, if anything, the paper says, and it is the author's.
 - Whether the "strictly lower in the top ADS band than in the bottom" clause
   should be pinned to one construction. It cost nothing this time and will not
   always.
@@ -460,12 +514,16 @@ Still open:
   reader can run. **Whether that lands is the single most important thing for
   review to judge**, and it cannot be judged from this file. Read section 4
   itself.
-- **Two unverified citations sit in the drafted paper, and one of them is a
-  placeholder.** New at 2.5b. `references.bib` block C is eight entries that
-  have not been checked against a source, each flagged in its own `note`, and
-  Tan (2026) has no details at all. The charter requires every citation
-  verified and resolvable, so this is a real open item and not housekeeping.
-  Nothing in block C is quoted for a number.
+- **Retired at 2.6: the unverified citations.** Block C is verified, every
+  entry resolves by DOI or publisher URL, and the one placeholder is removed.
+  The charter's "every citation verified and resolvable" rule is met.
+- **New at 2.6: the manuscript is not self-contained for a reader who cannot
+  see this repository.** Section 6.4's integrity argument turns on seven short
+  commit hashes, and table and figure captions name fifteen repository
+  artifact paths. All 22 resolve locally and none resolves publicly: no
+  repository URL appears in the paper, and `phase-2` is not pushed. As it stands the strongest part of the paper's defence is
+  unverifiable by the people it is written for. This is the top moderation
+  finding and it is a credibility risk, not only a formatting one.
 - **The role-separation clause failed, which is what retired the old identity.**
   eta2_ADS 0.1749 against eta2_SV 0.3837 and averaged ranges 0.0707 against
   0.0755, stable across k and delta, wider still without the structural ADS row.

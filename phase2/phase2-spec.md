@@ -37,11 +37,14 @@ Together these retroactively explain the Phase 1 synthetic result, whose winner
 was a constant function of the lexical condition. A nested pair produces exactly
 that shape by construction.
 
-Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows a
-signal-versus-selection gap for model choice under decision economics, and to Kim
-and Kim (2020) on the surface axis. Distinct from both: Tan's blind axis is
-economic and has no per-block unit; Kim and Kim manipulate one surface variable
-at dataset level, report a gap magnitude, and never claim a winner change.
+Nearest prior work on the surface axis is Kim and Kim (2020), and we are
+distinct from it: they manipulate one surface variable at dataset level, report a
+gap magnitude, and never claim a winner change.
+
+*Tan (2026) removed at the Phase 2.6 citation pass, 2026-09-21.* It was named
+here as the paper's sibling in framing on the economic axis. No indexed, citable
+record of it exists, so the citation and the sibling framing are cut rather than
+shipped unverified.
 
 **Rewritten at Phase 2.5a, 2026-09-18.** The text here previously claimed a
 two-signal role separation, consistency gating and surface stability directing.
@@ -64,9 +67,9 @@ distinct authors share a name, our inverse-consistency axis) and synonymity (how
 many surface variants one author appears under, our inverse-surface-stability
 axis).
 
-The eight constituent datasets give cross-dataset generalization for free, which
-is exactly the breadth Tan (2026) lacked. Access, license, and a scoped
-not-scooped check are verified in Phase 2.1 before any building.
+The eight constituent datasets give cross-dataset generalization for free.
+Access, license, and a scoped not-scooped check are verified in Phase 2.1 before
+any building.
 
 ## 3. Construct mapping (the faithful port)
 
@@ -220,7 +223,7 @@ outside the body budget. Under 10k total.
 
 Related-work streams, deliberately and not exhaustively: decision-focused
 evaluation (Hand 2009, Hernandez-Orallo et al. 2012, Elmachtoub and Grigas 2022,
-Vickers and Elkin 2006, Tan 2026 as sibling); author name disambiguation and
+Vickers and Elkin 2006); author name disambiguation and
 entity linking as the home domain (S2AND, WhoIsWho, an AND survey); the
 algorithm-selection spine (Rice, Smith-Miles, Barbudo); representation and
 surface-form robustness. Trim reject-option and learning-to-defer to a short

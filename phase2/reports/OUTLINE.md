@@ -379,6 +379,16 @@ than given their own figures.
 
 ## Title candidates
 
+**Superseded at Phase 2.5d, 2026-09-18. Kept, not deleted.** The title is final
+and is not one of the six below:
+
+> Prediction is not selection: a pre-registered study of design-time mechanism
+> selection in entity resolution
+
+It was set by the author, is the string in `paper/main.tex`, and PLAN.md carries
+it under a "Title" heading with these six kept below it as the record of what was
+considered. The list that follows is that record and is not a live choice.
+
 Sentence case, no em dashes, matching the true finding. For the author to merge
 with their own.
 
@@ -420,9 +430,9 @@ Deliberately avoided: anything containing "cascade", "selector", "gating",
 3. **`phase2-spec.md` sections 7 and 9 still describe the selector and its
    success criteria.** They were out of scope for this pass. They should be
    rewritten or marked superseded before anyone reads them as live.
-4. **Citations are unverified as of this pass.** Tan (2026), the AND survey, the
-   algorithm-selection references and Backes (2018) need a verification sweep,
-   which the charter requires and 2.6 schedules.
+4. **Closed at Phase 2.6, 2026-09-21.** Citations were unverified as of this
+   pass. The sweep has now run: block C of `references.bib` carries a DOI or a
+   publisher URL per entry, and Tan (2026) was cut as unverifiable.
 
 ## Drafting order for 2.5b
 

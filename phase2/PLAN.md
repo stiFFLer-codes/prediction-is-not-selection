@@ -55,15 +55,17 @@ above, H1 (train-only ADS predicts each mechanism's own held-out accuracy across
 seven datasets, Supported at both 2.2b and 2.2e), and the pre-registration record
 itself.
 
-Sibling in framing to Tan (2026), "Beyond ROC-AUC," which shows a
-signal-versus-selection gap for model choice under decision economics, and to Kim
-and Kim (2020), the nearest prior work on the surface axis. The distinction
-survives the retirement of the old identity and gets sharper. Tan's blind axis is
-economic and has no per-block unit. Kim and Kim manipulate a single surface
-variable at dataset level, report a gap magnitude, and never claim a winner
-change. Our gap-compression shape reproduces theirs at block level with measured
-rather than manipulated surface variation, and our null is about selection, which
-neither paper attempts.
+Nearest prior work on the surface axis is Kim and Kim (2020). The distinction
+survives the retirement of the old identity and gets sharper. They manipulate a
+single surface variable at dataset level, report a gap magnitude, and never claim
+a winner change. Our gap-compression shape reproduces theirs at block level with
+measured rather than manipulated surface variation, and our null is about
+selection, which they do not attempt.
+
+*Tan (2026) removed at the Phase 2.6 citation pass, 2026-09-21.* It was named
+here as the paper's sibling in framing on the economic axis. No indexed, citable
+record of it exists, so the citation and the sibling framing are cut rather than
+shipped unverified.
 
 **What this identity does not include.** No selector, and no claim about one. The
 constructive half of the old arc is not part of this paper unless review decides
@@ -212,7 +214,10 @@ history.
 a working candidate, and it is the string in `paper/main.tex`:
 
 > Prediction is not selection: a pre-registered study of design-time mechanism
-> selection in entity resolution.
+> selection in entity resolution
+
+*Trailing period dropped at Phase 2.6, 2026-09-21, to match `paper/main.tex`.
+Titles do not take one, and arXiv's title field would carry it verbatim.*
 
 It names entity resolution, which is broader than the substrate. The empirical
 work is on seven author name disambiguation datasets, and the abstract says so

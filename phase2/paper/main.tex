@@ -19,9 +19,10 @@
 \setlength{\parskip}{0.25\baselineskip}
 
 \title{Prediction is not selection: a pre-registered study of design-time
-mechanism selection in entity resolution.}
+mechanism selection in entity resolution}
 
-\author{Maitreya Sapariya\thanks{ORCID 0009-0003-9346-3775.}}
+\author{Maitreya Sapariya\thanks{Independent researcher.
+ORCID 0009-0003-9346-3775.}}
 
 \date{}
 
@@ -88,7 +89,15 @@ is the one a designer has to answer.
 \subsection{Why author name disambiguation}
 \label{sec:why-and}
 
-The question needs a substrate where two block-level properties vary
+The two halves of this answer do not carry the same scope, and the
+distinction is load bearing. The structural half is an argument about
+mechanisms that assign from a record's own history. It uses no property of
+names, so it is a result about entity resolution and we state it at that
+width. The empirical half is a measurement, and a measurement is only of what
+was measured. Every number below about how two mechanisms differ from each
+other is the author name disambiguation instance of the question.
+
+That empirical half needs a substrate where two block-level properties vary
 natively, separately, and visibly at design time. Author name disambiguation
 has exactly that. How many distinct people share a name and how many ways one
 person's name is written are different properties of the same block, and both
@@ -141,17 +150,29 @@ Section~\ref{sec:conclusion} sets out what that leaves a practitioner to do.
 \subsection{Contributions, and what is not claimed}
 \label{sec:contributions}
 
-Our four claims are the four results above: the containment, its general
-form, the absence of an actionable selection rule at the pre-registered
-margin, and the consistency signal's success at predicting accuracy. The
-boundaries around them are tighter than the claims.
+Our four claims are the four results above, and they do not share a scope.
 
-We do not claim that no design-time selection signal exists for any mechanism
-pair anywhere; the claim is scoped to this substrate, these two mechanisms
-and this margin. We do not claim the effects measured below the margin are
-zero; they are small, they change sign, and the frozen rules declined to
-decide them. We claim nothing about a selector, because none was built and
-none is evaluated, for the reason given in Section~\ref{sec:no-selector}. And
+The containment and its general form are proven from the mechanisms alone.
+They use no property of author names and no property of our data, so they are
+contributions to entity resolution and are stated at that width. The measured
+zero is the instance that found them, not their support.
+
+The other two are the author name disambiguation instance. The absence of an
+actionable selection rule at the pre-registered margin, and the consistency
+signal's success at predicting each mechanism's own accuracy, are
+measurements on seven author name disambiguation datasets with one pair of
+untrained lookups. They are evidence about that substrate. We do not offer
+them as facts about entity resolution, and nothing here extends them past the
+datasets they were measured on.
+
+The boundaries are tighter still. We do not claim that no design-time
+selection signal exists for any mechanism pair anywhere, or even anywhere in
+author name disambiguation; the empirical claim is scoped to these two
+mechanisms and this margin. We do not claim the effects measured below the
+margin are zero; they are small, they change sign, and the frozen rules
+declined to decide them. We claim nothing about a selector, because none was
+built and none is evaluated, for the reason given in
+Section~\ref{sec:no-selector}. And
 we claim nothing about learned disambiguation systems, since both mechanisms
 here are untrained lookups by design.
 
@@ -180,8 +201,6 @@ ask whether a measurement taken before either candidate is built answers a
 choice between them. The unit is also different: theirs is a model on a
 dataset, ours is a mechanism on a block, with tens of thousands of blocks in
 one corpus.
-% NOTE, 2.5c: the sibling framing against Tan (2026) is held back until that
-% citation is verified. No bibliographic details for it exist in the repo.
 
 \subsection{Author name disambiguation as the home domain}
 \label{sec:and-domain}
@@ -777,7 +796,7 @@ counts. Source: \texttt{phase2e\_twosidedness\_eval.csv}, and
 Pair & $k$ & A right, & B right, & Rule acc. & B acc. & Pooled gap \\
      &     & B wrong  & A wrong  &           &        & \\
 \midrule
-Exact vs.\ fuzzy (retired) & 1 & \textbf{0} & --- & 0.8244 & 0.8441 & $-0.0196$ \\
+Exact vs.\ fuzzy (retired) & 1 & \textbf{0} & n/a & 0.8244 & 0.8441 & $-0.0196$ \\
 \midrule
 Rule vs.\ k-NN, Levenshtein & 2 & 987 & 3{,}990 & 0.8244 & 0.8396 & $-0.0152$ \\
 Rule vs.\ k-NN, Levenshtein & 3 & 1{,}724 & 4{,}004 & 0.8244 & 0.8360 & $-0.0115$ \\
@@ -1020,7 +1039,7 @@ Full & 0.03 & 0.1664 & 0.3787 & 0.0800 & 0.0901 & failed \\
 Full & 0.02 & 0.1720 & 0.3783 & 0.0887 & 0.0953 & failed \\
 \midrule
 ADS $<1.0$ (diagnostic) & 0.05 & 0.1755 & 0.4594 & 0.0622 & 0.0875 & decides nothing \\
-Block-weighted (diagnostic) & 0.05 & 0.3653 & 0.3765 & --- & --- & decides nothing \\
+Block-weighted (diagnostic) & 0.05 & 0.3653 & 0.3765 & n/a & n/a & decides nothing \\
 \bottomrule
 \end{tabular}
 \end{table}

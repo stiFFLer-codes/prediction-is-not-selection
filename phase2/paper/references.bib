@@ -1,23 +1,13 @@
 % References for the Phase 2 manuscript.
 %
-% VERIFICATION STATUS, as of Phase 2.5b (2026-09-18).
-%
-% Block A below is carried over from the Experiment 1 bibliography
-% (manuscript/references.bib), where each entry was verified during that
-% project's citation audit.
-%
-% Block B was verified during Phase 2.2a against the source itself, and the
-% reading is recorded in reports/kim2020_positioning.md.
-%
-% Block C is NOT YET VERIFIED. Every entry in it needs a source check in the
-% dedicated verification pass (Phase 2.5c / 2.6) before submission, per the
-% charter's "every citation verified and resolvable" rule. Nothing in block C
-% is quoted for a number; each is cited for a position or a definition.
-%
-% Block D is the project's own archived earlier work.
+% VERIFICATION STATUS, as of the Phase 2.6 citation pass (2026-09-21).
+% Block A: carried over, verified in the Experiment 1 citation audit.
+% Block B: verified in Phase 2.2a against the source (reports/kim2020_positioning.md).
+% Block C: verified in the Phase 2.6 citation pass against DOI/venue records.
+% Block D: the project's own archived earlier work.
 
 % ---------------------------------------------------------------------------
-% Block A: carried over, verified in the Experiment 1 citation audit.
+% Block A: verified in the Experiment 1 citation audit.
 % ---------------------------------------------------------------------------
 
 @article{rice1976,
@@ -86,8 +76,7 @@
 }
 
 % ---------------------------------------------------------------------------
-% Block B: verified in Phase 2.2a against the source. See
-% reports/kim2020_positioning.md for the full reading.
+% Block B: verified in Phase 2.2a against the source.
 % ---------------------------------------------------------------------------
 
 @article{kimkim2020,
@@ -102,7 +91,7 @@
 }
 
 % ---------------------------------------------------------------------------
-% Block C: NOT YET VERIFIED. Check every field at Phase 2.5c / 2.6.
+% Block C: verified in the Phase 2.6 citation pass (2026-09-21).
 % ---------------------------------------------------------------------------
 
 @inproceedings{s2and2021,
@@ -110,33 +99,34 @@
   title     = {{S2AND}: A Benchmark and Evaluation System for Author Name Disambiguation},
   booktitle = {Proceedings of the ACM/IEEE Joint Conference on Digital Libraries (JCDL)},
   year      = {2021},
-  note      = {Citation details unverified; verify at the citation pass}
+  doi       = {10.1109/JCDL52503.2021.00029}
 }
 
 @inproceedings{whoiswho2023,
-  author    = {Chen, Bo and Zhang, Jing and Tang, Jie},
-  title     = {{WhoIsWho}: A Large-Scale Benchmark for Author Name Disambiguation},
-  booktitle = {Proceedings of the ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)},
+  author    = {Chen, Bo and Zhang, Jing and Tang, Jie and others},
+  title     = {Web-Scale Academic Name Disambiguation: the {WhoIsWho} Benchmark, Leaderboard, and Toolkit},
+  booktitle = {Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)},
   year      = {2023},
-  note      = {Author list and citation details unverified; verify at the citation pass}
+  doi       = {10.1145/3580305.3599930}
 }
 
 @article{ferreira2012,
   author  = {Ferreira, Anderson A. and Gon{\c{c}}alves, Marcos Andr{\'e} and Laender, Alberto H. F.},
   title   = {A Brief Survey of Automatic Methods for Author Name Disambiguation},
-  journal = {SIGMOD Record},
+  journal = {ACM SIGMOD Record},
   volume  = {41},
   number  = {2},
+  pages   = {15--26},
   year    = {2012},
-  note    = {Citation details unverified; verify at the citation pass}
+  doi     = {10.1145/2350036.2350040}
 }
 
 @inproceedings{backes2018,
   author    = {Backes, Tobias},
   title     = {The Impact of Name-Matching and Blocking on Author Disambiguation},
-  booktitle = {Proceedings of the ACM International Conference on Information and Knowledge Management (CIKM)},
+  booktitle = {Proceedings of the 27th ACM International Conference on Information and Knowledge Management (CIKM)},
   year      = {2018},
-  note      = {Citation details unverified; verify at the citation pass}
+  doi       = {10.1145/3269206.3271699}
 }
 
 @article{hand2009,
@@ -145,8 +135,9 @@
   journal = {Machine Learning},
   volume  = {77},
   number  = {1},
+  pages   = {103--123},
   year    = {2009},
-  note    = {Citation details unverified; verify at the citation pass}
+  doi     = {10.1007/s10994-009-5119-5}
 }
 
 @article{hernandezorallo2012,
@@ -154,8 +145,9 @@
   title   = {A Unified View of Performance Metrics: Translating Threshold Choice into Expected Classification Loss},
   journal = {Journal of Machine Learning Research},
   volume  = {13},
+  pages   = {2813--2869},
   year    = {2012},
-  note    = {Citation details unverified; verify at the citation pass}
+  url     = {https://www.jmlr.org/papers/v13/hernandez-orallo12a.html}
 }
 
 @article{vickers2006,
@@ -164,8 +156,9 @@
   journal = {Medical Decision Making},
   volume  = {26},
   number  = {6},
+  pages   = {565--574},
   year    = {2006},
-  note    = {Citation details unverified; verify at the citation pass}
+  doi     = {10.1177/0272989X06295361}
 }
 
 @article{elmachtoub2022,
@@ -174,18 +167,15 @@
   journal = {Management Science},
   volume  = {68},
   number  = {1},
+  pages   = {9--26},
   year    = {2022},
-  note    = {Citation details unverified; verify at the citation pass}
+  doi     = {10.1287/mnsc.2020.3922}
 }
 
-@misc{tan2026,
-  author = {Tan},
-  title  = {Beyond {ROC}-{AUC}},
-  year   = {2026},
-  note   = {PLACEHOLDER. No bibliographic details for this work exist anywhere
-            in the repository. Either verify it in full or remove the citation
-            and the sibling-framing paragraph that depends on it.}
-}
+% tan2026 REMOVED at the Phase 2.6 citation pass: no indexed, citable record of
+% "Kwan Hong Tan, Beyond ROC-AUC" exists in any search or database, and the
+% source docx carried "DOI pending, pages pending". Unverifiable, so cut, along
+% with the sibling-framing paragraph that depended on it.
 
 % ---------------------------------------------------------------------------
 % Block D: the project's own earlier work, archived and citable.
@@ -197,6 +187,7 @@
   year         = {2026},
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.21644207},
-  note         = {Concept DOI, resolves to the latest version. Version 1.0.0 is
-                  archived at \texttt{10.5281/zenodo.21644208}}
+  note         = {Concept DOI, resolves to the latest version (currently v1.1.0
+                  at \texttt{10.5281/zenodo.22258609}). Version 1.0.0 is archived
+                  at \texttt{10.5281/zenodo.21644208}}
 }

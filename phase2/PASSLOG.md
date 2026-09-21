@@ -1929,3 +1929,132 @@ which of sections 4, 6, 7 and 8 may be cut into, since all four are over
 budget and three of them are the sections review was asked to judge. Then
 2.6: the citation verification sweep over `references.bib` block C, the four
 items above, and the `affiliation` column question the S2AND README raises.
+
+## Pass 15 — Phase 2.6, the pre-submission gate (2026-09-21)
+
+**What I did and why.** Housekeeping, the verified bibliography, one prose fix
+for a scope risk the final title opens, and a moderation audit reported rather
+than acted on. Nothing was measured, no analysis code ran, `PREREG.md` was not
+touched, and no number or verdict in the manuscript changed. Files changed:
+`paper/main.tex`, `paper/references.bib`, `PLAN.md`, `phase2-spec.md`,
+`reports/OUTLINE.md`, `.gitignore`, this file and `STATE.md`. One file added:
+`reports/phase2_6_moderation_audit.md`.
+
+**Housekeeping, five items, all now closed.**
+
+1. *The author affiliation.* `\author{}` carried an ORCID and no affiliation.
+   Set to `Independent researcher. ORCID 0009-0003-9346-3775.` No affiliation
+   for the author exists anywhere in the repository, including `CITATION.cff`,
+   which also carries only the ORCID. **This is a default I chose, not a fact I
+   verified, and the author should confirm or replace it.** No email was added;
+   arXiv does not require one in the PDF.
+2. *Tan (2026) sibling framing removed* from `PLAN.md` (the paper-identity
+   section) and `phase2-spec.md` (sections 1, 2 and 10). Each removal leaves a
+   dated one-line note saying what was cut and why, per the project's
+   keep-the-record convention. `phase2d-prereg-revision.md` and `PREREG.md`
+   mention it too and were deliberately not touched: they are frozen records.
+   The manuscript never cited it; the TeX comment in section 2.1 holding its
+   place is gone.
+3. *Em-dash "not applicable" table cells.* Three cells, `---` to `n/a`: one in
+   Table 2 (the retired pair's absent B-right-A-wrong count) and two in Table 6
+   (the block-weighted diagnostic's absent ranges). These were the last two
+   em dashes in the manuscript; the charter forbids them and a bare rule in a
+   numeric column reads as a missing value rather than as an inapplicable one.
+4. *Trailing period dropped from `\title{}`*, and from the final title as
+   PLAN.md records it, so the two match byte for byte. arXiv's title field takes
+   the string verbatim.
+5. *Superseded banner on the candidate-title list* in `reports/OUTLINE.md`,
+   above the six 2.5a candidates, carrying the final title and pointing at
+   PLAN.md. The six are kept. OUTLINE.md open input 4 ("citations are
+   unverified") is also closed, since this pass is the sweep it was waiting for.
+
+**The verified bibliography.** `paper/references.bib` replaced with the file the
+author delivered. Block C's eight entries now carry a DOI each, except
+`hernandezorallo2012`, which carries the JMLR publisher URL, and four gained
+page ranges. `whoiswho2023` changed title and venue, to the KDD 2023 paper
+actually published. The header's three verification tiers are rewritten as
+verified. `adscascade2026`'s note now names v1.1.0 at
+`10.5281/zenodo.22258609` beside the concept DOI, which matches `CITATION.cff`.
+
+**`tan2026` is gone**, replaced in the bib by a comment recording why: no
+indexed citable record of it exists and the source carried "DOI pending, pages
+pending". The placeholder entry, the section 2.1 TeX comment and the sibling
+framing in PLAN.md and the spec all went with it. **No `\cite{tan2026}` ever
+existed in the manuscript**, so nothing in the prose needed repair.
+
+**Key check, cite keys against the bib.** 17 keys cited, 17 keys defined, exact
+set equality: every cited key resolves and no entry is orphaned. Verified by
+set difference in both directions before the build.
+
+**The build.** `pdflatex`, `bibtex`, `pdflatex`, `pdflatex`, `pdflatex` from a
+clean directory. Zero undefined citations, zero undefined references, zero
+`LaTeX Warning` lines. 24 pages, `paper/main.pdf`, 635 KB. Four typographic box
+warnings carried over unchanged from `4416798`; a fifth is new and is in
+`main.bbl`, an underfull line in the `adscascade2026` entry whose note the new
+bib lengthened. Cosmetic, in the bibliography, not chased.
+
+**The scope fix, sections 1.2 and 1.4.** The final title says entity
+resolution; the empirical work is seven author name disambiguation datasets.
+2.5d flagged those two subsections as where the scoping has to hold. It now
+holds explicitly in both, and in the same terms.
+
+- Section 1.2 opens with the split before the substrate is named: the
+  structural half uses no property of names, so it is stated at entity
+  resolution width; the empirical half is a measurement and is the author name
+  disambiguation instance. The substrate paragraph then follows as what *that
+  half* needs.
+- Section 1.4 stops presenting the four claims as one list. Two are proven from
+  the mechanisms alone and are entity resolution contributions, with the
+  measured zero named as the instance that found them rather than as their
+  support. Two are measurements on seven author name disambiguation datasets
+  with one pair of untrained lookups, offered as evidence about that substrate
+  and explicitly not as facts about entity resolution. The pre-existing
+  boundaries paragraph follows and now says "the empirical claim is scoped to
+  these two mechanisms and this margin".
+
+Section 10's second paragraph already carried the same split and was left
+alone; the three places now agree. Prose only, no new experiments, no number
+touched.
+
+**Cost of the scope fix: +198 body words**, measured on one counter across both
+versions, so the delta is sound even though the absolute reads lower than the
+Pass 14 counter. Prose total 9,770 on that counter, under the charter's 10,000
+ceiling. The page count went 23 to 24. **The body-length decision 2.5c handed
+up is still open and this pass made it slightly worse, deliberately, because
+the fix was instructed and "unmissable" was the requirement.**
+
+**The moderation audit ran, but not as a skill.** `arxiv-moderation-check` is
+not installed and is not in this session's skill list; the plugin cache and
+both skill directories were checked. The audit was done directly against
+arXiv's own moderation criteria over the seven dimensions asked for, and its
+findings are in `reports/phase2_6_moderation_audit.md`: ten findings, ranked,
+plus an eighth section on endorsement that nobody asked for and that has the
+longest lead time on the list. **Nothing it flagged was fixed, by
+instruction.** Its two blocking findings, restated in STATE.md: the manuscript
+cites seven short commit hashes and fifteen repository artifact paths and gives
+no repository URL, while branch `phase-2` is not pushed to `origin`, so none of
+it resolves for a reader; and `\graphicspath{{../reports/figs/}}` escapes the
+submission directory and will not build under arXiv's AutoTeX.
+
+**Invariant checks.** Invariant 5, no result before measurement: held, nothing
+measured and no number altered. Invariant 7, offline and reproducible: held,
+no network call and no new dependency. Invariant 8, honest framing: the scope
+fix tightens it, and the affiliation is flagged as a chosen default rather
+than presented as verified. The writing invariants: em dashes now zero in the
+manuscript, headings still sentence case, and the body grew against a budget
+that was already over, which is the one invariant this pass moved the wrong
+way.
+
+**What I did not do, and why.** Did not act on any moderation finding, by
+instruction. Did not touch `PREREG.md`, `phase2d-prereg-revision.md` or the
+Phase 1 archive. Did not resolve the body-length decision, the delta question,
+the Zenodo concept-versus-version DOI check, or the S2AND `affiliation` column
+question; the last two stay flagged. Did not push `phase-2`.
+
+**Recommendation for the next pass.** Take the moderation findings in the order
+the report ranks them. The two blocking ones are cheap and both have to land
+before a first upload: push `phase-2` and put its URL in the manuscript, or cut
+the hashes and paths; and flatten the figure paths for the arXiv tarball. Then
+decide the affiliation, the generative-AI disclosure, and whether the body
+length is accepted. Endorsement is the item with the longest lead time and is
+worth checking before anything else is polished.
