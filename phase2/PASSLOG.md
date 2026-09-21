@@ -2176,3 +2176,115 @@ Push `phase-2` and tag the state section 6.4 describes, which closes finding 1
 without touching a hash. And register an institutional email with arXiv, then
 start the endorsement request for cs.DL, which has the longest lead time of
 anything left.
+
+---
+
+## Pass 17 — Phase 2.7, the peer-review dry run (2026-09-21)
+
+**What I did and why.** Ran the manuscript through a simulated external peer
+review at Reviewer 2 severity, calibrated to a mid-tier (Q2 or Q3) information
+science, information retrieval or scientometrics journal rather than to a named
+venue, which is the realistic target class. This is a review pass only: the
+manuscript was not touched, and no number, verdict, table or figure was
+altered. The review treated `phase2/paper/main.tex` as an external artifact and
+checked every number and claim it states against the committed reports, tables
+and code rather than against the PASSLOG narrative, per the instruction held
+over from 2.5c.
+
+**Key output.** `reports/phase2_7_peer_review.md`, with the same content built
+as `reports/phase2_7_peer_review.docx` for the skill's deliverable contract
+(29 headings, 5 tables, validated with the skill's own validator). Eight major
+comments, twenty minor, a general-rigor compliance table, a literature audit, a
+venue-class assessment and a recommendation of **major revision needed**, with
+no fatal flaw found.
+
+**The eight majors, in one line each.**
+
+1. The per-block winner construct is degenerate on small test sets. At one test
+   signature the paired bootstrap is a point mass, so such a block can never be
+   `undecided`: 278 of the 500 decided verdicts (55.6%) and 1,130 of the 10,172
+   demonstrated ties come from blocks with one or two test signatures. This is
+   the quantity H2's whole apparatus is built on.
+2. Test-set size is the design-time signal that was never registered. It
+   carries +0.0208 per log unit in the paper's own regression, it is readable
+   from the history, and it splits the result: above 32 test signatures the
+   vote wins **no** block and the rule wins 30, while pooled the vote is ahead.
+3. The driver comparison, called the sharpest measurement in the run, is two
+   point statistics over twenty unweighted cells with no interval, no size
+   adjustment, and SS_total of 0.0401.
+4. "Entity resolution" in the title is carried by an argument stated entirely in
+   author-block vocabulary, and the reference list contains no entity resolution
+   literature at all. Recommends either a retitle to the substrate or one
+   non-AND demonstration of the zero count.
+5. Section 6.4's locked quote says no k-nearest accuracy figure existed when the
+   amendment was written. `phase2c_pair_twosidedness.csv` and
+   `phase2c_pair_regimes.csv` were committed in `c20239a` 27 minutes earlier and
+   contain exactly that, on the calibration split, including the per-cell grid
+   whose shape the amended hypotheses go on to predict. `PREREG.md` states the
+   properly scoped version; the manuscript quote drops the qualifier.
+6. The pre-registration record is author-controlled, the whole cycle is thirteen
+   hours of one day, and `phase-2` is still unpushed, so none of the seven
+   hashes resolves for a reader.
+7. Two winner reversals present in `phase2e_boundary.md` at delta = 0.02 are
+   absent from the manuscript: across ADS at fixed SV high (line 455), and
+   across SV inside INIT = 0 (line 537). The paper uses delta = 0.02 elsewhere
+   when it supports the reading.
+8. Accuracy accounting is incomplete: no ceiling for test signatures whose true
+   author is absent from the history, no conditional precision for the rule
+   (0.851 where it fires against the vote's 0.8294), and no justification for
+   using accuracy rather than B-cubed or pairwise F.
+
+**Verification done, with results.** Every headline number in the manuscript was
+re-derived from the committed CSVs and reconciles: Table 1's arithmetic and all
+six shares; the pooled and pooled-non-inspire accuracies rebuilt from the
+per-dataset rows; the agreement identity in 4.2; the verdict sum
+191 + 309 + 10,172 + 3,230 = 13,902; the H1 coefficients and intervals; every
+band gap, verdict and decided rate on both axes; the twenty-cell distribution as
+18 tie and 2 undecided; the driver table at all three margins plus both
+diagnostics; the regression; the k curve; the 41% contested region as
+14,680 / 35,732; the two lines of zeros in the calibration probe for all three
+candidate pairs; the H1 per-band means against `phase2e_boundary.md` 110-113;
+and all three section 6.4 commit intervals (1h48m51s, 1h20m25s, 28m26s).
+**One claim the artifacts do not support as written**: the unqualified sentence
+in the 6.4 quote, major 5 above. **Two omissions found**: majors 7 and 8. No
+transcription error was found anywhere.
+
+**Measured for the record.** Abstract 288 words; body 9,488 words excluding
+float contents; per-section body counts Introduction ~1,010, Related work 774,
+Problem setting 750, section 4 1,032, section 5 517, section 6 1,733, section 7
+1,759, Discussion 1,286, Limitations 380, Conclusion 247; 6 tables, 5 figures,
+11 captions, 17 bibliography entries.
+
+**Invariant checks.** Invariant 5, no result before measurement: held, nothing
+was measured and nothing in the evidence base was altered; the review reads the
+frozen artifacts and writes only a report. Invariant 7, offline and
+reproducible: held for the repository; the review itself made four general web
+searches for the literature audit, all recorded in the report's audit log with
+their URLs, and added no dependency and no code to `phase2/`. Invariant 8,
+honest framing: the report is the hostile read the charter asks for and its
+findings are recorded here unsoftened. Writing invariants: the manuscript was
+not edited, so they are untouched.
+
+**What I did not do, and why.** Did not fix anything in the manuscript, by
+instruction: 2.7 produces the report and 2.7b decides what to accept. Did not
+push `phase-2`, tag, or touch a remote. Did not re-execute any analysis code, so
+the review verifies manuscript-against-artifact consistency and not the
+correctness of the artifacts, except where code was read directly
+(`phase2b_core.py:246`, which is where major 1 was confirmed). Consensus was
+unavailable, so the literature audit used general web search and is indicative
+rather than systematic; it is flagged as such in the report.
+
+**Recommendation for the next pass.** 2.7b, apply the accepted review fixes.
+The eight majors split cleanly into three kinds and the author decides which to
+accept. **Re-analysis on existing records, no new data**: majors 1, 2, 3 and 8.
+**Disclosure and reporting, prose only**: majors 5, 6 and 7. **A scope
+decision**: major 4, retitle to author name disambiguation or earn the wider
+word with one non-AND count. Take major 4 first, because a retitle changes what
+the abstract and conclusion have to say and majors 2 and 5 both touch the same
+paragraphs. Note the standing constraint: the prose total is at 9,985 against
+the charter's 10,000 ceiling, so every accepted fix has to be paid for with a
+cut, and the four over-budget sections are still 4, 6, 7 and 8. The two slow
+non-writing items from 2.6b are unchanged and still worth starting in parallel:
+push and tag `phase-2`, which major 6 now makes a review finding rather than a
+tidiness item, and register an institutional email with arXiv for the cs.DL
+endorsement request.

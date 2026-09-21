@@ -6,16 +6,41 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.6b complete. The manuscript is submission-ready in
-  content and in build, and one thing outside the manuscript still gates the
-  upload.** All ten sections, the abstract and two back-matter statements are
-  in `paper/main.tex`, which builds under pdflatex and bibtex at 25 pages with
-  zero LaTeX warnings, no undefined citations or references and zero em dashes.
-  Housekeeping is closed, the bibliography is verified, the title's scope risk
-  is fixed in prose, the affiliation is correct, the generative-AI disclosure
-  and the data and code availability statement are in, and the build is
-  self-contained. Phase 2.3 stays blocked and, on the 2.5b negative control,
-  has no selector left to build.
+- Status: **Phase 2.7 complete. The peer-review dry run has been run and it
+  returned major revision needed, so the manuscript is no longer
+  submission-ready as it stands.** The build is still clean and every number
+  still reconciles to the committed artifacts, but the review found eight
+  majors, one of them a claim the artifacts do not support as written and two
+  of them omissions from the committed output. **Do not submit or upload
+  before 2.7b decides which fixes are accepted.** The report is
+  `reports/phase2_7_peer_review.md`, with the same content as a `.docx`
+  beside it.
+- **The eight majors in one line each, in the report's order.** (1) The
+  per-block winner construct is degenerate at one test signature, and 278 of
+  the 500 decided verdicts and 1,130 of the 10,172 demonstrated ties come from
+  blocks with one or two test signatures. (2) Test-set size is an unregistered
+  design-time signal that carries +0.0208 per log unit and reverses the
+  result by unit: above 32 test signatures the vote wins no block and the rule
+  wins 30, while pooled the vote is ahead. (3) The driver comparison has no
+  interval and no size adjustment. (4) "Entity resolution" in the title is
+  carried by an argument and the reference list contains no entity resolution
+  literature. (5) Section 6.4's locked quote says no k-nearest accuracy figure
+  existed when the amendment was written; `phase2c_pair_twosidedness.csv` and
+  `phase2c_pair_regimes.csv` were committed 27 minutes earlier and contain
+  exactly that on the calibration split. (6) The pre-registration record is
+  author-controlled, same-day, and `phase-2` is still unpushed. (7) Two
+  delta = 0.02 winner reversals in `phase2e_boundary.md` are absent from the
+  manuscript. (8) No out-of-history accuracy ceiling, no conditional precision
+  for the rule, no justification for accuracy over B-cubed.
+- **Everything else the manuscript states still checks out.** All ten sections,
+  the abstract and two back-matter statements are in `paper/main.tex`, which
+  builds under pdflatex and bibtex at 25 pages with zero LaTeX warnings, no
+  undefined citations or references and zero em dashes. Housekeeping is closed,
+  the bibliography is verified, the affiliation is correct, the generative-AI
+  disclosure and the data and code availability statement are in, and the build
+  is self-contained. The review re-derived every headline number from the
+  committed CSVs and found no transcription error. Phase 2.3 stays blocked and,
+  on the 2.5b negative control, has no selector left to build.
 - **The one thing that gates a first upload is not a manuscript edit.**
   `phase-2` has never been pushed, so the seven commit hashes in section 6.4
   and the new availability statement both point at a repository that does not
@@ -357,8 +382,69 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   directory build; `main.bbl` un-ignored and committed. No history rebased,
   squashed or amended, so section 6.4's hashes are intact. Nothing measured.
   `PREREG.md` untouched.
+- **Pass 17 (Phase 2.7): the peer-review dry run.** The manuscript reviewed as
+  an external artifact at Reviewer 2 severity, calibrated to a mid-tier Q2/Q3
+  information science, IR or scientometrics venue class rather than a named
+  journal. Every number checked against the committed reports and tables, not
+  against the PASSLOG narrative. Eight majors, twenty minors, recommendation
+  major revision needed, no fatal flaw. One claim found unsupported as
+  written, two omissions found, no transcription error found. Report at
+  `reports/phase2_7_peer_review.md` and `.docx`. The manuscript was not
+  touched. Nothing measured. `PREREG.md` untouched.
 
-## Next: Phase 2.7, the peer-review dry run
+## Next: Phase 2.7b, apply the accepted review fixes
+
+**2.7b is the next pass.** 2.7 produced the report and changed nothing; 2.7b
+decides what to accept and applies it. The eight majors split into three kinds
+and the split is how to plan the pass.
+
+- **Re-analysis on records that already exist, no new data:** majors 1, 2, 3
+  and 8. Each is a re-run of an existing analysis over the committed per-block
+  records, plus the prose that reports it. Major 1 wants a minimum-test-set-size
+  sensitivity analysis, major 2 wants the per-block verdict table by test-set
+  size and block size treated as a third signal or the general claims scoped,
+  major 3 wants a bootstrap interval on the eta-squared difference, major 8
+  wants an out-of-history accuracy ceiling and the rule's conditional precision.
+  Note that majors 1, 2 and 3 all touch the decided-winner rate, so run them
+  together rather than one at a time.
+- **Disclosure and reporting, prose only:** majors 5, 6 and 7. Major 5 is a
+  fourth point of record under the locked quote naming what did exist at
+  `c20239a`. Major 6 is an independent pre-registration deposit plus the push
+  and tag. Major 7 is two sentences or an appendix table.
+- **A scope decision that is the author's:** major 4. Retitle to author name
+  disambiguation and keep the wider claim inside the paper, or earn the width
+  with entity resolution citations and one non-AND count. **Take this first**,
+  because it changes what the abstract and conclusion have to say, and majors 2
+  and 5 touch the same paragraphs.
+
+**The body-length constraint is now binding on this pass in particular.** Prose
+total is 9,985 against the charter's 10,000 ceiling counting back matter in, or
+9,770 counting it out. A review-response pass adds by nature. Decide before
+2.7b starts which of sections 4, 6, 7 and 8 may be cut into, or accept the
+length explicitly. The review's own measurement of the body is 9,488 words
+excluding float contents, which is a third counter and should not be mixed with
+the other two.
+
+**Two slow non-writing items are unchanged and now carry review weight.** Push
+`phase-2` and tag the state section 6.4 describes: major 6 makes this a review
+finding rather than a tidiness item, because none of the seven hashes resolves
+for a reader today. And register an institutional email with arXiv, then open
+the endorsement request for cs.DL. Major 6 adds a third: deposit the frozen
+`PREREG.md`, Amendment 1 and Addendum 1a somewhere with a timestamp the author
+does not control.
+
+**Four moderation findings stay open and are all submission-time decisions**,
+unchanged by 2.7: the abstract's headroom (now also a review minor, since 288
+words exceeds the 200-250 the venue class expects), the `{,}` separators in the
+metadata abstract, the cs.LG cross-list question and the arXiv licence choice.
+
+## Superseded: Phase 2.7, the peer-review dry run (done at Pass 17)
+
+**Superseded at Phase 2.7, 2026-09-21. Kept, not deleted, as the record of what
+the pass was asked to do.** The pass ran and the section above it is what is
+live now. The three places this section pointed the reviewer at were all read:
+section 4 landed, section 6.4 did not survive intact (major 5), and section 8.3
+drew no major. Read below for what was asked, not for what to do next.
 
 **2.7 is the next pass.** Run the manuscript through a simulated peer review
 and act on what it returns. Nothing outstanding blocks a review read: the paper
@@ -392,6 +478,13 @@ The review of the draft that 2.5c asked for is still worth doing and was not
 part of 2.6 or 2.6b. It is preserved below and feeds directly into 2.7.
 
 ## Held over from 2.5c: review the edited manuscript, and decide the body length
+
+**Closed at Phase 2.7, 2026-09-21, except the body-length decision. Kept, not
+deleted.** The hostile read this section asks for was done at Pass 17 and its
+output is `reports/phase2_7_peer_review.md`. The three named places were all
+read against the committed reports, which is what this section asked for. The
+body-length decision is still open and is now listed under the 2.7b section
+above, where it is binding.
 
 The draft should be reviewed
 against the committed reports rather than against the PASSLOG narrative.
@@ -557,14 +650,40 @@ Still open:
 
 ## Live risks
 
+- **New and top at 2.7: the per-block winner construct is degenerate at one
+  test signature.** The paired bootstrap over a single test signature is a
+  point mass, so the interval is [0,0], [+1,+1] or [-1,-1] and such a block can
+  never be `undecided`. `phase2e_power_by_size.csv` confirms it: the size-1
+  stratum has undecided exactly 0.0 at all three margins. 278 of the 500
+  decided verdicts and 1,130 of the 10,172 demonstrated ties come from blocks
+  with one or two test signatures, and the decided-winner rate is what H2's
+  whole apparatus, including the driver comparison, is computed over. Confirmed
+  in code at `phase2b_core.py:246`. This is a re-analysis on existing records,
+  not a re-run.
+- **New at 2.7: one manuscript sentence is not supported by the repository.**
+  Section 6.4's locked quote says no k-nearest accuracy figure existed when the
+  amended hypotheses were written. `c20239a` at 12:09:23 committed
+  `phase2c_pair_twosidedness.csv` (pooled accuracy at every k) and
+  `phase2c_pair_regimes.csv` (the per-cell ADS by SV grid whose shape the
+  amended hypotheses predict), 27 minutes before the amendment at 12:36:16.
+  `PREREG.md` states the scoped version correctly and the manuscript states it
+  correctly elsewhere; the quote is where the qualifier is missing. This is the
+  single most checkable weakness in the paper.
+- **New at 2.7: the unit of analysis is not settled.** Pooled over signatures
+  the vote is ahead by 0.0050; per block the rule takes 191 wins to the vote's
+  309, but the vote wins no block at all above 32 test signatures while the
+  rule wins 30 there. The regression's +0.0208 on log test-set size is the same
+  fact. Block size is readable at design time and was never registered as a
+  signal, so the general claim "no design-time signal" outruns the two signals
+  actually tested.
 - **The paper is a null result and has to read as a contribution rather than as
-  a failed experiment.** Still the dominant risk, and 2.5b has now taken its
-  first shot at it rather than only naming it. Section 4 carries the structural
-  half in about 1,000 words, with the order of discovery stated as evidence,
-  the general form stated for any pair in the family, and a one-count check a
-  reader can run. **Whether that lands is the single most important thing for
-  review to judge**, and it cannot be judged from this file. Read section 4
-  itself.
+  a failed experiment.** Still the dominant framing risk, and 2.7 answers the
+  question 2.5b could not: **section 4 lands.** The simulated review called the
+  structural result "the best thing in the paper", correct as stated, with its
+  scope conditions named precisely, and confirmed its general form against
+  `phase2c_pair_regimes.csv` for all three candidate pairs. The 41% figure
+  reproduces exactly. What the review disputes is not whether section 4 is a
+  contribution but whether the title's "entity resolution" is earned by it.
 - **Retired at 2.6: the unverified citations.** Block C is verified, every
   entry resolves by DOI or publisher URL, and the one placeholder is removed.
   The charter's "every citation verified and resolvable" rule is met.
@@ -579,6 +698,14 @@ Still open:
   remains unverifiable by the people it is written for until the push happens.
   **This gates the upload.** The fix is a push plus a tag, never a rebase: the
   hashes are in published text and 2.6b was instructed to leave history alone.
+  **Widened at 2.7 into review major 6.** The review adds two points the push
+  alone does not answer: git timestamps and history are author-settable, so the
+  ordering evidence is attested by the party it exculpates, and the whole cycle
+  from `8869b82` at 01:32:56 to `9e3d921` at 14:25:07 is thirteen hours of one
+  day. The recommended fix is an independent timestamp for the frozen
+  `PREREG.md`, Amendment 1 and Addendum 1a, on OSF, AsPredicted or a dated
+  Zenodo deposit, cited from section 6.4, or one sentence there conceding that
+  the ordering evidence is author-controlled.
 - **The role-separation clause failed, which is what retired the old identity.**
   eta2_ADS 0.1749 against eta2_SV 0.3837 and averaged ranges 0.0707 against
   0.0755, stable across k and delta, wider still without the structural ADS row.
@@ -638,4 +765,5 @@ phase2/reports/phase2e_boundary.md (what 2.2e found, against the amended pair)
 pair) -> phase2/reports/phase2c_pair_design.md (why the pair changed) ->
 phase2/reports/OUTLINE.md (what the paper will be) ->
 **phase2/paper/main.tex (what the paper now is, drafted at 2.5b)** ->
-phase2/PASSLOG.md (history).
+**phase2/reports/phase2_7_peer_review.md (what an external reviewer says about
+it, and what 2.7b has to answer)** -> phase2/PASSLOG.md (history).
