@@ -2595,3 +2595,243 @@ contribution is a null result. The two slow non-writing items are unchanged and
 one of them the manuscript now promises in text: push and tag `phase-2`, and
 deposit the frozen pre-registration somewhere with a timestamp the author does
 not control.
+
+---
+
+## Pass 20 — Phase 2.7d, citations, declarations, trim and polish (2026-09-21)
+
+**What I did and why.** 2.7c added about 3,700 words and deferred five things.
+This pass pays for them and closes the deferred set: eight new citations, the
+four standard declarations, the length trim, the remaining peer-review minors,
+and an `/anti-ai` pass over what was written or revised. Nothing was measured.
+`PREREG.md` was not opened, no frozen constant or committed table moved, and no
+H1, H2 or H3 verdict changed. The locked 6.4 quote is byte-identical to its
+pre-pass state, verified by sha256 (`dcaa1bc…f8f4`) before and after.
+
+### 1. The eight citations, all flagged unverified
+
+`references.bib` grows from 17 entries to 25, in a new Block E whose header and
+whose every `note` field says **"Unverified, verify at review"**. That is the
+instruction and it is the honest state: none of the eight was checked against a
+DOI or venue record this pass, unlike Block C at 2.6. They are to be held to the
+2.6 standard before submission.
+
+| Key | Placed at | Doing what |
+|---|---|---|
+| `fellegisunter1969` | 1.2 | the record-linkage foundation under the entity resolution width |
+| `christen2012` | 1.2 | the entity resolution reference work |
+| `papadakis2020` | 1.2 | the blocking literature |
+| `autoblock2020` | 4.3 | the prior statement of the containment intuition |
+| `mudgal2018` | 2.4 | the learned line the two untrained mechanisms are deliberately not |
+| `armstrong2009` | 2.1 | the lineage of comparisons that cannot inform |
+| `lakens2017` | 3.3 | the four-verdict winner construct as equivalence testing |
+| `kim2019` | 2.2, 6.3 | AND evaluation methodology, beside `amigo2009` |
+
+Two placements carry an explicit concession rather than a name-drop. Section
+4.3 now says the containment intuition is not new, cites AutoBlock for
+key-based blocking as a special case of nearest-neighbour blocking under a
+binary similarity metric, and states that **what we add is the consequence
+drawn from it**, the unreachable verdict, not the containment observation.
+Section 2.1 says this paper belongs to the Armstrong lineage of comparisons
+that cannot inform and that its structural version is sharper, because there
+the baseline could have been beaten and was chosen badly, and here one of the
+two verdicts cannot occur at all. Section 3.3 names the winner construct as
+equivalence testing and carries the margin-choice caveat from that literature.
+The related-work expansion is three paragraphs and four sentences, not a
+survey.
+
+### 2. Declarations
+
+Keywords after the abstract, six of them: author name disambiguation;
+pre-registration; mechanism selection; equivalence testing; entity resolution;
+negative results. Three new starred back-matter sections before the availability
+statement: **Funding** (none, stated as none, with no paid compute or data
+access), **Competing interests** (none, plus the one disclosure that matters,
+that section 8.3 reinterprets an archived artifact of the author's own), and
+**Author contributions** (sole author, with the AI-assistance role pointed at
+the existing disclosure rather than restated). Peer-review minor 2 closed.
+
+### 3. The trim, and how it was actually achieved
+
+**30 pages to 26, and 13,263 text words to 12,079.** The page target is met.
+The charter's 10,000-word prose ceiling is not, and that is stated plainly
+below rather than buried.
+
+Taken as instructed:
+- **Section 6.4's points of record compressed.** All seven commit ids survive in
+  the footnote, both corrections survive as their own labelled points, and the
+  locked quote was not touched. The subsection is 983 words of which about 385
+  are the quote.
+- **Sections 8.3 and 2.3 shrunk**, 8.3 by folding the three labelled findings
+  into one paragraph and tightening the fallback description, 2.3 by compressing
+  the manipulation detail and the four-differences list.
+- **Section 7.3's two minor paragraphs removed as paragraphs.** They are not
+  deleted outright: kisti and inspire each keep one sentence carrying the
+  numbers the review asked for, because deleting them would reopen minors 8 and
+  9 that 2.7c closed. This is the one place the instruction was read in effect
+  rather than literally, and it is flagged here for review.
+- **Figure 5 and Table 6's overlap cut, Figure 5 going.** Table 6 is the frozen
+  falsification table and cannot go; its $k$ rows carry the sensitivity curve,
+  and Table 2 carries the accuracy and two-sidedness curve, so the figure was
+  the duplicate. Its caption now says why nothing repeats it.
+- **Section 7.7 and both deflations kept.** Tightened for concision by about 90
+  words; every number, both qualifications and the licensing paragraph stand.
+
+**Beyond the instruction, and the part that needs sign-off.** The named cuts
+plus a full prose pass reached 29 pages, not 26. Four further changes closed the
+gap, and three of them are not prose:
+1. **Two more floats removed.** Figure 1 (the H1 scatter) and Figure 4 (the
+   decidability gradient). Both were pure plots of numbers the text already
+   states in full, both PNGs stay in the repository and are named in the text at
+   the point they were used, and H1 is labelled in the paper as a
+   construct-validity check rather than a contribution. Restoring either costs
+   about one page. **This is the judgement call of the pass.**
+2. `\parskip` set to 0pt, from `0.25\baselineskip`. The class already indents
+   paragraphs, so the document was using both devices. Worth one page.
+3. `\bibsep` set to `0.4ex plus 0.2ex`. The bibliography was spilling nine lines
+   onto a page of its own. Worth one page.
+4. Float placement fractions loosened (`topfraction` 0.9, `bottomfraction` 0.8,
+   `textfraction` 0.07, `floatpagefraction` 0.8, `topnumber` 3, `totalnumber`
+   4), so large tables stop claiming a page each.
+
+Five tables gained `\small` and the two surviving figures dropped from
+`0.8\linewidth` to `0.7`. Six float captions were tightened; captions fell from
+831 words to 636.
+
+**The length, stated plainly.** Text 12,079 words, headers 229, captions 636,
+prose total 12,944 against the charter's 10,000. Prose came down by about 1,200
+words this pass; the other four pages came from three floats and from
+typography. **The charter ceiling is not met and cannot be met by tightening
+alone.** Reaching 10,000 needs about 2,000 more words out, which means removing
+argument, not wording, after four editing passes over the same text. The
+candidates, if review wants them: Appendix A and Table 8 (about one page, and
+the review's major 7 was satisfied by the two sentences now in 7.5, so the
+appendix is above requirement), the 6.4 points of record beyond the two
+corrections, and section 8.3 as a whole.
+
+### 4. Remaining minors
+
+- **Minor 3, bare acronyms.** A scan of every uppercase token in the body found
+  only one left unglossed: ROC, now "the receiver operating characteristic (ROC)
+  curve". `k-NN` is now defined where the verdicts are defined, in 6.3. ADS, SV,
+  SV\_resid and INIT were already expanded at first use.
+- **Minor 13, the Table 5 caption power-floor conflation.** Already fixed at
+  2.7c and verified still correct; the caption separates H2's floor from H3's.
+- **Minor 15, the two undecided cells.** Already named at 2.7c and still named:
+  $[0, 0.5)$ crossed with SV-high at a decided rate of 0.1971 over 553 blocks,
+  and ADS = 1.0 crossed with SV = 0 at 3,922 blocks.
+- **Minor 6, the Spearman population in 3.2.** Now says the $-0.2612$ is across
+  the 18,984 live blocks, "a wider population than the 13,902 every reported
+  result uses".
+- **Minor 5, "to every printed digit" in 4.2.** Now "to four decimal places".
+- **Minor 14, six-decimal band edges.** Printed to four decimals (0.1026,
+  0.1951, 0.0368, 0.0824) with a pointer to `phase2b_constants.py` as the frozen
+  record at full precision.
+- **Minor 16, runtime and hardware.** One sentence added to the availability
+  statement: offline and CPU-only, no network call after the one-time S2AND
+  download, no GPU and no paid service, about twenty minutes for a full
+  mechanism pass, one consumer laptop, the seed of section 6.1. The twenty
+  minutes is the figure STATE.md records for the cached mechanism re-run; no
+  machine specification exists in the repository and none is asserted.
+- **Minor 17, the Zenodo concept DOI. VERIFIED and closed.** Queried the Zenodo
+  REST API this pass. `10.5281/zenodo.21644207` is the concept DOI
+  (`conceptrecid` 21644207) and currently resolves to v1.1.0 at
+  `10.5281/zenodo.22258609`; `10.5281/zenodo.21644208` is v1.0.0. Both
+  `references.bib` and the availability statement already said exactly that, so
+  nothing changed in the text and the verification is recorded as a comment in
+  the bib.
+- **Minor 1, abstract length.** 260 words to 246, inside the 200-250 band.
+- **Minor 19, the Figure 5 / Table 6 overlap.** Closed, see the trim above.
+
+### 5. The `/anti-ai` pass
+
+Run over the prose written or revised this pass, which after four rewrites is
+most of the body. Audited mechanically first: zero occurrences of delve,
+underscore, pivotal, crucial, seamless, comprehensive, intricate, nuanced,
+holistic, transformative, Moreover, Furthermore, Additionally, Consequently,
+"it is important to note", "shed light", "paves the way", "testament", "in
+conclusion" or "further research is needed". Five hits on "robust" are all
+"robustness curve", the pre-registered term, and "Surface-form robustness", a
+real section topic. Sentence length runs mean 24.7, sd 13.0, from 3 to 71 words,
+with 32% in the 15-25 band and 17% under 12, which is high burstiness rather
+than the flat AI rhythm. Paragraph openers are varied; no paragraph opens with a
+formulaic connective.
+
+Six rewrites followed. The entity-resolution citation sentence stopped being a
+"runs from X through Y and Z" tour. The Armstrong paragraph lost an
+unattributed "the concern has been restated for each wave of new methods since".
+The AutoBlock sentence lost its "what we add is X and not Y" negative
+parallelism while keeping the distinction the instruction requires. The learned
+entity-matching clause was rewritten out of an awkward tail. The design-time
+definition lost a "not only" construction. The runtime sentence was made plainer.
+Every number, every citation key and every verdict word was preserved; no em
+dash was introduced, asserted in the edit script itself.
+
+### 6. The numeric audit, and three restorations
+
+Because four rewriting passes went over the same text, the multiset of every
+numeric token in the body was diffed against the pre-pass file. Everything that
+left is accounted for: the four six-decimal band edges, replaced by their
+four-decimal forms (minor 14); `0.25` and three `0.8`s, which are `\parskip`
+and the figure widths; `0.9184`, `92.18`, `0.94` and one of the two `0.7334`s,
+which are the kisti and inspire sentences the instruction said to remove, with
+the surviving `0.7334` still in Table 3; and duplicate mentions of `13{,}902`,
+`197{,}479`, `0.02` and small integers, each of which still appears elsewhere
+(`0.02` 34 times, `13{,}902` 13 times, `197{,}479` 5 times). Everything that
+arrived is a citation year, a rounded band edge, or a preamble length.
+
+Three specifics the trim had dropped were put back after that audit, because
+they are precision rather than padding: the `12:09:23 on 2026-09-18` timestamp
+on `c20239a` in the 6.4 correction, the `0.1529` aminer-to-inspire ceiling
+difference in 7.3, and the explicit 95\% level on the driver bootstrap in 7.6.
+
+### Invariant checks
+
+Invariant 1, verify before you build: nothing built. Invariant 2, no tautology:
+no construct touched. Invariant 3, held-out only: no new number. Invariant 4,
+superseded, and no selector exists to report baselines beside. Invariant 5, no
+result before measurement: **nothing was measured and no number changed**,
+verified by diffing every numeric token in the body against the pre-pass file
+(see below). Invariant 6, two mechanisms, both untrained, no third arm: the new
+`mudgal2018` citation is explicitly named as the line this paper is not on.
+Invariant 7, offline and reproducible: no code, no dependency; the one network
+call this pass was a read-only Zenodo API query for minor 17, recorded above.
+Invariant 8, honest framing: the trim did not touch section 7.7's deflations,
+the locked quote or either correction under it, and the part of the page
+reduction that came from typography and float cuts rather than from prose is
+stated above rather than presented as tightening.
+
+**Build.** `pdflatex`, `bibtex`, `pdflatex`, `pdflatex`, `pdflatex`, from a
+clean tree with the aux files removed. **26 pages. Zero undefined citations,
+zero undefined references, zero LaTeX warnings, zero em dashes in the source and
+zero in the rendered PDF.** 25 `\bibitem`s in `main.bbl`, which is regenerated
+and committed because AutoTeX does not run BibTeX. Ten floats, down from
+thirteen.
+
+**Commit hashes.** All seven of section 6.4's short hashes resolve on `phase-2`
+and their subject lines still match the roles 6.4 assigns them, in order:
+`8869b82` 01:32:56, `5e13e38` 10:46:50, `3d86959` 11:43:11, `c20239a` 12:09:23,
+`5f452ad` 12:36:16, `3e79a48` 13:04:42, `9e3d921` 14:25:07, all on 2026-09-18.
+No history was rebased, squashed or amended.
+
+**What I did not do.** Did not touch `PREREG.md`, any frozen constant, any
+committed table, any report or any figure file. Did not re-run or re-analyse
+anything. Did not verify the eight new citations, by instruction. Did not push
+or tag. Did not delete `figs/phase2e_h1_ads_accuracy.png`,
+`figs/phase2e_decidability_gradient.png` or `figs/phase2e_k_curve.png`, which
+are now unused by the build but are sha256-identical to the `reports/figs/`
+originals and are named in the text; removing them from the upload bundle is a
+2.8 item.
+
+**Recommendation for the next pass.** 2.8, release and submission prep. Three
+things gate a first upload and none of them is writing. Push and tag `phase-2`,
+which is the only thing that makes section 6.4's seven hashes and the
+availability statement true for a reader. Deposit the frozen `PREREG.md`,
+Amendment 1 and Addendum 1a somewhere with a timestamp the author does not
+control, which is peer-review major 6. And register an institutional address
+with arXiv, then open the cs.DL endorsement request, which is the only item
+measured in weeks. Before submission, and separately from the upload: **verify
+all eight Block E citations** against DOI and venue records to the 2.6 standard.
+Two decisions are for review at the top of 2.8: whether the three extra float
+and typography changes stand, and whether the charter's 10,000-word ceiling is
+enforced or formally relaxed to the page count.
