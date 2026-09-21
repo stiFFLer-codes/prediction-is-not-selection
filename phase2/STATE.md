@@ -6,37 +6,92 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.7b complete. The four re-analysis majors have been run on
-  the frozen records. No H1, H2 or H3 verdict moves, and one general claim in
-  the manuscript prose does not survive.** The manuscript is still not
-  submission-ready and was not touched: the prose pass is 2.7c. The report is
-  `reports/phase2_7b_reanalysis.md`, the code is
-  `phase2/phase2_7b_reanalysis.py`, with eight tables
-  `reports/tables/phase2_7b_*.csv` and two figures
-  `reports/figs/phase2_7b_*.png`.
-- **Read this before anything else in 2.7c. Block size is a design-time signal
+- Status: **Phase 2.7c complete. The manuscript prose has been rewritten
+  against the committed 2.7b numbers. The title is changed, the abstract is
+  rebuilt, block size is in the main text with both of its deflations, and the
+  three integrity disclosures are in.** The manuscript builds clean. Nothing
+  was measured this pass: every number added to the prose is cited from
+  `reports/phase2_7b_reanalysis.md`, `reports/phase2e_boundary.md` or the
+  committed tables. `PREREG.md` is untouched and no frozen result moved.
+- **The title is now** "Prediction is not selection: a pre-registered study of
+  design-time mechanism choice in author name disambiguation". Set in
+  `paper/main.tex`, PLAN.md and here. The entity resolution width came out of
+  the title and stayed in the paper: sections 1.2 and 1.4 still state the
+  structural containment at entity resolution width and scope the empirical
+  null to the author name disambiguation instance. This closes peer-review
+  major 4 by the reviewer's own first option.
+- **The scoping decision was taken and it is the one 2.7b handed up.** Every
+  flat "no design-time signal is actionable" sentence is gone. The claim the
+  paper now makes, in the abstract, in section 1.4, in section 8.1, in the
+  limitations and in the conclusion, is that **neither pre-registered signal is
+  actionable at the margin, and no design-time signal we examined tells a
+  designer which mechanism resolves a name better**. Block size is reported in
+  full as the exception that yields a decided verdict, and is then deflated by
+  the two measured reasons. "Prediction is not selection" is unchanged as the
+  thesis.
+- **Block size is section 7.7, `sec:blocksize`, with Table 7.** (The peer
+  review numbers the Results subsections 5.x and is one table off from 4
+  onward; the numbers here are the ones the built PDF prints.) It states the
+  two decided bands first (3-4 at -0.1145, 5-8 at -0.0712, both k-NN wins),
+  then the composition result (no sign change at fixed ADS in either stratum,
+  90.0% of the smallest band is ADS = 1.0 against 43.8% of the largest), then
+  the abstention result (rule precision where it fires beats the vote in all
+  seven bands, coverage climbing 0.8423 to 0.9827), then the reconciliation of
+  the pooled -0.0050 with the 191/309 per-block count, then the distinction the
+  whole subsection exists for: block size predicts which mechanism has the
+  higher whole-set accuracy on small blocks, not which one resolves a name
+  better, and the edge is a mechanical consequence of coverage against
+  abstention that needed no measurement.
+- **The body is well over budget and 2.7d has to trim it.** `texcount -inc`
+  gives 13,263 text words against the pre-pass 9,537, so this pass added about
+  3,700 words, and the page count went from 25 to 30. That was the instruction
+  for 2.7c and it is the binding constraint on 2.7d. The likeliest trims are
+  named under "Next" below.
+- **Five of the eight peer-review majors are now closed in the prose.** Major 1
+  (small-block sensitivity, in 7.4 and 7.6 and the Figure 2 caption), major 2
+  (block size, section 7.7), major 3 (bootstrap interval in Table 5 and the
+  scoping of "stable across k"), major 4 (the retitle), major 7 (the two
+  delta = 0.02 reversals, in 7.5 and Appendix A). Major 8 is closed except that
+  the ceiling column landed in Table 3 rather than a new table. Major 5 is
+  closed by disclosure: the locked 6.4 quote is byte-identical and a fourth
+  point of record below it states exactly what existed at `c20239a`. Major 6 is
+  closed as prose by a fifth point of record naming the evidence as
+  author-controlled git metadata; the deposit, push and tag are still open and
+  are not writing items.
+- **What 2.7c did not do, deferred to 2.7d by instruction.** The reference
+  expansion and new citations; keywords, funding, competing interests and
+  author contributions; the remaining formatting minors; the `/anti-ai` pass on
+  the new prose; and the length trim. Also still open from the minors list:
+  the Spearman population in 3.2, the "to every printed digit" phrasing in
+  4.2, the
+  six-decimal band edges, the runtime and hardware sentence, the Zenodo concept
+  DOI verification, and the Figure 5 / Table 6 overlap.
+- **No hypothesis verdict moved and none could.** H1 Supported, H2
+  Inconclusive, H3 Inconclusive at the primary margin and Partial at
+  delta = 0.02. The frozen falsification table, Table 6, is unchanged. Every
+  supplementary analysis in the prose is labelled as supplementary and sits
+  beside the frozen primary analysis rather than in place of it.
+- **The one thing that gates a first upload is still not a manuscript edit.**
+  `phase-2` has never been pushed, so the seven commit hashes in section 6.4
+  and the availability statement both point at a repository that does not yet
+  contain what the paper says it contains. Section 6.4 now says the repository
+  will be pushed and tagged at release, which states the gap rather than
+  closing it. **Do not upload before that push.**
+- **Read this before anything else in 2.7d. Block size is a design-time signal
   with two decided pooled band verdicts at the primary margin.** Blocks of 3 to
   4 signatures give a pooled gap of -0.1145 [-0.1286, -0.1007] and blocks of 5
   to 8 give -0.0712 [-0.0807, -0.0614], both `k-NN wins` at delta = 0.05.
   Neither ADS nor SV has a single decided marginal band, which is the fact that
-  carried H2 and H3 to Inconclusive. Read alone this is a counter-example to
-  "design-time mechanism selection has no signal a designer can act on" stated
-  without qualification, which is the abstract's and section 8.1's sentence.
-  **Two measured qualifications sit beside it.** At fixed ADS the effect never
-  changes sign, so it is gap compression and not a winner reversal, and the
-  marginal reversal is composition: 90.0% of the smallest band is ADS = 1.0
-  against 43.8% of the largest. And the decided cells are an abstention effect,
-  since the rule's precision where it fires beats the vote's accuracy in all
-  seven bands, 0.9370 against 0.9037 in the smallest, while its coverage climbs
-  from 0.8423 to 0.9827. **The scoping decision is the author's and it is the
-  same decision major 4 asks for. Take it first in 2.7c.**
-- **No hypothesis verdict changed and this was checked, not assumed.** H1
-  Supported, H2 Inconclusive, H3 Inconclusive at the primary margin and Partial
-  at delta = 0.02, all unchanged. On the sensitivity population (blocks with 3
-  or more test signatures) 0 ADS bands, 0 SV bands and 0 of the 20 grid cells
-  carry a decided pooled verdict at delta = 0.05, so the pre-registered power
-  floor still bites first. The check is an assertion inside the code.
-- **Three further 2.7b findings the prose has to carry.** (a) The H2 gradient's
+  carried H2 and H3 to Inconclusive. **Two measured qualifications sit beside
+  it**: at fixed ADS the effect never changes sign, so it is gap compression
+  and not a winner reversal, and the marginal reversal is composition; and the
+  decided cells are an abstention effect, since the rule's precision where it
+  fires beats the vote's accuracy in all seven bands, 0.9370 against 0.9037 in
+  the smallest, while its coverage climbs from 0.8423 to 0.9827. **This is now
+  written into the manuscript as section 7.7 and must not be trimmed away in
+  2.7d.** The two deflations are what stop a reviewer saying a real selection
+  signal was buried.
+- **Three further 2.7b findings, all now in the prose.** (a) The H2 gradient's
   reported rise at ADS = 1.0 is a small-block artifact: the marginal decided
   rate runs 0.1083 / 0.0618 / 0.0256 / 0.0089 / 0.0278 frozen and
   0.1096 / 0.0443 / 0.0254 / 0.0089 / 0.0070 restricted, which is monotone, and
@@ -48,115 +103,44 @@ full arc in PLAN.md, the method in phase2-spec.md.
   0.9586 pooled, and **it is not the main reason the datasets differ**: it
   closes only about 13% of the aminer-to-inspire spread. The rule's conditional
   precision is 0.8512 on 96.86% coverage against the vote's 0.8294.
-- **The 2.7 peer review found eight majors and is the input to 2.7b and 2.7c.**
-  Majors 1, 2, 3 and 8 are closed as analysis by 2.7b and remain open as prose.
-  Majors 4, 5, 6 and 7 are untouched. **Do not submit or upload before 2.7c.**
+- **The 2.7 peer review is the input to 2.7b and 2.7c and stays the checklist.**
   The report is `reports/phase2_7_peer_review.md`, with the same content as a
-  `.docx` beside it.
-- **The eight majors in one line each, in the report's order.** (1) The
-  per-block winner construct is degenerate at one test signature, and 278 of
-  the 500 decided verdicts and 1,130 of the 10,172 demonstrated ties come from
-  blocks with one or two test signatures. (2) Test-set size is an unregistered
-  design-time signal that carries +0.0208 per log unit and reverses the
-  result by unit: above 32 test signatures the vote wins no block and the rule
-  wins 30, while pooled the vote is ahead. (3) The driver comparison has no
-  interval and no size adjustment. (4) "Entity resolution" in the title is
-  carried by an argument and the reference list contains no entity resolution
-  literature. (5) Section 6.4's locked quote says no k-nearest accuracy figure
-  existed when the amendment was written; `phase2c_pair_twosidedness.csv` and
-  `phase2c_pair_regimes.csv` were committed 27 minutes earlier and contain
-  exactly that on the calibration split. (6) The pre-registration record is
-  author-controlled, same-day, and `phase-2` is still unpushed. (7) Two
-  delta = 0.02 winner reversals in `phase2e_boundary.md` are absent from the
-  manuscript. (8) No out-of-history accuracy ceiling, no conditional precision
-  for the rule, no justification for accuracy over B-cubed.
-- **Everything else the manuscript states still checks out.** All ten sections,
-  the abstract and two back-matter statements are in `paper/main.tex`, which
-  builds under pdflatex and bibtex at 25 pages with zero LaTeX warnings, no
-  undefined citations or references and zero em dashes. Housekeeping is closed,
-  the bibliography is verified, the affiliation is correct, the generative-AI
-  disclosure and the data and code availability statement are in, and the build
-  is self-contained. The review re-derived every headline number from the
-  committed CSVs and found no transcription error. Phase 2.3 stays blocked and,
-  on the 2.5b negative control, has no selector left to build.
-- **The one thing that gates a first upload is not a manuscript edit.**
-  `phase-2` has never been pushed, so the seven commit hashes in section 6.4
-  and the new availability statement both point at a repository that does not
-  yet contain what the paper says it contains. A reader following the URL today
-  lands on `main`, the Phase 1 project. **Do not upload before that push.**
-  Adding the URL made the problem stated rather than silent; it did not fix it.
+  `.docx` beside it. Twenty minors remain, most of them deferred to 2.7d.
+- **Everything else the manuscript states still checks out.** The review
+  re-derived every headline number from the committed CSVs and found no
+  transcription error. Housekeeping is closed, the bibliography is verified,
+  the affiliation is correct, the generative-AI disclosure and the data and
+  code availability statement are in, and the build is self-contained. Phase
+  2.3 stays blocked and, on the 2.5b negative control, has no selector left to
+  build.
 - **The build is self-contained and this was verified the way arXiv tests it.**
   The five PNGs live in `paper/figs/`, sha256-identical to `reports/figs/`, and
-  `\graphicspath` is `{{figs/}}` with no `../` anywhere. `main.tex`,
-  `main.bbl` and `figs/` were copied alone into an empty directory and built
-  there with no repository access: all five figures resolved, zero undefined
-  citations, zero undefined references, zero LaTeX warnings. `main.bbl` is
+  `\graphicspath` is `{{figs/}}` with no `../` anywhere. `main.bbl` is
   committed and explicitly un-ignored, because AutoTeX does not run BibTeX.
-- **Five of the ten moderation findings are closed at 2.6b, one is reduced,
-  four are open.** Closed: the `\graphicspath` build blocker, the
-  generative-AI disclosure, the `main.bbl` packaging requirement, the
-  availability and ODC-BY statement, and the affiliation that improved the
-  endorsement position. Reduced but not closed: the repository is now named in
-  the paper but `phase-2` is still unpushed. Open: the abstract's 154
-  characters of headroom, the `{,}` separators in the metadata abstract, the
-  cs.LG cross-list question and the arXiv licence choice, all of which are
-  submission-time decisions rather than manuscript edits.
-  `reports/phase2_6_moderation_audit.md` carries every finding with its
-  original text plus a dated 2.6b note and a status column.
-- **New at 2.6b: the corresponding address is a personal Gmail account.** Fine
-  in print, and it matters for the arXiv account. Automatic endorsement keys
-  off a registered institutional email domain plus publication history, so a
-  personal address leaves only the manual endorsement request. Registering an
-  `adit.ac.in` or `cvmu.edu.in` address with arXiv, whatever the paper prints,
-  is the cheapest remaining item and has the longest lead time.
+  The 2.7c build adds no figure and no package, so the packaging is unchanged.
+- **Four moderation findings stay open and are all submission-time decisions**,
+  unchanged by 2.7 and 2.7c: the abstract's headroom, the `{,}` separators in
+  the metadata abstract, the cs.LG cross-list question and the arXiv licence
+  choice. The abstract is now 260 words against the 288 it was, which is closer
+  to the 200-250 the venue class expects but is not inside it.
+- **New at 2.6b and still true: the corresponding address is a personal Gmail
+  account.** Fine in print, and it matters for the arXiv account. Registering
+  an `adit.ac.in` or `cvmu.edu.in` address with arXiv, whatever the paper
+  prints, is the cheapest remaining item and has the longest lead time.
 - **The manuscript is at `phase2/paper/main.tex`**, with
   `phase2/paper/references.bib`. Venue-neutral LaTeX, generic `article` class,
-  no journal style file.
-- **Body length is the one thing 2.5c could not settle and it needs a
-  decision.** Measured with the counter in the Pass 14 PASSLOG entry, which
-  reads about 190 words higher than the counter Pass 13 used: body went from
-  9,374 to 9,157, captions 434 to 462, abstract 290 unchanged, prose total
-  10,098 to 9,909. The prose total is under the charter's 10,000 ceiling.
-  **The body is still around 9,150 against the 8,500 target and the
-  outline's 8,100 budget.** The overrun now sits in section 6 (1,738 against
-  1,100, of which the locked deliverable is 400 that cannot be cut), section
-  7 (1,769 against 1,600), section 8 (1,250 against 950) and section 4
-  (1,021 against 650). Three of those four are the sections review was asked
-  to judge, so 2.5c did not cut into them. Review decides whether to accept
-  the length or to name which of them may be cut. **2.6 then added 198 body
-  words to section 1**, for the instructed scope fix, so read every figure
-  above as that much lower than reality. The page count is 24.
-- **The `/anti-ai` pass has been run.** 22 prose edits, academic-manuscript
-  register, no number or verdict touched and the locked 6.4 quote verified
-  byte-identical. The dominant tell was "rather than", 31 occurrences cut to
-  20 of which 2 are inside the locked quote; beside it a self-congratulating
-  honesty refrain, two rule-of-three signposts, two duplicated paragraphs and
-  the chronological recap that opened section 10. Details in PASSLOG Pass 14.
-- **The citations are verified and the bibliography is final.** Done at 2.6:
-  block C's eight entries each carry a DOI, or the publisher URL for
-  `hernandezorallo2012`, and `whoiswho2023` was corrected to the KDD 2023
-  paper actually published. 17 cited keys against 17 defined keys, exact set
-  equality in both directions. **`tan2026` is removed**, as unverifiable: no
-  indexed citable record of it exists. The sibling framing that depended on it
-  is out of PLAN.md and `phase2-spec.md`, each with a dated note saying what
-  was cut. It was never cited in the manuscript.
+  no journal style file. It now carries an appendix, Appendix A, which is new
+  at 2.7c.
 - **The pooled gap -0.0196 is a primary-analysis-population number**, settled
   at 2.5c against `reports/tables/phase2b_accuracy_by_population.csv`: 13,902
   blocks, 197,479 test signatures, exact 0.8244 against fuzzy 0.8441, exact
   coverage 0.9686, fuzzy coverage 0.9988, agreement 0.9698. The 0.9664 /
   0.9985 / 0.9679 triple that used to sit beside it in section 4.2 is the
   **whole evaluation split** (16,136 blocks, 199,713 signatures), which is
-  also the population the zero `exact wins` count is measured on. Section 4.2
-  and the Table 2 caption now name both populations explicitly.
-- **The retired selector is now marked superseded in four places**, with
-  original text kept: `phase2-spec.md` sections 7 and 9, charter invariant 4,
-  and the last clause of charter invariant 6. OUTLINE.md open input 3 is
-  closed. The other three open inputs are still open.
+  also the population the zero `exact wins` count is measured on.
 - **The two-signal role separation is retired.** The charter mission, PLAN.md's
   paper identity, its working titles, and `phase2-spec.md` sections 1 and 3 now
-  describe a pre-registered negative result: design-time mechanism selection for
-  author name disambiguation has no signal a designer can act on, for a
-  structural reason and an empirical one. Removed, not softened. `PREREG.md`
+  describe a pre-registered negative result. Removed, not softened. `PREREG.md`
   was not touched and stays frozen.
 - Phase 2.2e complete. `PREREG.md` as amended by Amendment 1 and Addendum 1a was
   executed on the evaluation split. H1 Supported, H2 Inconclusive, H3
@@ -168,8 +152,9 @@ full arc in PLAN.md, the method in phase2-spec.md.
 - **The result that pointed against the old identity has now been acted on.**
   Addendum 1a's role-separation clause required ADS to be the stronger driver of
   decidability under both its measures. It is the stronger driver under neither.
-  That did not decide H2, because the power floor is evaluated first, but it was
-  the sharpest measurement in 2.2e and 2.5a retired the framing it tested.
+  That did not decide H2, because the power floor is evaluated first. It is the
+  sharpest measurement in 2.2e at k = 5 and not across the k curve, which is
+  how the manuscript now states it, and 2.5a retired the framing it tested.
 - Phase 2.2d complete, nothing outstanding. Phase 2.2c, 2.2b, 2.2a and 2.1
   complete. The 2.2b numbers stay as the frozen record of the nested pair and
   were not recomputed, overwritten or withdrawn.
@@ -444,10 +429,83 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   figures `reports/figs/phase2_7b_*.png`. The manuscript was not touched.
   `PREREG.md` untouched.
 
-## Next: Phase 2.7c, the prose pass
+- **Pass 19 (Phase 2.7c): the prose pass.** The manuscript rewritten against
+  the committed 2.7b numbers, citing that report's figures exactly and
+  inventing nothing. The title changed to name the substrate, the abstract
+  rebuilt to 260 words in one paragraph, block size written up as section 7.7
+  with both of its deflations, the small-block sensitivity reported in 7.4 and
+  7.6, the driver bootstrap added to Table 5 with "stable across k" scoped to
+  the verdict, the accuracy accounting added to 7.3 and Table 3, the two
+  delta = 0.02 reversals reported in 7.5 and Appendix A, and two new points of
+  record added under the locked 6.4 quote, which was not edited. Seven minors
+  taken. Nothing measured. `PREREG.md` untouched, no frozen result moved, no
+  verdict changed. The body is about 3,700 words over where it started, which
+  2.7d trims.
 
-**2.7c is the next pass.** 2.7b produced every number the prose needs and
-touched no prose. 2.7c writes it, in this order.
+## Next: Phase 2.7d, the trim and the back matter
+
+**2.7d is the next pass.** 2.7c added roughly 3,700 words and every one of them
+was asked for. 2.7d pays for them and closes what was deferred, in this order.
+
+1. **The trim, which is the binding constraint.** `texcount -inc` reads 13,263
+   text words plus 226 in headers and 831 in float contents, against a charter
+   ceiling of 10,000 for the prose total. The page count is 30. Roughly 3,500
+   words have to come out and the pass should decide where before it starts
+   cutting. Four places are the obvious candidates and none of them is section
+   5.7:
+   - **Section 6.4 is now five points of record** and is the longest
+     subsection in the paper. The two new points are load bearing; the first
+     three predate them and overlap the locked quote in places.
+   - **Section 7.3 gained four paragraphs.** The conditional-precision and
+     ceiling paragraphs are the substance; the kisti and inspire paragraphs are
+     minors 8 and 9 and could each be a sentence.
+   - **Section 8.3, the reinterpretation of the earlier synthetic study**, is
+     about 700 words and was already over budget before this pass. Nothing in
+     2.7c touched it beyond one clause.
+   - **Section 2.3, the Kim and Kim comparison**, is minor 10 in the review:
+     570 words on one prior paper inside the related-work section.
+   - Minor 19 names the cheapest float cut: Figure 5 and Table 6 overlap, both
+     carrying the k curve and the driver clause outcome.
+   **Section 7.7 and its two deflations are not a trim target.** Reporting the
+   block-size verdict without both measured qualifications is worse than not
+   reporting it, because it reads as a buried selection signal.
+2. **The reference expansion.** Seventeen references against the 40 to 70 the
+   venue class expects (minor 11). The review's section 6 literature audit
+   names the specific gaps. The retitle removes the sharpest version of this,
+   since the paper no longer promises entity resolution width in its title, but
+   the count is still thin.
+3. **Front and back matter** (minor 2): keywords, funding statement,
+   declaration of competing interests, author contributions. All four are
+   standard in this venue class even for a single-author paper, and the
+   generative-AI disclosure does not substitute for any of them.
+4. **The remaining substantive minors**, none of which 2.7c took: the Spearman
+   population in section 3.2 (minor 6), "to every printed digit" in 4.2
+   (minor 5), the six-decimal band edges (minor 14), the runtime and hardware
+   sentence (minor 16), the Zenodo concept DOI verification (minor 17), and the
+   abstract's remaining length (minor 1, now 260 words against 200-250).
+5. **An `/anti-ai` pass over the new prose, then a final rebuild.** About 3,700
+   words were written this pass and none of them has been through that check.
+   The locked 6.4 quote must be verified byte-identical afterwards, as at 2.5c.
+
+**Three non-writing items are unchanged and two of them gate a first upload.**
+Push `phase-2` and tag the state section 6.4 describes, because none of the
+seven hashes resolves for a reader today and the manuscript now says in text
+that the push will happen. Deposit the frozen `PREREG.md`, Amendment 1 and
+Addendum 1a somewhere with a timestamp the author does not control, which is
+what peer-review major 6 asks for and what the fifth point of record in 6.4
+does not supply. And register an institutional email with arXiv, then open the
+endorsement request for cs.DL; endorsement is the only item measured in weeks.
+
+**Four moderation findings stay open and are all submission-time decisions**,
+unchanged by 2.7c: the abstract's headroom, the `{,}` separators in the
+metadata abstract, the cs.LG cross-list question and the arXiv licence choice.
+
+## Superseded: Phase 2.7c, the prose pass (done at Pass 19)
+
+**Superseded at Phase 2.7c, 2026-09-21. Kept, not deleted, as the record of
+what the pass was asked to do.** The pass ran and the section above is what is
+live now. All six items below were taken. Item 1, the scope decision, was taken
+first as instructed and is recorded under "Where we are".
 
 1. **The scope decision, which is the author's and blocks the rest.** It is now
    two decisions fused into one, because 2.7b's block-size result landed on the
@@ -467,38 +525,13 @@ touched no prose. 2.7c writes it, in this order.
    H2 paragraph rather than weakening it.
 4. **Major 3 reporting.** Table 4 needs the bootstrap interval, and section
    5.6's "stable across k" needs scoping to the verdict with k = 2 named as the
-   weak end. "The sharpest single measurement in the run" is defensible at
-   k = 5 and not across the curve.
+   weak end.
 5. **Major 8 reporting.** Table 3 or the population table needs the ceiling
    column and section 5.3 needs the rule's conditional precision, with the
    caveat that the ceiling is **not** what separates the datasets.
 6. **Majors 5 and 7, which 2.7b did not touch.** Major 5 is a fourth point of
    record under the locked quote naming what did exist at `c20239a`. Major 7 is
    two sentences or an appendix table for the two delta = 0.02 reversals.
-
-Major 6 is not a writing item: it is the deposit, the push and the tag, listed
-below.
-
-**The body-length constraint is binding on this pass.** Prose total is 9,985
-against the charter's 10,000 ceiling counting back matter in, or 9,770 counting
-it out. 2.7c adds by nature and now has six items to add. Decide before it
-starts which of sections 4, 6, 7 and 8 may be cut into, or accept the length
-explicitly. The review's own measurement of the body is 9,488 words excluding
-float contents, which is a third counter and should not be mixed with the other
-two.
-
-**Two slow non-writing items are unchanged and now carry review weight.** Push
-`phase-2` and tag the state section 6.4 describes: major 6 makes this a review
-finding rather than a tidiness item, because none of the seven hashes resolves
-for a reader today. And register an institutional email with arXiv, then open
-the endorsement request for cs.DL. Major 6 adds a third: deposit the frozen
-`PREREG.md`, Amendment 1 and Addendum 1a somewhere with a timestamp the author
-does not control.
-
-**Four moderation findings stay open and are all submission-time decisions**,
-unchanged by 2.7: the abstract's headroom (now also a review minor, since 288
-words exceeds the 200-250 the venue class expects), the `{,}` separators in the
-metadata abstract, the cs.LG cross-list question and the arXiv licence choice.
 
 ## Superseded: Phase 2.7, the peer-review dry run (done at Pass 17)
 
@@ -631,7 +664,11 @@ Settled at Phase 2.5b:
 
 Settled at Phase 2.5d:
 
-- **The title is final**, set by the author and no longer a candidate:
+- **Superseded at Phase 2.7c, 2026-09-21: the paper was retitled to
+  "Prediction is not selection: a pre-registered study of design-time
+  mechanism choice in author name disambiguation", on peer-review major 4.
+  Kept, not deleted, as the record of the 2.5d decision.** The title was
+  set by the author and no longer a candidate:
   "Prediction is not selection: a pre-registered study of design-time
   mechanism selection in entity resolution." It is the string in
   `paper/main.tex` and in PLAN.md, which now carries it under a "Title"

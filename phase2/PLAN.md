@@ -210,20 +210,35 @@ history.
 
 ## Title
 
-**Final, set by the author at Phase 2.5d, 2026-09-18.** This is the title, not
-a working candidate, and it is the string in `paper/main.tex`:
+**Retitled by the author at Phase 2.7c, 2026-09-21.** This is the title, not a
+working candidate, and it is the string in `paper/main.tex`:
+
+> Prediction is not selection: a pre-registered study of design-time mechanism
+> choice in author name disambiguation
+
+*No trailing period. Titles do not take one, and arXiv's title field would
+carry it verbatim.*
+
+It names the substrate the measurements are on. The 2.7 peer review's major 4
+found the entity resolution width in the old title carried by an argument and
+by no cited entity resolution literature, so the width came out of the title
+and stayed in the paper: sections 1.2 and 1.4 state the structural containment
+at entity resolution width and scope the empirical null to the author name
+disambiguation instance. The paper loses nothing it has evidence for.
+
+**Superseded at Phase 2.7c, 2026-09-21. Kept, not deleted, as the record of
+what the title was and why.** Set by the author at Phase 2.5d, 2026-09-18:
 
 > Prediction is not selection: a pre-registered study of design-time mechanism
 > selection in entity resolution
 
-*Trailing period dropped at Phase 2.6, 2026-09-21, to match `paper/main.tex`.
-Titles do not take one, and arXiv's title field would carry it verbatim.*
+*Trailing period dropped at Phase 2.6, 2026-09-21, to match `paper/main.tex`.*
 
-It names entity resolution, which is broader than the substrate. The empirical
-work is on seven author name disambiguation datasets, and the abstract says so
-in its second sentence. The structural result is the part that earns the wider
-scope: it holds for any pair of mechanisms assigning from the record's own
-history, so it is a statement about entity resolution generally rather than
+It named entity resolution, which is broader than the substrate. The empirical
+work is on seven author name disambiguation datasets, and the abstract said so
+in its second sentence. The structural result was the part that earned the
+wider scope: it holds for any pair of mechanisms assigning from the record's
+own history, so it is a statement about entity resolution generally rather than
 about author names.
 
 The six candidates carried here from Phase 2.5a are superseded by the line

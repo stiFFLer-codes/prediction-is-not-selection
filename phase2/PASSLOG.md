@@ -2414,3 +2414,184 @@ caveat that the ceiling is not what separates the datasets. The body-length
 constraint is unchanged and binding: 9,985 against the 10,000 ceiling, so every
 addition has to be paid for. The two slow non-writing items are still open:
 push and tag `phase-2`, and register an institutional email with arXiv.
+
+## Pass 19 — Phase 2.7c, the prose pass (2026-09-21)
+
+**What I did and why.** 2.7b produced every number the prose needed and touched
+no prose. This pass wrote it. The manuscript was rewritten against the committed
+2.7b numbers, citing that report's figures exactly. Nothing was measured, no
+frozen definition was altered, `PREREG.md` was not opened, and no H1, H2 or H3
+verdict moved. Every number added to the prose comes from
+`reports/phase2_7b_reanalysis.md`, `reports/phase2e_boundary.md` or the
+committed tables, and each was checked against its source table before it was
+typed.
+
+**1. The title, and the scope decision it rides on.** `\title{}` is now
+"Prediction is not selection: a pre-registered study of design-time mechanism
+choice in author name disambiguation". PLAN.md and STATE.md updated, with the
+2.5d title kept beside it as the record of what it was. This is peer-review
+major 4 closed by the reviewer's own first option: the entity resolution width
+came out of the title and stayed in the paper, since sections 1.2 and 1.4 still
+state the structural containment at entity resolution width and scope the
+empirical null to the author name disambiguation instance.
+
+**2. The scoping decision, taken first as 2.7b asked.** Every flat "no
+design-time signal is actionable" sentence is gone, from the abstract, section
+1.4, section 8.1, the limitations and the conclusion. What stands in its place
+is the statement the evidence supports: **neither pre-registered signal is
+actionable at the margin, and no design-time signal we examined tells a designer
+which mechanism resolves a name better**. "Prediction is not selection" is
+unchanged as the thesis.
+
+**3. The abstract.** Rebuilt as one paragraph of 260 words, down from 288 in
+three. "Signature" is gone, replaced by "held-out author mentions". It leads
+with the structural containment, then the two pre-registered signals, then block
+size and its deflation, then H1 as the contrast.
+
+**4. Block size, the new section 7.7 with Table 7.** This is the subsection the
+whole pass turns on, and it is written in the order the report established:
+the decided verdict in full first (3-4 at $-0.1145$ [$-0.1286$, $-0.1007$], 5-8
+at $-0.0712$ [$-0.0807$, $-0.0614$], both `k-NN wins`, and the statement that
+neither pre-registered signal produces one decided marginal band), then the two
+measured deflations, then the reconciliation, then the distinction the whole
+subsection exists to land.
+- *Composition.* At fixed ADS the sign never changes: inside ADS = 1.0 every
+  band is negative, $-0.1342$ down to $-0.0076$; inside ADS < 1.0 every band is
+  positive, $+0.0594$ to $+0.0118$. 90.0% of the smallest band is ADS = 1.0
+  against 43.8% of the largest. So block size says how much the choice is worth,
+  not which choice to make, and at fixed consistency it never points anywhere
+  consistency does not already point.
+- *Abstention.* Rule coverage climbs 0.8423 to 0.9827 across the bands, and the
+  rule's precision where it fires exceeds the vote's accuracy in all seven,
+  0.9370 against 0.9037 in the smallest. Table 7 carries both columns and the
+  vote's accuracies beneath them. The prose says plainly that telling a designer
+  to use the vote on small blocks is telling them to prefer the mechanism that
+  is less often right where it commits, because the other declines to commit on
+  about a sixth of the items.
+- *Reconciliation.* Pooled the vote is ahead 0.0050; per block the rule takes
+  191 against 309. The two smallest bands hold 263 of the vote's 309 wins and 24
+  of the rule's 191; the two largest bands are 2,809 of 13,902 blocks but
+  131,083 of 197,479 signatures; the five negative bands contribute $-1,466$ on
+  66,396 and the two non-negative $+479$ on 131,083, totalling $-987$ over
+  197,479, which is the pooled $-0.0050$. On the restricted population the
+  per-block margin is 167 against 55, the rule taking the larger blocks.
+- *The closing claim.* Two things get called a winner. Block size predicts which
+  mechanism has the higher whole-set accuracy on small blocks, and that
+  mechanism is the one that never abstains. It does not predict which mechanism
+  resolves a name better. The edge is a mechanical consequence of coverage
+  against abstention, which is fixed by the two definitions and needed no
+  measurement.
+
+Section 7.8, the no-selector subsection, now also answers the block-size version
+of the selector question rather than only the ADS-and-SV version.
+
+**5. Small-block sensitivity (major 1).** Reported as a sensitivity analysis
+with the frozen primary unchanged. Section 7.4 gains the size-1 stratum
+(1,309 blocks: 14 / 165 / 1,130 / 0 undecided, the zero by construction), the
+size-2 stratum (2,159: 10 / 89 / 1,739 / 321), the fact that the two together
+supply 278 of the 500 decided verdicts and 2,869 of the 10,172 ties, and the
+restriction's result: 0 ADS bands, 0 SV bands, 0 of 20 cells decided at
+delta = 0.05, so no verdict moves. Section 7.6 gains the gradient result: the
+restricted marginal gradient 0.1096 / 0.0443 / 0.0254 / 0.0089 / 0.0070 is
+monotone, the rise at ADS = 1.0 is a small-block artifact, and the per-SV
+top-below-bottom count goes 2 of 4 to 3 of 4. The Figure 2 caption now says the
+size-1 stratum cannot produce an undecided verdict by construction.
+
+**6. Driver uncertainty (major 3).** Table 5 gains a bootstrap panel:
+k = 5 $+0.2088$ [$+0.0628$, $+0.3473$], 99.9% of draws; size-adjusted $+0.1840$
+[$+0.0299$, $+0.3277$], 99.5%; k = 2 $+0.0474$ [$-0.2531$, $+0.3159$], 57.0%.
+Section 7.6's prose now separates the verdict from the evidence: the point
+estimate points the same way at every k, which is what makes the clause outcome
+stable, and the direction is decisive at k = 5 and not distinguishable from zero
+at k = 2. "The sharpest single measurement in the run" is now scoped to k = 5
+rather than to the whole curve.
+
+**7. Accuracy accounting (major 8).** Table 3 gains a Ceiling column
+(pooled 0.9586, aminer 0.8435, inspire 0.9964, and the rest), with the caveat
+stated in text that normalizing for it closes only about 13% of the
+aminer-to-inspire spread, so it does not explain the dataset differences.
+Section 7.3 gains the rule's conditional precision, 0.8512 on 96.86% coverage
+against the vote's 0.8294. Section 6.3 gains three sentences justifying
+whole-set accuracy over B-cubed for an assignment task and naming the
+comparability cost.
+
+**8. The three integrity disclosures (majors 5, 6, 7).**
+- *Major 5.* The locked 6.4 quote is unchanged and was verified byte-identical
+  to `HEAD` and to the PLAN.md deliverable after every edit. A fourth point of
+  record below it states exactly what existed at `c20239a` (12:09:23): the
+  calibration-split k-NN accuracies 0.8390 / 0.8354 / 0.8290 / 0.8188, the
+  two-sidedness counts, and the per-cell ADS-by-SV grid whose gaps already carry
+  the compression-and-sign-change shape, $+0.0576$ in [0, 0.5) x SV-high against
+  $-0.0526$ at ADS = 1.0 x SV = 0. It says the amended hypotheses were written
+  with that grid in view, that what makes it legitimate is the original
+  pre-registration reserving the calibration split for design choices, and that
+  the evaluation split was untouched. The correction is by disclosure, not by
+  editing locked text.
+- *Major 6.* A fifth point of record says the ordering evidence is
+  author-controlled git metadata, names the regression check against frozen
+  calibration-split counts as the one control that is not, and says the
+  repository will be pushed and tagged at release.
+- *Major 7.* The two delta = 0.02 reversals are in section 7.5 in two sentences,
+  and Appendix A (new, Table 8) gives the winner structure for the
+  direction-by-SV, fixed-SV and INIT grids at all three margins, with the
+  outcome vocabulary defined there.
+
+**9. Substantive minors taken.** ADS expanded at first use as the
+author-dominance share; Table 2's "n/a" replaced by 3,876 with a caption note
+saying the containment fixes it; a paragraph on kisti and one on inspire's
+out-of-history share; the Table 4 caption's conflation of the two power floors
+fixed; the two undecided cells named; `adscascade2026` stated in text as a
+Zenodo-archived artifact rather than a peer-reviewed paper.
+
+**Key artifacts.** `phase2/paper/main.tex` only. No table, figure, report or
+code file was written or changed. No new figure was added; the new floats are
+Table 7 (block size) and Table 8 (Appendix A), both built from committed CSVs.
+
+**Invariant checks, run and passed.** Invariant 2, no tautology: nothing was
+defined this pass; block size is a count of signatures and appears nowhere in
+any winner definition. Invariant 3, held-out only: every number in the prose is
+on the evaluation split's primary population or on the labelled sensitivity
+subset; no selector exists or was fitted. Invariant 5, no result before
+measurement: nothing was measured and nothing was invented. Every added number
+was checked against its committed source before typing, including 3,876 against
+`phase2b_accuracy_by_population.csv` (0.019627403420110493 x 197,479 = 3876.0
+exactly), the calibration accuracies and per-cell gaps against
+`phase2c_pair_twosidedness.csv` and `phase2c_pair_regimes.csv`, the commit
+timestamps against `git log`, and the whole block-size, sensitivity, driver and
+accounting sets against `reports/phase2_7b_reanalysis.md`. Invariant 7, offline
+and reproducible: no network, no dependency, no code. Invariant 8, honest
+framing: this pass exists to make the framing more honest, not less; the one
+claim 2.7b found unsupported was rescoped rather than dropped, and the
+counter-example is reported in full before it is deflated. The locked 6.4 quote
+was verified byte-identical to `HEAD`.
+
+**Build.** `pdflatex`, `bibtex`, `pdflatex`, `pdflatex`. Zero undefined
+citations, zero undefined references, zero LaTeX warnings, zero em dashes. Six
+underfull hboxes, the same six the pre-pass build had, in the author footnote,
+the Figure 1 caption, a falsification-table cell and a bibliography entry. The
+one overfull hbox the pre-pass build had, in the driver table, is gone.
+`main.bbl` is unchanged because no citation was added. 30 pages, up from 25.
+
+**What I did not do, and why.** Did not touch `PREREG.md`, any frozen constant,
+any committed table or any report. Did not re-run or re-analyse anything. Did
+not add a reference or a citation, by instruction: the reference expansion is
+2.7d. Did not add keywords, funding, competing-interests or contributions
+declarations, also 2.7d. Did not run `/anti-ai` over the new prose, also 2.7d.
+Did not trim, by instruction. Did not push or tag.
+
+**The length, stated plainly.** `texcount -inc` reads 13,263 text words against
+the pre-pass 9,537, so this pass added about 3,700 words against a charter
+ceiling of 10,000 for the prose total. That was the instruction and it makes the
+trim the binding constraint on 2.7d rather than a tidiness item.
+
+**Recommendation for the next pass.** 2.7d, in this order: the trim, the
+reference expansion, the front and back matter, the remaining minors, then
+`/anti-ai` and a final rebuild. STATE.md names five trim candidates and one
+non-candidate. **Section 7.7 and both of its deflations are not a trim target**:
+reporting the block-size verdict without the composition and abstention results
+is worse than not reporting it, because it reads as a buried selection signal,
+which is the single most damaging thing a reviewer could say about a paper whose
+contribution is a null result. The two slow non-writing items are unchanged and
+one of them the manuscript now promises in text: push and tag `phase-2`, and
+deposit the frozen pre-registration somewhere with a timestamp the author does
+not control.

@@ -19,7 +19,7 @@
 \setlength{\parskip}{0.25\baselineskip}
 
 \title{Prediction is not selection: a pre-registered study of design-time
-mechanism selection in entity resolution}
+mechanism choice in author name disambiguation}
 
 \author{Maitreya Sapariya\thanks{Department of Information Technology,
 A.~D.~Patel Institute of Technology (ADIT), Charutar Vidya Mandal (CVM)
@@ -33,32 +33,27 @@ author: \texttt{maitreyasapariya@gmail.com}. ORCID 0009-0003-9346-3775.}}
 
 \begin{abstract}
 Can a designer measure a property of their own data before building anything
-and learn which classification mechanism to build? On seven public author
-name disambiguation datasets the answer is no, for two separate reasons.
-
-The first is structural. A rule assigning on an exact surface match is a
-strict sub-case of a retriever assigning from the single nearest surface
-form, because a test string present in the history sits at the maximum of any
-similarity function. The comparison most practitioners would run therefore
-cannot have a winner, at any cutoff and in any metric family. We measured
-zero rule wins on 199{,}713 held-out signatures in two metric families while
-executing a pre-registered analysis, before we understood why. The general
-form covers any pair of mechanisms assigning an author from the block's own
-history: such a rule cannot win where the history names one author, and
-cannot win where the history is written one way, so two regions of the design
-space are empty before the data is seen.
-
-The second is empirical. We built a pair that avoids both problems, an
-exact-evidence rule against a k-nearest vote, and pre-registered the
-hypotheses, the winner definition, the bands and the falsification table
-before running it. Over 13{,}902 held-out blocks the two mechanisms differ by
-half an accuracy point, 0.8244 against 0.8294. The gap compresses and changes
-sign along both design-time axes, but no band clears the pre-registered
-margin, so both selection hypotheses return Inconclusive: the margin is wider
-than every effect. The same statistic predicts each mechanism's own accuracy
-at Spearman 0.51 and 0.83. Prediction is not selection, and no selector was
-built, because none can beat a fixed choice where the gap sits below the
-margin.
+and learn which classification mechanism to build? On seven public author name
+disambiguation datasets the answer is mostly no, for two separate reasons. The
+first is structural. A rule assigning on an exact surface match is a strict
+sub-case of a retriever assigning from the single nearest surface form, because
+a test string present in the history sits at the maximum of any similarity
+function. The comparison most practitioners would run therefore cannot have a
+winner, at any cutoff and in any metric family, and we measured zero rule wins
+on 199{,}713 held-out author mentions before we understood why. The general
+form empties two regions of the design space before any data is collected. The
+second is empirical. On a redesigned pair that avoids both problems, an
+exact-evidence rule against a k-nearest vote, neither pre-registered signal is
+actionable at the margin we fixed in advance: the mechanisms sit half an
+accuracy point apart pooled, 0.8244 against 0.8294, no band on either axis
+clears the margin, and both selection hypotheses return Inconclusive. One
+unregistered signal, block size, does carry a decided verdict, and it is
+composition and abstention rather than a difference in matching quality. At
+fixed consistency it never points to a different winner, and the mechanism it
+favours on small blocks is the one less often right where it commits, because
+the other declines to commit. Against that, the same consistency statistic
+predicts each mechanism's own accuracy at Spearman 0.51 and 0.83. Prediction is
+not selection.
 \end{abstract}
 
 \section{Introduction}
@@ -141,7 +136,22 @@ both design-time axes and changes sign on both, but no band clears the
 pre-registered five-point margin, so both selection hypotheses return
 Inconclusive under the frozen rules. The one clause that asked which signal
 drives whether the choice is decidable at all found surface stability, not
-consistency, at every $k$ and every margin.
+consistency, at every $k$ and every margin, though the evidence behind that
+direction is decisive at $k = 5$ and not at $k = 2$.
+
+\textbf{One signal we did not register does carry a verdict, and it is not the
+finding it looks like.} Block size is readable from the blocking pass alone, so
+it meets the same design-time test as the other two, and the frozen regression
+named it. It is the only design-time signal anywhere in this study with a
+decided pooled band verdict at the primary margin: on blocks of three to eight
+signatures the vote is ahead by more than five accuracy points. Two measured
+facts change what that means. Holding consistency fixed, block size never points
+to a different winner than consistency already points to, so it says how much
+the choice is worth rather than which choice to make. And the decided bands come
+from the rule declining to answer rather than from either mechanism resolving a
+name better: where the rule does commit it is the more accurate arm in every
+band. Section~\ref{sec:blocksize} reports the verdict in full and then both
+qualifications.
 
 \textbf{The contrast that makes this informative.} The consistency signal is
 not weak. It predicts each mechanism's own held-out accuracy at Spearman 0.51
@@ -159,24 +169,28 @@ They use no property of author names and no property of our data, so they are
 contributions to entity resolution and are stated at that width. The measured
 zero is the instance that found them, not their support.
 
-The other two are the author name disambiguation instance. The absence of an
-actionable selection rule at the pre-registered margin, and the consistency
-signal's success at predicting each mechanism's own accuracy, are
-measurements on seven author name disambiguation datasets with one pair of
-untrained lookups. They are evidence about that substrate. We do not offer
-them as facts about entity resolution, and nothing here extends them past the
-datasets they were measured on.
+The other two are the author name disambiguation instance. That neither
+pre-registered signal yields an actionable selection rule at the
+pre-registered margin, and the consistency signal's success at predicting each
+mechanism's own accuracy, are measurements on seven author name disambiguation
+datasets with one pair of untrained lookups. They are evidence about that
+substrate. We do not offer them as facts about entity resolution, and nothing
+here extends them past the datasets they were measured on.
 
-The boundaries are tighter still. We do not claim that no design-time
-selection signal exists for any mechanism pair anywhere, or even anywhere in
-author name disambiguation; the empirical claim is scoped to these two
-mechanisms and this margin. We do not claim the effects measured below the
-margin are zero; they are small, they change sign, and the frozen rules
-declined to decide them. We claim nothing about a selector, because none was
-built and none is evaluated, for the reason given in
-Section~\ref{sec:no-selector}. And
-we claim nothing about learned disambiguation systems, since both mechanisms
-here are untrained lookups by design.
+The boundaries are tighter still. We do not claim that no design-time signal
+here is actionable in any sense, and Section~\ref{sec:blocksize} reports the
+one that produces a decided verdict along with the two measurements that say
+what it is. What we claim is narrower and is the claim the frozen analysis
+supports: no design-time signal we examined tells a designer which mechanism
+resolves a name better. We do not claim that no design-time selection signal
+exists for any mechanism pair anywhere, or even anywhere in author name
+disambiguation; the empirical claim is scoped to these two mechanisms and this
+margin. We do not claim the effects measured below the margin are zero; they
+are small, they change sign, and the frozen rules declined to decide them. We
+claim nothing about a selector, because none was built and none is evaluated,
+for the reason given in Section~\ref{sec:no-selector}. And we claim nothing
+about learned disambiguation systems, since both mechanisms here are untrained
+lookups by design.
 
 \section{Related work}
 \label{sec:related}
@@ -317,8 +331,10 @@ separately, and are both visible at design time.
 \textbf{Consistency} is how many distinct people a name refers to. S2AND
 calls the inverse of it homonymity. A block whose history names one person is
 maximally consistent; a block collecting five different people under one name
-is not. We measure it as ADS, the purity of author assignments among the
-block's training signatures.
+is not. We measure it as ADS, the author-dominance share: the fraction of the
+block's training signatures belonging to its single most frequent author. The
+acronym is carried over from the earlier study of
+Section~\ref{sec:earlier-synthetic} and is used throughout.
 
 \textbf{Surface stability} is how consistently one person's name is written.
 S2AND calls the inverse of it synonymity. We measure the inverse directly, as
@@ -657,6 +673,19 @@ abstention counted as incorrect. Coverage is reported separately for each
 mechanism wherever accuracy is reported, because the asymmetry that the rule
 abstains and the vote does not is a result rather than a nuisance.
 
+Author name disambiguation is normally evaluated with B-cubed, pairwise F,
+cluster F or the K-metric \citep{amigo2009}, and we use none of them. Those
+metrics score a partition of a block against a reference partition, which is the
+right thing to score when the task is to discover clusters; the task here is to
+assign each held-out mention to one author already present in the block's
+history, so the reference is a label per item and accuracy over items is the
+quantity that matches it. The cost of that choice is comparability: no number in
+this paper can be placed beside a published B-cubed F1 for the same block, and a
+reader wanting to know how our two mechanisms compare to a disambiguation system
+will not find it here. We accept that cost because neither mechanism is offered
+as a disambiguation system, and because the winner construct needs a per-item
+outcome it can resample.
+
 \textbf{Winner.} Per block, a paired bootstrap on the rule's accuracy minus
 the vote's, resampling the block's test signatures with replacement,
 $B = 2000$ draws, both mechanisms scored on the same resample, read as a 95\%
@@ -718,8 +747,10 @@ structural wherever it appears; the empirical content we test lies below that
 maximum, in the region where the outcome is not fixed in advance.
 \end{quote}
 
-Three points of record, each checked at writing against the committed
-repository.
+Five points of record. The first three were checked at writing against the
+committed repository. The last two were added after an external read of the
+manuscript found the locked sentence above too strong as written, and they
+correct it by disclosure rather than by editing locked text.
 
 \textbf{What ``amended once'' means.} The repository holds two dated appends.
 The first is the amendment, which replaced the second mechanism and rewrote
@@ -752,6 +783,43 @@ pre-registration; \texttt{5e13e38} freezes the calibration constants;
 \texttt{9e3d921} is the run reported here.} That run opens with the
 regression check of Section~\ref{sec:two-sided}, which reproduces
 calibration-split counts frozen before the amendment was written.
+
+\textbf{What existed when the amendment was written, and what the locked
+sentence does not say.} The quote states that no accuracy figure for the
+k-nearest mechanism existed at the time the amended hypotheses were written.
+That is true of the evaluation split and is not true without that qualifier, and
+since the quote is reproduced unedited the correction belongs here rather than
+inside it. Commit \texttt{c20239a}, at 12:09:23 on 2026-09-18 and twenty-seven
+minutes before the amendment, holds
+\texttt{phase2c\_pair\_twosidedness.csv} and
+\texttt{phase2c\_pair\_regimes.csv}. Between them those two files carry the
+k-nearest vote's pooled accuracy on the calibration split at $k$ of 2, 3, 5 and
+10, namely 0.8390, 0.8354, 0.8290 and 0.8188; its two-sidedness counts against
+the rule at each of those $k$; and its per-cell accuracy gap against the rule
+over the same five by four ADS-by-SV grid the amended H2 and H3 are written
+over. Those per-cell gaps already carry the compression-and-sign-change shape
+the amended hypotheses go on to predict, at $+0.0576$ in $[0, 0.5)$ crossed with
+SV-high against $-0.0526$ at ADS = 1.0 crossed with SV = 0. So the amended
+hypotheses were written with the calibration-split grid in view. What makes that
+legitimate is not that the information was absent but that the original
+pre-registration reserves the calibration split for design choices and forbids
+its use for any reported hypothesis number, and the evaluation split was
+untouched at that point: Amendment 1's own wording is that no mechanism B
+prediction on the evaluation split had been computed, scored or printed. That
+scoped claim is the one that survives being checked, which is why it is stated
+here.
+
+\textbf{What the ordering evidence is, and what it is not.} Everything above is
+author-controlled git metadata. Commit dates can be set and history can be
+rewritten, so the record establishing the ordering is attested by the party it
+exculpates, and a reader is entitled to weigh it on those terms. One control is
+not author-controlled in the same way. The reported run opens by reproducing
+calibration-split counts that were frozen before the amendment was written, and
+it halts if they differ, so every number in this paper comes from a run tied to
+a state of the repository that predates the hypotheses it tests. The repository
+will be pushed and tagged at release, so that the commits named here resolve for
+a reader rather than only for us.
+
 
 \section{Results}
 \label{sec:results}
@@ -790,15 +858,19 @@ retired pair's zero was counted over the whole evaluation split, 16{,}136
 blocks and 199{,}713 signatures. Every accuracy and gap in the table,
 including the retired pair's, is measured on the primary analysis population
 of 13{,}902 blocks and 197{,}479 test signatures, as are the amended pair's
-counts. Source: \texttt{phase2e\_twosidedness\_eval.csv}, and
-\texttt{reports/phase2b\_boundary.md} for the retired row.}
+counts. The retired pair's 3{,}876 is fixed by the containment rather than
+measured against it: every exact-correct signature is fuzzy-correct, so the
+count on the retriever's side is exactly the accuracy gap times the test-set
+size. Source: \texttt{phase2e\_twosidedness\_eval.csv}, and
+\texttt{reports/phase2b\_boundary.md} and
+\texttt{phase2b\_accuracy\_by\_population.csv} for the retired row.}
 \label{tab:twosided}
 \begin{tabular}{llrrrrr}
 \toprule
 Pair & $k$ & A right, & B right, & Rule acc. & B acc. & Pooled gap \\
      &     & B wrong  & A wrong  &           &        & \\
 \midrule
-Exact vs.\ fuzzy (retired) & 1 & \textbf{0} & n/a & 0.8244 & 0.8441 & $-0.0196$ \\
+Exact vs.\ fuzzy (retired) & 1 & \textbf{0} & 3{,}876 & 0.8244 & 0.8441 & $-0.0196$ \\
 \midrule
 Rule vs.\ k-NN, Levenshtein & 2 & 987 & 3{,}990 & 0.8244 & 0.8396 & $-0.0152$ \\
 Rule vs.\ k-NN, Levenshtein & 3 & 1{,}724 & 4{,}004 & 0.8244 & 0.8360 & $-0.0115$ \\
@@ -850,10 +922,49 @@ abstention sits entirely on the rule's side by design and is scored as
 incorrect throughout, and the two mechanisms return the identical prediction
 on 94.93\% of test signatures.
 
-Table~\ref{tab:accuracy} breaks that down, and the picture is not uniform.
-inspire carries 11{,}110 of the 13{,}902 blocks, so the pooled number is
-largely an inspire number and a seven-dataset label would overstate its
+Scoring abstention as incorrect is the right primary metric for a choice
+between deployable mechanisms, and it is not the number the precision-first
+framing invites, so we print that one as well. The rule fires on 96.86\% of
+held-out signatures and is right on 0.8512 of those, against the vote's 0.8294
+over everything. Where the rule commits it is the more accurate arm, by
+0.0218, and it pays for that with 3.14\% abstention. That is the shortest
+accurate statement of what the two mechanisms trade, and it belongs beside the
+pooled accuracy rather than in place of it.
+
+Neither mechanism can pass a ceiling the data sets for both. Both assign an
+author drawn from the block's own training half, so a test signature whose true
+author never appears in that half is an automatic error for either arm. Pooled,
+4.14\% of held-out signatures are of that kind, so nothing in this mechanism
+family can exceed 0.9586 here, and Table~\ref{tab:accuracy} gives the ceiling
+per dataset. It is a shared floor subtracted from both arms, so it moves each
+accuracy and barely moves their difference. It is also not what separates the
+datasets, which is worth stating because that is the natural guess. aminer's
+ceiling is 0.8435 against inspire's 0.9964, a difference of 0.1529, while their
+rule accuracies differ by 0.5406; normalized each to its own ceiling they still
+sit 0.4684 apart, so the ceiling accounts for about 13\% of the spread between
+them. The rest is the blocks being harder, not more of their items being
+impossible.
+
+Table~\ref{tab:accuracy} breaks the comparison down, and the picture is not
+uniform. inspire carries 11{,}110 of the 13{,}902 blocks, so the pooled number
+is largely an inspire number and a seven-dataset label would overstate its
 reach; pooled over the six non-inspire datasets the rule is ahead by 0.0221.
+What makes inspire different shows up in the ceiling column: 0.36\% of its
+held-out signatures name an author its block's history never shows, against
+13.20\% pooled over the other six. Its blocks are close to closed histories,
+which is why both mechanisms score above 0.94 there and why no other dataset in
+the corpus looks like it.
+
+kisti is the other dataset worth naming. It carries the largest gap of any
+qualifying dataset, $+0.1131$ to the rule, and the lowest agreement rate in the
+table at 0.7826, so the two mechanisms are doing different things there rather
+than agreeing at a lower level. The rule answers 92.18\% of its signatures and
+is right on 0.9184 of those, while the vote answers everything and reaches
+0.7334. kisti is where the precision-against-coverage trade is widest in the
+corpus. It settles nothing on its own, because the frozen generalization rule
+asks for the pooled non-inspire analysis and a majority of qualifying datasets,
+but it is the clearest single instance of what the two mechanisms are trading.
+
 The vote's accuracy falls monotonically in $k$, at 0.8396, 0.8360, 0.8294
 and 0.8187, which is the calibration trap of
 Section~\ref{sec:calibration-trap} showing up on the evaluation split as
@@ -862,25 +973,29 @@ well.
 \begin{table}[htbp]
 \centering
 \caption{Held-out accuracy, coverage and agreement per dataset, with inspire
-alone and pooled non-inspire. Datasets below 100 blocks do not qualify for
-the generalization rule and decide nothing. Source:
-\texttt{phase2e\_accuracy\_by\_population.csv}.}
+alone and pooled non-inspire. \emph{Ceiling} is one minus the share of test
+signatures whose true author is absent from the block's training half: an
+automatic error for both arms, so no mechanism in this family can exceed it.
+Datasets below 100 blocks do not qualify for the generalization rule and
+decide nothing. Sources: \texttt{phase2e\_accuracy\_by\_population.csv};
+\texttt{phase2\_7b\_accuracy\_accounting.csv} for the ceiling.}
 \label{tab:accuracy}
-\begin{tabular}{lrrrrrrr}
+\small
+\begin{tabular}{lrrrrrrrr}
 \toprule
-Population & Blocks & Test sigs. & Rule & k-NN & Gap & Rule cov. & Agree. \\
+Population & Blocks & Test sigs. & Ceiling & Rule & k-NN & Gap & Rule cov. & Agree. \\
 \midrule
-All (primary) & 13{,}902 & 197{,}479 & 0.8244 & 0.8294 & $-0.0050$ & 0.9686 & 0.9493 \\
+All (primary) & 13{,}902 & 197{,}479 & 0.9586 & 0.8244 & 0.8294 & $-0.0050$ & 0.9686 & 0.9493 \\
 \midrule
-aminer & 842 & 40{,}006 & 0.4076 & 0.4038 & $+0.0038$ & 0.9800 & 0.9620 \\
-arnetminer & 82 & 1{,}620 & 0.5093 & 0.5099 & $-0.0006$ & 0.9796 & 0.9716 \\
-inspire & 11{,}110 & 139{,}369 & 0.9482 & 0.9645 & $-0.0163$ & 0.9705 & 0.9612 \\
-kisti & 711 & 10{,}147 & 0.8466 & 0.7334 & $+0.1131$ & 0.9218 & 0.7826 \\
-pubmed & 34 & 803 & 0.8020 & 0.5554 & $+0.2466$ & 0.9489 & 0.6650 \\
-qian & 276 & 1{,}696 & 0.6079 & 0.5896 & $+0.0183$ & 0.9876 & 0.9629 \\
-zbmath & 847 & 3{,}838 & 0.8494 & 0.9125 & $-0.0631$ & 0.8953 & 0.8682 \\
+aminer & 842 & 40{,}006 & 0.8435 & 0.4076 & 0.4038 & $+0.0038$ & 0.9800 & 0.9620 \\
+arnetminer & 82 & 1{,}620 & 0.8488 & 0.5093 & 0.5099 & $-0.0006$ & 0.9796 & 0.9716 \\
+inspire & 11{,}110 & 139{,}369 & 0.9964 & 0.9482 & 0.9645 & $-0.0163$ & 0.9705 & 0.9612 \\
+kisti & 711 & 10{,}147 & 0.9049 & 0.8466 & 0.7334 & $+0.1131$ & 0.9218 & 0.7826 \\
+pubmed & 34 & 803 & 0.9888 & 0.8020 & 0.5554 & $+0.2466$ & 0.9489 & 0.6650 \\
+qian & 276 & 1{,}696 & 0.9517 & 0.6079 & 0.5896 & $+0.0183$ & 0.9876 & 0.9629 \\
+zbmath & 847 & 3{,}838 & 0.9713 & 0.8494 & 0.9125 & $-0.0631$ & 0.8953 & 0.8682 \\
 \midrule
-Pooled non-inspire & 2{,}792 & 58{,}110 & 0.5276 & 0.5054 & $+0.0221$ & 0.9640 & 0.9206 \\
+Pooled non-inspire & 2{,}792 & 58{,}110 & 0.8680 & 0.5276 & 0.5054 & $+0.0221$ & 0.9640 & 0.9206 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -892,13 +1007,41 @@ Per-block verdicts at the primary margin: 191 rule wins, 309 k-NN wins,
 10{,}172 ties and 3{,}230 undecided. Five hundred of 13{,}902 blocks carry a
 decided verdict.
 
+Those counts are not spread evenly over block sizes, and the construct is
+weakest where most of them come from. A block with one test signature has a
+resampling distribution that is a point mass, so its interval is a single point
+and the verdict \emph{undecided} is unreachable for it by construction rather
+than by evidence. The size-1 stratum holds 1{,}309 blocks: 14 rule wins, 165
+k-NN wins, 1{,}130 ties and, necessarily, zero undecided. The size-2 stratum
+holds 2{,}159: 10, 89, 1{,}739 and 321. Together the two strata supply 278 of
+the 500 decided verdicts and 2{,}869 of the 10{,}172 demonstrated ties.
+
+We therefore recomputed everything the per-block verdict feeds on the 10{,}434
+blocks carrying at least three test signatures, 75.05\% of the blocks and
+97.15\% of the test signatures. This is a sensitivity analysis and the frozen
+primary analysis is the all-blocks column above, unchanged. No outcome moves:
+zero ADS bands, zero SV bands and zero of the twenty grid cells carry a decided
+pooled verdict at $\delta = 0.05$ under the restriction, so the pre-registered
+power floor still binds and H2 and H3 return Inconclusive on either population.
+What moves is the composition of the decided set. The decided rate falls from
+0.0360 to 0.0213, the tie share from 0.7317 to 0.6999 and the undecided share
+rises from 0.2323 to 0.2788, which is the degeneracy being removed rather than
+evidence changing. The per-block margin also reverses: 191 rule wins against
+309 for the vote becomes 167 against 55. The vote's per-block wins sit almost
+entirely in blocks too small for their interval to say much, and
+Section~\ref{sec:blocksize} takes that up as a question about block size rather
+than about small samples.
+
 \textbf{H2 is Inconclusive and H3 is Inconclusive}, both at the primary
 margin, and the reason is the same for both. Inconclusive is evaluated first,
 and both power floors are met. No ADS band and no SV band has a decided
 pooled verdict at $\delta = 0.05$, because every marginal pooled gap on both
 axes is smaller than 0.05 in absolute value, so every marginal pooled verdict
 is a demonstrated tie. No cell of the five by four grid is decided either:
-eighteen of the twenty are ties and the other two are undecided. H2 requires
+eighteen of the twenty are ties and the other two are undecided. Those two are
+$[0, 0.5)$ crossed with SV-high, the most contested cell in the grid at a
+decided rate of 0.1971 over 553 blocks, and ADS = 1.0 crossed with SV = 0, the
+largest cell at 3{,}922 blocks. H2 requires
 two decided ADS bands and two decided SV bands and has none of either. H3
 requires two decided SV bands inside a single ADS band and has none.
 
@@ -921,7 +1064,10 @@ signatures.
 \includegraphics[width=0.8\linewidth]{phase2e_power_by_size.png}
 \caption{Verdict share against test-set size, with tie and undecided kept
 apart. A demonstrated tie is not the same as insufficient evidence, and this
-figure is what lets a reader tell them apart. Source:
+figure is what lets a reader tell them apart. The size-1 stratum cannot
+produce an undecided verdict by construction, so its tie bar is not evidence of
+equivalence; Section~\ref{sec:h2h3} gives that stratum's counts and the
+sensitivity analysis that removes it. Source:
 \texttt{phase2e\_power\_by\_size.png}.}
 \label{fig:power}
 \end{figure}
@@ -942,9 +1088,9 @@ most varied. The largest magnitude anywhere on either axis is 0.0388. At
 $\delta = 0.02$ the ADS ordering becomes a decided marginal reversal, rule
 wins in $[0, 0.5)$ against k-NN wins at ADS = 1.0.
 
-Below ADS = 1.0 there is no SV-driven winner reversal at any margin. The
-strongest structure the frozen rules find below the top band is a
-tie-crossing at $\delta = 0.02$. Substantively the shape is the
+Below ADS = 1.0 there is no SV-driven winner reversal at any margin in the
+direction-by-SV grid. The strongest structure the frozen rules find below the
+top band there is a tie-crossing at $\delta = 0.02$. Substantively the shape is the
 pre-registered gap-compression one, which is
 \citeauthor{kimkim2020}'s dataset-level finding reproduced at block level
 with surface variation measured rather than manipulated.
@@ -960,14 +1106,30 @@ sign, with coefficients $-0.1889$ on ADS (s.e.\ 0.0076), $+0.0548$ on SV
 (s.e.\ 0.0212) and $+0.0208$ on log test-set size (s.e.\ 0.0018); it
 summarizes the grid and decides nothing. Inside the INIT bands the shape
 survives as a tie-crossing at INIT = 0 and at $\mathrm{INIT} \geq 0.5$, and
-flattens to compression only in between.
+flattens to compression only in between, at $\delta = 0.05$.
+
+Two winner reversals exist at $\delta = 0.02$ in grids we report at
+$\delta = 0.05$, and they belong here rather than in an appendix a reader has
+to find. Across ADS bands at fixed SV-high, the sequence is rule wins, rule
+wins, tie, tie, k-NN wins: three decided bands of opposite identity, which is a
+full winner reversal under our own definition. Inside INIT = 0, the SV sequence
+carries k-NN wins at SV = 0 against rule wins at SV-high, which is a reversal as
+well. Both favour the reading that structure exists below the pre-registered
+margin, and reporting a margin where it supports us and a different one where
+it does not is the failure mode this paragraph exists to avoid.
+Appendix~\ref{app:margins} gives the winner structure for all three grids at
+all three margins, so a reader can check the whole surface rather than the
+slice we chose.
 
 \begin{table}[htbp]
 \centering
 \caption{Marginal pooled gap (rule minus k-NN) and pooled verdict by ADS band
 and by SV band, at all three pre-registered margins, with the decided-winner
-rate at the primary margin. No band is decided at $\delta = 0.05$, which is
-what carries both H2 and H3 to Inconclusive. Source:
+rate at the primary margin. No band is decided at $\delta = 0.05$. That is
+H2's power floor directly. H3's floor is a different condition, counting ADS
+bands that hold two decided SV bands rather than decided marginal bands; it is
+also met, at zero, and the grid behind it is Figure~\ref{fig:grid} rather than
+this table. Source:
 \texttt{phase2e\_pooled\_ads.csv}, \texttt{phase2e\_pooled\_sv.csv}.}
 \label{tab:bands}
 \begin{tabular}{lrrrlllr}
@@ -1020,18 +1182,43 @@ ADS = 1.0 row widens the gap rather than closing it, at 0.1755 against
 0.4594; that restriction is a labelled diagnostic and decides nothing, as is
 the block-weighted variant at 0.3653 against 0.3765.
 
-This is the clause the amended consistency hypothesis needed consistency to
-win. It does not decide H2, because the power floor is read first, but it is
-the sharpest single measurement in the run and it points against the roles we
-had assigned the two signals.
+Two point statistics do not say how firm a comparison between them is, so we
+bootstrapped their difference by resampling blocks with replacement, $B = 2000$
+draws, at the seed scheme the frozen analysis already uses for every pooled
+band. At $k = 5$, $\eta^2_{\mathrm{SV}} - \eta^2_{\mathrm{ADS}}$ is $+0.2088$
+with a 95\% interval of $[+0.0628, +0.3473]$, and surface variability is the
+larger of the two in 99.9\% of draws. The grid cells are not balanced on
+test-set size and decidability rises with test-set size, so we also partialled
+log cell-mean test-set size out of the cell rates and repeated the
+decomposition on the residuals, giving $+0.1840$, $[+0.0299, +0.3277]$: the
+confound is present and is not load bearing. At $k = 2$ the difference is
+$+0.0474$ with an interval of $[-0.2531, +0.3159]$, and surface variability is
+the larger in only 57.0\% of draws. This adds an interval to a pre-registered
+statistic and changes neither the statistic nor the clause.
+
+The clause outcome is therefore stable across $k$ and the evidence behind it is
+not, and the two are worth keeping apart. The point estimate points the same
+way at every $k$ on the curve, which is what makes the outcome stable. The
+direction is decisive at $k = 5$ and is not distinguishable from zero at
+$k = 2$, which is also the one point on the curve where the clause was already
+reported as split. This is the clause the amended consistency hypothesis needed
+consistency to win. It does not decide H2, because the power floor is read
+first. It is the sharpest single measurement in the run at $k = 5$ rather than
+across the curve, and it points against the roles we had assigned the two
+signals.
 
 \begin{table}[htbp]
 \centering
 \caption{Decidability drivers. The clause required consistency to lead on
-both measures; it leads on neither. The lower two rows are labelled
-diagnostics and decide nothing. Source:
-\texttt{phase2e\_driver\_comparison.csv}.}
+both measures; it leads on neither. The lower panel bootstraps the difference
+between the two decompositions by resampling blocks, $B = 2000$; it adds an
+interval to the pre-registered statistic and decides nothing on its own, and
+the size-adjusted row partials log cell-mean test-set size out of the cell
+rates first. The two diagnostic rows in the upper panel decide nothing either.
+Sources: \texttt{phase2e\_driver\_comparison.csv},
+\texttt{phase2\_7b\_driver\_bootstrap.csv}.}
 \label{tab:drivers}
+\small
 \begin{tabular}{llrrrrl}
 \toprule
 Grid & $\delta$ & $\eta^2_{\mathrm{ADS}}$ & $\eta^2_{\mathrm{SV}}$ & Range ADS & Range SV & Clause \\
@@ -1042,6 +1229,11 @@ Full & 0.02 & 0.1720 & 0.3783 & 0.0887 & 0.0953 & failed \\
 \midrule
 ADS $<1.0$ (diagnostic) & 0.05 & 0.1755 & 0.4594 & 0.0622 & 0.0875 & decides nothing \\
 Block-weighted (diagnostic) & 0.05 & 0.3653 & 0.3765 & n/a & n/a & decides nothing \\
+\midrule
+\multicolumn{7}{l}{\emph{Bootstrapped difference} $\eta^2_{\mathrm{SV}} - \eta^2_{\mathrm{ADS}}$, \emph{95\% interval, and share of draws with SV larger}} \\
+$k = 5$, full grid & 0.05 & \multicolumn{5}{l}{$+0.2088$\quad $[+0.0628, +0.3473]$\quad 99.9\%} \\
+$k = 5$, size-adjusted & 0.05 & \multicolumn{5}{l}{$+0.1840$\quad $[+0.0299, +0.3277]$\quad 99.5\%} \\
+$k = 2$, full grid & 0.05 & \multicolumn{5}{l}{$+0.0474$\quad $[-0.2531, +0.3159]$\quad 57.0\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1056,6 +1248,22 @@ The rate rises, because in the blocks where the rule abstains often the vote
 wins by a wide and decidable margin, and the top band holds 10{,}537 of the
 13{,}902 blocks. The clause requiring the gradient to be non-increasing
 across ADS holds in none of the four usable SV bands.
+
+The rise is a small-block artifact, and the sensitivity analysis of
+Section~\ref{sec:h2h3} shows it. Restricted to blocks with at least three test
+signatures the marginal gradient runs 0.1096, 0.0443, 0.0254, 0.0089, 0.0070,
+which is monotone: the top-band rate falls from 0.0278 to 0.0070 and sits below
+the band beneath it instead of above it. What the amendment did not predict is
+carried by blocks of one or two test signatures inside the top ADS band. One of
+the two per-SV clause counts moves with it, from two of four usable SV bands
+with the top band strictly below the bottom to three of four, which is a
+majority restricted and was not frozen; the non-increasing count moves from
+none of four to one of four. None of this moves H2, which is decided on the
+power floor before any clause is read, and the floor is unchanged under the
+restriction. What it means is narrower and worth stating: on the frozen primary
+analysis the amendment's prediction failed, and on blocks large enough for the
+interval to carry information it holds. We report the first as the result and
+the second as what it is.
 
 One pre-registration ambiguity surfaced at run time. The clause requiring the
 top ADS band to be strictly lower than the bottom admits two constructions,
@@ -1074,8 +1282,10 @@ verdict.
 \includegraphics[width=0.8\linewidth]{phase2e_decidability_gradient.png}
 \caption{Decided-winner rate across ADS bands at fixed SV. The gradient falls
 across the first four bands and rises again at ADS = 1.0, against a
-pre-registered prediction that it would approach zero there. Source:
-\texttt{phase2e\_decidability\_gradient.png}.}
+pre-registered prediction that it would approach zero there. The rise does not
+survive restricting to blocks with three or more test signatures, where the
+marginal gradient is monotone; the figure is the frozen primary analysis.
+Source: \texttt{phase2e\_decidability\_gradient.png}.}
 \label{fig:gradient}
 \end{figure}
 
@@ -1121,6 +1331,122 @@ is the calibration trap of Section~\ref{sec:calibration-trap}. Source:
 \label{fig:kcurve}
 \end{figure}
 
+\subsection{Block size, the one design-time signal that yields a verdict}
+\label{sec:blocksize}
+
+The compact regression above carries a third term, log test-set size, at
+$+0.0208$ per log unit. Block size is the count of signatures in a block. It is
+readable from the blocking pass alone, with no labels and nothing built, so it
+meets the same design-time test ADS and SV meet. We did not pre-register it, and
+nothing in this subsection is a pre-registered test: it is a supplementary
+analysis run on the same committed per-block records after the frozen analysis
+was complete. We report it because a general claim about design-time signals
+cannot rest on the two signals we happened to choose.
+
+Banded in octaves (Table~\ref{tab:blocksize}), block size is the only
+design-time signal anywhere in this study with a decided pooled band verdict at
+the primary margin. Blocks of three to four signatures give a pooled gap of
+$-0.1145$, interval $[-0.1286, -0.1007]$, k-NN wins. Blocks of five to eight
+give $-0.0712$, $[-0.0807, -0.0614]$, k-NN wins. The first is more than twice
+the pre-registered margin, and the pooled gap is monotone in band order across
+all seven. Neither ADS nor SV produces one decided marginal band, and that
+absence is what carried H2 and H3 to Inconclusive. Read on its own this table is
+a counter-example to a flat claim that no design-time signal here is actionable,
+and it is stated here before it is qualified. Two measurements qualify it, both
+on the same records.
+
+\textbf{At fixed consistency the sign never changes.} The axes correlate: block
+size runs at Spearman $-0.2515$ with ADS and $+0.3976$ with SV, so this table
+has to be read at fixed ADS before it can be read as a statement about block
+size at all. Split at the structural top row, inside ADS = 1.0 the pooled gap is
+negative in all seven bands and runs $-0.1342$, $-0.0899$, $-0.0661$, $-0.0413$,
+$-0.0271$, $-0.0136$, $-0.0076$, shrinking monotonically toward zero. Inside
+ADS $< 1.0$ it is positive in all seven and runs $+0.0594$, $+0.0370$,
+$+0.0854$, $+0.0759$, $+0.0428$, $+0.0302$, $+0.0118$. Neither stratum changes
+sign anywhere. What changes across the marginal bands is the mix: 90.0\% of the
+blocks in the smallest band are at ADS = 1.0 against 43.8\% in the largest, so
+the marginal reversal is composition. Inside a stratum block size still decides
+bands, and it decides every one of them the same way, which is a tie-crossing in
+the frozen vocabulary of Appendix~\ref{app:margins} and a winner reversal
+nowhere. Block size says how much the choice is worth. Consistency has already
+said which way it points, and at fixed consistency block size never points
+anywhere else.
+
+\textbf{The decided bands are an abstention effect, not a resolution effect.}
+The rule's coverage climbs monotonically with block size, at 0.8423, 0.8927,
+0.9217, 0.9521, 0.9631, 0.9786 and 0.9827, and abstentions are scored as errors,
+which is where the small-block deficit comes from. Where the rule fires, its
+precision exceeds the vote's accuracy in all seven bands, including both decided
+ones: 0.9370 against 0.9037 in the smallest. Telling a designer to use the vote
+on small blocks is telling them to prefer the mechanism that is less often right
+where it commits, because the other one declines to commit on about a sixth of
+the items there. That is a statement about tolerance for abstention, and it is
+not a finding about which mechanism resolves a name better.
+
+\textbf{Block size is also what reconciles the pooled headline with the
+per-block count.} Pooled over signatures the vote is ahead by 0.0050. Per block
+the rule takes 191 wins against the vote's 309. Both are true, and coverage is
+what separates them. The vote's per-block wins live in small blocks: the two
+smallest bands hold 263 of its 309, against 24 of the rule's 191, and above
+sixty-four signatures the vote wins no block at all. The signatures live in
+large blocks: the two largest bands are 2{,}809 of 13{,}902 blocks but
+131{,}083 of 197{,}479 test signatures, so a one-block-one-vote tally and a
+one-signature-one-vote pool are counting almost disjoint majorities. On the
+sensitivity population of Section~\ref{sec:h2h3}, with the degenerate small
+blocks removed, the per-block margin is 167 rule wins against 55, the rule
+taking the larger and more decidable blocks. The pooled gap is not carried by
+the bands that hold the signatures either: the five bands with a negative gap
+contribute a net deficit of 1{,}466 signatures on 66{,}396, the two with a
+non-negative gap contribute $+479$ on 131{,}083, and the total of $-987$ over
+197{,}479 is the pooled $-0.0050$. The same tables on the restricted population
+show the same pattern, with the 3-4 band gone because those blocks hold one or
+two test signatures by construction, and the 5-8 band still decided at
+$-0.0648$.
+
+\textbf{What this licenses, and what it does not.} Two different things get
+called a winner here. Block size predicts which mechanism has the higher
+whole-set accuracy on small blocks, at the primary margin, and that mechanism is
+the one that never abstains. It does not predict which mechanism resolves a name
+better. The whole-set-accuracy edge is a mechanical consequence of the vote's
+full coverage against the rule's abstention, and that asymmetry is a property of
+the two mechanisms by definition, fixed in
+Section~\ref{sec:winner-construct} before anything was measured. Nobody had to
+measure block size to learn it. This is the one place where the claim that no
+design-time signal here is actionable, stated flat, is too strong, so we do not
+state it flat. What the evidence supports is what we claim: no design-time
+signal we examined tells a designer which mechanism resolves a name better, and
+the one signal that does yield a decided verdict yields it through the rule's
+abstention rather than through a difference in matching quality.
+
+\begin{table}[htbp]
+\centering
+\caption{Pooled gap (rule minus k-NN) by block-size band on the primary
+analysis population, with the rule's coverage and its precision where it fires.
+The two decided bands are the only decided pooled band verdicts any design-time
+signal produces in this study; the last two columns are why they are an
+abstention effect. Bands are octaves, chosen for balance and fitted to no
+outcome, and this is a supplementary analysis that was not pre-registered.
+Source: \texttt{phase2\_7b\_blocksize\_pooled.csv}.}
+\label{tab:blocksize}
+\small
+\begin{tabular}{lrrrlrrr}
+\toprule
+Band & Blocks & Test sigs. & Gap & 95\% interval & $\delta{=}0.05$ & Rule cov. & Rule prec. \\
+\midrule
+3--4 & 2{,}227 & 3{,}145 & $-0.1145$ & $[-0.1286, -0.1007]$ & k-NN wins & 0.8423 & 0.9370 \\
+5--8 & 2{,}188 & 5{,}323 & $-0.0712$ & $[-0.0807, -0.0614]$ & k-NN wins & 0.8927 & 0.9529 \\
+9--16 & 2{,}181 & 8{,}675 & $-0.0350$ & $[-0.0430, -0.0271]$ & tie & 0.9217 & 0.9391 \\
+17--32 & 2{,}293 & 17{,}194 & $-0.0118$ & $[-0.0169, -0.0065]$ & tie & 0.9521 & 0.9424 \\
+33--64 & 2{,}204 & 32{,}059 & $-0.0069$ & $[-0.0101, -0.0034]$ & tie & 0.9631 & 0.9560 \\
+65--128 & 1{,}652 & 45{,}924 & $+0.0001$ & $[-0.0027, +0.0031]$ & tie & 0.9786 & 0.9599 \\
+129+ & 1{,}157 & 85{,}159 & $+0.0056$ & $[+0.0037, +0.0077]$ & tie & 0.9827 & 0.7194 \\
+\midrule
+\multicolumn{8}{l}{\emph{k-NN accuracy in the same seven bands, for comparison with the rule's precision:}} \\
+\multicolumn{8}{l}{0.9037, 0.9218, 0.9006, 0.9090, 0.9276, 0.9393, 0.7014. The rule is ahead in all seven.} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Why no selector experiment is reported}
 \label{sec:no-selector}
 
@@ -1133,7 +1459,16 @@ decision rule there is therefore no cell in which one mechanism beats the
 other by an amount a practitioner would act on, and a selector routing
 between them would be fitting inside demonstrated ties. No selector can beat
 a fixed choice of mechanism where the gap is below the margin. So we built
-none, and this paper reports no selector experiment. That is a statement
+none, and this paper reports no selector experiment.
+
+A selector reading block size instead would route on the one signal that does
+carry a decided verdict, and Section~\ref{sec:blocksize} says what it would be
+routing on. At fixed consistency the direction never changes, so on the blocks
+where consistency is high such a selector reproduces the choice consistency
+already implies, and where it differs from a fixed choice it is trading the
+rule's precision where it fires for the vote's coverage. That is a policy on
+abstention, and a practitioner can set it directly from the two mechanisms'
+definitions without measuring block size at all. That is a statement
 about the pre-registered margin and not a claim that the underlying gaps are
 zero; Section~\ref{sec:conditions} sets out what would have to be true for
 the question to be live.
@@ -1159,8 +1494,19 @@ genuinely two-sided pair the two mechanisms are close: 0.8244 against 0.8294
 pooled, with 10{,}172 of 13{,}902 blocks demonstrated ties at a five-point
 margin and 500 decided either way. The gap moves with both signals, changes
 sign on both, and stays small on both. A practitioner who wants to be told
-which mechanism to build cannot be told, because for most of the corpus there
-is no answer clearing the threshold at which they would act.
+which mechanism to build cannot be told by either pre-registered signal,
+because for most of the corpus neither produces an answer clearing the
+threshold at which they would act.
+
+Stated flat, that no design-time signal here is actionable, the claim is too
+strong, and Section~\ref{sec:blocksize} is why. Block size decides bands on
+small blocks at the primary margin. What it does not supply is a reason to
+prefer one mechanism's matching over the other's. The verdict comes from the
+vote's full coverage against the rule's abstention, which is fixed by the two
+definitions and needed no measurement, and at fixed consistency block size never
+points to a different winner than consistency already points to. The precise
+claim, and the one this paper makes throughout, is that no design-time signal we
+examined tells a designer which mechanism resolves a name better.
 
 Neither reason is a measurement failure and both are actionable. The first
 converts into a check to run before the comparison. The second converts into
@@ -1206,7 +1552,8 @@ kimkim2020}, and to any comparison of rules against retrieval elsewhere.
 This paper grew out of an earlier controlled study of ours, a pre-registered
 240-condition synthetic factorial comparing exact-match rules against fuzzy
 retrieval across six consistency targets and two lexical conditions
-\citep{adscascade2026}. It reported that realized consistency predicted each
+\citep{adscascade2026}, a Zenodo-archived research artifact of ours rather than
+a peer-reviewed publication. It reported that realized consistency predicted each
 mechanism's own accuracy well, Pearson above 0.9 in both lexical conditions,
 but did not predict which mechanism won, because the winner was instead a
 constant function of the separately manipulated lexical condition. A frozen
@@ -1318,8 +1665,22 @@ still bounds the claim. A winner change between a rule and a vote is a
 narrower phenomenon than a winner change between a heuristic and a learned
 system, and \citeauthor{kimkim2020} tested the harder version and reported
 no winner change either. We do not claim that no design-time signal exists
-for any mechanism pair. We claim that none is actionable for this pair, on
-this substrate, at this margin.
+for any mechanism pair. We claim that neither pre-registered signal is
+actionable for this pair, on this substrate, at this margin, and that the one
+unregistered signal which does decide bands decides them on abstention rather
+than on matching quality.
+
+\textbf{One signal was examined after the fact.} Block size was not
+pre-registered, and Section~\ref{sec:blocksize} is a supplementary analysis of
+records that already existed, run after the frozen analysis was complete and
+after an external read of the manuscript asked for it. Its bands are octaves
+chosen for balance rather than fitted to an outcome, and nothing in it changes a
+hypothesis verdict. It still does not carry the protection the two
+pre-registered signals carry, and we do not present it as though it did. The
+same applies to the sensitivity analysis on blocks with three or more test
+signatures and to the bootstrap interval on the driver comparison: both are
+supplementary, both leave the frozen primary analysis as it stands, and both are
+reported beside it rather than in place of it.
 
 \textbf{The surface axis overlaps with forename initialization.} SV
 correlates with the initialization share at Spearman 0.36. The
@@ -1334,7 +1695,7 @@ both forms.
 A design-time consistency statistic predicts how hard each mechanism will
 find a block, with Spearman 0.51 and 0.83 on held-out data across seven
 datasets. It does not tell you which mechanism to build. Prediction is not
-selection, and on this substrate there is nothing to select.
+selection.
 
 The structural half of that generalizes further than the empirical half.
 Exact match is a strict sub-case of single-nearest retrieval, so the
@@ -1343,16 +1704,83 @@ family, and more generally a precision-first rule cannot win a block whose
 history names one author or is written one way. Those regions are empty
 before any data is collected, for any pair of mechanisms that assigns an
 author from the block's own history. The empirical half is narrower. On a
-pair built to avoid both problems, neither design-time signal yields an
+pair built to avoid both problems, neither pre-registered signal yields an
 actionable selection rule at the pre-registered margin, and the one
 pre-registered clause comparing the two signals found surface stability, not
-consistency, the stronger driver of whether the choice is decidable at all.
+consistency, the stronger driver of whether the choice is decidable at all,
+decisively at $k = 5$ and not at $k = 2$. One signal we did not register, block
+size, does decide bands at that margin. It decides them through the rule's
+abstention rather than through any difference in matching quality, and at fixed
+consistency it never points to a different winner, so it says how much the
+choice is worth and not which choice to make. No design-time signal we examined
+tells a designer which mechanism resolves a name better.
 
 For a practitioner the reading is short. Check that the two mechanisms you
 are comparing are not nested, with one count of the items where each is right
 and the other wrong. Expect the choice not to matter on most of your data,
-and pick on cost and maintainability when it does not. And measure your data
-to learn how hard it is, not to learn what to build.
+and pick on cost and maintainability when it does not. If one of the two
+abstains, settle separately what an abstention costs you, because on small
+blocks that is what the comparison turns on rather than on either mechanism
+matching better. And measure your data to learn how hard it is, not to learn
+what to build.
+
+\appendix
+
+\section{Winner structure at all three margins}
+\label{app:margins}
+
+Section~\ref{sec:compression} reports the winner structure at the primary
+margin for most grids and at $\delta = 0.02$ for the marginal ADS ordering.
+Reporting a margin where it supports a reading and a different one where it does
+not is a failure mode a null result is judged on, so the whole surface is here.
+Table~\ref{tab:margingrid} gives the pre-registered outcome label for each
+stratum of each grid at each of the three pre-registered margins. Each label summarizes a
+sequence of the band verdicts defined in Section~\ref{sec:winning}:
+\emph{compression} when no band in the sequence is decided, \emph{tie-crossing}
+when one is, and \emph{reversal} when two or more are decided in opposite
+directions.
+
+Two reversals appear, both at $\delta = 0.02$ and both absent from the primary
+margin. Across ADS bands at fixed SV-high the sequence is rule wins, rule wins,
+tie, tie, k-NN wins. Across SV bands inside INIT = 0 it is k-NN wins at SV = 0,
+tie, undecided, rule wins at SV-high. Neither contradicts the statement in
+Section~\ref{sec:compression} that there is no SV-driven winner reversal below
+ADS = 1.0 in the direction-by-SV grid, which is a different grid; both are
+structure the pre-registered margin declined to decide, and both make the
+Inconclusive outcomes margin-dependent in the way Table~\ref{tab:falsification}
+already records for H3.
+
+\begin{table}[htbp]
+\centering
+\caption{Pre-registered winner-structure outcome by stratum and margin, for the
+three grids the pre-registration defines. The two reversals are the only
+decided structure of opposite direction anywhere in the run, and both need
+$\delta = 0.02$. Source: \texttt{reports/phase2e\_boundary.md}.}
+\label{tab:margingrid}
+\begin{tabular}{llll}
+\toprule
+Stratum & $\delta = 0.05$ & $\delta = 0.03$ & $\delta = 0.02$ \\
+\midrule
+\multicolumn{4}{l}{\emph{Across SV bands, at fixed ADS (H3, direction by SV)}} \\
+$[0, 0.5)$ & compression & tie-crossing & tie-crossing \\
+$[0.5, 0.7)$ & compression & compression & tie-crossing \\
+$[0.7, 0.9)$ & compression & compression & compression \\
+$[0.9, 1.0)$ & compression & compression & compression \\
+ADS $= 1.0$ & compression & tie-crossing & compression \\
+\midrule
+\multicolumn{4}{l}{\emph{Across ADS bands, at fixed SV (H2, non-direction by ADS)}} \\
+SV $= 0$ & compression & tie-crossing & tie-crossing \\
+SV low & compression & compression & tie-crossing \\
+SV mid & compression & compression & compression \\
+SV high & compression & tie-crossing & \textbf{reversal} \\
+\midrule
+\multicolumn{4}{l}{\emph{Across SV bands, inside each INIT band (secondary control)}} \\
+INIT $= 0$ & tie-crossing & tie-crossing & \textbf{reversal} \\
+$0 < \mathrm{INIT} < 0.5$ & compression & compression & compression \\
+$\mathrm{INIT} \geq 0.5$ & tie-crossing & tie-crossing & tie-crossing \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section*{Data and code availability}
 
