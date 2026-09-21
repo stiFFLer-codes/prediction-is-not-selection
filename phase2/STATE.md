@@ -6,15 +6,53 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.7 complete. The peer-review dry run has been run and it
-  returned major revision needed, so the manuscript is no longer
-  submission-ready as it stands.** The build is still clean and every number
-  still reconciles to the committed artifacts, but the review found eight
-  majors, one of them a claim the artifacts do not support as written and two
-  of them omissions from the committed output. **Do not submit or upload
-  before 2.7b decides which fixes are accepted.** The report is
-  `reports/phase2_7_peer_review.md`, with the same content as a `.docx`
-  beside it.
+- Status: **Phase 2.7b complete. The four re-analysis majors have been run on
+  the frozen records. No H1, H2 or H3 verdict moves, and one general claim in
+  the manuscript prose does not survive.** The manuscript is still not
+  submission-ready and was not touched: the prose pass is 2.7c. The report is
+  `reports/phase2_7b_reanalysis.md`, the code is
+  `phase2/phase2_7b_reanalysis.py`, with eight tables
+  `reports/tables/phase2_7b_*.csv` and two figures
+  `reports/figs/phase2_7b_*.png`.
+- **Read this before anything else in 2.7c. Block size is a design-time signal
+  with two decided pooled band verdicts at the primary margin.** Blocks of 3 to
+  4 signatures give a pooled gap of -0.1145 [-0.1286, -0.1007] and blocks of 5
+  to 8 give -0.0712 [-0.0807, -0.0614], both `k-NN wins` at delta = 0.05.
+  Neither ADS nor SV has a single decided marginal band, which is the fact that
+  carried H2 and H3 to Inconclusive. Read alone this is a counter-example to
+  "design-time mechanism selection has no signal a designer can act on" stated
+  without qualification, which is the abstract's and section 8.1's sentence.
+  **Two measured qualifications sit beside it.** At fixed ADS the effect never
+  changes sign, so it is gap compression and not a winner reversal, and the
+  marginal reversal is composition: 90.0% of the smallest band is ADS = 1.0
+  against 43.8% of the largest. And the decided cells are an abstention effect,
+  since the rule's precision where it fires beats the vote's accuracy in all
+  seven bands, 0.9370 against 0.9037 in the smallest, while its coverage climbs
+  from 0.8423 to 0.9827. **The scoping decision is the author's and it is the
+  same decision major 4 asks for. Take it first in 2.7c.**
+- **No hypothesis verdict changed and this was checked, not assumed.** H1
+  Supported, H2 Inconclusive, H3 Inconclusive at the primary margin and Partial
+  at delta = 0.02, all unchanged. On the sensitivity population (blocks with 3
+  or more test signatures) 0 ADS bands, 0 SV bands and 0 of the 20 grid cells
+  carry a decided pooled verdict at delta = 0.05, so the pre-registered power
+  floor still bites first. The check is an assertion inside the code.
+- **Three further 2.7b findings the prose has to carry.** (a) The H2 gradient's
+  reported rise at ADS = 1.0 is a small-block artifact: the marginal decided
+  rate runs 0.1083 / 0.0618 / 0.0256 / 0.0089 / 0.0278 frozen and
+  0.1096 / 0.0443 / 0.0254 / 0.0089 / 0.0070 restricted, which is monotone, and
+  the per-SV top-below-bottom count goes from 2 of 4 to 3 of 4. (b) The driver
+  difference eta2_SV minus eta2_ADS is +0.2088 [+0.0628, +0.3473] at k = 5,
+  +0.1840 [+0.0299, +0.3277] size-adjusted, and **+0.0474 [-0.2531, +0.3159] at
+  k = 2, which straddles zero**, so "stable across k" is accurate for the
+  verdict and not for the evidence. (c) The out-of-history accuracy ceiling is
+  0.9586 pooled, and **it is not the main reason the datasets differ**: it
+  closes only about 13% of the aminer-to-inspire spread. The rule's conditional
+  precision is 0.8512 on 96.86% coverage against the vote's 0.8294.
+- **The 2.7 peer review found eight majors and is the input to 2.7b and 2.7c.**
+  Majors 1, 2, 3 and 8 are closed as analysis by 2.7b and remain open as prose.
+  Majors 4, 5, 6 and 7 are untouched. **Do not submit or upload before 2.7c.**
+  The report is `reports/phase2_7_peer_review.md`, with the same content as a
+  `.docx` beside it.
 - **The eight majors in one line each, in the report's order.** (1) The
   per-block winner construct is degenerate at one test signature, and 278 of
   the 500 decided verdicts and 1,130 of the 10,172 demonstrated ties come from
@@ -391,39 +429,63 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   written, two omissions found, no transcription error found. Report at
   `reports/phase2_7_peer_review.md` and `.docx`. The manuscript was not
   touched. Nothing measured. `PREREG.md` untouched.
+- **Pass 18 (Phase 2.7b): the re-analysis of the frozen records.** Majors 1, 2,
+  3 and 8 run together in one module on the committed per-block records, at the
+  frozen seed, with no experiment re-run and no frozen definition altered.
+  **This pass did measure**, which makes it the first since 2.2e, and
+  everything it measured is supplementary or sensitivity analysis layered on the
+  existing evidence base rather than a change to it. No H1, H2 or H3 verdict
+  moves. One general claim does not survive: block size carries two decided
+  pooled bands at the primary margin. Three further findings for the prose: the
+  gradient's rise at ADS = 1.0 is a small-block artifact, the driver difference
+  straddles zero at k = 2, and the out-of-history ceiling is not what separates
+  the datasets. Report `reports/phase2_7b_reanalysis.md`, code
+  `phase2/phase2_7b_reanalysis.py`, tables `reports/tables/phase2_7b_*.csv`,
+  figures `reports/figs/phase2_7b_*.png`. The manuscript was not touched.
+  `PREREG.md` untouched.
 
-## Next: Phase 2.7b, apply the accepted review fixes
+## Next: Phase 2.7c, the prose pass
 
-**2.7b is the next pass.** 2.7 produced the report and changed nothing; 2.7b
-decides what to accept and applies it. The eight majors split into three kinds
-and the split is how to plan the pass.
+**2.7c is the next pass.** 2.7b produced every number the prose needs and
+touched no prose. 2.7c writes it, in this order.
 
-- **Re-analysis on records that already exist, no new data:** majors 1, 2, 3
-  and 8. Each is a re-run of an existing analysis over the committed per-block
-  records, plus the prose that reports it. Major 1 wants a minimum-test-set-size
-  sensitivity analysis, major 2 wants the per-block verdict table by test-set
-  size and block size treated as a third signal or the general claims scoped,
-  major 3 wants a bootstrap interval on the eta-squared difference, major 8
-  wants an out-of-history accuracy ceiling and the rule's conditional precision.
-  Note that majors 1, 2 and 3 all touch the decided-winner rate, so run them
-  together rather than one at a time.
-- **Disclosure and reporting, prose only:** majors 5, 6 and 7. Major 5 is a
-  fourth point of record under the locked quote naming what did exist at
-  `c20239a`. Major 6 is an independent pre-registration deposit plus the push
-  and tag. Major 7 is two sentences or an appendix table.
-- **A scope decision that is the author's:** major 4. Retitle to author name
-  disambiguation and keep the wider claim inside the paper, or earn the width
-  with entity resolution citations and one non-AND count. **Take this first**,
-  because it changes what the abstract and conclusion have to say, and majors 2
-  and 5 touch the same paragraphs.
+1. **The scope decision, which is the author's and blocks the rest.** It is now
+   two decisions fused into one, because 2.7b's block-size result landed on the
+   same sentences major 4 does. The abstract, the title and section 8.1
+   generalize to "design-time mechanism selection fails" and "prediction is not
+   selection". Block size is a design-time signal with two decided pooled bands
+   at the primary margin, so either every general sentence gets scoped to the
+   two pre-registered signals, or the block-size result and its two
+   qualifications go in the main text and the general sentence stands with them
+   attached. Major 4's retitle question rides on the same paragraphs. **Decide
+   this before writing anything else.**
+2. **Major 1 reporting.** Section 5.4 and Figure 2 need the size-1 and size-2
+   rows and the note that the size-1 stratum cannot produce an undecided
+   verdict by construction.
+3. **The gradient sensitivity.** The H2 discussion needs the finding that the
+   reported rise at ADS = 1.0 is a small-block artifact, which strengthens the
+   H2 paragraph rather than weakening it.
+4. **Major 3 reporting.** Table 4 needs the bootstrap interval, and section
+   5.6's "stable across k" needs scoping to the verdict with k = 2 named as the
+   weak end. "The sharpest single measurement in the run" is defensible at
+   k = 5 and not across the curve.
+5. **Major 8 reporting.** Table 3 or the population table needs the ceiling
+   column and section 5.3 needs the rule's conditional precision, with the
+   caveat that the ceiling is **not** what separates the datasets.
+6. **Majors 5 and 7, which 2.7b did not touch.** Major 5 is a fourth point of
+   record under the locked quote naming what did exist at `c20239a`. Major 7 is
+   two sentences or an appendix table for the two delta = 0.02 reversals.
 
-**The body-length constraint is now binding on this pass in particular.** Prose
-total is 9,985 against the charter's 10,000 ceiling counting back matter in, or
-9,770 counting it out. A review-response pass adds by nature. Decide before
-2.7b starts which of sections 4, 6, 7 and 8 may be cut into, or accept the
-length explicitly. The review's own measurement of the body is 9,488 words
-excluding float contents, which is a third counter and should not be mixed with
-the other two.
+Major 6 is not a writing item: it is the deposit, the push and the tag, listed
+below.
+
+**The body-length constraint is binding on this pass.** Prose total is 9,985
+against the charter's 10,000 ceiling counting back matter in, or 9,770 counting
+it out. 2.7c adds by nature and now has six items to add. Decide before it
+starts which of sections 4, 6, 7 and 8 may be cut into, or accept the length
+explicitly. The review's own measurement of the body is 9,488 words excluding
+float contents, which is a third counter and should not be mixed with the other
+two.
 
 **Two slow non-writing items are unchanged and now carry review weight.** Push
 `phase-2` and tag the state section 6.4 describes: major 6 makes this a review

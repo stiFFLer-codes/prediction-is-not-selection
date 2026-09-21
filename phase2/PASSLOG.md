@@ -2288,3 +2288,129 @@ non-writing items from 2.6b are unchanged and still worth starting in parallel:
 push and tag `phase-2`, which major 6 now makes a review finding rather than a
 tidiness item, and register an institutional email with arXiv for the cs.DL
 endorsement request.
+
+---
+
+## Pass 18 — Phase 2.7b, the re-analysis of the frozen records (2026-09-21)
+
+**What I did and why.** 2.7 produced eight majors and changed nothing. Four of
+them, majors 1, 2, 3 and 8, are re-analyses on records that already exist, and
+2.7's own handover said to run them together because three of them touch the
+decided-winner rate. This pass runs all four in one module and reports them in
+one place. No experiment was re-run, no split re-drawn, no constant re-tuned and
+no frozen definition altered. `PREREG.md`, Amendment 1 and Addendum 1a are
+untouched. The manuscript was not edited: prose is 2.7c.
+
+New code `phase2/phase2_7b_reanalysis.py`, new report
+`phase2/reports/phase2_7b_reanalysis.md`, eight new tables
+`reports/tables/phase2_7b_*.csv`, two new figures
+`reports/figs/phase2_7b_verdicts_by_blocksize.png` and
+`phase2_7b_driver_bootstrap.png`. The module imports the frozen band, verdict,
+pooled-bootstrap and eta-squared functions from `phase2b_core` and
+`phase2e_run` rather than restating them, so a drift in any frozen definition
+breaks this pass rather than silently producing a different number.
+
+**The one result that changes a claim, flagged as the task asked.** Block size
+produces **two decided pooled band verdicts at the primary margin**: blocks of
+3 to 4 signatures at -0.1145 [-0.1286, -0.1007] and blocks of 5 to 8 at
+-0.0712 [-0.0807, -0.0614], both `k-NN wins` at delta = 0.05. Neither ADS nor
+SV produces a single decided marginal band, which is the fact that carried H2
+and H3 to Inconclusive. Read alone this is a counter-example to "design-time
+mechanism selection has no signal a designer can act on" stated without
+qualification. Two measured qualifications sit beside it and both are in the
+report. At fixed ADS the effect never changes sign: inside ADS = 1.0 every band
+favours the vote, inside ADS < 1.0 every band favours the rule, and the
+marginal reversal is composition, since 90.0% of the smallest band is ADS = 1.0
+against 43.8% of the largest. And the decided small-block cells are an
+abstention effect: the rule's coverage climbs from 0.8423 to 0.9827 across the
+bands, and its precision where it fires exceeds the vote's accuracy in all seven
+bands, 0.9370 against 0.9037 in the smallest. The scoping decision is the
+author's and it is the same one major 4 asks for.
+
+**No H1, H2 or H3 verdict moves.** H1 Supported, H2 Inconclusive, H3
+Inconclusive at the primary margin. The power floor counts decided pooled
+verdicts over ADS and SV bands, and this was checked rather than assumed on the
+restricted population: 0 ADS bands, 0 SV bands and 0 of 20 grid cells are
+decided at delta = 0.05 with blocks under 3 test signatures removed. The check
+is an assertion in the code, so the prose cannot drift from it.
+
+**Key numbers, by task.**
+
+1. *Major 1, small-test-block sensitivity.* Restricting to n_test >= 3 keeps
+   10,434 of 13,902 blocks (75.05%) and 191,852 of 197,479 signatures (97.15%).
+   Size-1 stratum: 1,309 blocks, 14 / 165 / 1,130 / **0 undecided**, the zero by
+   construction. Size-2: 2,159 blocks, 10 / 89 / 1,739 / 321. The two strata
+   supply 278 of the 500 decided verdicts (55.6%) and 2,869 of the 10,172 ties
+   (28.2%). Restricted, the per-block margin flips from 191 rule wins against
+   309 to **167 against 55**, and the decided rate falls 0.0360 to 0.0213.
+   **The gradient changes shape and this is the substantive finding of task 1.**
+   The marginal decided rate runs 0.1083 / 0.0618 / 0.0256 / 0.0089 / 0.0278
+   frozen, which 2.2e reported as rising again at ADS = 1.0 against Amendment
+   1's prediction, and 0.1096 / 0.0443 / 0.0254 / 0.0089 / **0.0070**
+   restricted, which is monotone. The rise is a small-block artifact. The
+   per-SV top-below-bottom count goes 2 of 4 to 3 of 4, which is a majority
+   restricted and was not frozen; non-increasing goes 0 of 4 to 1 of 4, still
+   not a majority. The driver clause keeps its verdict and loses half its
+   margin: eta2_ADS 0.1749 / eta2_SV 0.3837 frozen against 0.2136 / 0.3113
+   restricted, `failed` at all three margins either way.
+2. *Major 2, block size.* Seven octave bands, 1,157 to 2,293 blocks each.
+   Pooled gaps -0.1145 / -0.0712 / -0.0350 / -0.0118 / -0.0069 / +0.0001 /
+   +0.0056, rank correlation with band order +1.0000. Per-block winners
+   20/215, 4/48, 26/13, 48/22, 38/11, 31/0, 24/0 as rule/k-NN. At fixed ADS the
+   gaps are -0.1342 to -0.0076 inside ADS = 1.0 and +0.0594 to +0.0118 inside
+   ADS < 1.0, decided in each stratum but never changing sign, which is a
+   tie-crossing and not a reversal. Pooled-headline reconciliation: the five
+   negative bands carry -1,466 net on 66,396 signatures, the two non-negative
+   bands +479 on 131,083, total -987 over 197,479 = the pooled -0.0050.
+3. *Major 3, uncertainty.* eta2_SV - eta2_ADS bootstrapped by resampling
+   blocks, B = 2000, seed from the frozen `band_seed` scheme. **k = 5: +0.2088
+   [+0.0628, +0.3473]**, SV larger in 99.9% of draws. Size-adjusted diagnostic,
+   log cell-mean test size partialled out: +0.1840 [+0.0299, +0.3277], still
+   excluding zero, so the confound the reviewer named is present and not load
+   bearing. **k = 2: +0.0474 [-0.2531, +0.3159]**, which straddles zero, SV
+   larger in only 57.0% of draws. So "stable across k" is accurate for the
+   verdict and not for the evidence; k = 2 is the weak end and is also where
+   the clause was already `split`.
+4. *Major 8, accounting.* Out-of-history share pooled **0.0414**, ceiling
+   **0.9586**. Per dataset: aminer 0.1565, arnetminer 0.1512, kisti 0.0951,
+   qian 0.0483, zbmath 0.0287, pubmed 0.0112, inspire 0.0036. **The ceiling is
+   not the main reason the datasets differ**, against the reviewer's
+   expectation: normalizing for it closes only about 13% of the aminer to
+   inspire spread. Rule conditional precision pooled **0.8512** on 96.86%
+   coverage, against the vote's 0.8294.
+
+**Invariant checks, run and passed.** Invariant 2, no tautology: nothing new is
+defined here; block size is a count of signatures and is never derived from a
+winner. Invariant 3, held-out only: every number is on the evaluation split's
+primary population; no selector was fitted and none exists to fit. Invariant 5,
+no result before measurement: every number in the report, including every
+number in its headline, is emitted by `phase2_7b_reanalysis.py` and none is
+retyped; the header is built by substitution from the tables. Invariant 7,
+offline and reproducible: no network, no new dependency, CPU only, and
+`demo()` is an assert-based self-check that pins `eta2_fast` against the frozen
+`eta2_decomposition`. The run re-derives the frozen verdict counts
+191 / 309 / 10,172 / 3,230 and aborts if they differ, asserts the restricted
+power floor is unchanged, asserts the per-block test-set sizes agree with the
+frozen split, and asserts that no out-of-history signature is scored correct by
+either mechanism in the committed per-signature scores (8,168 of them).
+**Determinism verified**: two consecutive runs produce a byte-identical report.
+
+**What I did not do, and why.** Did not touch `main.tex`, by instruction: the
+prose is 2.7c. Did not touch `PREREG.md` or any frozen constant. Did not
+re-run the experiment or re-draw the split. Did not act on majors 4, 5, 6 or 7,
+which are a scope decision and prose. Did not change the primary analysis: the
+n_test >= 3 population is reported as a sensitivity analysis beside the frozen
+all-blocks column and never in place of it. Did not push or tag.
+
+**Recommendation for the next pass.** 2.7c, the prose pass, in the priority
+order the report's closing section sets out. Take the block-size scoping
+decision first, because it is the author's and it changes the abstract, the
+title question and section 8.1, and majors 2, 4 and 5 all touch the same
+paragraphs. Then the four reporting fixes: the size-1 and size-2 rows plus the
+degeneracy note in 5.4 and Figure 2, the gradient sensitivity in the H2
+discussion, the bootstrap interval in Table 4 with "stable across k" scoped to
+the verdict, and the ceiling column plus conditional precision in 5.3 with the
+caveat that the ceiling is not what separates the datasets. The body-length
+constraint is unchanged and binding: 9,985 against the 10,000 ceiling, so every
+addition has to be paid for. The two slow non-writing items are still open:
+push and tag `phase-2`, and register an institutional email with arXiv.
