@@ -146,6 +146,11 @@ are where we slow down and review most carefully.
   and reproduced verbatim below. It ships whatever 2.2e returns.**
 - 2.6 Pre-submission gate and release. arXiv-moderation audit, citation
   verification, repo reorganization, new Zenodo version, category selection.
+- 2.7 to 2.8, added 2026-09-23. The release was split out of 2.6 and preceded by
+  review: 2.7 peer-review dry run, 2.7b re-analysis, 2.7c prose, 2.7d trim and
+  citations, 2.8a citation lock, H1 figure restored and contribution framing
+  (done). Still pending: the release pass (push, tag, Zenodo v2, availability
+  statement to present tense) and a venue-specific trim once a venue is chosen.
 
 ## Required Phase 2.5 deliverable: pre-registration-integrity subsection
 

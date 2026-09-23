@@ -51,15 +51,15 @@ because a test string present in the history sits at the maximum of any
 similarity function. The comparison most practitioners would run therefore
 cannot have a winner, at any cutoff or metric family, and we measured zero
 rule wins on 199{,}713 held-out author mentions before we understood why; the
-general form empties two regions of the design space in advance. The second reason is empirical. On a redesigned pair that avoids
-both problems, an exact-evidence rule against a k-nearest vote, neither
+general form empties two regions of the design space in advance. The second reason is empirical. On a redesigned pair in which
+neither mechanism contains the other, an exact-evidence rule against a k-nearest vote, neither
 pre-registered signal is actionable at the margin we fixed in advance: the
 mechanisms sit half an accuracy point apart pooled, 0.8244 against 0.8294, no
 band on either axis clears the margin, and both selection hypotheses return
 Inconclusive. One unregistered signal, block size, does carry a decided
 verdict, and it is composition and abstention rather than matching quality. At fixed consistency it never points to a different winner,
 and the mechanism it favours on small blocks is the one less often right where
-it commits. Against that, the same statistic predicts each mechanism's own accuracy at
+it commits. The consistency statistic, by contrast, predicts each mechanism's own accuracy at
 Spearman 0.51 and 0.83. Prediction is not
 selection.
 \end{abstract}
@@ -137,7 +137,7 @@ the history names one author, and no mechanism can win where the history is
 written one way.
 
 \textbf{Where a contest is possible, there is almost nothing to select.} We
-built a pair that avoids both problems, an exact-evidence rule against a
+built a pair in which neither mechanism contains the other, an exact-evidence rule against a
 k-nearest vote, pre-registered the analysis, and ran it. The pair is two-sided
 on held-out data, and the two mechanisms are then within half an accuracy
 point pooled, 0.8244 against 0.8294. The gap compresses along both design-time
@@ -178,6 +178,43 @@ sign, and the frozen rules declined to decide them. We claim nothing about a
 selector, because none was built, for the reason in
 Section~\ref{sec:no-selector}, and nothing about learned disambiguation
 systems, since both mechanisms here are untrained lookups by design.
+
+\subsection{Contributions}
+\label{sec:contributions}
+
+The paper's contributions are the following.
+
+\begin{enumerate}
+\item \textbf{A structural result about mechanism comparison.} Assigning on
+an exact surface match is a strict sub-case of single-nearest retrieval, so
+the verdict that the rule wins is unreachable at any cutoff and in any metric
+family, and the comparison cannot inform the choice it is run to settle. For
+any pair of mechanisms assigning from the block's own history, two regions of
+the design space are empty before any data is collected. The containment
+itself has precedent in the blocking literature; the unreachable verdict and
+its general form are what we add, and we measured the verdict as zero rule
+wins on 199{,}713 held-out signatures before we derived it
+(Section~\ref{sec:degenerate}).
+\item \textbf{A pre-registered study of design-time selection on real data.}
+Seven public author name disambiguation datasets, 197{,}479 held-out
+signatures, a frozen falsification table, a mechanism pair in which neither
+contains the other, and a winner construct that keeps demonstrated ties apart
+from undecided blocks. Neither pre-registered signal is actionable at the
+pre-registered margin, and both selection hypotheses return Inconclusive
+(Sections~\ref{sec:design} and~\ref{sec:results}).
+\item \textbf{A deflation of the one signal that does decide.} Block size,
+which we did not pre-register, yields the only decided pooled band verdicts
+of any design-time signal here. Two measurements on the same records show
+what they are: at fixed consistency block size never points to a different
+winner, and where the rule commits it is the more accurate arm in every band
+(Section~\ref{sec:blocksize}).
+\item \textbf{Cautions for portfolio and benchmark design.} Count the items
+on which each mechanism is right and the other wrong before comparing them;
+report structurally empty regions as properties of the design; and do not
+tune a retriever for its own accuracy, which in both tunable families we
+probed moves its parameter toward the limit in which it contains the rule
+(Sections~\ref{sec:calibration-trap} and~\ref{sec:portfolio}).
+\end{enumerate}
 
 \section{Related work}
 \label{sec:related}
@@ -455,8 +492,8 @@ that key-based blocking is a special case of nearest-neighbour blocking under
 a binary similarity metric \citep{autoblock2020}. What we add is the
 consequence drawn from it. Once one mechanism contains the other,
 one of the two verdicts is unreachable, so the comparison cannot inform the
-choice it was run to settle. This is a trap practitioners fall into rather
-than a theorem anyone needs: anyone comparing a string-matching baseline
+choice it was run to settle. The result is practical rather than deep, and
+the trap is easy to fall into: anyone comparing a string-matching baseline
 against a retrieval or clustering method over the same recorded history is
 inside the family. The check is cheap. Before running the comparison, count
 the items on which mechanism A is correct and mechanism B is not. A zero, or a
@@ -843,11 +880,21 @@ the same holds in the pooled non-inspire analysis, at 0.5632 and 0.7659, and
 in all four qualifying non-inspire datasets. Under the frozen rule, \textbf{H1
 is Supported}. The shape behind the coefficient is monotone: mean per-block
 rule accuracy rises 0.4991, 0.6758, 0.8389, 0.9418 across the first four ADS
-bands, and the vote's rises 0.4088, 0.6296, 0.8165, 0.9465, with the
-per-block scatter plotted in \texttt{phase2e\_h1\_ads\_accuracy.png} in the
-repository. Measuring your data at design time does tell you how hard the
-problem will be. The rest of this section is about what it does not tell
-you.
+bands, and the vote's rises 0.4088, 0.6296, 0.8165, 0.9465
+(Figure~\ref{fig:h1}). Measuring your data at design time does tell you how
+hard the problem will be. The rest of this section is about what it does not
+tell you.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\linewidth]{phase2e_h1_ads_accuracy.png}
+\caption{Mean per-block held-out accuracy by train-only ADS band, for both
+mechanisms. The consistency signal predicts difficulty for each mechanism
+separately. In the top band the history names one author, so the rule's only
+possible departure from the vote is to abstain (Section~\ref{sec:general-form}),
+which is why it sits below the vote there. Source: \texttt{phase2e\_h1\_ads\_accuracy.png}.}
+\label{fig:h1}
+\end{figure}
 
 \subsection{Head to head}
 \label{sec:head-to-head}
@@ -1345,8 +1392,8 @@ question to be live.
 \label{sec:what-fails}
 
 Design-time mechanism selection fails here for two reasons that have nothing
-to do with each other, and separating them is most of what this paper has to
-offer. The first is structural: the mechanism pair a practitioner reaches for
+to do with each other, and separating them is the paper's central
+contribution. The first is structural: the mechanism pair a practitioner reaches for
 first is nested, so the winner is not a free variable and there is nothing for
 a signal to predict. That is a property of the comparison rather than of the
 corpus or the sample size, and it would hold on any data. The second is

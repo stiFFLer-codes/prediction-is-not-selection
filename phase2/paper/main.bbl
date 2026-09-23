@@ -20,7 +20,6 @@ Timothy~G. Armstrong, Alistair Moffat, William Webber, and Justin Zobel.
 \newblock In \emph{Proceedings of the 18th ACM Conference on Information and
   Knowledge Management (CIKM)}, pages 601--610, 2009.
 \newblock \doi{10.1145/1645953.1646031}.
-\newblock Unverified, verify at review.
 
 \bibitem[Backes(2018)]{backes2018}
 Tobias Backes.
@@ -56,7 +55,6 @@ Peter Christen.
   Entity Resolution, and Duplicate Detection}.
 \newblock Data-Centric Systems and Applications. Springer, 2012.
 \newblock \doi{10.1007/978-3-642-31164-2}.
-\newblock Unverified, verify at review.
 
 \bibitem[Elmachtoub and Grigas(2022)]{elmachtoub2022}
 Adam~N. Elmachtoub and Paul Grigas.
@@ -70,7 +68,6 @@ Ivan~P. Fellegi and Alan~B. Sunter.
 \newblock \emph{Journal of the American Statistical Association}, 64\penalty0
   (328):\penalty0 1183--1210, 1969.
 \newblock \doi{10.1080/01621459.1969.10501049}.
-\newblock Unverified, verify at review.
 
 \bibitem[Ferreira et~al.(2012)Ferreira, Gon{\c{c}}alves, and
   Laender]{ferreira2012}
@@ -110,7 +107,6 @@ Jinseok Kim.
   evaluation in author name disambiguation.
 \newblock \emph{Scientometrics}, 120\penalty0 (2):\penalty0 661--681, 2019.
 \newblock \doi{10.1007/s11192-019-03143-7}.
-\newblock Unverified, verify at review.
 
 \bibitem[Kim and Kim(2020)]{kimkim2020}
 Jinseok Kim and Jenna Kim.
@@ -126,7 +122,6 @@ Dani{\"e}l Lakens.
 \newblock \emph{Social Psychological and Personality Science}, 8\penalty0
   (4):\penalty0 355--362, 2017.
 \newblock \doi{10.1177/1948550617697177}.
-\newblock Unverified, verify at review.
 
 \bibitem[Mozannar and Sontag(2020)]{mozannarsontag2020}
 Hussein Mozannar and David Sontag.
@@ -143,7 +138,6 @@ Sidharth Mudgal, Han Li, Theodoros Rekatsinas, AnHai Doan, Youngchoon Park,
 \newblock In \emph{Proceedings of the 2018 ACM SIGMOD International Conference
   on Management of Data}, pages 19--34, 2018.
 \newblock \doi{10.1145/3183713.3196926}.
-\newblock Unverified, verify at review.
 
 \bibitem[Papadakis et~al.(2020)Papadakis, Skoutas, Thanos, and
   Palpanas]{papadakis2020}
@@ -151,7 +145,6 @@ George Papadakis, Dimitrios Skoutas, Emmanouil Thanos, and Themis Palpanas.
 \newblock Blocking and filtering techniques for entity resolution: A survey.
 \newblock \emph{ACM Computing Surveys}, 53\penalty0 (2), 2020.
 \newblock \doi{10.1145/3377455}.
-\newblock Unverified, verify at review.
 
 \bibitem[Rice(1976)]{rice1976}
 John~R. Rice.
@@ -199,6 +192,5 @@ Wei Zhang, Hao Wei, Bunyamin Sisman, Xin~Luna Dong, Christos Faloutsos, and
 \newblock In \emph{Proceedings of the 13th ACM International Conference on Web
   Search and Data Mining (WSDM)}, 2020.
 \newblock \doi{10.1145/3336191.3371813}.
-\newblock Preprint \texttt{arXiv:1912.03417}. Unverified, verify at review.
 
 \end{thebibliography}

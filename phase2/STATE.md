@@ -6,117 +6,99 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.7d complete. The citations, the declarations, the trim and
-  the polish are done, and the manuscript is submission-shaped.** 26 pages,
-  25 references, zero undefined citations, zero undefined references, zero
-  LaTeX warnings, zero em dashes in the source and none in the rendered PDF.
-  Nothing was measured this pass and no number moved that was not either a
-  rounding the peer review asked for or a duplicate mention removed by
-  tightening, which was checked by diffing every numeric token in the body
-  against the pre-pass file. `PREREG.md` untouched, no frozen result moved, no
-  verdict changed, and the locked 6.4 quote is byte-identical
-  (sha256 `dcaa1bc…f8f4`).
-- **Eight citations added, and every one of them is unverified on purpose.**
-  `references.bib` is 25 entries, with the eight new ones in Block E, each
-  carrying `note = {Unverified, verify at review}` and a block header saying
-  the same. `fellegisunter1969`, `christen2012` and `papadakis2020` sit in 1.2
-  under the entity resolution width; `autoblock2020` at the general-form
-  containment in 4.3, where the text now concedes the intuition is prior and
-  claims only the winner-unreachability consequence; `mudgal2018` in 2.4 as the
-  learned line the two untrained mechanisms are deliberately not;
-  `armstrong2009` in 2.1 as the lineage of comparisons that cannot inform, with
-  the paper's structural version stated as sharper; `lakens2017` at the
-  four-verdict construct in 3.3, naming it equivalence testing and inheriting
-  the margin-choice caveat; `kim2019` in 2.2 and beside `amigo2009` in 6.3.
-  **Verifying all eight to the 2.6 standard is a 2.8 item and blocks
-  submission.**
-- **The declarations are in.** Six keywords after the abstract (author name
-  disambiguation; pre-registration; mechanism selection; equivalence testing;
-  entity resolution; negative results), then Funding, Competing interests and
-  Author contributions as starred sections before the existing availability and
-  generative-AI statements. Peer-review minor 2 closed.
-- **The page target is met and the charter word ceiling is not, and the two
-  should be read together.** 30 pages to 26; `texcount -inc` 13,263 text words
-  to 12,079, plus 229 in headers and 636 in captions, so the prose total is
-  12,944 against the charter's 10,000. **About 1,200 words of the four pages
-  came out of prose. The rest came from three floats and from typography**, and
-  that is the honest accounting. Reaching 10,000 needs roughly 2,000 more words
-  out, which after four editing passes over the same text means removing
-  argument rather than wording.
-- **Three things done in the trim go beyond the 2.7d instruction and need
-  sign-off at the top of 2.8.** (a) Two floats beyond the authorized Figure 5
-  are gone: the H1 scatter and the decidability gradient. Both were plots of
-  numbers the text states in full, both PNGs are still in the repository and
-  named in the text where they were used, and H1 is labelled in the paper as a
-  construct-validity check rather than a contribution. Restoring either costs
-  about a page. (b) `\parskip` is 0pt, down from `0.25\baselineskip`, since the
-  class already indents. (c) `\bibsep` is tightened and the float placement
-  fractions are loosened, so large tables stop claiming a page each. If review
-  reverses any of these the page count goes back up by about one page each.
-- **Section 7.3's two minor paragraphs were compressed to one sentence each
-  rather than deleted.** The instruction said remove them; deleting them
-  outright would reopen peer-review minors 8 and 9 that 2.7c closed, so kisti
-  and inspire each keep the sentence carrying the numbers the review asked for.
-  Flagged for review as the one place the instruction was read in effect rather
-  than literally.
-- **Section 7.7 and both deflations are intact**, tightened by about 90 words
-  and otherwise unchanged. Every number, both qualifications and the licensing
-  paragraph stand.
-- **Nine minors closed this pass.** Minor 1 (abstract 260 to 246 words, inside
-  the 200-250 band), minor 3 (ROC was the last bare acronym; `k-NN` is now
-  defined in 6.3), minor 5 ("to four decimal places"), minor 6 (the Spearman is
-  named as the 18,984-live-block population), minor 14 (band edges to four
-  decimals with a pointer to `phase2b_constants.py` at full precision), minor 16
-  (one runtime and hardware sentence in the availability statement), minor 17
-  (**the Zenodo concept DOI is verified**, see below), minor 19 (the Figure 5 /
-  Table 6 overlap), and minor 2 (the declarations). Minors 13 and 15 were
-  re-checked and were already closed at 2.7c.
-- **Minor 17 is closed by verification, not by assertion.** The Zenodo REST API
-  says `10.5281/zenodo.21644207` is the concept DOI (`conceptrecid` 21644207),
-  currently resolving to v1.1.0 at `10.5281/zenodo.22258609`, and
-  `10.5281/zenodo.21644208` is v1.0.0. `references.bib` and the availability
-  statement already said exactly that, so no text changed; the verification is
-  recorded as a comment in the bib.
-- **The `/anti-ai` pass ran over the new and revised prose.** The vocabulary
-  scan is clean: zero hits on delve, underscore, pivotal, crucial, seamless,
-  comprehensive, intricate, nuanced, transformative, Moreover, Furthermore,
-  Additionally, Consequently, "shed light", "paves the way", "testament", "in
-  conclusion" or "further research is needed". The five "robust" hits are
-  "robustness curve", the pre-registered term. Sentence length runs mean 24.7,
-  sd 13.0, 3 to 71 words, 32% in the 15-25 band and 17% under 12, which is
-  high burstiness rather than the flat AI rhythm. Six rewrites followed, all
-  number-, citation- and verdict-preserving, and no em dash was introduced.
-- **The seven section 6.4 commit hashes all still resolve on `phase-2`** with
-  their subject lines matching the roles 6.4 assigns them, in order:
-  `8869b82` 01:32:56, `5e13e38` 10:46:50, `3d86959` 11:43:11, `c20239a`
-  12:09:23, `5f452ad` 12:36:16, `3e79a48` 13:04:42, `9e3d921` 14:25:07, all on
-  2026-09-18. No history was rebased, squashed or amended. The `c20239a`
-  timestamp was restored into the 6.4 text after the trim had dropped it.
+- Status: **Phase 2.8a complete. The citations are locked, the H1 figure is
+  back, the paper states its contributions on page 3, and the moderation audit
+  has been re-run.** 27 pages, 25 references and every one of them verified,
+  zero undefined citations, zero undefined references, zero LaTeX warnings,
+  zero em dashes in the source and in the rendered PDF. Nothing was measured.
+  No number new to the paper was written and none was removed, checked by
+  diffing every numeric token against the pre-pass file. `PREREG.md`
+  untouched, no frozen result moved, no verdict changed, and the locked 6.4
+  quote is byte-identical (sha256 `dcaa1bc…f8f4`, computed over
+  `\begin{quote}` through `\end{quote}` plus the trailing newline).
+- **The eight Block E citations are verified and locked.** Every `note =
+  {Unverified, verify at review}` is gone from `references.bib`, `main.bbl` and
+  the PDF. Fields are the values the author confirmed externally, and all eight
+  DOIs were also resolved against Crossref this pass, which agrees with them
+  field for field, including the six-author AutoBlock list and the nine-author
+  Mudgal list. Two deliberate departures from raw Crossref metadata, recorded
+  in the bib header: Crossref spells the last AutoBlock author "Davd", a typo
+  for David Page, and gives Lakens as Dani\"el, which the bib keeps although
+  the confirmed list wrote it in ASCII. AutoBlock's arXiv pointer went with
+  its note field. **The charter's "every citation verified and resolvable"
+  rule is met again.**
+- **The H1 figure is restored as Figure 1, by author decision; the
+  decidability gradient stays cut, also by author decision.** The restored
+  caption corrects what the old text said about the plot: it is a line plot of
+  mean per-block accuracy by ADS band, not a per-block scatter, and its top
+  band, where the rule sits below the vote, is explained by pointing at the
+  section 4.3 argument rather than by a new number. It costs one page, 26 to
+  27. **The 2.7d typographic changes (`\parskip` 0pt, the tightened
+  `\bibsep`, the loosened float fractions) were not addressed at 2.8a and
+  stand.** They belong to the venue-specific trim, since a venue style file
+  sets its own.
+- **The paper now says what it contributes, early and in one place.** A new
+  section 1.4, "Contributions", lists four: the structural result and its
+  unreachable-verdict consequence, with the AutoBlock precedent conceded inside
+  the item; the pre-registered study, with both hypotheses named Inconclusive;
+  the block-size deflation, with "did not pre-register" inside the item; and
+  the cautions for portfolio and benchmark design, including the calibration
+  trap. Five further framing edits: "avoids both problems" in the abstract and
+  1.3 became "in which neither mechanism contains the other", because no pair
+  avoids the general form's empty regions; the abstract's "the same statistic",
+  which since 2.7c read as block size predicting accuracy, became "the
+  consistency statistic"; 4.3's "a theorem anyone needs" and 8.1's "most of
+  what this paper has to offer" were restated without underselling. Report:
+  `reports/phase2_8a_moderation_audit.md`.
+- **Five flags for human review, none acted on because each needs new analysis
+  or changes a claim.** F1 is the one that matters: **section 5.2 overstates
+  the calibration trap for the k-nearest family.** It says accuracy
+  calibration "selects the degenerate parameter" in either family; that is
+  exact for the radius vote (r = 0.95, rule-side count 0) but on the k grid it
+  selects k = 2, still two-sided at 181/736 on calibration and 987/3,990 on
+  evaluation. The overstatement is inherited from `phase2c_pair_design.md`.
+  F2, the 41% contested-region figure is calibration-split only; F3, the entity
+  resolution width would become a demonstration with one non-AND benchmark;
+  F4, the calibration trap is not in the abstract because it would push the
+  abstract past 250 words; F5, section 4 could be set as a proposition with a
+  proof. Details in the audit report.
+- **Length.** 27 pages. `texcount -inc` 12,375 text words, 230 in headers, 692
+  in captions, so the prose total is 13,297 against the charter's 10,000, up
+  353 on 2.7d: about 270 for the contributions list and 56 for the restored
+  caption. **The word-ceiling question now folds into the venue-specific
+  trim**, which is where a venue's own limit replaces the charter's.
+- **Abstract** 249 words, 1,565 characters with the one `{,}` retyped, against
+  arXiv's 1,920. Peer-review minor 1's 200-250 band still holds.
+- **The seven section 6.4 commit hashes all still resolve on `phase-2`**, each
+  an ancestor of the branch tip, with subjects matching the roles 6.4 assigns
+  them: `8869b82` 01:32:56, `5e13e38` 10:46:50, `3d86959` 11:43:11,
+  `c20239a` 12:09:23, `5f452ad` 12:36:16, `3e79a48` 13:04:42, `9e3d921`
+  14:25:07, all on 2026-09-18. No history was rebased, squashed or amended.
 - **No hypothesis verdict moved and none could.** H1 Supported, H2
   Inconclusive, H3 Inconclusive at the primary margin and Partial at
-  delta = 0.02. The frozen falsification table, now Table 6, is unchanged.
+  delta = 0.02.
 - **The one thing that gates a first upload is still not a manuscript edit.**
-  `phase-2` has never been pushed, so the seven commit hashes in section 6.4
-  and the availability statement both point at a repository that does not yet
-  contain what the paper says it contains. **Do not upload before that push.**
+  `phase-2` has never been pushed, so section 6.4's hashes and the
+  availability statement point at a repository that does not yet contain what
+  the paper says it contains. **Do not upload before the release pass.** Not
+  pushed, tagged or released this pass, by instruction; the availability
+  statement stays in the future tense until then.
 - **The manuscript is at `phase2/paper/main.tex`**, with
   `phase2/paper/references.bib` and the committed `phase2/paper/main.bbl`,
-  which is regenerated this pass and carries 25 `\bibitem`s. Venue-neutral
-  LaTeX, generic `article` class, no journal style file, one appendix.
-- **Three PNGs in `paper/figs/` are now unused by the build**
-  (`phase2e_h1_ads_accuracy.png`, `phase2e_decidability_gradient.png`,
-  `phase2e_k_curve.png`). They are sha256-identical to the `reports/figs/`
-  originals, two of them are named in the text as repository artifacts, and
-  they were left in place rather than deleted. Trimming the upload bundle is a
-  2.8 item.
-- **Four moderation findings stay open and are all submission-time decisions**,
-  now three: the `{,}` separators in the plain-text metadata abstract, the
-  cs.LG cross-list question and the arXiv licence choice. The abstract's length
-  is closed at 246 words.
-- **New at 2.6b and still true: the corresponding address is a personal Gmail
-  account.** Fine in print, and it matters for the arXiv account. Registering
-  an `adit.ac.in` or `cvmu.edu.in` address with arXiv, whatever the paper
-  prints, is the cheapest remaining item and has the longest lead time.
+  regenerated this pass with 25 `\bibitem`s. Venue-neutral LaTeX, generic
+  `article` class, no journal style file, one appendix.
+- **Two PNGs in `paper/figs/` are unused by the build**
+  (`phase2e_decidability_gradient.png`, `phase2e_k_curve.png`). An isolated
+  AutoTeX-style build with only the three used figures, `main.tex` and
+  `main.bbl` came out clean, so both can be left out of the tarball.
+- **Open moderation items, all submission-time and none acted on:** the one
+  `{,}` separator in the metadata abstract; the cross-list, where cs.DB is now
+  better supported than cs.LG because the paper cites the entity resolution
+  literature; the arXiv licence; and the ORCID on the arXiv account.
+- **Still true from 2.6b: the corresponding address is a personal Gmail
+  account.** Fine in print, and it forecloses arXiv's automatic endorsement.
+  Registering an `adit.ac.in` or `cvmu.edu.in` address with arXiv is the
+  cheapest remaining item and has the longest lead time.
 - **The pooled gap -0.0196 is a primary-analysis-population number**, settled
   at 2.5c against `reports/tables/phase2b_accuracy_by_population.csv`: 13,902
   blocks, 197,479 test signatures, exact 0.8244 against fuzzy 0.8441, exact
@@ -438,8 +420,55 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   changes go beyond the instruction and need sign-off: two extra float cuts and
   two typographic settings.
 
+- **Pass 21 (Phase 2.8a): citation lock, figure restore, and a
+  contribution-and-moderation scan.** The eight Block E citations set to the
+  author's confirmed values and cross-checked against Crossref; the H1 figure
+  restored with a corrected caption; a contributions subsection and five
+  framing edits; the arXiv moderation audit re-run over its seven dimensions,
+  with five flags for review and every submission-time item left alone.
+  Nothing measured, no number new to the paper, `PREREG.md` untouched, the
+  locked quote byte-identical, all seven hashes resolving. Not pushed, tagged
+  or released.
 
-## Next: Phase 2.8, release and submission prep
+
+## Next: the release pass, then the venue-specific trim
+
+**Two passes remain and neither is prose revision.** 2.8a closed the last
+manuscript item that blocked submission, the unverified citations.
+
+1. **Decisions for review first.** Whether section 5.2's calibration-trap
+   sentence is narrowed to what the k grid shows (flag F1 in
+   `reports/phase2_8a_moderation_audit.md`), and whether any of F2 to F5 is
+   wanted. F1 is a claim edit and is the author's call; F2 and F3 need new
+   analysis.
+2. **The release pass.** Push `phase-2` and tag the state section 6.4
+   describes, a push plus a tag and never a rebase, because the hashes are in
+   published text. Cut Zenodo v2 from that tag. Move the availability
+   statement to the present tense once the push is real. Deposit the frozen
+   `PREREG.md`, Amendment 1 and Addendum 1a with a timestamp the author does
+   not control and cite it from section 6.4 (peer-review major 6). Leave
+   `phase2e_decidability_gradient.png` and `phase2e_k_curve.png` out of the
+   upload tarball, and ship `main.bbl` in it. `CITATION.cff` can gain the
+   affiliation here.
+3. **The venue-specific trim**, once a venue is chosen. It absorbs the
+   charter's word-ceiling question (13,297 prose words against 10,000), the
+   2.7d typographic settings, and whether the calibration trap goes into the
+   abstract (flag F4).
+4. **arXiv mechanics, in parallel and started first.** Register an
+   institutional address, then request cs.DL endorsement; it is the only item
+   measured in weeks. At submission: retype the one `{,}` in the metadata
+   abstract, choose the cross-list (cs.IR, and cs.DB over cs.LG), choose the
+   licence, and attach the ORCID to the account.
+
+
+## Superseded: Phase 2.8 as planned at 2.7d (split at Pass 21)
+
+**Superseded at Phase 2.8a, 2026-09-23. Kept, not deleted, as the record of
+what was planned.** 2.8 was split: 2.8a took item 4 (citations) and the
+float half of item 1 (the author restored the H1 figure and kept the gradient
+cut), and folded the word-ceiling half of item 1 into the venue-specific
+trim. Items 2, 3, 5, 6 and 7 are carried into the section above. Read below
+for what was planned, not for what to do next.
 
 **2.8 is the next pass, and almost none of it is writing.** The manuscript is
 submission-shaped: 26 pages, 25 references, clean build, declarations in, the
@@ -795,6 +824,16 @@ Still open:
 
 ## Live risks
 
+- **New at 2.8a: section 5.2 states the calibration trap more strongly than
+  the k grid supports.** "Selects the degenerate parameter and walks the design
+  straight back into a comparison that cannot have a winner" is exact for the
+  radius vote and not for the k-nearest vote, where accuracy calibration picks
+  k = 2 and k = 2 is still two-sided (987 against 3,990 on evaluation, in the
+  paper's own Table 2). A reviewer who reads Table 2 against section 5.2 will
+  find it. Flag F1; a claim edit, so left for the author.
+- **Retired at 2.8a: the unverified references.** All eight Block E entries
+  are verified and locked, and the note fields are gone. Kept below as the
+  record.
 - **New and top at 2.7d: eight of the twenty-five references are unverified.**
   Block E of `references.bib` was added this pass on instruction and every
   entry says so in its own `note` field. Author lists, page ranges, volume
@@ -804,6 +843,10 @@ Still open:
   citation verified and resolvable" rule is **not** met while Block E stands,
   and a wrong DOI in a submitted manuscript is the cheapest possible way to
   lose a reviewer's trust. Verify all eight before submission.
+- **Updated at 2.8a: the page count is now 27 and the prose total 13,297,
+  33% over the charter ceiling.** The H1 figure's page came back and the
+  contributions list added about 270 words. The rest of this entry stands and
+  the question moves to the venue-specific trim.
 - **New at 2.7d: four of the six pages cut did not come out of prose.** Two
   came from removing the H1 scatter and the decidability-gradient figures, one
   from zeroing `\parskip`, one from tightening `\bibsep` and loosening the
@@ -811,6 +854,8 @@ Still open:
   venue that counts words rather than pages will see a paper 29% over the
   charter's own ceiling. Reversing any of the typographic changes, or a venue
   style file that sets its own, puts pages back.
+- **Settled at 2.8a by the author: the H1 figure is restored and the
+  decidability gradient stays cut.** The entry below is the record.
 - **New at 2.7d: two figures were cut that nobody asked to cut.** The
   instruction authorized one float cut and the pass made three. The two extra
   are defensible on the merits, since both plotted numbers the text states in
@@ -933,4 +978,6 @@ pair) -> phase2/reports/phase2c_pair_design.md (why the pair changed) ->
 phase2/reports/OUTLINE.md (what the paper will be) ->
 **phase2/paper/main.tex (what the paper now is, drafted at 2.5b)** ->
 **phase2/reports/phase2_7_peer_review.md (what an external reviewer says about
-it, and what 2.7b has to answer)** -> phase2/PASSLOG.md (history).
+it, and what 2.7b has to answer)** ->
+**phase2/reports/phase2_8a_moderation_audit.md (the current moderation state
+and the five flags awaiting review)** -> phase2/PASSLOG.md (history).

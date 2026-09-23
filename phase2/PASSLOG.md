@@ -2835,3 +2835,156 @@ all eight Block E citations** against DOI and venue records to the 2.6 standard.
 Two decisions are for review at the top of 2.8: whether the three extra float
 and typography changes stand, and whether the charter's 10,000-word ceiling is
 enforced or formally relaxed to the page count.
+
+## Pass 21 — Phase 2.8a, citation lock, figure restore, and a contribution-and-moderation scan (2026-09-23)
+
+**What I did and why.** Three items, all content edits: lock the eight Block E
+citations to the values the author verified externally, restore the H1 figure
+2.7d cut, and read the manuscript as an arXiv moderator would, sharpening the
+framing wherever a real contribution was undersold. Then the moderation audit
+re-run over its seven dimensions. Nothing was measured, `PREREG.md` was not
+opened, no committed table, report or figure file moved, no verdict changed.
+Not pushed, tagged or released, by instruction.
+
+### 1. The citations, locked
+
+Every `note = {Unverified, verify at review}` is removed and the fields set to
+the author's confirmed values; the only field value that changed is Armstrong
+et al.'s "Ad-hoc" to "Ad-Hoc", everything else already matched. Each of the
+eight DOIs was also resolved against the Crossref REST API, read-only, which
+agrees with the confirmed values and supplied the two multi-author expansions:
+AutoBlock has six authors (Zhang, Wei, Sisman, Dong, Faloutsos, Page) and
+Mudgal et al. nine, both as already in the bib. Two departures from raw
+Crossref, recorded in the bib header: Crossref spells the last AutoBlock author
+"Davd", a typo for David Page, and gives Lakens's forename as Daniël, which the
+bib keeps as `Dani{\"e}l` although the confirmed list wrote it in ASCII.
+AutoBlock's arXiv preprint pointer lived in the same note field and went with
+it. The bib's header now reads all 25 entries verified.
+
+### 2. The H1 figure, restored
+
+Back as Figure 1 in section 7.2 at `0.7\linewidth`, matching the other two;
+the decidability gradient stays cut, per the instruction. The PNG is
+sha256-identical to `reports/figs/`. Two corrections came with it, both to
+existing text rather than new claims. The old pointer called the plot "the
+per-block scatter"; it is a line plot of mean per-block accuracy by ADS band
+(`reports/phase2e_boundary.md`, "Mean per-block accuracy by ADS band"), and the
+caption now says so. And the plot shows a fifth point the text does not quote,
+ADS = 1.0, where the rule sits below the vote (0.9234 against 0.9889 in the
+report). The caption explains it by pointing at section 4.3's argument, that a
+history naming one author leaves the rule no departure from the vote but
+abstention, rather than by printing the report's numbers. An earlier draft
+said "which is why it falls there", which implies a cause for the band-to-band
+drop that the paper does not establish; it now says "why it sits below the vote
+there", which section 4.3 entails.
+
+### 3. The contribution-and-moderation scan
+
+The paper read as original research before the pass. What a skimming moderator
+could misread: every positive result was stated as a reason the answer is no,
+nothing said in one place what the paper adds, the calibration trap first
+appeared in section 5.2, and two sentences undersold the structural result.
+Six framing edits:
+
+- **New section 1.4, "Contributions"**, four items on page 3, each a restatement
+  of a claim already made with a pointer to where: the structural result and
+  its unreachable-verdict consequence, with the AutoBlock precedent conceded
+  inside the item; the pre-registered study, with both hypotheses named
+  Inconclusive; the block-size deflation, with "did not pre-register" inside
+  the item; the cautions for portfolio and benchmark design. The calibration
+  trap is worded as "moves its parameter toward the limit", which both tunable
+  families support, and not as section 5.2 words it (see F1).
+- **Abstract and 1.3, "avoids both problems"** became "in which neither
+  mechanism contains the other". Traced through history, the two problems were
+  always the nesting and the general form's empty regions, and no pair avoids
+  the second.
+- **Abstract, "Against that, the same statistic predicts"** became "The
+  consistency statistic, by contrast, predicts". Since 2.7c the preceding
+  sentences are about block size, so it read as block size predicting accuracy
+  at 0.51 and 0.83.
+- **4.3, "a trap practitioners fall into rather than a theorem anyone needs"**
+  became "The result is practical rather than deep, and the trap is easy to
+  fall into".
+- **8.1, "most of what this paper has to offer"** became "the paper's central
+  contribution".
+
+**Five flags for human review, not acted on**, each because it needs new
+analysis or changes a claim; full text in the audit report.
+- **F1, the one that matters.** Section 5.2 says the accuracy-maximizing
+  protocol "selects the degenerate parameter and walks the design straight back
+  into a comparison that cannot have a winner" in either family. Exact for the
+  radius vote; on the k grid it selects k = 2, which is two-sided at 181/736 on
+  calibration and 987/3,990 on evaluation, in the paper's own Table 2.
+  Inherited from `reports/phase2c_pair_design.md`.
+- F2, the 41% contested-region figure is calibration-split only. F3, the
+  one-count check on a non-AND benchmark would make the entity resolution width
+  a demonstration. F4, the calibration trap is not in the abstract, because the
+  shortest accurate clause puts it at about 263 words. F5, section 4 could be
+  set as a proposition with a proof.
+
+### 4. The moderation audit, re-run
+
+`reports/phase2_8a_moderation_audit.md`, over the same seven dimensions as
+2.6. **No desk-reject risk on content.** Self-containment is still the top
+finding and still the release pass's: `phase-2` unpushed, the availability
+statement future-tense, the locked quote's "public repository" true only after
+the push. Category: cs.DB is now a better-supported cross-list than cs.LG,
+since the paper cites the entity resolution literature. Overlap with
+`manuscript/main.tex`: 8 shared 8-grams of 14,277, all in section 8.3 and all
+from two attributed phrases describing the earlier study. An AutoTeX-style
+isolated build with `main.tex`, `main.bbl` and only the three used PNGs came
+out clean, so `phase2e_decidability_gradient.png` and `phase2e_k_curve.png` can
+be left out of the tarball. Submission-time items reported and left alone: the
+one `{,}` in the metadata abstract, the cross-list, the licence, the ORCID on
+the account, the institutional address and cs.DL endorsement.
+
+### Numbers
+
+**27 pages**, up one for the restored figure. `texcount -inc`: 12,375 text
+words, 230 in headers, 692 in captions, **prose total 13,297** against the
+charter's 10,000 and 12,944 at 2.7d; about 270 of the 353 are the contributions
+list and 56 the restored caption. Abstract 249 words, 1,565 characters with
+the separator retyped, against arXiv's 1,920. Eleven floats.
+
+### Invariant checks
+
+Invariant 1, verify before you build: nothing built. Invariant 2, no tautology:
+no construct touched. Invariant 3, held-out only: no new number. Invariant 4,
+superseded, no selector. Invariant 5, no result before measurement: **nothing
+measured, and every numeric token in the body diffed against the pre-pass
+file: none removed, and the only additions are `199{,}713` and `197{,}479`
+restated in the contributions list, the figure width, and digits in the
+figure's filename.** No number new to the paper. Invariant 6, two untrained
+mechanisms, no third arm: untouched. Invariant 7, offline and reproducible: no
+code or dependency changed; the pass's network calls were eight read-only
+Crossref lookups. Invariant 8, honest framing: the contributions list carries
+"did not pre-register", "Inconclusive" and the AutoBlock concession inside its
+own items; section 7.7's deflations, the locked quote, both corrections under
+it and the limitations section are untouched; the one existing overstatement
+found, F1, is flagged rather than repeated or silently changed.
+
+**Build.** From a clean tree, `pdflatex`, `bibtex`, `pdflatex` x3: zero
+undefined citations, zero undefined references, zero LaTeX warnings, 25
+`\bibitem`s, no "Unverified" in `main.bbl` or the PDF, zero em dashes in the
+source and the PDF, `main.tex` and `references.bib` pure ASCII. Four cosmetic
+underfull-box notices, no overfull boxes. **Locked 6.4 quote byte-identical**,
+sha256 `dcaa1bc…f8f4` over `\begin{quote}` through `\end{quote}` plus the
+trailing newline, before and after. **All seven 6.4 hashes resolve** on
+`phase-2` as ancestors of the tip with matching subjects: `8869b82` 01:32:56,
+`5e13e38` 10:46:50, `3d86959` 11:43:11, `c20239a` 12:09:23, `5f452ad` 12:36:16,
+`3e79a48` 13:04:42, `9e3d921` 14:25:07, all 2026-09-18. No history rewritten.
+
+**What I did not do.** Did not push, tag, release or cut Zenodo v2; the
+availability statement stays future-tense. Did not touch `PREREG.md`, any frozen
+constant, table, report or figure file. Did not act on F1 to F5 or on any
+submission-time item. Did not revisit the 2.7d typographic settings, which were
+not in the instruction. Did not delete the two unused PNGs.
+
+**Recommendation for the next pass.** Decide F1 first, since it is a sentence a
+reviewer can falsify from the paper's own Table 2. Then the release pass: push
+and tag `phase-2`, cut Zenodo v2 from the tag, move the availability statement
+to the present tense, deposit the frozen pre-registration with an independent
+timestamp, and package the tarball with `main.bbl` and the three used figures.
+The venue-specific trim follows once a venue is chosen and carries the word
+ceiling, the typography and F4. Start the institutional arXiv address and the
+cs.DL endorsement request now, in parallel; nothing else here takes weeks.
