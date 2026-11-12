@@ -36,6 +36,8 @@ py -3.14 -m venv .venv            # Windows; elsewhere: python3.14 -m venv .venv
 pip install -r phase2/requirements-lock.txt
 ```
 
+Then check the interpreter: `python -VV` should report 3.14.2, because `py -3.14` takes the newest 3.14 installed. If PowerShell refuses to run the activation script, run `Set-ExecutionPolicy -Scope Process RemoteSigned` first, or use `.venv\Scripts\activate.bat` from `cmd`.
+
 Keep the pins exact. The frozen split is drawn with NumPy's `default_rng(...).permutation`, and NumPy does not promise the same stream across feature releases. pandas 3 changed the string type that the sort and factorize steps run on. The pipeline is offline and CPU-only. It needs no API key, no GPU and no paid service.
 
 ## Data
@@ -44,24 +46,26 @@ The repository carries the derived S2AND tables the analysis starts from, so a r
 
 ## Run order
 
-Run every command from the repository root with the interpreter above. Several scripts overwrite committed files. On a correct run the content comes out the same.
+Run each step from the repository root as `python phase2/<script>`, with the venv active. Script names and output paths in the table are relative to `phase2/`. Several scripts overwrite committed files, and on a correct run their content comes out the same.
 
 | Step | Script | What it writes | Time |
 |---|---|---|---|
-| 1 | `s2and_blocking.py` | nothing; self-check of the frozen blocking definitions | `<cold run>` |
-| 2 | `phase2b_build.py` | `phase2b_constants.py` (frozen cutoff and band edges), `data/phase2b_blocks.parquet`, `reports/phase2b_calibration.md` | `<cold run>` |
-| 3 | `phase2b_run.py` | `data/phase2b_eval_sigs.parquet` (cache), `reports/phase2b_boundary.md`, `reports/tables/phase2b_*`, `reports/figs/phase2b_*` | about 20 min without the cache |
-| 4 | `phase2c_probe.py` | `reports/phase2c_pair_probe.md`, `reports/tables/phase2c_pair_*.csv` | `<cold run>` |
-| 5 | `phase2e_mech.py` | nothing; self-check, then the calibration-split regression check | `<cold run>` |
-| 6 | `phase2e_run.py` | `data/phase2e_eval_sigs.parquet` (cache), `reports/phase2e_boundary.md`, `reports/tables/phase2e_*`, `reports/figs/phase2e_*` | about 20 min without the cache |
-| 7 | `phase2_7b_reanalysis.py` | `reports/phase2_7b_reanalysis.md`, `reports/tables/phase2_7b_*.csv`, `reports/figs/phase2_7b_*.png` | `<cold run>` |
-| 8 | `phase2_9a_matched.py` | `reports/tables/phase2_9a_*.csv` | 47 s with the cache |
-| 9 | `phase2_9b_supplement.py` | `reports/tables/phase2_9b_*.csv`, `reports/phase2_9b_report.md` (its last section is hand-written and kept) | `<cold run>` |
+| 1 | `s2and_blocking.py` | nothing; self-check of the frozen blocking definitions | 1 s |
+| 2 | `phase2b_build.py` | `phase2b_constants.py` (frozen cutoff and band edges), `data/phase2b_blocks.parquet`, `reports/phase2b_calibration.md` | 3 min |
+| 3 | `phase2b_run.py` | `data/phase2b_eval_sigs.parquet` (cache), `reports/phase2b_boundary.md`, `reports/tables/phase2b_*`, `reports/figs/phase2b_*` | 10 min |
+| 4 | `phase2c_probe.py` | `reports/tables/phase2c_pair_*.csv` | 15 s |
+| 5 | `phase2e_mech.py` | nothing; self-check, then the calibration-split regression check | 12 s |
+| 6 | `phase2e_run.py` | `data/phase2e_eval_sigs.parquet` (cache), `reports/phase2e_boundary.md`, `reports/tables/phase2e_*`, `reports/figs/phase2e_*` | 4 min |
+| 7 | `phase2_7b_reanalysis.py` | `reports/phase2_7b_reanalysis.md`, `reports/tables/phase2_7b_*.csv`, `reports/figs/phase2_7b_*.png` | 40 s |
+| 8 | `phase2_9a_matched.py` | `reports/tables/phase2_9a_*.csv` | 22 s |
+| 9 | `phase2_9b_supplement.py` | `reports/tables/phase2_9b_*.csv`, `reports/phase2_9b_report.md` (its last section is hand-written and kept) | 24 s |
+
+The times are from one cold run of a fresh clone, with steps 3 and 6 building their caches, on Windows 11 Home 24H2 with an Intel Core i5-6200U (2 cores, 4 threads) and 16 GB of RAM.
 
 Notes on the order.
 
-- Step 2 rewrites `phase2b_constants.py`. On a correct run the file comes out byte-identical, which makes it the first check to make.
-- `reports/phase2c_pair_probe.md` is not committed, so step 4 leaves one new untracked file.
+- Step 2 rewrites `phase2b_constants.py`. Check it first with `git diff --exit-code -- phase2/phase2b_constants.py`, which shows no change on a correct run.
+- On Windows the scripts write text with CRLF line endings. After a full run `git status` lists the rewritten files as modified while `git diff` shows no change. The `.csv.gz` files also differ in their gzip header time, so compare them decompressed.
 - Step 9 reads the Experiment 1 table from the `v1.1.0` tag with `git show`, so it needs a clone that has the tags.
 - The two caches under `data/` are gitignored. Step 7 reads `data/phase2e_eval_sigs.parquet` and needs step 6 first. Steps 8 and 9 rebuild that cache through the frozen mechanism pass if it is absent.
 

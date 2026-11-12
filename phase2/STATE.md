@@ -6,7 +6,14 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Gate 2.9c done, 2026-11-12 (master plan WO-3, with the WO-3b
+- Status: **Gate 2.9c complete, 2026-11-12 (master plan WO-4 and WO-4b). WO-5,
+  the independent verifier, is next.** A cold run from a fresh clone, with no
+  cache, reproduced all 108 compared output files in content, re-derived the
+  frozen record, and built the paper at 31 pages. The raw S2AND path also
+  reproduced. The report is `reports/phase2_9c_cold_run.md`. `README.md` now
+  carries this run's step times and the five README fixes it found. Still to
+  fill in: `<DOI>` (WO-6). See PASSLOG Pass 26.
+- Previous status, **Gate 2.9c done, 2026-11-12 (master plan WO-3, with the WO-3b
   review fixes). WO-4, the cold run from a fresh clone, is next.** Commit
   `47c6cb3` added the release files: `README.md`, `requirements-lock.txt`,
   `DATA_LICENSES.md`, `ERRATA.md`, the root `LICENSE-TEXT`, and dated notes in

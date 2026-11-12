@@ -3457,3 +3457,104 @@ directory, and a top-level removed path in a root file. It found no hit. The
 checks after the commit are in the WO-3b reply and go into WO-4's entry.
 Both 2.9c commits were re-made before any push, without the co-author trailer,
 at Markie's direction; their content is otherwise unchanged.
+
+## Pass 26: Phase 2.9c, cold reproduction from a fresh clone (2026-11-12)
+
+**What I did and why.** I executed work order WO-4 of the release-pass master
+plan, then WO-4b. WO-4 ran the README's run order from a fresh clone, with no
+cache, to test B3: does the tip reproduce for a stranger who has only the
+README? It ran and prepared, and committed nothing. The orchestrator reviewed
+the bundle, ruled on the one open call, and asked for all five README findings
+to be fixed. WO-4b applied that and made this commit. No script, `PREREG.md`,
+existing report, table, figure or paper file changed.
+
+### WO-4, the cold run
+
+- **Source.** H = `1ef28d2` on `phase-2`, cloned with `git clone
+  --no-hardlinks --branch phase-2` outside the working repository. The clone
+  had both tags and neither mechanism cache.
+- **Environment.** A new venv made with the README's commands: CPython 3.14.2,
+  64-bit, Windows; the seven pins from `requirements-lock.txt` and nine
+  unpinned dependencies (the full `pip freeze` is in the report). Windows 11
+  Home 24H2, Intel Core i5-6200U (2 cores, 4 threads), 16 GB RAM.
+- **Times.** Steps 1 to 9: 1 s, 3 min, 10 min, 15 s, 12 s, 4 min, 40 s,
+  22 s, 24 s, 19 minutes in all. Steps 3 and 6 built their caches. Paper
+  build 12 s. Raw path: fetch 3 min, ingest 50 s, `gate21_two_axes.py`
+  4 min.
+- **Self-checks.** All passed. The frozen record re-derives: 199,713 test
+  signatures, 546 against 744 at k = 5, per-block verdicts
+  191 / 309 / 10,172 / 3,230, and H1 Supported, H2 and H3 Inconclusive.
+- **Comparison.** 108 of 108 output files match in content: 94 from the main
+  run (including the two gitignored caches, compared with the reported run's
+  local copies), 13 from the raw path, and `main.bbl`. No file differs in
+  content, and none differs only as PNG bytes. All 26 PNGs are
+  byte-identical. Below content level, on Windows the scripts write CRLF
+  where the checkout has LF, so `git status` lists 78 rewritten files with
+  no diff, and the four `.csv.gz` files differ in their gzip header time.
+- **Raw path.** The manifest totals 260,176,690 bytes, under the 1 GB limit,
+  so it ran. All 19 downloads match the committed sha256 and size, and the
+  one 404 entry is still a 404. The rebuilt manifest, signature table, block
+  tables, gate 2.1 reports and figures all match.
+- **Paper.** Built in the clone: 31 pages, no undefined reference or
+  citation.
+- **Report.** `reports/phase2_9c_cold_run.md`: environment, commands, times,
+  the 108-row comparison table, the differences below content level, and
+  the README findings.
+
+### Rulings (WO-4b)
+
+- **R1.** The constants check is a pass. The regenerated
+  `phase2b_constants.py` has CRLF line endings on Windows. `git diff
+  --exit-code` is clean and `git hash-object --path` gives the committed blob
+  `7440cef`. R4 asks whether the frozen constants reproduce, and git's blob is
+  the record. The report's sentence leaving the call open was replaced.
+- **R2.** All five README findings are fixed in this commit, and the report
+  says so.
+
+### README fixes (WO-4b)
+
+Each one replaced a single exact passage that matched once.
+
+- **F1.** The run-order lead now says to run `python phase2/<script>` from
+  the root, and that script names and output paths are relative to `phase2/`.
+- **F2.** Step 4's row no longer lists `reports/phase2c_pair_probe.md`, which
+  `phase2c_probe.py` never writes. The note about one new untracked file is
+  gone. A search of `README.md`, `DATA_LICENSES.md`, `ERRATA.md` and
+  `paper/main.tex` found the file named only in those two README places.
+- **F3.** The constants note now names `git diff --exit-code` as the check.
+  A new note says Windows writes CRLF, so `git status` lists files with no
+  diff, and the `.csv.gz` files are compared decompressed.
+- **F4 and F5.** After the venv commands, a paragraph says to confirm 3.14.2
+  with `python -VV`, and gives the PowerShell execution-policy command and
+  the `cmd` form of activation.
+
+WO-4's own README change, kept: the nine Time cells from this run and one line
+naming the machine.
+
+### Anti-ai passes
+
+WO-4, over the report and the new README line: no listed vocabulary or em dash.
+Four changes to wording. A sentence restating the opening was cut, and the
+two sentences on byte-level differences were joined. The constants judgment
+was recast as a plain clause after a colon. The README's earlier "about 20
+min" became its own sentence. "From one cold run from a fresh clone" became
+"of a fresh clone". The texts before and after are in the WO-4 review bundle.
+WO-4b, over R1, R2 and F1 to F5: nothing to change, so they went in verbatim.
+The same pass over this entry and the STATE line changed nothing either.
+
+### Checks
+
+Before the commit, on the prepared state.
+
+- **Name scan**, whole words, against the term file outside the repository:
+  no hit in the report or the README change.
+- **Personal paths.** No user name, application-data folder or home-folder path in the
+  report or the README.
+- **Changed files.** Only `README.md` (modified) and the report (new) at
+  WO-4, then these two plus `PASSLOG.md` and `STATE.md` here.
+- **Paper in the clone.** 31 pages, 0 undefined references or citations.
+
+The checks after the commit are in the WO-4b reply and go into WO-5's entry.
+
+**Recommendation for the next pass.** WO-5, the independent verifier, in a
+session that wrote none of the release-pass work. Then WO-6 fills `<DOI>`.
