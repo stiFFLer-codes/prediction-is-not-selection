@@ -3103,3 +3103,102 @@ priority order:
 5. 8.3 (j).
 6. 42.2% beside 41%.
 7. Then the release.
+
+## Pass 23 — Phase 2.9b step 1, per-population verdicts, the INIT control cells, and the Experiment 1 interval count (2026-11-12)
+
+**What I did and why.** I executed work order WO-1 of the release-pass master
+plan (`../FABLE_MASTER_PLAN.md`), with the orchestrator's three amendments. The
+goal is to put every number the manuscript edits (WO-2) need into committed
+tables before any prose moves. Findings W1, W2 and W8 needed new computation.
+O3 needed the local file times on record. The work is one new script,
+`phase2_9b_supplement.py`, in the conventions of `phase2_9a_matched.py`. It
+imports and does not restate: `phase2_9a_matched.load` for the frozen
+population check, `phase2e_run.pooled_table` and `structural` at `PRIMARY`,
+and `phase2b_run.populations`. No existing script, report, table, figure,
+`PREREG.md` or `paper/` file was touched. Everything is in
+`reports/phase2_9b_report.md`.
+
+### Key numbers
+
+The script halts unless 13,902 / 197,479 / 0.824442 / 0.829440 reproduce.
+They did. Sub-population intervals use new seeds tagged
+`p29b|<population>|<axis>`. The `all` rows match `phase2e_pooled_ads.csv`,
+`_sv.csv` and `_cells_sv.csv` to 1e-12 on the point gap, and every frozen
+population matches `phase2e_accuracy_by_population.csv`. Under the new seeds
+none of the 87 `all`-row verdicts (29 groups, three margins) differs from the
+committed one. All numbers below are at delta = 0.05 unless stated.
+
+- **Whole populations** (`reports/tables/phase2_9b_population_verdicts.csv`):
+  - kisti: **+0.1131 [+0.1015, +0.1250], `rule wins`** at every margin;
+  - zbmath: **-0.0631 [-0.0761, -0.0512], `k-NN wins`** at every margin, with
+    the upper bound 0.0012 inside the margin;
+  - pubmed (34 blocks, not qualifying): +0.2466, `rule wins`;
+  - pooled non-inspire: +0.0221, tie;
+  - non-inspire without kisti: +0.0029, tie;
+  - inspire, aminer, arnetminer and qian are ties at 0.05.
+- **Bands** (`phase2_9b_bands_by_population.csv`). Inside kisti, `rule wins`
+  for SV high (+0.1654, 443 blocks), SV mid (+0.0806), ADS [0, 0.5) (+0.1762)
+  and [0.5, 0.7) (+0.1100). In pooled non-inspire, SV high is `rule wins`
+  (+0.0600, lower bound 0.0501, so by 0.0001) and ADS = 1.0 is undecided.
+  In non-inspire without kisti, every ADS band below 1.0 and every SV band is
+  a tie at 0.05 and 0.03. At 0.02, SV = 0 and SV high are undecided.
+- **Grid and structure** (`phase2_9b_cells_by_population.csv`,
+  `phase2_9b_structure_by_population.csv`). In pooled non-inspire at fixed SV
+  high, [0, 0.5) +0.0629 and [0.5, 0.7) +0.1024 are `rule wins` and ADS = 1.0
+  -0.1130 is `k-NN wins`. That is a **winner reversal** across ADS at the
+  primary margin. Across SV at fixed ADS, pooled non-inspire has no reversal:
+  tie-crossings at [0, 0.5), [0.5, 0.7) and 1.0, and gap compression only at
+  the other two levels.
+- **INIT** (`phase2_9b_init.csv`). The INIT bands on their own are all ties at
+  0.05: INIT = 0 +0.0066, 0 < INIT < 0.5 +0.0018, INIT >= 0.5 -0.0183. The two
+  cells of `phase2e_pooled_init_sv.csv` decided at 0.05 were asserted to be
+  exactly INIT = 0 x SV high (`rule wins`) and INIT >= 0.5 x SV = 0
+  (`k-NN wins`):
+  - INIT = 0 x SV high: kisti supplies 3,781 of 4,746 test signatures, at
+    +0.1698. Without kisti the cell is +0.0052, a tie. Leaving out any other
+    dataset keeps it `rule wins`. Disagreements: 724 rule-right-vote-wrong,
+    77 vote-right-rule-wrong.
+  - INIT >= 0.5 x SV = 0: 0 rule-right-vote-wrong, 290 vote-right-rule-wrong.
+    It stays `k-NN wins` with any one dataset left out.
+- **Experiment 1** (`phase2_9b_exp1_clean_intervals.csv`, read with
+  `git show v1.1.0:...`). There are 240 rows and 120 clean ones. **115 of 120**
+  have the interval inside +-0.02. Outside are seeds 31001, 31016, 31009, 31014
+  and 31005, and every one crosses +0.02 on the high side.
+- **File times (O3).** These are times on the author's machine, not repository
+  evidence. The evaluation-split prediction cache `phase2e_eval_sigs.parquet`
+  was born at 13:27:30.05, 22 min 48 s after `3e79a48`. `phase2e_mech.py` was
+  born at 13:19:17 and `phase2e_run.py` at 13:21:53, and both were first
+  imported at 13:22:07. No trace puts an evaluation prediction of the amended
+  pair before the addendum, so the amendment's stop condition was not hit. No
+  temp folder, transcript or file-history snapshot from 2026-09-18 survives.
+  The limits of birth times are spelled out in the report.
+
+### Invariant checks
+
+- **Invariant 3** (held-out only): every number is evaluation-split, from the
+  frozen held-out per-block record.
+- **Invariant 5** (no result before measurement): every number comes from
+  committed code with halting checks. Two consecutive runs gave identical
+  hashes for all six CSVs and the report. A rerun keeps the hand-written section
+  byte for byte. The 115/120 count, flagged at 2.9a as not yet from committed
+  code, now is.
+- **Invariants 2, 4, 6, 7:** untouched. The script is offline. Its one
+  subprocess is a local `git show`.
+- **Invariant 8** (honest framing): no hypothesis outcome moves. The W2 and W1
+  findings are one-dataset findings under `PREREG.md:531-535`, reported for
+  WO-2 and not edited into the paper here.
+- **Confidentiality:** all new and changed text was checked case-insensitively
+  against the private name-scan list, with zero hits. One phase-2 reflog line
+  matched a term and is withheld. Only the count is recorded.
+- **Side effects:** `../scan_terms.txt.txt` was renamed to `../scan_terms.txt`,
+  outside the repository, with the author's approval. The 2.2e `.pyc` times
+  were checked before and after the runs and are unchanged.
+
+**Recommendation for the next pass.** WO-2, the manuscript corrections, once
+the author has ruled on N3 and N4. Three results are firmer than the plan's
+PREVIEW expected, and the WO-2 wording should use the committed verdicts. The
+zbmath whole-population result is decided (`k-NN wins`), not "near the
+boundary". In pooled non-inspire, [0, 0.5) x SV high and the marginal SV-high
+band are `rule wins` at 0.05, not boundary cases. The marginal band clears the
+margin by 0.0001, so it should be reported with its lower bound, not as a
+robust win.

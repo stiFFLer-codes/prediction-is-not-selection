@@ -6,7 +6,34 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.9a complete, 2026-11-12. The release pass has started.
+- Status: **Phase 2.9b step 1 complete, 2026-11-12 (master plan WO-1). Every
+  number the manuscript edits need is now in committed tables; the manuscript
+  edits (WO-2) are next, after the author rules on decisions N3 and N4.** One
+  new script, `phase2_9b_supplement.py`, six `reports/tables/phase2_9b_*.csv`,
+  `reports/phase2_9b_report.md` and `reports/phase2_9b_reflog_phase2.txt`.
+  Nothing in `paper/`, `PREREG.md` or any existing script, report, table or
+  figure moved. Not pushed, tagged or released. What it found, all at
+  delta = 0.05 unless stated:
+  1. **The pooled null is mostly one dataset's (W2).** kisti as a whole is
+     `rule wins`, +0.1131 [+0.1015, +0.1250]. zbmath as a whole is `k-NN wins`,
+     -0.0631 [-0.0761, -0.0512]. pubmed (34 blocks, not a qualifying dataset)
+     is `rule wins`, +0.2466. Inside kisti, SV high (+0.1654), ADS [0, 0.5)
+     (+0.1762) and [0.5, 0.7) (+0.1100) are `rule wins`. Pooled non-inspire
+     has a winner reversal across ADS at fixed SV high: [0, 0.5) +0.0629 and
+     [0.5, 0.7) +0.1024 `rule wins`, against ADS = 1.0 -0.1130 `k-NN wins`.
+     Its marginal SV-high band is `rule wins` by 0.0001 on the lower bound
+     (0.0501). Without kisti, every non-inspire ADS band below 1.0 and every
+     SV band is a tie.
+  2. **INIT (W1).** The INIT bands on their own are all ties. The `rule wins`
+     cell INIT = 0 x SV high (+0.1363) is kisti's: 3,781 of 4,746 test
+     signatures at +0.1698, and +0.0052 (a tie) without kisti. The `k-NN wins`
+     cell INIT >= 0.5 x SV = 0 has zero rule-right-vote-wrong signatures.
+  3. **Experiment 1 (W8).** 115 of 120 clean conditions have the interval
+     inside +-0.02, read from the `v1.1.0` tag. The count is now committed code.
+  4. **Run timing (O3).** On local file times, which are not repository
+     evidence, the evaluation predictions were first cached at 13:27:30, 23 min
+     after Addendum 1a. No trace puts them earlier.
+- Previous status, **Phase 2.9a complete, 2026-11-12. The release pass has started.
   2.9a gathered the facts the manuscript edits need and committed one
   analysis script; 2.9b, the manuscript edits, is next.** The paper is
   declared complete and goes public on GitHub plus a **new** Zenodo record.
@@ -479,9 +506,20 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   population reproduces, and three tables. Report:
   `reports/phase2_9a_report.md`. Not pushed, tagged or released.
 
+- **Pass 23 (Phase 2.9b step 1, master plan WO-1): per-population verdicts, the
+  INIT control cells, and the Experiment 1 interval count.** One new script,
+  `phase2_9b_supplement.py`. It halts unless the frozen population reproduces
+  and checks every `all` row against the committed pooled tables. It writes six
+  tables and a report whose last section, the local file times for the 2.2e
+  run, is hand-written. Also the phase-2 reflog, with one line withheld for a
+  scan-term match. No existing file changed. Not pushed, tagged or released.
+
 
 ## Next: Phase 2.9b, the manuscript edits, then the release
 
+0. **Done at Pass 23:** every number the edits need is in committed tables
+   (`reports/phase2_9b_report.md`), including the 115/120 count. The edits
+   follow the master plan's WO-2, once the author has ruled on N3 and N4.
 1. **2.9b, the manuscript edits.** These are written by the orchestrating
    chat from `reports/phase2_9a_report.md`. The facts are gathered. The
    decisions are the author's: how to disclose `a41a67a` in 6.4 and its

@@ -1,0 +1,295 @@
+population,direction,delta,fixed_level,eligible_bands,decided_bands,verdicts,outcome
+all (primary population),across SV at fixed ADS,0.05,"[0,0.5)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=undecided,gap compression only
+all (primary population),across SV at fixed ADS,0.05,"[0.5,0.7)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+all (primary population),across SV at fixed ADS,0.05,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+all (primary population),across SV at fixed ADS,0.05,"[0.9,1.0)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+all (primary population),across SV at fixed ADS,0.05,1.0,4,0,SV=0=undecided / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+all (primary population),across ADS at fixed SV,0.05,SV=0,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",gap compression only
+all (primary population),across ADS at fixed SV,0.05,SV low,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+all (primary population),across ADS at fixed SV,0.05,SV mid,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+all (primary population),across ADS at fixed SV,0.05,SV high,5,0,"[0,0.5)=undecided / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+all (primary population),across SV at fixed ADS,0.03,"[0,0.5)",4,1,SV=0=tie / SV low=tie / SV mid=tie / SV high=rule wins,tie-crossing
+all (primary population),across SV at fixed ADS,0.03,"[0.5,0.7)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=undecided,gap compression only
+all (primary population),across SV at fixed ADS,0.03,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=undecided / SV high=tie,gap compression only
+all (primary population),across SV at fixed ADS,0.03,"[0.9,1.0)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+all (primary population),across SV at fixed ADS,0.03,1.0,4,1,SV=0=k-NN wins / SV low=tie / SV mid=tie / SV high=undecided,tie-crossing
+all (primary population),across ADS at fixed SV,0.03,SV=0,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+all (primary population),across ADS at fixed SV,0.03,SV low,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+all (primary population),across ADS at fixed SV,0.03,SV mid,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=tie",gap compression only
+all (primary population),across ADS at fixed SV,0.03,SV high,5,1,"[0,0.5)=rule wins / [0.5,0.7)=undecided / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",tie-crossing
+all (primary population),across SV at fixed ADS,0.02,"[0,0.5)",4,1,SV=0=tie / SV low=tie / SV mid=tie / SV high=rule wins,tie-crossing
+all (primary population),across SV at fixed ADS,0.02,"[0.5,0.7)",4,1,SV=0=undecided / SV low=tie / SV mid=undecided / SV high=rule wins,tie-crossing
+all (primary population),across SV at fixed ADS,0.02,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=undecided / SV high=tie,gap compression only
+all (primary population),across SV at fixed ADS,0.02,"[0.9,1.0)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+all (primary population),across SV at fixed ADS,0.02,1.0,4,3,SV=0=k-NN wins / SV low=k-NN wins / SV mid=undecided / SV high=k-NN wins,gap compression only
+all (primary population),across ADS at fixed SV,0.02,SV=0,5,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+all (primary population),across ADS at fixed SV,0.02,SV low,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+all (primary population),across ADS at fixed SV,0.02,SV mid,5,0,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=undecided",gap compression only
+all (primary population),across ADS at fixed SV,0.02,SV high,5,3,"[0,0.5)=rule wins / [0.5,0.7)=rule wins / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",winner reversal
+aminer,across SV at fixed ADS,0.05,"[0,0.5)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+aminer,across SV at fixed ADS,0.05,"[0.5,0.7)",2,0,SV=0=tie / SV low=tie,gap compression only
+aminer,across SV at fixed ADS,0.05,"[0.7,0.9)",0,0,,not eligible
+aminer,across SV at fixed ADS,0.05,"[0.9,1.0)",1,0,SV low=tie,not eligible
+aminer,across SV at fixed ADS,0.05,1.0,1,0,SV=0=tie,not eligible
+aminer,across ADS at fixed SV,0.05,SV=0,3,0,"[0,0.5)=tie / [0.5,0.7)=tie / 1.0=tie",gap compression only
+aminer,across ADS at fixed SV,0.05,SV low,3,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.9,1.0)=tie",gap compression only
+aminer,across ADS at fixed SV,0.05,SV mid,1,0,"[0,0.5)=tie",not eligible
+aminer,across ADS at fixed SV,0.05,SV high,1,0,"[0,0.5)=tie",not eligible
+aminer,across SV at fixed ADS,0.03,"[0,0.5)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+aminer,across SV at fixed ADS,0.03,"[0.5,0.7)",2,0,SV=0=tie / SV low=tie,gap compression only
+aminer,across SV at fixed ADS,0.03,"[0.7,0.9)",0,0,,not eligible
+aminer,across SV at fixed ADS,0.03,"[0.9,1.0)",1,0,SV low=tie,not eligible
+aminer,across SV at fixed ADS,0.03,1.0,1,0,SV=0=undecided,not eligible
+aminer,across ADS at fixed SV,0.03,SV=0,3,0,"[0,0.5)=tie / [0.5,0.7)=tie / 1.0=undecided",gap compression only
+aminer,across ADS at fixed SV,0.03,SV low,3,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.9,1.0)=tie",gap compression only
+aminer,across ADS at fixed SV,0.03,SV mid,1,0,"[0,0.5)=tie",not eligible
+aminer,across ADS at fixed SV,0.03,SV high,1,0,"[0,0.5)=tie",not eligible
+aminer,across SV at fixed ADS,0.02,"[0,0.5)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+aminer,across SV at fixed ADS,0.02,"[0.5,0.7)",2,0,SV=0=undecided / SV low=tie,gap compression only
+aminer,across SV at fixed ADS,0.02,"[0.7,0.9)",0,0,,not eligible
+aminer,across SV at fixed ADS,0.02,"[0.9,1.0)",1,0,SV low=tie,not eligible
+aminer,across SV at fixed ADS,0.02,1.0,1,0,SV=0=undecided,not eligible
+aminer,across ADS at fixed SV,0.02,SV=0,3,0,"[0,0.5)=tie / [0.5,0.7)=undecided / 1.0=undecided",gap compression only
+aminer,across ADS at fixed SV,0.02,SV low,3,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.9,1.0)=tie",gap compression only
+aminer,across ADS at fixed SV,0.02,SV mid,1,0,"[0,0.5)=tie",not eligible
+aminer,across ADS at fixed SV,0.02,SV high,1,0,"[0,0.5)=tie",not eligible
+arnetminer,across SV at fixed ADS,0.05,"[0,0.5)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.05,"[0.5,0.7)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.05,"[0.7,0.9)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.05,"[0.9,1.0)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.05,1.0,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.05,SV=0,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.05,SV low,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.05,SV mid,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.05,SV high,0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.03,"[0,0.5)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.03,"[0.5,0.7)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.03,"[0.7,0.9)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.03,"[0.9,1.0)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.03,1.0,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.03,SV=0,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.03,SV low,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.03,SV mid,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.03,SV high,0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.02,"[0,0.5)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.02,"[0.5,0.7)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.02,"[0.7,0.9)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.02,"[0.9,1.0)",0,0,,not eligible
+arnetminer,across SV at fixed ADS,0.02,1.0,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.02,SV=0,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.02,SV low,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.02,SV mid,0,0,,not eligible
+arnetminer,across ADS at fixed SV,0.02,SV high,0,0,,not eligible
+inspire,across SV at fixed ADS,0.05,"[0,0.5)",1,0,SV high=undecided,not eligible
+inspire,across SV at fixed ADS,0.05,"[0.5,0.7)",3,0,SV=0=tie / SV mid=tie / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.05,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.05,"[0.9,1.0)",3,0,SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.05,1.0,4,0,SV=0=undecided / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire,across ADS at fixed SV,0.05,SV=0,3,0,"[0.5,0.7)=tie / [0.7,0.9)=tie / 1.0=undecided",gap compression only
+inspire,across ADS at fixed SV,0.05,SV low,3,0,"[0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire,across ADS at fixed SV,0.05,SV mid,4,0,"[0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire,across ADS at fixed SV,0.05,SV high,5,0,"[0,0.5)=undecided / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire,across SV at fixed ADS,0.03,"[0,0.5)",1,1,SV high=rule wins,not eligible
+inspire,across SV at fixed ADS,0.03,"[0.5,0.7)",3,0,SV=0=tie / SV mid=tie / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.03,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=undecided / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.03,"[0.9,1.0)",3,0,SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.03,1.0,4,1,SV=0=k-NN wins / SV low=tie / SV mid=tie / SV high=undecided,tie-crossing
+inspire,across ADS at fixed SV,0.03,SV=0,3,1,"[0.5,0.7)=tie / [0.7,0.9)=tie / 1.0=k-NN wins",tie-crossing
+inspire,across ADS at fixed SV,0.03,SV low,3,0,"[0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire,across ADS at fixed SV,0.03,SV mid,4,0,"[0.5,0.7)=tie / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire,across ADS at fixed SV,0.03,SV high,5,1,"[0,0.5)=rule wins / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",tie-crossing
+inspire,across SV at fixed ADS,0.02,"[0,0.5)",1,1,SV high=rule wins,not eligible
+inspire,across SV at fixed ADS,0.02,"[0.5,0.7)",3,0,SV=0=tie / SV mid=tie / SV high=undecided,gap compression only
+inspire,across SV at fixed ADS,0.02,"[0.7,0.9)",4,0,SV=0=undecided / SV low=undecided / SV mid=undecided / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.02,"[0.9,1.0)",3,0,SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire,across SV at fixed ADS,0.02,1.0,4,3,SV=0=k-NN wins / SV low=k-NN wins / SV mid=undecided / SV high=k-NN wins,gap compression only
+inspire,across ADS at fixed SV,0.02,SV=0,3,1,"[0.5,0.7)=tie / [0.7,0.9)=undecided / 1.0=k-NN wins",tie-crossing
+inspire,across ADS at fixed SV,0.02,SV low,3,1,"[0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+inspire,across ADS at fixed SV,0.02,SV mid,4,0,"[0.5,0.7)=tie / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=undecided",gap compression only
+inspire,across ADS at fixed SV,0.02,SV high,5,2,"[0,0.5)=rule wins / [0.5,0.7)=undecided / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",winner reversal
+kisti,across SV at fixed ADS,0.05,"[0,0.5)",1,1,SV high=rule wins,not eligible
+kisti,across SV at fixed ADS,0.05,"[0.5,0.7)",1,1,SV high=rule wins,not eligible
+kisti,across SV at fixed ADS,0.05,"[0.7,0.9)",1,0,SV mid=undecided,not eligible
+kisti,across SV at fixed ADS,0.05,"[0.9,1.0)",0,0,,not eligible
+kisti,across SV at fixed ADS,0.05,1.0,1,0,SV=0=tie,not eligible
+kisti,across ADS at fixed SV,0.05,SV=0,1,0,1.0=tie,not eligible
+kisti,across ADS at fixed SV,0.05,SV low,0,0,,not eligible
+kisti,across ADS at fixed SV,0.05,SV mid,1,0,"[0.7,0.9)=undecided",not eligible
+kisti,across ADS at fixed SV,0.05,SV high,2,2,"[0,0.5)=rule wins / [0.5,0.7)=rule wins",gap compression only
+kisti,across SV at fixed ADS,0.03,"[0,0.5)",1,1,SV high=rule wins,not eligible
+kisti,across SV at fixed ADS,0.03,"[0.5,0.7)",1,1,SV high=rule wins,not eligible
+kisti,across SV at fixed ADS,0.03,"[0.7,0.9)",1,1,SV mid=rule wins,not eligible
+kisti,across SV at fixed ADS,0.03,"[0.9,1.0)",0,0,,not eligible
+kisti,across SV at fixed ADS,0.03,1.0,1,0,SV=0=tie,not eligible
+kisti,across ADS at fixed SV,0.03,SV=0,1,0,1.0=tie,not eligible
+kisti,across ADS at fixed SV,0.03,SV low,0,0,,not eligible
+kisti,across ADS at fixed SV,0.03,SV mid,1,1,"[0.7,0.9)=rule wins",not eligible
+kisti,across ADS at fixed SV,0.03,SV high,2,2,"[0,0.5)=rule wins / [0.5,0.7)=rule wins",gap compression only
+kisti,across SV at fixed ADS,0.02,"[0,0.5)",1,1,SV high=rule wins,not eligible
+kisti,across SV at fixed ADS,0.02,"[0.5,0.7)",1,1,SV high=rule wins,not eligible
+kisti,across SV at fixed ADS,0.02,"[0.7,0.9)",1,1,SV mid=rule wins,not eligible
+kisti,across SV at fixed ADS,0.02,"[0.9,1.0)",0,0,,not eligible
+kisti,across SV at fixed ADS,0.02,1.0,1,0,SV=0=tie,not eligible
+kisti,across ADS at fixed SV,0.02,SV=0,1,0,1.0=tie,not eligible
+kisti,across ADS at fixed SV,0.02,SV low,0,0,,not eligible
+kisti,across ADS at fixed SV,0.02,SV mid,1,1,"[0.7,0.9)=rule wins",not eligible
+kisti,across ADS at fixed SV,0.02,SV high,2,2,"[0,0.5)=rule wins / [0.5,0.7)=rule wins",gap compression only
+pubmed,across SV at fixed ADS,0.05,"[0,0.5)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.05,"[0.5,0.7)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.05,"[0.7,0.9)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.05,"[0.9,1.0)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.05,1.0,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.05,SV low,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.05,SV mid,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.05,SV high,0,0,,not eligible
+pubmed,across SV at fixed ADS,0.03,"[0,0.5)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.03,"[0.5,0.7)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.03,"[0.7,0.9)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.03,"[0.9,1.0)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.03,1.0,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.03,SV low,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.03,SV mid,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.03,SV high,0,0,,not eligible
+pubmed,across SV at fixed ADS,0.02,"[0,0.5)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.02,"[0.5,0.7)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.02,"[0.7,0.9)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.02,"[0.9,1.0)",0,0,,not eligible
+pubmed,across SV at fixed ADS,0.02,1.0,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.02,SV low,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.02,SV mid,0,0,,not eligible
+pubmed,across ADS at fixed SV,0.02,SV high,0,0,,not eligible
+qian,across SV at fixed ADS,0.05,"[0,0.5)",0,0,,not eligible
+qian,across SV at fixed ADS,0.05,"[0.5,0.7)",1,0,SV=0=tie,not eligible
+qian,across SV at fixed ADS,0.05,"[0.7,0.9)",0,0,,not eligible
+qian,across SV at fixed ADS,0.05,"[0.9,1.0)",0,0,,not eligible
+qian,across SV at fixed ADS,0.05,1.0,1,0,SV=0=tie,not eligible
+qian,across ADS at fixed SV,0.05,SV=0,2,0,"[0.5,0.7)=tie / 1.0=tie",gap compression only
+qian,across ADS at fixed SV,0.05,SV low,0,0,,not eligible
+qian,across ADS at fixed SV,0.05,SV mid,0,0,,not eligible
+qian,across ADS at fixed SV,0.05,SV high,0,0,,not eligible
+qian,across SV at fixed ADS,0.03,"[0,0.5)",0,0,,not eligible
+qian,across SV at fixed ADS,0.03,"[0.5,0.7)",1,0,SV=0=tie,not eligible
+qian,across SV at fixed ADS,0.03,"[0.7,0.9)",0,0,,not eligible
+qian,across SV at fixed ADS,0.03,"[0.9,1.0)",0,0,,not eligible
+qian,across SV at fixed ADS,0.03,1.0,1,0,SV=0=tie,not eligible
+qian,across ADS at fixed SV,0.03,SV=0,2,0,"[0.5,0.7)=tie / 1.0=tie",gap compression only
+qian,across ADS at fixed SV,0.03,SV low,0,0,,not eligible
+qian,across ADS at fixed SV,0.03,SV mid,0,0,,not eligible
+qian,across ADS at fixed SV,0.03,SV high,0,0,,not eligible
+qian,across SV at fixed ADS,0.02,"[0,0.5)",0,0,,not eligible
+qian,across SV at fixed ADS,0.02,"[0.5,0.7)",1,0,SV=0=tie,not eligible
+qian,across SV at fixed ADS,0.02,"[0.7,0.9)",0,0,,not eligible
+qian,across SV at fixed ADS,0.02,"[0.9,1.0)",0,0,,not eligible
+qian,across SV at fixed ADS,0.02,1.0,1,0,SV=0=undecided,not eligible
+qian,across ADS at fixed SV,0.02,SV=0,2,0,"[0.5,0.7)=tie / 1.0=undecided",gap compression only
+qian,across ADS at fixed SV,0.02,SV low,0,0,,not eligible
+qian,across ADS at fixed SV,0.02,SV mid,0,0,,not eligible
+qian,across ADS at fixed SV,0.02,SV high,0,0,,not eligible
+zbmath,across SV at fixed ADS,0.05,"[0,0.5)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.05,"[0.5,0.7)",1,0,SV high=undecided,not eligible
+zbmath,across SV at fixed ADS,0.05,"[0.7,0.9)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.05,"[0.9,1.0)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.05,1.0,4,3,SV=0=k-NN wins / SV low=k-NN wins / SV mid=undecided / SV high=k-NN wins,gap compression only
+zbmath,across ADS at fixed SV,0.05,SV=0,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.05,SV low,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.05,SV mid,1,0,1.0=undecided,not eligible
+zbmath,across ADS at fixed SV,0.05,SV high,2,1,"[0.5,0.7)=undecided / 1.0=k-NN wins",gap compression only
+zbmath,across SV at fixed ADS,0.03,"[0,0.5)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.03,"[0.5,0.7)",1,0,SV high=undecided,not eligible
+zbmath,across SV at fixed ADS,0.03,"[0.7,0.9)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.03,"[0.9,1.0)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.03,1.0,4,4,SV=0=k-NN wins / SV low=k-NN wins / SV mid=k-NN wins / SV high=k-NN wins,gap compression only
+zbmath,across ADS at fixed SV,0.03,SV=0,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.03,SV low,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.03,SV mid,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.03,SV high,2,1,"[0.5,0.7)=undecided / 1.0=k-NN wins",gap compression only
+zbmath,across SV at fixed ADS,0.02,"[0,0.5)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.02,"[0.5,0.7)",1,0,SV high=undecided,not eligible
+zbmath,across SV at fixed ADS,0.02,"[0.7,0.9)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.02,"[0.9,1.0)",0,0,,not eligible
+zbmath,across SV at fixed ADS,0.02,1.0,4,4,SV=0=k-NN wins / SV low=k-NN wins / SV mid=k-NN wins / SV high=k-NN wins,gap compression only
+zbmath,across ADS at fixed SV,0.02,SV=0,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.02,SV low,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.02,SV mid,1,1,1.0=k-NN wins,not eligible
+zbmath,across ADS at fixed SV,0.02,SV high,2,1,"[0.5,0.7)=undecided / 1.0=k-NN wins",gap compression only
+inspire alone,across SV at fixed ADS,0.05,"[0,0.5)",1,0,SV high=undecided,not eligible
+inspire alone,across SV at fixed ADS,0.05,"[0.5,0.7)",3,0,SV=0=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.05,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.05,"[0.9,1.0)",3,0,SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.05,1.0,4,0,SV=0=undecided / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across ADS at fixed SV,0.05,SV=0,3,0,"[0.5,0.7)=tie / [0.7,0.9)=tie / 1.0=undecided",gap compression only
+inspire alone,across ADS at fixed SV,0.05,SV low,3,0,"[0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire alone,across ADS at fixed SV,0.05,SV mid,4,0,"[0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire alone,across ADS at fixed SV,0.05,SV high,5,0,"[0,0.5)=undecided / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire alone,across SV at fixed ADS,0.03,"[0,0.5)",1,1,SV high=rule wins,not eligible
+inspire alone,across SV at fixed ADS,0.03,"[0.5,0.7)",3,0,SV=0=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.03,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.03,"[0.9,1.0)",3,0,SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.03,1.0,4,1,SV=0=k-NN wins / SV low=tie / SV mid=tie / SV high=undecided,tie-crossing
+inspire alone,across ADS at fixed SV,0.03,SV=0,3,1,"[0.5,0.7)=tie / [0.7,0.9)=tie / 1.0=k-NN wins",tie-crossing
+inspire alone,across ADS at fixed SV,0.03,SV low,3,0,"[0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire alone,across ADS at fixed SV,0.03,SV mid,4,0,"[0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+inspire alone,across ADS at fixed SV,0.03,SV high,5,1,"[0,0.5)=rule wins / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",tie-crossing
+inspire alone,across SV at fixed ADS,0.02,"[0,0.5)",1,1,SV high=rule wins,not eligible
+inspire alone,across SV at fixed ADS,0.02,"[0.5,0.7)",3,0,SV=0=tie / SV mid=tie / SV high=undecided,gap compression only
+inspire alone,across SV at fixed ADS,0.02,"[0.7,0.9)",4,0,SV=0=undecided / SV low=undecided / SV mid=undecided / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.02,"[0.9,1.0)",3,0,SV low=tie / SV mid=tie / SV high=tie,gap compression only
+inspire alone,across SV at fixed ADS,0.02,1.0,4,3,SV=0=k-NN wins / SV low=k-NN wins / SV mid=undecided / SV high=k-NN wins,gap compression only
+inspire alone,across ADS at fixed SV,0.02,SV=0,3,1,"[0.5,0.7)=tie / [0.7,0.9)=undecided / 1.0=k-NN wins",tie-crossing
+inspire alone,across ADS at fixed SV,0.02,SV low,3,1,"[0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+inspire alone,across ADS at fixed SV,0.02,SV mid,4,0,"[0.5,0.7)=tie / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=undecided",gap compression only
+inspire alone,across ADS at fixed SV,0.02,SV high,5,2,"[0,0.5)=rule wins / [0.5,0.7)=undecided / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",winner reversal
+pooled non-inspire,across SV at fixed ADS,0.05,"[0,0.5)",4,1,SV=0=tie / SV low=tie / SV mid=tie / SV high=rule wins,tie-crossing
+pooled non-inspire,across SV at fixed ADS,0.05,"[0.5,0.7)",4,1,SV=0=tie / SV low=tie / SV mid=undecided / SV high=rule wins,tie-crossing
+pooled non-inspire,across SV at fixed ADS,0.05,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=undecided / SV high=undecided,gap compression only
+pooled non-inspire,across SV at fixed ADS,0.05,"[0.9,1.0)",2,0,SV=0=tie / SV low=tie,gap compression only
+pooled non-inspire,across SV at fixed ADS,0.05,1.0,4,1,SV=0=tie / SV low=undecided / SV mid=undecided / SV high=k-NN wins,tie-crossing
+pooled non-inspire,across ADS at fixed SV,0.05,SV=0,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=tie",gap compression only
+pooled non-inspire,across ADS at fixed SV,0.05,SV low,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",gap compression only
+pooled non-inspire,across ADS at fixed SV,0.05,SV mid,4,0,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / 1.0=undecided",gap compression only
+pooled non-inspire,across ADS at fixed SV,0.05,SV high,4,3,"[0,0.5)=rule wins / [0.5,0.7)=rule wins / [0.7,0.9)=undecided / 1.0=k-NN wins",winner reversal
+pooled non-inspire,across SV at fixed ADS,0.03,"[0,0.5)",4,1,SV=0=tie / SV low=tie / SV mid=tie / SV high=rule wins,tie-crossing
+pooled non-inspire,across SV at fixed ADS,0.03,"[0.5,0.7)",4,1,SV=0=tie / SV low=tie / SV mid=undecided / SV high=rule wins,tie-crossing
+pooled non-inspire,across SV at fixed ADS,0.03,"[0.7,0.9)",4,0,SV=0=tie / SV low=tie / SV mid=undecided / SV high=undecided,gap compression only
+pooled non-inspire,across SV at fixed ADS,0.03,"[0.9,1.0)",2,0,SV=0=tie / SV low=tie,gap compression only
+pooled non-inspire,across SV at fixed ADS,0.03,1.0,4,3,SV=0=undecided / SV low=k-NN wins / SV mid=k-NN wins / SV high=k-NN wins,gap compression only
+pooled non-inspire,across ADS at fixed SV,0.03,SV=0,5,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=undecided",gap compression only
+pooled non-inspire,across ADS at fixed SV,0.03,SV low,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+pooled non-inspire,across ADS at fixed SV,0.03,SV mid,4,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / 1.0=k-NN wins",tie-crossing
+pooled non-inspire,across ADS at fixed SV,0.03,SV high,4,3,"[0,0.5)=rule wins / [0.5,0.7)=rule wins / [0.7,0.9)=undecided / 1.0=k-NN wins",winner reversal
+pooled non-inspire,across SV at fixed ADS,0.02,"[0,0.5)",4,1,SV=0=tie / SV low=tie / SV mid=tie / SV high=rule wins,tie-crossing
+pooled non-inspire,across SV at fixed ADS,0.02,"[0.5,0.7)",4,1,SV=0=undecided / SV low=tie / SV mid=undecided / SV high=rule wins,tie-crossing
+pooled non-inspire,across SV at fixed ADS,0.02,"[0.7,0.9)",4,0,SV=0=undecided / SV low=tie / SV mid=undecided / SV high=undecided,gap compression only
+pooled non-inspire,across SV at fixed ADS,0.02,"[0.9,1.0)",2,0,SV=0=tie / SV low=tie,gap compression only
+pooled non-inspire,across SV at fixed ADS,0.02,1.0,4,4,SV=0=k-NN wins / SV low=k-NN wins / SV mid=k-NN wins / SV high=k-NN wins,gap compression only
+pooled non-inspire,across ADS at fixed SV,0.02,SV=0,5,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+pooled non-inspire,across ADS at fixed SV,0.02,SV low,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+pooled non-inspire,across ADS at fixed SV,0.02,SV mid,4,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / 1.0=k-NN wins",tie-crossing
+pooled non-inspire,across ADS at fixed SV,0.02,SV high,4,3,"[0,0.5)=rule wins / [0.5,0.7)=rule wins / [0.7,0.9)=undecided / 1.0=k-NN wins",winner reversal
+non-inspire without kisti,across SV at fixed ADS,0.05,"[0,0.5)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=tie,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.05,"[0.5,0.7)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=undecided,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.05,"[0.7,0.9)",3,0,SV=0=tie / SV low=tie / SV mid=tie,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.05,"[0.9,1.0)",1,0,SV low=tie,not eligible
+non-inspire without kisti,across SV at fixed ADS,0.05,1.0,4,3,SV=0=k-NN wins / SV low=k-NN wins / SV mid=undecided / SV high=k-NN wins,gap compression only
+non-inspire without kisti,across ADS at fixed SV,0.05,SV=0,4,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.05,SV low,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.05,SV mid,4,0,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / 1.0=undecided",gap compression only
+non-inspire without kisti,across ADS at fixed SV,0.05,SV high,3,1,"[0,0.5)=tie / [0.5,0.7)=undecided / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across SV at fixed ADS,0.03,"[0,0.5)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=undecided,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.03,"[0.5,0.7)",4,0,SV=0=tie / SV low=tie / SV mid=undecided / SV high=undecided,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.03,"[0.7,0.9)",3,0,SV=0=tie / SV low=tie / SV mid=undecided,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.03,"[0.9,1.0)",1,0,SV low=tie,not eligible
+non-inspire without kisti,across SV at fixed ADS,0.03,1.0,4,4,SV=0=k-NN wins / SV low=k-NN wins / SV mid=k-NN wins / SV high=k-NN wins,gap compression only
+non-inspire without kisti,across ADS at fixed SV,0.03,SV=0,4,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.03,SV low,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.03,SV mid,4,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.03,SV high,3,1,"[0,0.5)=undecided / [0.5,0.7)=undecided / 1.0=k-NN wins",gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.02,"[0,0.5)",4,0,SV=0=tie / SV low=tie / SV mid=tie / SV high=undecided,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.02,"[0.5,0.7)",4,0,SV=0=undecided / SV low=tie / SV mid=undecided / SV high=undecided,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.02,"[0.7,0.9)",3,0,SV=0=undecided / SV low=tie / SV mid=undecided,gap compression only
+non-inspire without kisti,across SV at fixed ADS,0.02,"[0.9,1.0)",1,0,SV low=tie,not eligible
+non-inspire without kisti,across SV at fixed ADS,0.02,1.0,4,4,SV=0=k-NN wins / SV low=k-NN wins / SV mid=k-NN wins / SV high=k-NN wins,gap compression only
+non-inspire without kisti,across ADS at fixed SV,0.02,SV=0,4,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.02,SV low,5,1,"[0,0.5)=tie / [0.5,0.7)=tie / [0.7,0.9)=tie / [0.9,1.0)=tie / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.02,SV mid,4,1,"[0,0.5)=tie / [0.5,0.7)=undecided / [0.7,0.9)=undecided / 1.0=k-NN wins",tie-crossing
+non-inspire without kisti,across ADS at fixed SV,0.02,SV high,3,1,"[0,0.5)=undecided / [0.5,0.7)=undecided / 1.0=k-NN wins",gap compression only
