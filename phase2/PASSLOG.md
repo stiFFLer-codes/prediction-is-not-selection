@@ -3558,3 +3558,106 @@ The checks after the commit are in the WO-4b reply and go into WO-5's entry.
 
 **Recommendation for the next pass.** WO-5, the independent verifier, in a
 session that wrote none of the release-pass work. Then WO-6 fills `<DOI>`.
+
+## Pass 27: Phase 2.9d, independent verification (2026-11-12)
+
+**What I did and why.** I executed work order WO-5 of the release-pass master
+plan in a fresh session that had done none of the earlier work, then WO-5b.
+WO-5 checked the paper and the repository against the record, for A1, A2,
+A5 and C1 of the definition of complete. It read sections 1 and 2 of the plan
+and WO-5, and no PASSLOG entry whose heading names gate 2.9, and it changed
+nothing except its two output files. The orchestrator accepted both. WO-5b
+made one scrub in the report and this commit. No script, `PREREG.md`,
+existing report, table, figure or paper file changed.
+
+### What was checked
+
+- **V.** `26bf2e9ddd22357e4010aa9cc2ae255bc848e6f2` on `phase-2`. At the start
+  the tree was clean and nothing was untracked, which is the state WO-4b's
+  commit left.
+- **Clone and build.** A fresh clone of V outside the working repository,
+  with both tags. The paper built with the README's four commands: 31 pages,
+  0 undefined references or citations. Text extracted with xpdf's
+  `pdftotext` 4.06, `-layout -enc UTF-8`.
+- **Report.** `reports/phase2_9d_verifier.md`: one section per step, with
+  the command output, and a closing "Still open" list.
+- **Ledger.** `reports/tables/phase2_9d_number_ledger.csv`, 829 rows: 801
+  matched, 26 arithmetic, 2 unmatched. Tables 1 to 8 were checked cell by
+  cell against their named sources, and the nine spelled-out time intervals
+  of section 6.4 against the commit and file times.
+
+### Results
+
+- **Findings status (step 2).** Of W1 to W12, O1 to O10 and U1c to U7: 25
+  fixed, 1 erratum (O9), 2 scheduled for WO-6 (O7's trailer sentence, U6), 1
+  still open (O10, the availability half).
+- **Headline numbers (step 3).** All re-derive from committed tables: rule
+  0.824442 and vote 0.829440; matched difference 0.015319; contested share
+  83,401 of 197,479 = 0.4223; kisti +0.113137, `rule wins`; zbmath -0.063054,
+  `k-NN wins`; Experiment 1, 115 of 120 inside the two-point margin, read from
+  `v1.1.0`. zbmath's upper bound clears -0.05 by 0.0012 in the committed table
+  and by 0.0006 under the verifier's own bootstrap seed.
+- **Cross-references (step 4).** 69 `\ref`, 0 `\autoref`; one mismatch and
+  one minor one.
+- **Definition of complete (step 5).** A3, A4, A5, A6, A7, B5 and C4 pass.
+  The locked quote hashes to `dcaa1bc…f8f4`, now at `STATE.md:29` and `:116`
+  rather than the `:50` the plan cites.
+- **Public-text scan (step 6).** No whole-word hit for the term file at V.
+  The four leftover-wording terms hit one line, `PASSLOG.md:3333`.
+- **Old strings (step 7).** "will be public" (`main.tex:1822`) and "will be
+  pushed" (`:850`) are present. Both are WO-6 future-tense wording.
+
+### Still open, all to WO-6
+
+1. `main.tex:1021`, "its lead is 0.0147": from the committed accuracies the
+   lead is 0.0146 (0.8440695 - 0.8294401 = 0.0146294). To WO-6.
+2. `main.tex:1840-1842`, "one full mechanism pass over the corpus takes about
+   twenty minutes": the cold-run log gives 10 and 4 minutes per pass and 19
+   minutes for the whole run order (`reports/phase2_9c_cold_run.md:75,78,82,88`).
+   To WO-6.
+3. O10, availability half, `main.tex:1825-1827`: the concept DOI
+   10.5281/zenodo.21644207 holds only the deprecated earlier work at V. Needs
+   the author's ruling on where the paper record is minted. To WO-6.
+4. `main.tex:1686`: Limitations says section 7.8 "gives the band tables in
+   all three forms"; the tables are in `reports/phase2_9b_report.md`. To WO-6.
+5. `main.tex:510`, minor: the "two lines of zeros" are not shown in section
+   5; they are in `reports/tables/phase2c_pair_regimes.csv`. To WO-6.
+6. `phase2/README.md` calls SV "surface stability"; the paper defines it as
+   surface variability. To WO-6.
+7. The governance and record files under `phase2/` are covered by neither
+   `LICENSE` nor `LICENSE-TEXT`. To WO-6.
+8. Cosmetic: the figure captions at `main.tex:972`, `1112-1113` and
+   `1198-1199` name the PNG as its own source. To WO-6.
+
+### The WO-5b scrub
+
+Section 6 of the report printed the four leftover-wording search terms in
+its commands. The four command lines were replaced with one line naming the
+search without its terms, and its result, `phase2/PASSLOG.md:3333`. The
+term-file command and its result are unchanged. Nothing else in either file
+changed.
+
+### Anti-ai passes
+
+WO-5 ran the skill over the report's prose as it was written: no listed
+vocabulary, no stock connective, no em dash, so nothing was rewritten. WO-5b
+had no new prose to pass except the scrub line, which needed no change. This
+entry and the STATE line were written under the same rules.
+
+### Checks
+
+Before the commit, on both new files:
+
+- **Leftover-wording terms**, each case-insensitive: 0 in both.
+- **Name scan**, whole words, against the term file outside the repository:
+  0 in both.
+- **Personal paths.** No user name, application-data folder or home-folder
+  path in either file.
+- **Changed files.** The two new files, plus `PASSLOG.md` and `STATE.md`.
+
+The checks after the commit, and runbook step 2 (pruning unreachable objects),
+are in the WO-5b reply.
+
+**Recommendation for the next pass.** Runbook steps 1 to 3, then WO-6, which
+fills `<DOI>`, applies the scheduled release edits and takes the eight items
+above.

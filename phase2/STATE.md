@@ -6,7 +6,15 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Gate 2.9c complete, 2026-11-12 (master plan WO-4 and WO-4b). WO-5,
+- Status: **Gate 2.9d done, 2026-11-12 (master plan WO-5 and WO-5b). Runbook
+  steps 1 to 3 are next, then WO-6.** An independent verifier checked the
+  paper and repository at `26bf2e9` and changed nothing. The number ledger has
+  829 rows: 801 matched, 26 arithmetic, 2 unmatched. Of the plan's findings,
+  25 are fixed, 1 is in `ERRATA.md` and 2 are scheduled for WO-6. A3, A4, A5,
+  A6, A7, B5 and C4 pass. Eight items are still open, all minor, and all go
+  to WO-6. The report is `reports/phase2_9d_verifier.md` and the ledger is
+  `reports/tables/phase2_9d_number_ledger.csv`. See PASSLOG Pass 27.
+- Previous status, **Gate 2.9c complete, 2026-11-12 (master plan WO-4 and WO-4b). WO-5,
   the independent verifier, is next.** A cold run from a fresh clone, with no
   cache, reproduced all 108 compared output files in content, re-derived the
   frozen record, and built the paper at 31 pages. The raw S2AND path also
