@@ -6,12 +6,15 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Gate 2.9c commit 1 done, 2026-11-12 (master plan WO-3, with the
-  WO-3b review fixes). The release files are in: `README.md`,
-  `requirements-lock.txt`, `DATA_LICENSES.md`, `ERRATA.md`, the root
-  `LICENSE-TEXT`, and dated notes in the charter, PLAN and STATE. Commit 2, the
-  removal of the deprecated earlier tree from the tip, is next.** See PASSLOG
-  Pass 25.
+- Status: **Gate 2.9c done, 2026-11-12 (master plan WO-3, with the WO-3b
+  review fixes). WO-4, the cold run from a fresh clone, is next.** Commit
+  `47c6cb3` added the release files: `README.md`, `requirements-lock.txt`,
+  `DATA_LICENSES.md`, `ERRATA.md`, the root `LICENSE-TEXT`, and dated notes in
+  the charter, PLAN and STATE. The next commit removed the deprecated earlier
+  tree from the tip. The root now holds only `.gitattributes`, `.gitignore`,
+  `CITATION.cff`, `CLAUDE.md`, `LICENSE`, `LICENSE-TEXT`, `README.md` and
+  `phase2/`, and history keeps the rest. Still to fill in: `<cold run>` times
+  in `README.md` (WO-4) and `<DOI>` (WO-6). See PASSLOG Pass 25.
 - Previous status, **Phase 2.9b step 2 complete, 2026-11-12 (master plan WO-2 and the
   WO-2b review fixes). The manuscript now says only what the 2.9a and 2.9b
   records support; WO-3, the release files, is next.** Changed: `paper/main.tex`,

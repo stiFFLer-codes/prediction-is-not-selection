@@ -3442,3 +3442,18 @@ Run on the prepared state at WO-3a, and again here before commit 1.
 **Recommendation for the next pass.** The removal commit, then WO-4, the cold
 run from a fresh clone. WO-4 fills the `<cold run>` times in `README.md`, and
 WO-6 fills `<DOI>`.
+
+### Addendum: commit 2, the tip removal
+
+Commit 1 is `47c6cb3`. Commit 2 removes the deprecated earlier tree from the
+tip: 137 files deleted, all outside `phase2/`, with the four root files
+`README.md`, `CITATION.cff`, `.gitignore` and `CLAUDE.md` replaced
+by the reviewed drafts, byte for byte. History keeps every removed file. The
+dangling-path search ran before the commit, over `README.md`,
+`DATA_LICENSES.md`, `ERRATA.md`, `paper/main.tex`, the four root files and
+every `phase2/*.py`, 25 files in all. It looked for a `../` path to a removed
+directory, a removed root file name, a Python parent join into a removed
+directory, and a top-level removed path in a root file. It found no hit. The
+checks after the commit are in the WO-3b reply and go into WO-4's entry.
+Both 2.9c commits were re-made before any push, without the co-author trailer,
+at Markie's direction; their content is otherwise unchanged.

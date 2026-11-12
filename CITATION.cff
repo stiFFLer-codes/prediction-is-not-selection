@@ -1,37 +1,24 @@
 cff-version: 1.2.0
-message: "If you use this methodology or software, please cite it as below."
-type: software
-title: "ADS-Cascade"
-abstract: >-
-  A data-driven method for deciding how much of a classification problem
-  actually needs a model. An Automated Determinism Score (ADS) is computed
-  per item before any classifier is built, and a four-tier confidence
-  cascade uses an LLM only as a re-ranker over retrieved candidates for the
-  measured minority tail. Validated end to end on Romanian fiscal-document
-  classification (D406/SAF-T invoices and photographed retail receipts);
-  the method itself is not specific to that domain.
+message: "If you use this work, please cite the paper as below."
+title: "Prediction is not selection: a pre-registered study of design-time mechanism choice in author name disambiguation"
 authors:
   - family-names: "Sapariya"
     given-names: "Maitreya"
     orcid: "https://orcid.org/0009-0003-9346-3775"
-version: 1.1.0
-date-released: "2026-09-02"
-license: MIT
+    affiliation: "Department of Information Technology, A. D. Patel Institute of Technology (ADIT), Charutar Vidya Mandal (CVM) University"
 repository-code: "https://github.com/stiFFLer-codes/ADS-Cascade"
-identifiers:
-  - type: doi
-    value: "10.5281/zenodo.21644207"
-    description: "Zenodo concept DOI (resolves to the latest version)"
-  - type: doi
-    value: "10.5281/zenodo.22258609"
-    description: "Zenodo archive of v1.1.0"
-  - type: doi
-    value: "10.5281/zenodo.21644208"
-    description: "Zenodo archive of v1.0.0"
-keywords:
-  - classification
-  - document-ai
-  - accounting-automation
-  - confidence-cascade
-  - retrieval
-  - fiscal-documents
+license:
+  - MIT
+  - CC-BY-4.0
+  - ODC-By-1.0
+preferred-citation:
+  type: article
+  title: "Prediction is not selection: a pre-registered study of design-time mechanism choice in author name disambiguation"
+  authors:
+    - family-names: "Sapariya"
+      given-names: "Maitreya"
+      orcid: "https://orcid.org/0009-0003-9346-3775"
+      affiliation: "Department of Information Technology, A. D. Patel Institute of Technology (ADIT), Charutar Vidya Mandal (CVM) University"
+  year: 2026
+  doi: "<DOI>"
+  notes: "Preprint, not peer reviewed."

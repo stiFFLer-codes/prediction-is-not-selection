@@ -1,4 +1,4 @@
-# Secrets — never commit API keys. (Keys should live in env vars, not files; this is a guard.)
+# Secrets: never commit API keys. Keys belong in environment variables; this is a guard.
 .env
 .env.*
 *.key
@@ -14,16 +14,6 @@ venv/
 # Local scratch
 scratch_*
 
-# Internal working docs — kept local, not part of the public export. Full
-# history stays in git: `git log --all -- research/ BUILD_PLAN.md` to browse,
-# `git checkout <commit> -- <path>` to restore.
-RESEARCH_NOTEBOOK.md
-research/
-BUILD_PLAN.md
-ROADMAP.md
-synthetic_data_plan.md
-reports/phase1_report.js
-
 # Tool / local (not project work)
 .claude/
 .ua/
@@ -32,33 +22,22 @@ reports/phase1_report.js
 graphify-out/
 scratchpad/
 
-# arXiv build artifacts — regenerate with scripts/r10_9_final_pass.py
-arxiv_build/
-arxiv_submission/
-arxiv_submission.tar*.gz
-arxiv_final/
-arxiv_final.tar*.gz
-
-# Compiled paper — rebuild from manuscript/ before submitting
-Final PDF/
-
-# Phase 2: WDC raw downloads — re-fetch with phase2/ingest_wdc.py
+# Phase 2: raw downloads, re-fetch with phase2/ingest_wdc.py and phase2/fetch_s2and.py
 phase2/data/raw/
 phase2/data/raw_s2and/
 
 # Phase 2: prior-work PDF, publisher preprint, no redistribution licence
 phase2/*.pdf
 
-# Phase 2: derived per-signature mechanism cache — rebuild with phase2/phase2b_run.py
+# Phase 2: derived per-signature mechanism caches, rebuilt by phase2/phase2b_run.py and phase2/phase2e_run.py
 phase2/data/phase2b_eval_sigs.parquet
 phase2/data/phase2e_eval_sigs.parquet
 
-# Phase 2: LaTeX build artifacts — rebuild with pdflatex + bibtex in phase2/paper/
+# Phase 2: LaTeX build artifacts, rebuild with pdflatex and bibtex in phase2/paper/
 phase2/paper/main.aux
 phase2/paper/main.blg
 phase2/paper/main.log
 phase2/paper/main.out
 phase2/paper/main.pdf
 
-# main.bbl is deliberately NOT ignored: arXiv's AutoTeX does not run BibTeX,
-# so the .bbl has to ship in the submission tarball.
+# main.bbl is tracked on purpose, so the paper builds without BibTeX.
