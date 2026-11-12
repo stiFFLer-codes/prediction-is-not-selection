@@ -1,4 +1,4 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{27}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -25,7 +25,7 @@ Timothy~G. Armstrong, Alistair Moffat, William Webber, and Justin Zobel.
 Tobias Backes.
 \newblock The impact of name-matching and blocking on author disambiguation.
 \newblock In \emph{Proceedings of the 27th ACM International Conference on
-  Information and Knowledge Management (CIKM)}, 2018.
+  Information and Knowledge Management (CIKM)}, pages 803--812, 2018.
 \newblock \doi{10.1145/3269206.3271699}.
 
 \bibitem[Barbudo et~al.(2023)Barbudo, Ventura, and Romero]{barbudo2023}
@@ -89,7 +89,7 @@ David~J. Hand.
 Kilian Hendrickx, Lorenzo Perini, Dries Van~der Plas, Wannes Meert, and Jesse
   Davis.
 \newblock Machine learning with a reject option: A survey.
-\newblock \emph{Machine Learning}, 2024.
+\newblock \emph{Machine Learning}, 113\penalty0 (5):\penalty0 3073--3110, 2024.
 \newblock \doi{10.1007/s10994-024-06534-x}.
 
 \bibitem[Hern{\'a}ndez-Orallo et~al.(2012)Hern{\'a}ndez-Orallo, Flach, and
@@ -146,6 +146,14 @@ George Papadakis, Dimitrios Skoutas, Emmanouil Thanos, and Themis Palpanas.
 \newblock \emph{ACM Computing Surveys}, 53\penalty0 (2), 2020.
 \newblock \doi{10.1145/3377455}.
 
+\bibitem[Primpeli et~al.(2019)Primpeli, Peeters, and Bizer]{primpeli2019wdc}
+Anna Primpeli, Ralph Peeters, and Christian Bizer.
+\newblock The {WDC} training dataset and gold standard for large-scale product
+  matching.
+\newblock In \emph{Companion Proceedings of The 2019 World Wide Web
+  Conference}, WWW '19, pages 381--386. ACM, 2019.
+\newblock \doi{10.1145/3308560.3316609}.
+
 \bibitem[Rice(1976)]{rice1976}
 John~R. Rice.
 \newblock The algorithm selection problem.
@@ -154,11 +162,18 @@ John~R. Rice.
 
 \bibitem[Sapariya(2026)]{adscascade2026}
 Maitreya Sapariya.
-\newblock {ADS}-{C}ascade: design-time mechanism selection from historical
-  decision consistency, 2026.
-\newblock Concept DOI, resolves to the latest version (currently v1.1.0 at
-  \texttt{10.5281/zenodo.22258609}). Version 1.0.0 is archived at
-  \texttt{10.5281/zenodo.21644208}.
+\newblock {ADS-Cascade}, version 1.1.0, 2026.
+\newblock Zenodo, \doi{10.5281/zenodo.22258609}. Software and manuscript
+  archive; deprecated and superseded by the present paper.
+
+\bibitem[Sinha et~al.(2015)Sinha, Shen, Song, Ma, Eide, Hsu, and
+  Wang]{sinha2015mas}
+Arnab Sinha, Zhihong Shen, Yang Song, Hao Ma, Darrin Eide, Bo-June~(Paul) Hsu,
+  and Kuansan Wang.
+\newblock An overview of {Microsoft Academic Service} ({MAS}) and applications.
+\newblock In \emph{Proceedings of the 24th International Conference on World
+  Wide Web}, WWW '15, pages 243--246. ACM, 2015.
+\newblock \doi{10.1145/2740908.2742839}.
 
 \bibitem[Smith-Miles(2009)]{smithmiles2009}
 Kate~A. Smith-Miles.
@@ -173,7 +188,7 @@ Shivashankar Subramanian, Daniel King, Doug Downey, and Sergey Feldman.
 \newblock {S2AND}: A benchmark and evaluation system for author name
   disambiguation.
 \newblock In \emph{Proceedings of the ACM/IEEE Joint Conference on Digital
-  Libraries (JCDL)}, 2021.
+  Libraries (JCDL)}, pages 170--179, 2021.
 \newblock \doi{10.1109/JCDL52503.2021.00029}.
 
 \bibitem[Vickers and Elkin(2006)]{vickers2006}

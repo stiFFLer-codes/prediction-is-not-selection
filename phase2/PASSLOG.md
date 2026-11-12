@@ -3202,3 +3202,140 @@ boundary". In pooled non-inspire, [0, 0.5) x SV high and the marginal SV-high
 band are `rule wins` at 0.05, not boundary cases. The marginal band clears the
 margin by 0.0001, so it should be reported with its lower bound, not as a
 robust win.
+
+## Pass 24 — Phase 2.9b step 2, the manuscript corrected against the 2.9a and 2.9b records (2026-11-12)
+
+**What I did and why.** I executed work order WO-2 of the release-pass master
+plan (`../FABLE_MASTER_PLAN.md`) with the orchestrator's overrides, then the
+orchestrator's review fixes (WO-2b). The goal is a `main.tex` that says only
+what the committed records support. Decisions N3 and N4 were approved, both
+option (a). Questions Q1 and Q2 have no answer, so the plan's either-way wording
+is used. Files changed: `paper/main.tex`, `paper/references.bib` and the
+regenerated `paper/main.bbl`. No script, `PREREG.md`, report, table or figure
+changed, and the locked 6.4 quote is untouched.
+
+### Edits applied
+
+- **E1 to E20**, as written in the plan, except where an override replaced a
+  passage. In brief: abstract (E1); the WDC sentence (E2); section 1.3 and the
+  contributions (E3, E4); the winning construct (E5); section 4, now "A
+  comparison only one side can win", with the identity condition stated and
+  the second region narrowed to surface-only mechanisms (E6, E7); sections 5.1
+  and 5.2 (E8); sections 6.1 and 6.3, the calibration-split uses and the power
+  floor wording (E9); section 6.4, now eight points of record with three new
+  corrections (`a41a67a`, the calibration split, "any similarity function") and
+  the run timing (E10); results corrections (E11 a to h); block size and the
+  INIT control (E12); the new subsection 7.8 "Two datasets are not like the
+  pool", label `sec:per-dataset` (E13); sections 7.9 and 8.1 (E14); the 42.2%
+  share (E15); section 8.3 and the bibliography (E16); Appendix A (E17); the
+  S2AND redistribution sentence (E18); the conclusion (E19); the generative-AI
+  disclosure (E20).
+- **Overrides O-E1 to O-E20** from the WO-2 prompt: O-E1, O-E2, O-E3 (a, b),
+  O-E4 (items 1, 2), O-E6 (section 5 retitled "A pair either side can win"),
+  O-E10 (a, b), O-E11a, O-E11h, O-E12, O-E13 (the whole new subsection, plus
+  the section 9 pointer), O-E14 (a, b), O-E16, O-E19 (a, b), O-E20.
+- **One placement change in E8, reported at WO-2.** Applied literally, the
+  `:511-513` replacement would have left ", with mechanism A unchanged in all
+  three pairs" hanging on the new cross-reference sentence. The clause was moved
+  to the end of the preceding sentence. No word was added or removed.
+- **Review fixes R1 to R14** (WO-2b). R1 removes the repeated identity condition
+  in 1.3. R2, R3, R4 (four places, including the 7.7 title), R6 and R7 (two
+  places) scope every "only signal" and "no design-time signal" claim to the
+  seven-dataset pool. R5 shortens the INIT sentence. R8 brings the 8.2
+  calibration warning in line with E4. R9 says "reserved for a single use". R10
+  removes the repeated rule-side count in 5.2. R11 says the third point of
+  record was extended at release, and names the reported run. R12 rewords the
+  7.8 sentence whose 8.1 and conclusion targets were removed. R13 spells out
+  "five". R14 gives `adscascade2026` a `\doi` in its note, because plainnat
+  prints no DOI for `@misc`. All 18 passages matched exactly once, by words,
+  and none lies inside the locked quote.
+- **Bibliography.** 27 entries. `adscascade2026` cites v1.1.0
+  (`10.5281/zenodo.22258609`) and is marked deprecated. `primpeli2019wdc` and
+  `sinha2015mas` are added as Block F from the Crossref records in
+  `reports/phase2_9a_report.md` A5. Sinha's booktitle is Crossref's container
+  title, without "Companion". Pages were added for `hendrickx2024`, `s2and2021`
+  and `backes2018`.
+
+### Every number added, with its source
+
+Every value was checked against its table before use. None differed.
+
+| Value | File | Row |
+|---|---|---|
+| 0.1131 [+0.1015, +0.1250], 1,219 / 71 | `reports/tables/phase2_9b_population_verdicts.csv` | kisti |
+| -0.0631 [-0.0761, -0.0512], `k-NN wins` | same | zbmath |
+| pubmed `rule wins`, 34 blocks | same | pubmed |
+| +0.1762, +0.1100, +0.0806, +0.1654; tie at ADS 1.0 and SV = 0 | `phase2_9b_bands_by_population.csv` | kisti, ADS [0,0.5) and [0.5,0.7); SV mid and SV high |
+| -0.0976, -0.1137 | same | zbmath, ADS 1.0 and SV = 0 |
+| SV-high lower bound 0.0501 ("by 0.0001") | same | pooled non-inspire, SV high |
+| ADS bands below 1.0 and every SV band tie; ADS 1.0 `k-NN wins` with 0 rule-right | same | non-inspire without kisti |
+| +0.0629, +0.1024, -0.1130 | `phase2_9b_cells_by_population.csv` | pooled non-inspire, [0,0.5), [0.5,0.7) and 1.0 x SV high |
+| winner reversal at 0.05; in the seven-dataset pool only at 0.02 | `phase2_9b_structure_by_population.csv` | pooled non-inspire and all, across ADS at fixed SV high |
+| 0.1299, 0.0221 | `phase2_9a_matched_precision.csv` | kisti, zbmath (`matched_diff`) |
+| 0.8359, 0.0153 [+0.0142, +0.0165]; 0.9230, 0.9388, 0.9130, 0.9172, 0.9375, 0.9456, 0.7076 | same | pooled; the seven size bands (`knn_acc_fired`) |
+| +0.0066, +0.0018, -0.0183 | `phase2_9b_init.csv` | INIT band alone |
+| 3,781; +0.0052, tie; 0 rule-right | same | INIT=0 x SV high, kisti alone and kisti left out; INIT>=0.5 x SV=0 |
+| -0.1071 [-0.1237, -0.0912]; +0.1363 [+0.1182, +0.1557] | `phase2e_pooled_init_sv.csv` | INIT>=0.5 x SV=0; INIT=0 x SV high |
+| 115 / 5 | `phase2_9b_exp1_clean_intervals.csv` | `inside_margin_0.02` count; `paired_diff` is rules minus retrieval (`v1.1.0:scripts/experiments/exp1/stats.py`) |
+| 0 / 3,029; 0 / 696; 835 | `phase2_9a_region_counts.csv` | ADS 1.0; SV = 0 |
+| 42.2% | `phase2_9a_contested_share.csv` | evaluation |
+| r = 0.95; k = 2 at 181 / 736 | `phase2c_pair_twosidedness.csv` | radius@0.95, knn@2 |
+| +0.2725 [+0.0093, +0.4691], 97.8% | `phase2_7b_driver_bootstrap.csv` | k = 2, `adj_*` (share 0.9775) |
+| 0.3972 / 0.3443, 0.4114 / 0.3418 | `reports/phase2e_boundary.md:272-273` | block-weighted, delta 0.03 and 0.02 |
+| 0.9889, 0.9234 | `reports/phase2e_boundary.md:114` | ADS 1.0 |
+| 90.7% | `reports/gate2_ads_range.md:178` | 1.0 exactly |
+| 210,537 | `reports/phase2_9a_report.md:192` (B4) | distinct-form pairs |
+| 0.8441; 0.0147 (0.8441 - 0.8294) | Table 2 in `main.tex` (`phase2e_twosidedness_eval.csv`) | retired pair |
+| 0.8953, 0.7826, 11,110 of 13,902 | Table 3 in `main.tex` (`phase2e_accuracy_by_population.csv`) | zbmath coverage, kisti agreement, inspire blocks |
+| about 17, 23 and 40 minutes (13:22:07, 13:27:30, 14:07:22) | `reports/phase2_9b_report.md`, "Local file times" | launch proxy, cache birth, last edit; crash fix and tolerance per `PASSLOG.md:1460-1468` |
+
+The O-E10(b) sentence was checked against the frozen H2 Supported row
+(`git show 8869b82:phase2/PREREG.md`), which reads "or all such verdicts are
+tie or undecided".
+
+### Anti-ai passes
+
+The project skill `.claude/skills/anti-ai` was run on added and replaced
+passages only.
+- WO-2: two changes.
+  - 7.8, last paragraph: "Three things follow. The sentence that the choice
+    barely matters..." became "The sentence that the choice barely matters...".
+  - O-E11h: "carries one more comparison worth reading here." became
+    "carries one more comparison."
+- WO-2b: no change.
+
+### Checks
+
+- **Build** (pdflatex, bibtex, pdflatex, pdflatex): zero LaTeX warnings, zero
+  undefined references and citations, and bibtex reports no warnings. That is
+  the same as a clean build of `f2f3add`. The paper is 31 pages, against 27 at
+  `f2f3add`.
+- **Locked quote:** sha256 `dcaa1bc…f8f4`, unchanged. STATE records it at
+  line 77, not line 50 as the prompt said.
+- **R14:** the built reference reads "Zenodo, doi: 10.5281/zenodo.22258609".
+- **Leftover phrases:** every PDF line with "no design-time signal", "only
+  signal", "carry a decided" and the rest was read. Each is either scoped to
+  the pool, or is a per-block count, or is the "stated flat" sentence it
+  qualifies.
+- **Zero hits** in `main.tex` outside comments: `0.0218`, `external read`,
+  `redistribute none`, `41\%`, `used once`, `cannot have a winner`, `A pair
+  that can`, `one dataset departs`, `the metric family or the tie-break`, the
+  token bracket, the em dash, `---`.
+- **Scripts:** `git diff --stat f2f3add -- 'phase2/*.py'` is empty.
+- **Invariants.** 5: every new number is from a committed table. 8: no
+  hypothesis outcome moved. H1 is Supported, H2 and H3 are Inconclusive, and
+  the per-dataset results are reported as one-dataset findings under
+  `PREREG.md:531-535`.
+- **Confidentiality:** every added line in the four committed files was checked
+  against the private name-scan list, case-insensitively. There are zero
+  whole-word hits. The nine substring hits all sit inside ordinary English
+  words, the same ones that already match 20 times in the `f2f3add`
+  manuscript. Neither "production engagement" nor "production deployment"
+  appears.
+
+**Recommendation for the next pass.** WO-3, the release files, the errata and
+the Phase 1 tip deletion. Two small items for the author first. The
+section 6.4 sentence on the repository being pushed, and the tense of the
+availability paragraph, belong to WO-6, as planned. And the per-dataset
+subsection says "We do not know what makes kisti different"; Q3 is the place
+to replace it if the author has a reason the data supports.

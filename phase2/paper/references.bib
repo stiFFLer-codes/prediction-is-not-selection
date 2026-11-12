@@ -1,11 +1,13 @@
 % References for the Phase 2 manuscript.
 %
 % VERIFICATION STATUS, as of Phase 2.8a (2026-09-23): all 25 entries verified.
+% Phase 2.9b (2026-11-12): two entries added from Crossref (Block F), 27 in all.
 % Block A: carried over, verified in the Experiment 1 citation audit.
 % Block B: verified in Phase 2.2a against the source (reports/kim2020_positioning.md).
 % Block C: verified in the Phase 2.6 citation pass against DOI/venue records.
 % Block D: the project's own archived earlier work.
 % Block E: added at Phase 2.7d, verified and locked at Phase 2.8a (2026-09-23).
+% Block F: added at Phase 2.9b from Crossref records.
 
 % ---------------------------------------------------------------------------
 % Block A: verified in the Experiment 1 citation audit.
@@ -64,6 +66,9 @@
   author  = {Hendrickx, Kilian and Perini, Lorenzo and Van der Plas, Dries and Meert, Wannes and Davis, Jesse},
   title   = {Machine Learning with a Reject Option: A Survey},
   journal = {Machine Learning},
+  volume  = {113},
+  number  = {5},
+  pages   = {3073--3110},
   year    = {2024},
   doi     = {10.1007/s10994-024-06534-x}
 }
@@ -99,6 +104,7 @@
   author    = {Subramanian, Shivashankar and King, Daniel and Downey, Doug and Feldman, Sergey},
   title     = {{S2AND}: A Benchmark and Evaluation System for Author Name Disambiguation},
   booktitle = {Proceedings of the ACM/IEEE Joint Conference on Digital Libraries (JCDL)},
+  pages     = {170--179},
   year      = {2021},
   doi       = {10.1109/JCDL52503.2021.00029}
 }
@@ -126,6 +132,7 @@
   author    = {Backes, Tobias},
   title     = {The Impact of Name-Matching and Blocking on Author Disambiguation},
   booktitle = {Proceedings of the 27th ACM International Conference on Information and Knowledge Management (CIKM)},
+  pages     = {803--812},
   year      = {2018},
   doi       = {10.1145/3269206.3271699}
 }
@@ -180,21 +187,19 @@
 
 % ---------------------------------------------------------------------------
 % Block D: the project's own earlier work, archived and citable.
-% VERIFIED at Phase 2.7d against the Zenodo REST API: 10.5281/zenodo.21644207
-%   is the concept DOI (conceptrecid 21644207), currently resolving to v1.1.0 at
-%   10.5281/zenodo.22258609; 10.5281/zenodo.21644208 is v1.0.0. Peer-review
-%   minor 17 closed.
+% VERIFIED at Phase 2.7d against the Zenodo REST API: 10.5281/zenodo.22258609
+%   is version 1.1.0. Changed at Phase 2.9b to cite that version directly
+%   rather than the concept DOI, which follows whatever is latest, and marked
+%   deprecated: the Phase 1 work is superseded by this paper.
 % ---------------------------------------------------------------------------
 
 @misc{adscascade2026,
   author       = {Sapariya, Maitreya},
-  title        = {{ADS}-{C}ascade: design-time mechanism selection from historical decision consistency},
+  title        = {{ADS-Cascade}, version 1.1.0},
   year         = {2026},
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.21644207},
-  note         = {Concept DOI, resolves to the latest version (currently v1.1.0
-                  at \texttt{10.5281/zenodo.22258609}). Version 1.0.0 is archived
-                  at \texttt{10.5281/zenodo.21644208}}
+  doi          = {10.5281/zenodo.22258609},
+  note         = {Zenodo, \doi{10.5281/zenodo.22258609}. Software and manuscript archive; deprecated and superseded by the present paper}
 }
 
 % ---------------------------------------------------------------------------
@@ -295,4 +300,32 @@
   pages   = {661--681},
   year    = {2019},
   doi     = {10.1007/s11192-019-03143-7}
+}
+
+% ---------------------------------------------------------------------------
+% Block F: added at Phase 2.9b. Fields from the Crossref records retrieved on
+%   2026-11-12 and drafted in reports/phase2_9a_report.md (A5). The Sinha
+%   booktitle is Crossref's container title, which carries no "Companion".
+% ---------------------------------------------------------------------------
+
+@inproceedings{primpeli2019wdc,
+  author    = {Primpeli, Anna and Peeters, Ralph and Bizer, Christian},
+  title     = {The {WDC} Training Dataset and Gold Standard for Large-Scale Product Matching},
+  booktitle = {Companion Proceedings of The 2019 World Wide Web Conference},
+  series    = {WWW '19},
+  publisher = {ACM},
+  year      = {2019},
+  pages     = {381--386},
+  doi       = {10.1145/3308560.3316609}
+}
+
+@inproceedings{sinha2015mas,
+  author    = {Sinha, Arnab and Shen, Zhihong and Song, Yang and Ma, Hao and Eide, Darrin and Hsu, Bo-June (Paul) and Wang, Kuansan},
+  title     = {An Overview of {Microsoft Academic Service} ({MAS}) and Applications},
+  booktitle = {Proceedings of the 24th International Conference on World Wide Web},
+  series    = {WWW '15},
+  publisher = {ACM},
+  year      = {2015},
+  pages     = {243--246},
+  doi       = {10.1145/2740908.2742839}
 }

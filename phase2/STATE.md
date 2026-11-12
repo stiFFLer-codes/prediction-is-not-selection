@@ -6,7 +6,30 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.9b step 1 complete, 2026-11-12 (master plan WO-1). Every
+- Status: **Phase 2.9b step 2 complete, 2026-11-12 (master plan WO-2 and the
+  WO-2b review fixes). The manuscript now says only what the 2.9a and 2.9b
+  records support; WO-3, the release files, is next.** Changed: `paper/main.tex`,
+  `paper/references.bib`, `paper/main.bbl`. The build is clean, at 31 pages,
+  and the locked 6.4 quote is byte-identical (sha256 `dcaa1bc…f8f4`). No
+  hypothesis outcome moved. What changed in the paper:
+  1. **The per-dataset result is in** (N3 (a)). New subsection 7.8 "Two
+     datasets are not like the pool" (`sec:per-dataset`): kisti `rule wins`
+     through matching and zbmath `k-NN wins` through abstention, plus the
+     pooled non-inspire reversal at 0.05. Every "no signal" and "only signal"
+     claim is now scoped to the seven-dataset pool.
+  2. **"Cannot have a winner" is gone** (N4 (a)). Section 4 is "A comparison
+     only one side can win", and section 5 is "A pair either side can win".
+     The containment states its identity condition. The second structural
+     region is narrowed to surface-only mechanisms.
+  3. **Section 6.4 now has eight points of record.** New ones cover the
+     `a41a67a` insertion, the calibration split's three uses, "any similarity
+     function", and the run timing from local file times. The "external read"
+     is named as a simulated peer review.
+  4. **Smaller fixes.** The matched precision margin is 0.0153. The contested
+     share is 42.2% on the evaluation split. Experiment 1 is 115 of 120. The
+     S2AND redistribution is disclosed with attribution. The earlier study is
+     cited at v1.1.0 and marked deprecated. The AI disclosure is widened.
+- Previous status, **Phase 2.9b step 1 complete, 2026-11-12 (master plan WO-1). Every
   number the manuscript edits need is now in committed tables; the manuscript
   edits (WO-2) are next, after the author rules on decisions N3 and N4.** One
   new script, `phase2_9b_supplement.py`, six `reports/tables/phase2_9b_*.csv`,
@@ -514,9 +537,22 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   run, is hand-written. Also the phase-2 reflog, with one line withheld for a
   scan-term match. No existing file changed. Not pushed, tagged or released.
 
+- **Pass 24 (Phase 2.9b step 2, master plan WO-2 and WO-2b): the manuscript
+  corrected against the 2.9a and 2.9b records.** Edits E1 to E20, the
+  overrides O-E1 to O-E20 and the review fixes R1 to R14, in `paper/main.tex`
+  and `paper/references.bib`, with `main.bbl` regenerated. Every added number
+  is listed with its source table in the PASSLOG entry. No script, report,
+  table, figure or `PREREG.md` changed. Not pushed, tagged or released.
 
-## Next: Phase 2.9b, the manuscript edits, then the release
 
+## Next: WO-3, the release files, then the release
+
+0. **Done at Pass 24:** the manuscript edits (item 1 below) are applied,
+   following master plan WO-2 and the orchestrator's overrides and review
+   fixes. Next is WO-3: `phase2/README.md`, the requirements lock, the data
+   licences, `ERRATA.md`, and the Phase 1 tip deletion. The WO-6 items (the
+   6.4 push sentence and the tense of the availability paragraph) wait for
+   the DOI. Q3, on why kisti differs, is still open.
 0. **Done at Pass 23:** every number the edits need is in committed tables
    (`reports/phase2_9b_report.md`), including the 115/120 count. The edits
    follow the master plan's WO-2, once the author has ruled on N3 and N4.
