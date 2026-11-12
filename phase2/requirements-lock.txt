@@ -1,0 +1,11 @@
+# Interpreter: CPython 3.14.2. Versions confirmed with importlib.metadata on the machine that produced the reported run.
+# Keep these exact pins. The frozen split uses numpy.random.default_rng(SEED).permutation, and NumPy does not
+# promise the same Generator stream across feature releases. pandas 3 changed the default string type that
+# sort_values and factorize run on. A different numpy or pandas can draw a different split and change every table.
+numpy==2.4.2
+pandas==3.0.1
+scipy==1.17.0
+pyarrow==24.0.0
+rapidfuzz==3.14.5
+Unidecode==1.4.0
+matplotlib==3.11.1

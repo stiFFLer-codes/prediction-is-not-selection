@@ -6,7 +6,13 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.9b step 2 complete, 2026-11-12 (master plan WO-2 and the
+- Status: **Gate 2.9c commit 1 done, 2026-11-12 (master plan WO-3, with the
+  WO-3b review fixes). The release files are in: `README.md`,
+  `requirements-lock.txt`, `DATA_LICENSES.md`, `ERRATA.md`, the root
+  `LICENSE-TEXT`, and dated notes in the charter, PLAN and STATE. Commit 2, the
+  removal of the deprecated earlier tree from the tip, is next.** See PASSLOG
+  Pass 25.
+- Previous status, **Phase 2.9b step 2 complete, 2026-11-12 (master plan WO-2 and the
   WO-2b review fixes). The manuscript now says only what the 2.9a and 2.9b
   records support; WO-3, the release files, is next.** Changed: `paper/main.tex`,
   `paper/references.bib`, `paper/main.bbl`. The build is clean, at 31 pages,
@@ -230,6 +236,11 @@ k and every margin, and more so with the structural ADS = 1.0 row removed. There
 is no SV-driven winner reversal below ADS = 1.0 at any margin; the strongest
 structure there is a tie-crossing at delta = 0.02, and the shape is the
 pre-registered gap-compression one.
+
+*Dated note, 2026-11-12 (gate 2.9c). The paragraph above is kept as written.
+"At every k" should read "at k = 3, 5 and 10; split at k = 2"
+(`reports/phase2e_boundary.md:296`). See `ERRATA.md`, entry 1, which also lists
+the other governance statements the later record narrows.*
 
 ## Phase 2.2e outcome, in numbers
 

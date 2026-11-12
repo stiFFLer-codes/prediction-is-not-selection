@@ -3339,3 +3339,106 @@ section 6.4 sentence on the repository being pushed, and the tense of the
 availability paragraph, belong to WO-6, as planned. And the per-dataset
 subsection says "We do not know what makes kisti different"; Q3 is the place
 to replace it if the author has a reason the data supports.
+
+## Pass 25: Phase 2.9c, release files, licences, errata and the tip removal (2026-11-12)
+
+**What I did and why.** I executed work order WO-3 of the release-pass master
+plan in two steps. WO-3a prepared everything and committed nothing, so the
+orchestrator could review it first. WO-3b applied four review fixes and made the
+two gate 2.9c commits. The goal is a tip that a stranger can reproduce and
+cite, with none of the deprecated earlier tree in it. No script,
+`PREREG.md`, report, table, figure or paper file changed.
+
+### What WO-3a prepared
+
+- **New files.** `README.md` (what the paper is, the three outcomes, the build,
+  the CPython 3.14.2 environment, the run order with outputs, the self-check
+  statement, the record, the project log, a three-line deprecation section,
+  the licences), `requirements-lock.txt` (seven exact pins, confirmed with
+  `importlib.metadata`), `DATA_LICENSES.md`, `ERRATA.md`, and `LICENSE-TEXT`
+  at the root (CC BY 4.0 for `phase2/paper/` and `phase2/reports/`, with a
+  carve-out for the derived data files, including the two
+  `reports/tables/*_blocks_scored.csv.gz` tables).
+- **DATA_LICENSES.md.** S2AND: the README's licensing lines quoted from
+  https://github.com/allenai/S2AND, ODC-BY, and the six derived files with
+  their columns and row counts, which agree with the paper's availability
+  paragraph. Microsoft Academic Graph: "Open Data License: ODC-BY" and the
+  https://aka.ms/msracad request, quoted from Microsoft's archived docs
+  repository, because the hosted page now returns 404. WDC LSPC 2017: the
+  source states no licence (the v2 page has no terms, and the Hugging Face card
+  says `license: unknown`), so the file is kept under decision N2, described
+  as used only for the section 1.2 substrate check and removable on request.
+  All sources were read on 2026-11-12.
+- **ERRATA.md.** Six entries: the four O9 statements ("at every k", "written
+  one way" for any pair, "nothing is redistributed", the calibration split
+  "reserved"), the per-dataset form that `reports/phase2e_boundary.md` lacks,
+  and Q2, who drafted the locked 6.4 text (`PLAN.md:164`). The author does not
+  recall. The assistant drafted most text, as the paper's disclosure says, and
+  the paper's own passive sentence stands.
+- **Dated notes.** `CLAUDE.md`: the mission paragraph's two narrowed statements,
+  and the non-goal line reworded so that it names no earlier engagement.
+  `PLAN.md`: the same two statements, and the Q2 note at the 6.4 status line.
+  `STATE.md`: "at every k".
+- **Commit 2 drafts**, outside the repository: root `README.md`,
+  `CITATION.cff` (the Phase 2 paper as `preferred-citation`, `type: article`,
+  DOI placeholder), `.gitignore` (Phase 1 stanzas dropped) and a two-line
+  `CLAUDE.md`, plus the `git rm` list checked against `git ls-tree`.
+
+### Review fixes (WO-3b)
+
+Each one replaced a single exact passage that matched once.
+
+- **F1.** `README.md`, the H2 and H3 bullets, now worded as the paper's outcome
+  table has them.
+- **F2.** `README.md`, the structural sentence, now with its condition: the
+  similarity gives its maximum only to identical strings and the two
+  mechanisms share a tie-break.
+- **F3.** `README.md`, "Earlier work, deprecated", now one line. It says section
+  8.3 of the paper discusses the earlier study and cites `v1.1.0`. The 8.3 is
+  `sec:earlier-synthetic` as printed in `paper/main.aux`.
+- **F4.** `DATA_LICENSES.md`, the Sinha et al. venue, now as in
+  `references.bib` ("WWW '15", no "Companion"). The Microsoft quote is
+  unchanged.
+
+### Anti-ai passes
+
+WO-3a, over the new prose and the dated notes: no listed vocabulary, connective
+or em dash was found. Six changes were made, all to sentence shape. The README's
+tests sentence was split. The optional raw-data chain became a numbered list.
+Two long DATA_LICENSES sentences (the MAG source, the WDC source) were split.
+ERRATA entry 6 was reordered so that "is passive" comes before the quote. "Two
+statements ... are narrower on the record" in the `CLAUDE.md` and `PLAN.md`
+notes became "The record narrows two statements". The before and after texts are
+in the WO-3a review bundle, section 6. WO-3b ran the same pass over F1 to F4,
+this entry and the STATE updates. F1 to F4 were left verbatim, and the two
+changes to this entry are listed in the WO-3b reply.
+
+### Checks
+
+Run on the prepared state at WO-3a, and again here before commit 1.
+
+- **Name scan**, whole words, against the term file outside the repository: no
+  hit in any new or changed file, in any root draft, or in the post-removal
+  tip. As a control, it finds the 8 files of the confidentiality audit's 7f.3
+  among the files being removed.
+- **Leftover wording**, the four-term check of the WO-3 acceptance list: no
+  hit in any new file, draft or dated note. One line
+  at the tip still matches, `PASSLOG.md:3333`. It is an earlier pass's own scan
+  result, which states that the terms do not appear. It is kept as written,
+  like the rest of the record, and it names no client and makes no production
+  claim. The charter's non-goal line no longer matches.
+- **Scripts.** `git diff --stat 306557a -- 'phase2/*.py'` is empty.
+- **Pins.** All seven match `importlib.metadata` on CPython 3.14.2.
+- **`.gitignore` dry run.** Against a listing of the 403 files in the
+  repository folder, 90 are ignored under the old file and the same 90 under
+  the new one. Nothing becomes untracked, and no path kept after the removal is
+  ignored.
+- **Phase 2 only.** From a `git archive HEAD phase2` copy, all 17 modules
+  import, and `phase2e_mech.py` passes its self-check and the calibration-split
+  regression check (546 against 744 at k = 5).
+- **Tables.** No tracked table under `reports/tables/` other than the two
+  `*_blocks_scored.csv.gz` holds a block-key value (64 tables, 20,275 keys).
+
+**Recommendation for the next pass.** The removal commit, then WO-4, the cold
+run from a fresh clone. WO-4 fills the `<cold run>` times in `README.md`, and
+WO-6 fills `<DOI>`.

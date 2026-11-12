@@ -41,6 +41,13 @@ tested the role assignment found surface stability, not consistency, the stronge
 driver of decidability, under both required measures, at every k and every
 margin.
 
+*Dated note, 2026-11-12 (gate 2.9c). The two paragraphs above are kept as
+written. The record narrows two statements in them. "Can never win a
+block whose history is written one way" holds for mechanisms that read surface
+forms only, not for any pair (`reports/phase2_9a_report.md`, A3). "At every k"
+should read "at k = 3, 5 and 10; split at k = 2"
+(`reports/phase2e_boundary.md:296`). See `ERRATA.md`, entries 1 and 2.*
+
 **What this retroactively explains.** The Phase 1 synthetic study reported a
 winner that was a constant function of the lexical condition and a consistency
 signal blind to it. That is what a nested mechanism pair returns by construction:
@@ -165,6 +172,13 @@ are where we slow down and review most carefully.
 result, and locked here on 2026-09-18 before 2.2e ran.** It is not to be softened
 or strengthened by what 2.2e returns. The writing pass reproduces it, works
 through its own fill-at-writing checklist, and does not rewrite its argument.
+
+*Dated note, 2026-11-12 (gate 2.9c). "Drafted by the author" above is not
+supported by the record. The author does not recall who drafted this text. The
+project's AI assistant drafted most of the project's text, as the paper's
+generative-AI disclosure states. The paper's own sentence about it is passive
+and names no drafter, and it stands. The lock date is unaffected. See
+`ERRATA.md`, entry 6.*
 
 Why it is fixed in advance. The paper's hypotheses were amended after two passes
 returned results, which is post hoc, and a reader is entitled to say so. A

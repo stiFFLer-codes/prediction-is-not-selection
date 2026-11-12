@@ -1,0 +1,12 @@
+Copyright 2026 Maitreya Sapariya
+
+The paper and the reports in this repository, that is, everything under
+phase2/paper/ and phase2/reports/, are licensed under the Creative Commons
+Attribution 4.0 International License (CC BY 4.0).
+
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+The code is licensed separately under the MIT License (see LICENSE). The derived
+data files listed in phase2/DATA_LICENSES.md, including the two
+phase2/reports/tables/*_blocks_scored.csv.gz tables, are not covered by this
+notice. They are under the terms of their sources, set out in that file.

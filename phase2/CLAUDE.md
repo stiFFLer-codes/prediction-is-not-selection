@@ -44,11 +44,21 @@ decidability under both required measures, at every k and every margin. `PREREG.
 including Amendment 1 and Addendum 1a, stays frozen and untouched as the record
 of what was fixed in advance and what was tested.
 
+*Dated note, 2026-11-12 (gate 2.9c). The text above is kept as written. The
+record narrows two statements in it. First, the second structural
+region, a rule that can never win where the history is written one way, holds
+for mechanisms that read surface forms only. A mechanism that also reads
+context can win there (`reports/phase2_9a_report.md`, A3). Second, "at every k"
+should read "at k = 3, 5 and 10; split at k = 2" (`reports/phase2e_boundary.md:296`).
+See `ERRATA.md`, entries 1 and 2.*
+
 ## Non-goals
 
 - Do not overclaim a selector that "recovers 100%". Report whatever the data yields.
-- Do not reintroduce the Romanian case study, confidential figures, or any
-  non-reproducible motivation.
+- Do not reintroduce the earlier case study or any confidential figure, or any
+  non-reproducible motivation. *(Wording changed by dated note, 2026-11-12, gate
+  2.9c, so that the public charter names no earlier engagement. The rule is
+  unchanged.)*
 - Do not make the synthetic generator the primary evidence. It is a controlled
   probe only.
 
