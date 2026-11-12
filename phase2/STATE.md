@@ -6,7 +6,40 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2.8a complete. The citations are locked, the H1 figure is
+- Status: **Phase 2.9a complete, 2026-11-12. The release pass has started.
+  2.9a gathered the facts the manuscript edits need and committed one
+  analysis script; 2.9b, the manuscript edits, is next.** The paper is
+  declared complete and goes public on GitHub plus a **new** Zenodo record.
+  There is no journal and no arXiv, so the arXiv and venue items below are
+  moot, and the charter's word ceiling is not enforced for this release, both
+  by the 2.9 brief. 2.9a made new files only: `phase2_9a_matched.py`, three
+  `reports/tables/phase2_9a_*.csv` and `reports/phase2_9a_report.md`. Nothing
+  in `paper/`, `PREREG.md` or any existing report, table or figure moved. Not
+  pushed, tagged or released.
+- **What 2.9a found that the paper has to absorb**, all in
+  `reports/phase2_9a_report.md` with evidence:
+  1. "Where the rule commits it is the more accurate arm by 0.0218" uses
+     mismatched denominators. On the same fired items the margin is **+0.0153
+     [+0.0142, +0.0165]**. It is positive in all seven block-size bands and all
+     seven datasets.
+  2. Section 4.3's "where the history is written one way, no mechanism can
+     win ... a tie by construction" is **false as written**. In SV = 0 the rule
+     never beats the vote (0), but the vote beats the rule on 696 signatures,
+     all of them abstentions on unseen forms. The rule cannot win there; the
+     vote can.
+  3. The containment wording ("any similarity function") needs the maximum to
+     be attained only at identity. That holds for the two functions used
+     (0 of 210,537 distinct-form pairs score 1.0) and fails for rapidfuzz's
+     token and partial ratios. main.tex:722 sits inside the locked quote.
+  4. Section 8.3's "demonstrated equivalent there" fails for 5 of the 120
+     clean Experiment 1 conditions.
+  5. The evaluation-split contested share is 42.2%, against the calibration
+     figure of 41%.
+  6. `a41a67a`, the post-freeze PREREG edit, came before any calibration or
+     evaluation number on every trace. The paper does not mention it.
+  7. The runs were CPython 3.14.2, with no scientific package changed since
+     2026-09-18.
+- Previous status, **Phase 2.8a complete. The citations are locked, the H1 figure is
   back, the paper states its contributions on page 3, and the moderation audit
   has been re-run.** 27 pages, 25 references and every one of them verified,
   zero undefined citations, zero undefined references, zero LaTeX warnings,
@@ -430,8 +463,50 @@ cross-dataset generalization for free. Both axes were measured alive at 2.1.
   locked quote byte-identical, all seven hashes resolving. Not pushed, tagged
   or released.
 
+- **Pass 22 (Phase 2.9a): release-pass facts and the like-for-like precision
+  comparison.** This pass was read-only fact-gathering on:
+  - the a41a67a edit;
+  - section 8.3 against the Experiment 1 paper;
+  - the section 4.3 region;
+  - the containment condition;
+  - the sources for five numbers;
+  - the WDC gates;
+  - seven Crossref GETs;
+  - the interpreter and packages;
+  - quotes of minors 10 and 20 and flags F1 to F5.
 
-## Next: the release pass, then the venue-specific trim
+  It also added `phase2_9a_matched.py`, which halts unless the frozen
+  population reproduces, and three tables. Report:
+  `reports/phase2_9a_report.md`. Not pushed, tagged or released.
+
+
+## Next: Phase 2.9b, the manuscript edits, then the release
+
+1. **2.9b, the manuscript edits.** These are written by the orchestrating
+   chat from `reports/phase2_9a_report.md`. The facts are gathered. The
+   decisions are the author's: how to disclose `a41a67a` in 6.4 and its
+   footnote, how to word the "external read", the matched margin, and the
+   narrower 4.3 region-2 sentence. Also the containment condition (with
+   main.tex:722 locked), the 8.3 (j) sentence, the 42.2% figure, F1, the
+   S2AND redistribution sentence (main.tex:1672), and the citation of the
+   earlier study by version DOI. Numbers for the paper come from committed
+   tables only. The 115/120 Experiment 1 count needs a committed script
+   first.
+2. **The release itself, after 2.9b.** The recon (one level above the root,
+   `RECON_ads_cascade_2026-11-12.md`, section 8) sets out the push and tag
+   with no rebase, a new separate Zenodo record rather than a version under
+   concept 21644207, and the front-door files. The availability statement
+   moves to the present tense once the push is real.
+
+
+## Superseded: the release pass and venue trim as planned at 2.8a (split at Pass 22)
+
+**Superseded at Phase 2.9a, 2026-11-12. Kept, not deleted, as the record of
+what was planned.** Under the 2.9 brief, items 3 (venue trim) and 4 (arXiv
+mechanics) are moot and the word ceiling is not enforced. Item 2 is carried
+into the section above. "Cut Zenodo v2" there is replaced by a new Zenodo
+record, per the recon. Read below for what was planned, not for what to do
+next.
 
 **Two passes remain and neither is prose revision.** 2.8a closed the last
 manuscript item that blocked submission, the unverified citations.

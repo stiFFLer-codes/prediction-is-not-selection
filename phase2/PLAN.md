@@ -151,6 +151,13 @@ are where we slow down and review most carefully.
   citations, 2.8a citation lock, H1 figure restored and contribution framing
   (done). Still pending: the release pass (push, tag, Zenodo v2, availability
   statement to present tense) and a venue-specific trim once a venue is chosen.
+- 2.9, added 2026-11-12: the release pass. The goal is now to declare the
+  paper complete and make it public on GitHub plus a new Zenodo record, with
+  no journal and no arXiv. The venue-specific trim and the arXiv mechanics
+  are dropped, and the word ceiling is not enforced for this release.
+  - 2.9a: facts plus one committed analysis script (done).
+  - 2.9b: the manuscript edits.
+  - Then the push, the tag and the new Zenodo record.
 
 ## Required Phase 2.5 deliverable: pre-registration-integrity subsection
 

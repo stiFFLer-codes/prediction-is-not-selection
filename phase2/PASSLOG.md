@@ -2988,3 +2988,118 @@ timestamp, and package the tarball with `main.bbl` and the three used figures.
 The venue-specific trim follows once a venue is chosen and carries the word
 ceiling, the typography and F4. Start the institutional arXiv address and the
 cs.DL endorsement request now, in parallel; nothing else here takes weeks.
+
+---
+
+## Pass 22 — Phase 2.9a, release-pass facts and the like-for-like precision comparison (2026-11-12)
+
+**What I did and why.** This is the first pass of the release. The goal is
+to declare the paper complete and make it public on GitHub plus a new Zenodo
+record, with no journal and no arXiv. The orchestrating chat read the recon
+(`../RECON_ads_cascade_2026-11-12.md`) and will write the manuscript edits
+itself at 2.9b. This pass gathered the facts those edits need, read-only
+(Part A, seven items), and committed one analysis script (Part B, new files
+only). Two release-pass overrides apply, both from the 2.9 brief: arXiv and
+venue items are moot, and the word ceiling is not enforced. Nothing in
+`paper/`, `PREREG.md` or any existing report, table or figure was touched.
+Everything is in `reports/phase2_9a_report.md`.
+
+### Key numbers
+
+The script is `phase2_9a_matched.py`. It halts unless 13,902 / 197,479 /
+0.824442 / 0.829440 reproduce, then checks six per-block counts against
+`phase2e_blocks_scored.csv.gz`. Both checks passed.
+
+- **Matched precision** (`reports/tables/phase2_9a_matched_precision.csv`). The
+  rule's precision where it fires is 0.8512. The vote's accuracy on the same
+  fired items is 0.8359, against 0.8294 on all items. The matched margin is
+  **+0.0153 [+0.0142, +0.0165]**, so the paper's +0.0218 overstates it by
+  0.0064. It is positive in all seven block-size bands (+0.0118 to +0.0261) and
+  all seven datasets (+0.0044 to +0.2703), and every lower bound is above zero.
+- **Region counts** (`reports/tables/phase2_9a_region_counts.csv`). In the
+  SV = 0 band (17,960 test signatures):
+  - rule right and vote wrong: **0**;
+  - vote right and rule wrong: **696**, all of them rule abstentions;
+  - test forms absent from the training half: 835.
+
+  ADS = 1.0 shows the same pattern: 0 against 3,029, all abstentions. Section
+  4.3's "no mechanism can win where the history is written one way" is
+  therefore false. The rule cannot win there; the vote can. That is Table 4's
+  SV = 0 `k-NN wins` at delta 0.03 and 0.02.
+- **Contested share, evaluation split**
+  (`reports/tables/phase2_9a_contested_share.csv`): **0.4223**, 83,401 of
+  197,479 signatures in 2,770 of 13,902 blocks. The calibration figure is
+  0.4108. This closes the factual half of F2.
+- **Max-score collisions.** 0 of 210,537 distinct-form pairs inside primary
+  blocks score 1.0 under Levenshtein or Jaro-Winkler, as the mechanisms compute
+  it (float32, no processor).
+
+### Part A in brief
+
+- **a41a67a.** It added the revision note, "Margin sensitivity" and "Order of
+  evaluation" to `PREREG.md`. No file, git object or temp file was written
+  between 01:33:00 and 10:27:06. The first post-freeze pipeline import was at
+  10:33:08. No calibration or evaluation number came before it. The "reviewer"
+  was the between-pass reviewer of the 2.2a freeze; whether that was the human
+  or an orchestrating chat is not recorded, and no September transcript
+  survives. It was not the simulated 2.7 review.
+- **Section 8.3.** Eleven of twelve claims hold against `manuscript/main.tex`
+  and its committed outputs. (j) does not: zero defined comparisons is not
+  equivalence, and 5 of the 120 clean intervals cross +0.02. That 115/120 count
+  came from a one-line command over a Phase 1 CSV, not committed code. The
+  Experiment 1 design commit (3c6b581) was pushed 41 s after it was made and
+  about 11 h before the run.
+- **Containment.** It is valid for the two functions used. The wording needs
+  "the maximum is attained only at identity". rapidfuzz's token and partial
+  ratios and any case-folding processor break it. main.tex:722 is inside the
+  locked quote.
+- **Sources.** 0.36 is `phase2e_signal_correlations.csv`. −0.818 / +0.743 /
+  +0.18 / +0.06 are `gate21_two_axes.md:122-125`.
+- **main.tex:112-115** rests on one benchmark, WDC LSPC 2017, which is exact or
+  near-exact on both framings.
+- **Crossref.** The Primpeli and Sinha DOIs were found and BibTeX drafted. For
+  Sinha, Crossref gives the venue as "Proceedings of the 24th International
+  Conference on World Wide Web", not "Companion". Pages were found for
+  hendrickx2024 (113(5):3073-3110), s2and2021 (170-179) and backes2018
+  (803-812).
+- **Environment.** CPython 3.14.2 is the only interpreter on the machine with
+  the packages. Its bytecode is cpython-314. The seven scientific packages are
+  unchanged since 2026-09-18; only statsmodels, seaborn and their dependencies
+  were installed after (2026-10-01).
+
+### Invariant checks
+
+- **Invariant 1** (verify before you build): nothing built on a new axis.
+- **Invariant 2** (no tautology): no construct touched.
+- **Invariant 3** (held-out only): every number is evaluation-split, from the
+  frozen held-out scores.
+- **Invariant 4:** superseded; no selector.
+- **Invariant 5** (no result before measurement): every Part B number comes
+  from committed, re-runnable code with halting checks, and two runs were
+  byte-identical. The report flags the one Part A count that does not yet come
+  from committed code (Experiment 1's 115/120).
+- **Invariant 6** (two untrained mechanisms, no third arm): untouched.
+- **Invariant 7** (offline and reproducible): the script is offline. The
+  pass's only network calls were seven read-only Crossref GETs, sent with a
+  generic user agent.
+- **Invariant 8** (honest framing): three paper sentences are found to
+  overstate (4.3 region 2, the 0.0218, 8.3 (j)) and one to overgeneralise
+  (containment). All are reported for 2.9b, not edited here.
+- **History:** none rewritten. Hard rule 2 was respected.
+- **One side effect.** The run recompiled the gitignored, stale
+  `__pycache__/phase2_7b_reanalysis.cpython-314.pyc`. Its prior mtime,
+  2026-09-21 14:17:09, was recorded before the run.
+
+**Recommendation for the next pass.** 2.9b, the manuscript edits, in this
+priority order:
+
+1. 4.3 region 2 (main.tex:136-137, 475-478), to the narrow version in A3.
+2. The matched margin (main.tex:158, 209-210, 911-913, 1297-1302, 1359-1360),
+   from `phase2_9a_matched_precision.csv`.
+3. The `a41a67a` disclosure in 6.4 and its footnote, and "external read"
+   (main.tex:745).
+4. The containment condition (main.tex:50-51, 130, 420-421, 509-510), with
+   main.tex:722 handled by disclosure.
+5. 8.3 (j).
+6. 42.2% beside 41%.
+7. Then the release.

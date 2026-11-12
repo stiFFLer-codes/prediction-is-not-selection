@@ -95,6 +95,19 @@ count equals the sum over the 12 qualifying cells of the committed
 
 Runtime was 47 s with the evaluation cache present.
 
+**Line endings.** The hashes above are of the files as pandas wrote them on
+Windows, with CRLF. Git stores them as LF under `.gitattributes`
+(`* text=auto eol=lf`), as it does every other table. The committed blobs hash
+to:
+
+```
+90f3dfc8…420b  phase2_9a_contested_share.csv
+5512d259…d260  phase2_9a_matched_precision.csv
+2e48be7b…81c7  phase2_9a_region_counts.csv
+```
+
+Compare against those on a fresh LF checkout.
+
 ### B1. Matched precision (`reports/tables/phase2_9a_matched_precision.csv`)
 
 The rule's precision where it fires, set against the k-nearest vote (k = 5,
