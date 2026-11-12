@@ -1,0 +1,11 @@
+axis,band,blocks,test_signatures,rule_right_vote_wrong,vote_right_rule_wrong,vote_right_rule_abstained,form_absent_from_train
+SV band,SV=0,4517,17960,0,696,696,835
+SV band,SV low,3032,56408,225,1036,1010,1229
+SV band,SV mid,3218,59433,391,1074,1061,1321
+SV band,SV high,3135,63678,2409,1206,1150,2824
+ADS band,"[0,0.5)",1071,47167,1823,247,205,1632
+ADS band,"[0.5,0.7)",1101,16079,629,284,252,687
+ADS band,"[0.7,0.9)",743,12660,414,258,249,473
+ADS band,"[0.9,1.0)",450,12683,159,194,182,238
+ADS band,1.0,10537,108890,0,3029,3029,3179
+cell,ADS=1.0 x SV=0,3922,12772,0,666,666,738
