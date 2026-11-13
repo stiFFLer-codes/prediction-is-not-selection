@@ -3661,3 +3661,129 @@ are in the WO-5b reply.
 **Recommendation for the next pass.** Runbook steps 1 to 3, then WO-6, which
 fills `<DOI>`, applies the scheduled release edits and takes the eight items
 above.
+
+## Pass 28: Phase 2.9e, release wording, DOI, landing page and paper PDF (2026-11-13)
+
+**What I did and why.** I carried out work order WO-6 (v2) of the release-pass
+master plan, after runbook steps 1 to 3, and then WO-6b. WO-6 made the
+release edits and took the eight items the 2.9d verifier left open. It built
+the paper and committed nothing. The orchestrator reviewed the diff and the
+PDF, accepted them, and asked for three fixes, R1 to R3. WO-6b applied them,
+rebuilt once and made this commit. No script, `PREREG.md`, existing report,
+table or figure changed, and the locked quote was not touched.
+
+DOI: `10.5281/zenodo.24184394`, the new Zenodo record reserved in runbook
+step 3. At release the repository is to be renamed
+`prediction-is-not-selection`. GitHub redirects the old address.
+
+### WO-6, the release edits
+
+- **The verifier's open items.**
+  - The retired retriever leads the vote by 0.0146, not 0.0147
+    (0.8440695 - 0.8294401 = 0.0146294).
+  - The run-time sentence now covers the whole run order, caches included.
+    The cold run measured that at 19 minutes.
+  - The concept-DOI sentence is deleted. That concept holds only the
+    deprecated earlier work.
+  - Limitations now says section 7.8 summarizes the band tables, and that
+    `reports/phase2_9b_report.md` gives them in full.
+  - The line-510 reference now names `phase2c_pair_regimes.csv`.
+  - `README.md` defines SV as surface variability.
+  - The three figure captions name `phase2e_run.py` and the table each one
+    plots: the band means of `phase2e_blocks_scored.csv.gz`,
+    `phase2e_power_by_size.csv` and `phase2e_pooled_cells_sv.csv`.
+- **Licences.** `LICENSE-TEXT` now covers every Markdown file as well as
+  `paper/` and `reports/`. Text quoted from third parties stays under its
+  owners' terms. Both READMEs and `DATA_LICENSES.md` say the same.
+- **Section 6.4.** The future tense is gone. The text now says the repository
+  was pushed and tagged as `v2.0.0`, and that a push in November proves
+  nothing about the order of events in September.
+- **Availability statement.** It is in the present tense: the repository URL
+  at tag `v2.0.0`, then the preprint DOI. A new clause covers the WDC
+  extract, which states no licence and will be removed on request.
+- **Disclosure.** It says the pass log records the AI involvement and that
+  most commits carry a co-author trailer. On `main..HEAD`, 39 of 44 commits
+  do.
+- **Title block and fonts.**
+  - The date line carries "Preprint, not peer reviewed." and the DOI.
+  - The PDF metadata has the title, author and keywords.
+  - The drafting comments at the head of `main.tex` are deleted.
+  - Latin Modern with `glyphtounicode` replaces the bitmap EC fonts. The PDF
+    has no Type 3 font, and words with the fi, ff and fl ligatures are
+    searchable.
+- **zbmath.** Section 7.8 says that zbmath's upper bound clears the margin by
+  only 0.0012. The source is `ci_hi` = -0.0511507 in
+  `phase2_9b_population_verdicts.csv`.
+- **Other files.**
+  - `CITATION.cff` has the DOI and the new repository URL.
+  - `README.md` has the DOI and a note that `bibtex` rewrites `main.bbl`.
+  - `.gitignore` un-ignores `paper/main.pdf`, so the built PDF is committed.
+  - In the edited files, the earlier repository name now appears in only two
+    places: the bibliography entry for the v1.1.0 record and the root
+    README's "Earlier work".
+- **Landing page.** The root `README.md` is now a short landing page. It has
+  the title, the subtitle, the author and a DOI badge. A summary taken from
+  the abstract follows, then sections on reading, reproducing, citing,
+  licences and the earlier work.
+
+### WO-6b, the three review fixes
+
+- **R1.** The zbmath margin sentence moved. It first sat right after "the
+  reason is abstention", where "Its upper bound" read as if "its" meant the
+  abstention. It now follows "Where the rule commits in zbmath it is still
+  ahead, by 0.0221." and reads: "zbmath's upper bound clears the margin by
+  only 0.0012, which is narrow; at the two smaller margins the vote wins with
+  room to spare." "abstention. Its deficit sits" reads as it did before WO-6.
+- **R2.** The root README names the author, with an ORCID link. The last two
+  sentences of the summary were replaced. They now give the pooled 0.8244 and
+  0.8294 and say that neither pre-registered signal is actionable at the
+  margin. They give kisti and zbmath going opposite ways and say that
+  consistency still predicts each mechanism's own accuracy. The summary ends
+  on "Prediction is not selection."
+- **R3.** `README.md`, "The paper", has a new bullet saying that
+  `paper/main.pdf` is the same file as on Zenodo.
+
+### Anti-ai passes
+
+WO-6 changed two passages and kept the rest of the new text as given:
+- The WDC sentence in the availability statement opens "Besides the S2AND
+  tables" instead of repeating "The repository also".
+- The landing-page summary lost a label-and-colon opener, and a 70-word
+  closing sentence was split.
+
+WO-6b's three fixes are the orchestrator's text and needed no change. The
+pass did not touch the licence notice. This entry, the STATE line and the
+PLAN note were written under the same rules.
+
+### Checks
+
+- **Build.** The four README commands give 31 pages, 0 undefined references
+  or citations and no LaTeX warning. The three Underfull boxes are the same
+  ones a build of the 2.9d commit gives. No `.pk` font is loaded.
+- **Locked quote.** sha256 `dcaa1bc…f8f4`, unchanged, at `main.tex:742-773`.
+- **PDF text.**
+  - The DOI appears on the title page and in the availability statement.
+  - The text reads "zbmath’s upper bound clears the margin by only 0.0012",
+    with a typographic apostrophe, and "abstention. Its deficit".
+  - "classification" and "cutoff" are whole.
+  - There is no em dash.
+- **Fonts.** 18 fonts, all Type 1, all embedded with a Unicode map. 0 Type 3.
+- **Old strings in `main.tex`.** 0 for each string on the release gate's
+  list, for "0.0147" and for the old concept DOI.
+- **Name scan.** No changed file and no PDF text has a whole-word hit for the
+  term file or a hit for the four leftover-wording terms.
+- **Scripts.** `git diff --stat HEAD -- 'phase2/*.py' phase2/PREREG.md` is
+  empty.
+
+PDF sha256: b06ff412c0e09366c55a5b168996e6874fc2c90cf65a67eebe75762e55914cac
+
+This is the hash of the committed `paper/main.pdf`. The repository, the
+Zenodo record and the GitHub release must all carry this exact file. pdfTeX
+embeds the build time, so a rebuild gives a different hash. Do not rebuild it
+for the release.
+
+The checks after the commit are in the WO-6b reply.
+
+**Recommendation for the next pass.** Runbook step 5, the release gate. A
+fresh session runs the master plan's section 8 checklist against this commit.
+Nothing is pushed until the gate passes and Markie says go.

@@ -6,7 +6,7 @@ authors:
     given-names: "Maitreya"
     orcid: "https://orcid.org/0009-0003-9346-3775"
     affiliation: "Department of Information Technology, A. D. Patel Institute of Technology (ADIT), Charutar Vidya Mandal (CVM) University"
-repository-code: "https://github.com/stiFFLer-codes/ADS-Cascade"
+repository-code: "https://github.com/stiFFLer-codes/prediction-is-not-selection"
 license:
   - MIT
   - CC-BY-4.0
@@ -20,5 +20,5 @@ preferred-citation:
       orcid: "https://orcid.org/0009-0003-9346-3775"
       affiliation: "Department of Information Technology, A. D. Patel Institute of Technology (ADIT), Charutar Vidya Mandal (CVM) University"
   year: 2026
-  doi: "<DOI>"
+  doi: "10.5281/zenodo.24184394"
   notes: "Preprint, not peer reviewed."

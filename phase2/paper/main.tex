@@ -1,10 +1,9 @@
-% Phase 2.5b manuscript, ADS-Cascade / S2AND mechanism-selection study.
-% Venue-neutral, generic article class, no journal style file.
-% Drafting order (phase2/reports/OUTLINE.md): 4, 5, 6, then 7, then 3, 8, 9,
-% then 1, 2, then the abstract.
 \documentclass[11pt]{article}
 
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\input{glyphtounicode}
+\pdfgentounicode=1
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath}
@@ -12,6 +11,7 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Prediction is not selection: a pre-registered study of design-time mechanism choice in author name disambiguation},pdfauthor={Maitreya Sapariya},pdfkeywords={author name disambiguation, pre-registration, mechanism selection, equivalence testing, entity resolution, negative results}}
 
 \graphicspath{{figs/}}
 \bibliographystyle{plainnat}
@@ -36,7 +36,7 @@ A.~D.~Patel Institute of Technology (ADIT), Charutar Vidya Mandal (CVM)
 University, New Vallabh Vidyanagar, Anand, Gujarat, India. Corresponding
 author: \texttt{maitreyasapariya@gmail.com}. ORCID 0009-0003-9346-3775.}}
 
-\date{}
+\date{November 2026\\[0.5ex]\small Preprint, not peer reviewed. \href{https://doi.org/10.5281/zenodo.24184394}{doi:10.5281/zenodo.24184394}}
 
 \begin{document}
 \maketitle
@@ -507,8 +507,8 @@ signatures and the reverse holds on 3{,}029, every one of them a rule
 abstention. In the blocks whose history is written one way the counts are 0
 and 696, again all abstentions, on the 835 held-out signatures there whose
 form the history never shows. The calibration-split probe of
-Section~\ref{sec:repaired-pair} shows the same two lines of zeros for all
-three candidate pairs. A two-sided contest is possible only where the history
+Section~\ref{sec:repaired-pair} finds the same two lines of zeros for all
+three candidate pairs (\texttt{phase2c\_pair\_regimes.csv}). A two-sided contest is possible only where the history
 is both impure and surface-varied, which is 42.2\% of held-out signatures on
 the evaluation split.
 
@@ -847,8 +847,7 @@ control is not author-controlled in the same way. The reported run opens by
 reproducing calibration-split counts that were frozen before the amendment was
 written, and it halts if they differ, so every number in this paper comes from
 a run tied to a state of the repository that predates the hypotheses it tests.
-The repository will be pushed and tagged at release, so that the commits named
-here resolve for a reader rather than only for us.
+The repository was pushed and tagged at release, as \texttt{v2.0.0}, so that the commits named here resolve for a reader. A push in November proves nothing about the order of events in September, and we do not offer it as if it did.
 
 \textbf{Third correction: the freeze was followed by an insertion.} Nine hours
 after the freeze commit, commit \texttt{a41a67a} inserted two rules into the
@@ -969,7 +968,7 @@ tell you.
 mechanisms. The consistency signal predicts difficulty for each mechanism
 separately. In the top band the history names one author, so the rule's only
 possible departure from the vote is to abstain (Section~\ref{sec:general-form}),
-which is why it sits below the vote there. Source: \texttt{phase2e\_h1\_ads\_accuracy.png}.}
+which is why it sits below the vote there. Written by \texttt{phase2e\_run.py} from the band means of \texttt{phase2e\_blocks\_scored.csv.gz}.}
 \label{fig:h1}
 \end{figure}
 
@@ -1018,7 +1017,7 @@ retired single-nearest retriever, at 0.8441, is more accurate pooled than
 either mechanism of the amended pair. It is the rule with a fallback wherever
 the rule abstains, so it is right everywhere the rule is right, and a designer
 who wants accuracy alone needs no measurement to prefer it to the rule.
-Against the vote its lead is 0.0147, inside the margin. The vote's accuracy falls
+Against the vote its lead is 0.0146, inside the margin. The vote's accuracy falls
 monotonically in $k$, at 0.8396, 0.8360, 0.8294 and 0.8187, which is the
 calibration trap of Section~\ref{sec:calibration-trap} on the evaluation
 split.
@@ -1109,8 +1108,8 @@ signatures.
 apart, because a demonstrated tie is not the same as insufficient evidence.
 The size-1 stratum cannot produce an undecided verdict by construction, so its
 tie bar is not evidence of equivalence; Section~\ref{sec:h2h3} gives that
-stratum's counts and the sensitivity analysis that removes it. Source:
-\texttt{phase2e\_power\_by\_size.png}.}
+stratum's counts and the sensitivity analysis that removes it. Written by
+\texttt{phase2e\_run.py} from \texttt{phase2e\_power\_by\_size.csv}.}
 \label{fig:power}
 \end{figure}
 
@@ -1195,8 +1194,8 @@ SV high & 3{,}135 & 63{,}678 & $+0.0189$ & tie & tie & undecided & 0.0766 \\
 \includegraphics[width=0.7\linewidth]{phase2e_grid_gap_sv.png}
 \caption{Pooled gap over the frozen five by four grid of ADS bands crossed
 with SV bands. The empirical half of the result in one image: compression on
-both axes, a sign change on both, and no cell far from zero. Source:
-\texttt{phase2e\_grid\_gap\_sv.png}.}
+both axes, a sign change on both, and no cell far from zero. Written by
+\texttt{phase2e\_run.py} from \texttt{phase2e\_pooled\_cells\_sv.csv}.}
 \label{fig:grid}
 \end{figure}
 
@@ -1482,7 +1481,9 @@ ahead by 0.0631, $[-0.0761, -0.0512]$, \emph{k-NN wins}, and the reason is
 abstention. Its deficit sits in the one-author and one-form bands, at
 $-0.0976$ and $-0.1137$, where the rule can only lose by declining to answer,
 and its rule coverage, 0.8953, is the lowest of any qualifying dataset. Where
-the rule commits in zbmath it is still ahead, by 0.0221. The one smaller
+the rule commits in zbmath it is still ahead, by 0.0221. zbmath's upper bound
+clears the margin by only 0.0012, which is narrow; at the two smaller margins
+the vote wins with room to spare. The one smaller
 dataset with a decided verdict, pubmed at 34 blocks, points the same way as
 kisti and is too small to qualify.
 
@@ -1683,8 +1684,7 @@ blocks. Per-dataset and pooled non-inspire reporting was mandatory and was
 run, and H1 generalizes under the frozen rule. The consistency hypothesis's
 requirement that its gradient hold in the pooled non-inspire analysis is not
 met, and no dataset shows a surface-driven winner reversal.
-Section~\ref{sec:per-dataset} gives the band tables in all three forms the
-pre-registration requires.
+Section~\ref{sec:per-dataset} summarizes the band tables in all three forms the pre-registration requires, and \texttt{reports/phase2\_9b\_report.md} gives them in full.
 
 \textbf{Two simple untrained mechanisms.} Section~\ref{sec:blocks} gives the
 reasons for this scope. They are reasons and not excuses, and the scope still
@@ -1819,12 +1819,11 @@ in that work, and its limits, are stated in the generative-AI disclosure below.
 \section*{Data and code availability}
 
 The source code, the pre-registration and its amendments, and the scripts
-that produce every table and figure in this paper will be public at release
-in the repository \url{https://github.com/stiFFLer-codes/ADS-Cascade}, whose
-commit history is what Section~\ref{sec:prereg-integrity} refers to. The
-project is archived on Zenodo under the concept DOI
-\href{https://doi.org/10.5281/zenodo.21644207}{10.5281/zenodo.21644207},
-which resolves to the latest archived version.
+that produce every table and figure in this paper are public in the
+repository \url{https://github.com/stiFFLer-codes/prediction-is-not-selection}
+at tag \texttt{v2.0.0}, whose commit history is what
+Section~\ref{sec:prereg-integrity} refers to. This preprint is archived on
+Zenodo at \href{https://doi.org/10.5281/zenodo.24184394}{doi:10.5281/zenodo.24184394}.
 
 The data is S2AND, the Semantic Scholar Author Name Disambiguation benchmark
 \citep{s2and2021}. It is publicly available and we use it under its ODC-BY
@@ -1834,11 +1833,16 @@ row per signature with the name fields, block key, author label and
 affiliation string, and per-block tables keyed by normalized name. S2AND notes
 that some affiliation strings come from the Microsoft Academic Graph
 \citep{sinha2015mas}. The repository also holds the code that downloads the
-raw release and a manifest with a checksum for every file.
+raw release and a manifest with a checksum for every file. Besides the S2AND
+tables, the repository carries one derived extract of the WDC
+product-matching corpus \citep{primpeli2019wdc}, used only for the substrate
+check in Section~\ref{sec:why-and}; its source states no licence, and the
+extract will be removed on request. \texttt{phase2/DATA\_LICENSES.md} lists
+every derived file and its terms.
 
 The pipeline is offline and CPU-only. After the one-time S2AND download it
-makes no network call and needs no GPU and no paid service, and one full
-mechanism pass over the corpus takes about twenty minutes on the consumer
+makes no network call and needs no GPU and no paid service, and the whole
+run order, caches included, takes about twenty minutes on the consumer
 laptop that produced the reported run. Every result here comes from that one
 machine, at the seed fixed in Section~\ref{sec:data}.
 
@@ -1848,8 +1852,7 @@ The author used an AI assistant (Claude, Anthropic), including the Claude
 Code agent, throughout: to help plan the study, to draft the pre-registration
 and its amendments, to write and run the analysis code, to draft and revise
 this manuscript, and to run a simulated peer review and several audits of it
-before release, working under author direction. The repository's pass log and
-commit trailers record that involvement pass by pass. The research design, the pre-registration and its amendments, the
+before release, working under author direction. The repository's pass log records that involvement pass by pass, and most of its commits also carry a co-author trailer. The research design, the pre-registration and its amendments, the
 analyses, every reported number, the selection and verification of every
 citation, and the final wording were determined, checked and approved by the
 author, who takes full responsibility for the content. This is a statement

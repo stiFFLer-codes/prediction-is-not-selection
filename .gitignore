@@ -39,5 +39,6 @@ phase2/paper/main.blg
 phase2/paper/main.log
 phase2/paper/main.out
 phase2/paper/main.pdf
+!phase2/paper/main.pdf
 
 # main.bbl is tracked on purpose, so the paper builds without BibTeX.

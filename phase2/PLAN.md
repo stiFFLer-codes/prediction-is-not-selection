@@ -166,6 +166,11 @@ are where we slow down and review most carefully.
   - 2.9b: the manuscript edits.
   - Then the push, the tag and the new Zenodo record.
 
+*Dated note, 2026-11-13 (gate 2.9e). The Phase 2 manuscript and repository
+are complete. The release wording, the DOI `10.5281/zenodo.24184394`, the
+landing page and the paper PDF are committed. The release gate is next, and
+nothing is pushed. See PASSLOG Pass 28.*
+
 ## Required Phase 2.5 deliverable: pre-registration-integrity subsection
 
 **Status: required. Drafted by the author during Phase 2.2d, blind to the 2.2e

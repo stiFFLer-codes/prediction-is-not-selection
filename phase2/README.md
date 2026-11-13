@@ -2,7 +2,7 @@
 
 *A pre-registered study of design-time mechanism choice in author name disambiguation.* Maitreya Sapariya.
 
-The paper asks whether a designer can measure a property of their own data before building anything and learn from it which classification mechanism to build. It tests this on seven public author name disambiguation datasets from S2AND. The comparison is between a precision-first exact-evidence rule and a coverage-first k-nearest vote. Both are untrained lookups over a name block's own history. The two signals, both readable at design time, are consistency (ADS, the share of a block held by its most frequent author) and surface stability (SV). The pre-registration and its amendments are in `PREREG.md`. The three hypotheses came out as follows:
+The paper asks whether a designer can measure a property of their own data before building anything and learn from it which classification mechanism to build. It tests this on seven public author name disambiguation datasets from S2AND. The comparison is between a precision-first exact-evidence rule and a coverage-first k-nearest vote. Both are untrained lookups over a name block's own history. The two signals, both readable at design time, are consistency (ADS, the share of a block held by its most frequent author) and surface stability, measured inversely as surface variability (SV). The pre-registration and its amendments are in `PREREG.md`. The three hypotheses came out as follows:
 
 - **H1, Supported.** ADS predicts each mechanism's own accuracy (Spearman 0.51 and 0.83).
 - **H2, Inconclusive.** Pooled over the seven datasets, no ADS band and no SV band has a decided verdict at the pre-registered margin.
@@ -12,7 +12,8 @@ Prediction is not selection. The paper also reports a structural result. An exac
 
 ## The paper
 
-- PDF and record: Zenodo, DOI `<DOI>`.
+- PDF and record: Zenodo, DOI [10.5281/zenodo.24184394](https://doi.org/10.5281/zenodo.24184394).
+- PDF in this repository: `paper/main.pdf`, the same file as on Zenodo.
 - Source: `paper/main.tex`, `paper/references.bib`, `paper/main.bbl`, figures in `paper/figs/`.
 
 To build it, from `phase2/paper/`:
@@ -24,7 +25,7 @@ pdflatex main
 pdflatex main
 ```
 
-Expect 31 pages. The reported build used pdfTeX from MiKTeX 25.12. `main.bbl` is committed, so `bibtex` can be skipped. The figures in `paper/figs/` are copies of the ones `phase2e_run.py` writes to `reports/figs/`.
+Expect 31 pages. The reported build used pdfTeX from MiKTeX 25.12. `main.bbl` is committed, so `bibtex` can be skipped. If you run it, it rewrites `main.bbl`, and on Windows `git status` then shows that file as modified with no diff. The figures in `paper/figs/` are copies of the ones `phase2e_run.py` writes to `reports/figs/`.
 
 ## Environment
 
@@ -97,4 +98,4 @@ The tags `v1.0.0` and `v1.1.0` and their Zenodo records hold earlier work by the
 
 ## Licences
 
-Code: MIT (`LICENSE`). Paper text and reports in `paper/` and `reports/`: CC BY 4.0 (`LICENSE-TEXT`). Derived data, including the two `reports/tables/*_blocks_scored.csv.gz` tables: the terms of each source, set out in `DATA_LICENSES.md`.
+Code: MIT (`LICENSE`). Paper text and reports in `paper/` and `reports/`, and every Markdown file in the repository: CC BY 4.0 (`LICENSE-TEXT`), except text quoted from third parties. Derived data, including the two `reports/tables/*_blocks_scored.csv.gz` tables: the terms of each source, set out in `DATA_LICENSES.md`.

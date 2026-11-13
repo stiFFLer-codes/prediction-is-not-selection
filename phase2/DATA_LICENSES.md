@@ -1,6 +1,6 @@
 # Data licences
 
-This repository's code is under MIT (`LICENSE`). The paper and the reports are under CC BY 4.0 (`LICENSE-TEXT`). The derived data files listed below are not covered by either. Each one carries the terms of its source, as set out here. Every source was read on 2026-11-12.
+This repository's code is under MIT (`LICENSE`). The paper, the reports and every Markdown file, this one included, are under CC BY 4.0 (`LICENSE-TEXT`), except the licence statements quoted from their sources. The derived data files listed below are not covered by either. Each one carries the terms of its source, as set out here. Every source was read on 2026-11-12.
 
 ## S2AND
 

@@ -6,7 +6,15 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Gate 2.9d done, 2026-11-12 (master plan WO-5 and WO-5b). Runbook
+- Status: **Phase 2 manuscript and repository complete, 2026-11-13 (gate 2.9e,
+  master plan WO-6 and WO-6b). The release gate is next. Nothing is pushed.**
+  The release wording, the DOI `10.5281/zenodo.24184394`, the landing page and
+  the paper PDF are committed, and the verifier's eight open items are cleared.
+  The PDF is `paper/main.pdf`, 31 pages, sha256
+  `b06ff412c0e09366c55a5b168996e6874fc2c90cf65a67eebe75762e55914cac`. Do not
+  rebuild it for the release. The locked quote is unchanged (`dcaa1bc…f8f4`).
+  See PASSLOG Pass 28.
+- Previous status, **Gate 2.9d done, 2026-11-12 (master plan WO-5 and WO-5b). Runbook
   steps 1 to 3 are next, then WO-6.** An independent verifier checked the
   paper and repository at `26bf2e9` and changed nothing. The number ledger has
   829 rows: 801 matched, 26 arithmetic, 2 unmatched. Of the plan's findings,
