@@ -3787,3 +3787,113 @@ The checks after the commit are in the WO-6b reply.
 **Recommendation for the next pass.** Runbook step 5, the release gate. A
 fresh session runs the master plan's section 8 checklist against this commit.
 Nothing is pushed until the gate passes and Markie says go.
+
+## Pass 29: release: v2.0.0 public (2026-11-13)
+
+**What I did and why.** I carried out work order WO-10. The release gate
+passed, Markie pushed, and WO-9 checked the live services. This pass
+re-checked the Zenodo links Markie had fixed by hand, replaced the root
+`README.md` with the public text Markie approved, and records the release.
+No script, `PREREG.md`, report, table, figure or paper file changed.
+
+### Markie's push and the refs
+
+Markie pushed `main` and the tags. `git ls-remote origin` shows 7 refs:
+`HEAD` and `refs/heads/main` at `9e4df78`, `v1.0.0` at `d19f635`, `v1.1.0`
+(tag object `142bf1e`, commit `3140d04`), and `v2.0.0` (tag object
+`43a9577`, commit `9e4df78`). The `v2.0.0` tag message carries the DOI.
+`phase-2` is not on the remote, and was not meant to be.
+
+### WO-9, the live checks
+
+As WO-9 reported them:
+
+- **Held.**
+  - The 7 remote refs above.
+  - The PDF on the GitHub release and on Zenodo has sha256
+    `b06ff412…55914cac`, the committed `paper/main.pdf`.
+  - The LaTeX zip downloaded from Zenodo has sha256 `8edb8ce9…ab638798`,
+    the value checked before upload.
+  - Zenodo record 24184394 was published on 2026-11-13 as a preprint under
+    CC-BY-4.0, with the author's ORCID, and doi.org resolves to it.
+  - On GitHub, v2.0.0 is the latest release with the PDF attached.
+  - Software Heritage had visited, as below.
+- **Not checked by WO-9.** Webhooks need a login. Markie checked
+  Settings > Webhooks and it was empty (screenshot, 2026-11-13).
+- **Did not hold, since fixed.** 21644208 and 22258609 had lost their
+  "Is obsoleted by" rows on save, and 24184394 had no related identifiers.
+  Its version field was empty, which is intended: Zenodo labels it v1.
+
+### The Zenodo related-works fix
+
+Markie re-added the links by hand between 06:49 and 07:01 UTC. The first
+round removed the old records' `isSupplementTo` rows and gave the new
+record's GitHub link the relation "Is described by". WO-10 Part 0 found
+those three links missing and stopped. Markie corrected both, and Part 0
+was run again on the public API, in both the legacy and the InvenioRDM
+views:
+
+| record | link | result |
+|---|---|---|
+| 21644208 | `isObsoletedBy` 10.5281/zenodo.24184394 | present |
+| 21644208 | `isSupplementTo` repository tree at `v1.0.0` | present |
+| 22258609 | `isObsoletedBy` 10.5281/zenodo.24184394 | present |
+| 22258609 | `isSupplementTo` repository tree at `v1.1.0` | present |
+| 24184394 | `isSupplementedBy` repository tree at `v2.0.0` | present |
+| 24184394 | `obsoletes` 10.5281/zenodo.22258609 | present |
+
+The `isSupplementTo` links use the new repository name. On 24184394 the
+two files are unchanged: the PDF and the LaTeX zip have md5 `61f2a60c…`
+and `ca809790…`, the same as the local release copies. Its version is
+still empty.
+
+### The GitHub releases
+
+Read from the public API. v2.0.0, "v2.0.0: Prediction is not selection",
+was published at 06:29:16 UTC and is the latest release. It has one asset,
+the PDF, which matches `paper/main.pdf`. v1.0.0 and v1.1.0 are titled
+"(deprecated)" and have no assets. The notes on all three equal
+`../release_v2.0.0/notes_v2.0.0.md` and `notes_v1_deprecated.md`.
+
+### Software Heritage
+
+Visit 1 of the repository, at 06:35:23 UTC, has status `full` and
+snapshot `cc04b3cdebded4a9263cf0177f7ad028203b7300`. The snapshot holds
+`HEAD` as an alias of `refs/heads/main`, `refs/heads/main` at `9e4df78`,
+`refs/tags/v1.0.0` at `d19f635`, `refs/tags/v1.1.0` at release `142bf1e`
+and `refs/tags/v2.0.0` at release `43a9577`.
+
+### The new README
+
+`README.md` is now `../README_draft.md`, copied byte for byte (sha256
+`c38dafb8…`). Every number in it traces to `paper/main.tex` or a committed
+report, and the four commit hashes it names resolve and are ancestors of
+this commit. Its practical advice follows `main.tex:1563-1564`: "hold out a
+slice of the same labelled history the signals are computed from, and
+compare the two mechanisms on it once." All 19 relative links point to
+tracked files, both figures in `paper/figs/` included. The external links
+are the DOI and ORCID, plus six badge images.
+
+### Anti-ai passes
+
+The README was audited only, as WO-10 asked. The audit found no
+listed vocabulary, no stock connective and no em dash. It flagged a run of
+"X, not Y" contrasts, which state the paper's own claims, and two
+self-describing bullet labels. This entry, the STATE line and the PLAN note
+were written under the usual rules.
+
+### Checks
+
+- **README name scan**, whole words, against the term file outside the
+  repository: 0 hits. The 2 substring hits sit inside one ordinary English
+  word.
+- **Leftover-wording terms**, case-insensitive: 0 in the README.
+- `ADS-Cascade` appears once, under "Earlier work".
+- **Changed files.** `README.md`, `phase2/PASSLOG.md`, `phase2/STATE.md`,
+  `phase2/PLAN.md`.
+
+Main now moves one commit past the v2.0.0 tag. The tag stays the citable release.
+
+**Recommendation for the next pass.** None in Phase 2. Phase 2 is complete.
+Markie pushes `main` to publish the README. Any later change is a new phase
+or a new version.

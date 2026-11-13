@@ -6,8 +6,15 @@ full arc in PLAN.md, the method in phase2-spec.md.
 
 ## Where we are
 
-- Status: **Phase 2 manuscript and repository complete, 2026-11-13 (gate 2.9e,
-  master plan WO-6 and WO-6b). The release gate is next. Nothing is pushed.**
+- Status: **Phase 2 released as v2.0.0 on 2026-11-13. Complete.** Markie
+  pushed `main` and the tags, and `v2.0.0` (`9e4df78`) is the citable
+  release, DOI `10.5281/zenodo.24184394`. GitHub, Zenodo and Software
+  Heritage all carry it, and the Zenodo related works are fixed. The root
+  `README.md` now holds the approved public text, in one commit past the
+  tag, which goes out when Markie pushes `main`. Phase 2 has no other next
+  step. See PASSLOG Pass 29.
+- Previous status, **Phase 2 manuscript and repository complete, 2026-11-13 (gate 2.9e,
+  master plan WO-6 and WO-6b). The release gate is next.**
   The release wording, the DOI `10.5281/zenodo.24184394`, the landing page and
   the paper PDF are committed, and the verifier's eight open items are cleared.
   The PDF is `paper/main.pdf`, 31 pages, sha256

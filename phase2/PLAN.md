@@ -171,6 +171,10 @@ are complete. The release wording, the DOI `10.5281/zenodo.24184394`, the
 landing page and the paper PDF are committed. The release gate is next, and
 nothing is pushed. See PASSLOG Pass 28.*
 
+*Dated note, 2026-11-13 (WO-10). Phase 2 released as v2.0.0 on 2026-11-13.
+Complete. The tag `v2.0.0` is the citable release, and `main` carries one
+more commit, the public README. See PASSLOG Pass 29.*
+
 ## Required Phase 2.5 deliverable: pre-registration-integrity subsection
 
 **Status: required. Drafted by the author during Phase 2.2d, blind to the 2.2e
