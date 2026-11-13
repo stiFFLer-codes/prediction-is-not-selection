@@ -30,7 +30,7 @@ By Maitreya Sapariya · [ORCID 0009-0003-9346-3775](https://orcid.org/0009-0003-
 
 ## The question
 
-Every record-linkage or disambiguation system starts with a labelled history and no labels for the future. A designer can measure the history, but cannot yet score decisions that have not been made. This study asks whether two properties that are visible at design time can choose the mechanism for you:
+A record-linkage or disambiguation system starts with a labelled history and no labels for the future. A designer can measure the history, but cannot yet score decisions that have not been made. This study asks whether two properties that are visible at design time can choose the mechanism for you:
 
 - **Consistency (ADS):** the share of a name block's history held by its most frequent author. A value of 1.0 means the name has only ever meant one person.
 - **Surface variability (SV):** how differently one person's name tends to be written, measured as the expected normalized edit distance between two mentions in the block.
@@ -48,24 +48,22 @@ The two mechanisms are deliberately simple and untrained, so that nothing but th
 1. **One common comparison is decided before it starts.** An exact-match rule is a strict sub-case of a retriever that assigns from the single nearest name form, whenever the similarity gives its maximum only to identical strings: a string already in the history is its own nearest neighbour. In the comparison most practitioners would run, the rule therefore cannot win at any cutoff. We measured zero rule wins on 199,713 held-out mentions in two metric families before we understood why.
 2. **On a fair pair, the pooled contest is a near tie.** With the rule against a k-nearest vote, where neither mechanism contains the other, the two score 0.8244 and 0.8294 pooled over seven datasets. No consistency band and no variability band clears the margin fixed in advance, so both selection hypotheses return Inconclusive.
 3. **The pool hides two datasets that go opposite ways.** kisti favours the rule by 0.1131 [+0.1015, +0.1250] through better matching. zbmath favours the vote by 0.0631 [−0.0761, −0.0512], because the rule abstains. A third dataset, inspire, holds 11,110 of the 13,902 blocks and dominates the pooled number.
-4. **The one signal that decides anything was not on our list.** Block size, which we did not pre-register, carries decided verdicts, with the vote ahead on the smallest blocks. It works through the rule's abstentions, not through better matching.
-5. **A real contest is rarer than it looks.** A two-sided contest, in which either mechanism can beat the other, is possible only where a name's history is both mixed and written in more than one way. That covers 42.2% of held-out mentions.
+4. **An unregistered signal, block size, is the only one with decided verdicts.** With all seven datasets pooled, the vote is ahead on the smallest blocks, and the cause is the rule's abstentions on them.
+5. **Most mentions leave no room for a contest.** A two-sided contest, in which either mechanism can beat the other, is possible only where a name's history is both mixed and written in more than one way: 42.2% of held-out mentions.
 
 ## What this means if you build resolvers
 
-- If your fuzzy matcher's similarity peaks only on identical strings, it already contains the exact rule. Choosing between them is then a choice about coverage, not about who matches better.
-- Consistency is a good difficulty meter. Use it to predict where errors will fall, not to pick the mechanism.
+- If your fuzzy matcher's similarity peaks only on identical strings, it already contains the exact rule, and choosing between them is a choice about coverage.
+- Consistency is a good difficulty meter. Use it to predict where errors will fall.
 - To choose, compare the two once on a held-out slice of the same labelled history you would compute the signals from. It costs one run and stays at design time.
 
 ## Check it yourself
 
-A negative result is easy to doubt, so every step behind this one can be checked.
-
 - **Pre-registered.** The hypotheses, margins and analysis were frozen in [`phase2/PREREG.md`](phase2/PREREG.md) at commit `8869b82`, before any accuracy existed. The amendment and addendum (`5f452ad`, `3e79a48`) came before the reported run (`9e3d921`). Every hash the paper cites resolves in this repository.
-- **Candid about its own record.** Section 6.4 of the paper lists each point where the record falls short of a clean pre-registration, including two rules inserted nine hours after the freeze.
+- **Deviations listed.** Section 6.4 of the paper lists each point where the record falls short of a clean pre-registration, including two rules inserted nine hours after the freeze.
 - **Reproduced cold.** A fresh clone on a two-core laptop regenerated all 108 output files with identical content in 19 minutes ([cold-run report](phase2/reports/phase2_9c_cold_run.md)).
 - **Checked number by number.** An independent pass traced the 829 numbers in the PDF to committed tables, or to arithmetic on them. The two it could not match were corrected before release ([ledger](phase2/reports/tables/phase2_9d_number_ledger.csv), [verifier report](phase2/reports/phase2_9d_verifier.md)).
-- **Open about its tools.** The work was done with an AI assistant (Claude, Anthropic) under the author's direction. The paper's disclosure and the [pass log](phase2/PASSLOG.md) record how.
+- **AI use disclosed.** The work was done with an AI assistant (Claude, Anthropic) under the author's direction. The paper's disclosure and the [pass log](phase2/PASSLOG.md) record how.
 
 ## Read it your way
 

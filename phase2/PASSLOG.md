@@ -3874,6 +3874,8 @@ compare the two mechanisms on it once." All 19 relative links point to
 tracked files, both figures in `paper/figs/` included. The external links
 are the DOI and ORCID, plus six badge images.
 
+README wording revised after the anti-ai audit (eight replacements, no numbers changed).
+
 ### Anti-ai passes
 
 The README was audited only, as WO-10 asked. The audit found no
